@@ -1,0 +1,93 @@
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataNewsBundle: ~
+                    SonataNewsBundle: ~
+                    SonataMediaBundle: ~
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
+    title: Nunchaku de combat
+    title_logo: /images/favicon/favicon-32x32.png
+    templates:
+        # Override default template
+        layout: ::admin_layout.html.twig
+sonata_news:
+    title:        News
+    link:         https://sonata-project.org
+    description:  Cool bundles on top of Symfony2
+    salt:         'secureToken'
+    permalink_generator: sonata.news.permalink.date
+    comment:
+        notification:
+            emails:   [email@example.org, email2@example.org]
+            from:     no-reply@sonata-project.org
+            template: 'SonataNewsBundle:Mail:comment_notification.txt.twig'
+
+sonata_media:
+    db_driver: doctrine_orm
+    default_context: news # you need to set a context
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+                - sonata.media.provider.vimeo
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+        news:
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+            formats:
+                small: { width: 150 , quality: 95}
+                big:   { width: 500 , quality: 90}
+    cdn:
+        server:
+            path: /uploads/media
+    filesystem:
+        local:
+            directory:  "%kernel.root_dir%/../web/uploads/media"
+            create:     false
+sonata_formatter:
+    formatters:
+        markdown:
+            service: sonata.formatter.text.markdown
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+                - sonata.media.formatter.twig
+        text:
+            service: sonata.formatter.text.text
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+                - sonata.media.formatter.twig
+        rawhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+                - sonata.media.formatter.twig
+        richhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+                - sonata.media.formatter.twig
