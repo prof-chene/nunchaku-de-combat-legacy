@@ -1,0 +1,83 @@
+services:
+    admin.competition:
+        class: NCBundle\Admin\Event\EventCompetitionAdmin
+        arguments: [~, NCBundle\Entity\Event\EventCompetition, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Competitions, group: Event }
+    admin.trial:
+        class: NCBundle\Admin\Event\TrialAdmin
+        arguments: [~, NCBundle\Entity\Event\Trial, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Trials, group: Event }
+    admin.trial_result:
+        class: NCBundle\Admin\Event\TrialResultAdmin
+        arguments: [~, NCBundle\Entity\Event\TrialResult, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Results, group: Event }
+    admin.training_course:
+        class: NCBundle\Admin\Event\EventTrainingCourseAdmin
+        arguments: [~, NCBundle\Entity\Event\EventTrainingCourse, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Training courses, group: Event }
+    admin.show:
+        class: NCBundle\Admin\Event\EventShowAdmin
+        arguments: [~, NCBundle\Entity\Event\EventShow, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Shows, group: Event }
+    admin.participant:
+        class: NCBundle\Admin\Event\ParticipantAdmin
+        arguments: [~, NCBundle\Entity\Event\Participant, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Participants, group: Event }
+
+    admin.faq:
+        class: NCBundle\Admin\FAQ\FAQAdmin
+        arguments: [~, NCBundle\Entity\FAQ\FAQ, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: FAQs, group: FAQ }
+    admin.question:
+        class: NCBundle\Admin\FAQ\QuestionAdmin
+        arguments: [~, NCBundle\Entity\FAQ\Question, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Questions, group: FAQ }
+
+    admin.technique:
+        class: NCBundle\Admin\Technique\TechniqueAdmin
+        arguments: [~, NCBundle\Entity\Technique\Technique, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Techniques, group: Technique }
+    admin.technique_execution:
+        class: NCBundle\Admin\Technique\TechniqueExecutionAdmin
+        arguments: [~, NCBundle\Entity\Technique\TechniqueExecution, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Technique executions, group: Technique }
+    admin.exercise:
+        class: NCBundle\Admin\Technique\ExerciseAdmin
+        arguments: [~, NCBundle\Entity\Technique\Exercise, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Exercises, group: Technique }
+    admin.syllabus:
+        class: NCBundle\Admin\Technique\SyllabusAdmin
+        arguments: [~, NCBundle\Entity\Technique\Syllabus, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Syllabuses, group: Technique }
+    admin.syllabus_requirement:
+        class: NCBundle\Admin\Technique\SyllabusRequirementAdmin
+        arguments: [~, NCBundle\Entity\Technique\SyllabusRequirement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Syllabus requirements, group: Technique }
+    admin.rank:
+        class: NCBundle\Admin\Technique\RankAdmin
+        arguments: [~, NCBundle\Entity\Technique\Rank, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Ranks, group: Technique }
+    admin.style:
+        class: NCBundle\Admin\Technique\StyleAdmin
+        arguments: [~, NCBundle\Entity\Technique\Style, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Styles, group: Technique }
+    admin.supply:
+        class: NCBundle\Admin\Technique\SupplyAdmin
+        arguments: [~, NCBundle\Entity\Technique\Supply, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Supplies, group: Technique }

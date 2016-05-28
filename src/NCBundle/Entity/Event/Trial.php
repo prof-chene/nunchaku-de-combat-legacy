@@ -1,0 +1,157 @@
+<?php
+
+namespace NCBundle\Entity\Event;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Trial
+ *
+ * @ORM\Table(name="trial")
+ * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\TrialRepository")
+ */
+class Trial
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=1500)
+     */
+    private $name;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rules", type="string", length=1500)
+     */
+    private $rules;
+    /**
+     * @var EventCompetition
+     *
+     * @ORM\ManyToOne(targetEntity="EventCompetition", inversedBy="trials")
+     */
+    private $eventCompetition;
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="trial")
+     */
+    private $trialResults;
+
+    public function __construct()
+    {
+        $this->trialResults = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Trial
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
+    /**
+     * @param string $rules
+     *
+     * @return Trial
+     */
+    public function setRules($rules)
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * @return EventCompetition
+     */
+    public function getEventCompetition()
+    {
+        return $this->eventCompetition;
+    }
+
+    /**
+     * @param EventCompetition $eventCompetition
+     *
+     * @return Trial
+     */
+    public function setEventCompetition($eventCompetition)
+    {
+        $this->eventCompetition = $eventCompetition;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTrialResults()
+    {
+        return $this->trialResults;
+    }
+
+    /**
+     * @param ArrayCollection $trialResults
+     *
+     * @return Trial
+     */
+    public function setTrialResults($trialResults)
+    {
+        $this->trialResults = $trialResults;
+
+        return $this;
+    }
+
+    /**
+     * @param TrialResult $trialResult
+     *
+     * @return $this
+     */
+    public function addTrialResult(TrialResult $trialResult)
+    {
+        if(!$this->trialResults->contains($trialResult)) {
+            $this->trialResults->add($trialResult);
+        }
+
+        return $this;
+    }
+}

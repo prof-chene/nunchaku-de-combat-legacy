@@ -9,9 +9,18 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-        <one-to-many target-entity="NCFrontBundle\Entity\Participant" mapped-by="user" field="participants"></one-to-many>
-        <many-to-one target-entity="NCFrontBundle\Entity\Rank" field="rank" inversed-by="users"></many-to-one>
-
+        <one-to-many target-entity="NCBundle\Entity\Event\Participant" mapped-by="user" field="participants"></one-to-many>
+        <many-to-one target-entity="NCBundle\Entity\Technique\Rank" field="rank" inversed-by="users"></many-to-one>
+        <many-to-many target-entity="Application\Sonata\UserBundle\Entity\Group" field="groups">
+            <join-table name="user_role_group">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="role_group_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 
 </doctrine-mapping>

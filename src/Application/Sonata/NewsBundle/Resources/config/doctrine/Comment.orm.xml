@@ -10,7 +10,7 @@
     -->
     <entity
         name="Application\Sonata\NewsBundle\Entity\Comment"
-        table="news_comment"
+        table="comment"
         repository-class="Doctrine\ORM\EntityRepository">
 
         <id name="id" type="integer" column="id">

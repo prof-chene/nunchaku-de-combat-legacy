@@ -2,10 +2,10 @@
 
 namespace Application\Sonata\MediaBundle\Entity;
 
-use NCFrontBundle\Entity\Event;
-use NCFrontBundle\Entity\Exercise;
-use NCFrontBundle\Entity\Supply;
-use NCFrontBundle\Entity\Technique;
+use NCBundle\Entity\Event\Event;
+use NCBundle\Entity\Technique\Exercise;
+use NCBundle\Entity\Technique\Supply;
+use NCBundle\Entity\Technique\Technique;
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
 
 /**

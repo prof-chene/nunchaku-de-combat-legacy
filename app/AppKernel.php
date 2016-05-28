@@ -38,7 +38,7 @@ class AppKernel extends Kernel
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
 
-            new NCFrontBundle\NCFrontBundle(),
+            new NCBundle\NCBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

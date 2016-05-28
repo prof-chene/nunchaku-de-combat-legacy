@@ -8,15 +8,13 @@
             xml mapping          : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/xml-mapping/en
             association mapping  : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/association-mapping/en
     -->
-    <entity name="Application\Sonata\MediaBundle\Entity\Media" table="media_media">
-
+    <entity name="Application\Sonata\MediaBundle\Entity\Media" table="media">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-        <many-to-one target-entity="NCFrontBundle\Entity\Technique" field="technique" inversed-by="medias"></many-to-one>
-        <many-to-one target-entity="NCFrontBundle\Entity\Supply" field="supply" inversed-by="medias"></many-to-one>
-        <many-to-one target-entity="NCFrontBundle\Entity\Event" field="event" inversed-by="medias"></many-to-one>
-        <many-to-one target-entity="NCFrontBundle\Entity\Exercise" field="exercise" inversed-by="medias"></many-to-one>
-
+        <many-to-one target-entity="NCBundle\Entity\Technique\Technique" field="technique" inversed-by="medias"></many-to-one>
+        <many-to-one target-entity="NCBundle\Entity\Technique\Supply" field="supply" inversed-by="medias"></many-to-one>
+        <many-to-one target-entity="NCBundle\Entity\Event\Event" field="event" inversed-by="medias"></many-to-one>
+        <many-to-one target-entity="NCBundle\Entity\Technique\Exercise" field="exercise" inversed-by="medias"></many-to-one>
     </entity>
 </doctrine-mapping>

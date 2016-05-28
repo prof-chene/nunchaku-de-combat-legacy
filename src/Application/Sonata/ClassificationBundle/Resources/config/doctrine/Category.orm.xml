@@ -10,12 +10,15 @@
     -->
     <entity
         name="Application\Sonata\ClassificationBundle\Entity\Category"
-        table="classification_category"
+        table="category"
         repository-class="Doctrine\ORM\EntityRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-
+        <one-to-many target-entity="NCBundle\Entity\Technique\Exercise" mapped-by="category" field="exercises"></one-to-many>
+        <one-to-many target-entity="NCBundle\Entity\FAQ\Question" mapped-by="category" field="questions"></one-to-many>
+        <one-to-many target-entity="NCBundle\Entity\Technique\Technique" mapped-by="category" field="techniques"></one-to-many>
+        <one-to-many target-entity="NCBundle\Entity\Technique\Supply" mapped-by="category" field="supplies"></one-to-many>
     </entity>
 </doctrine-mapping>

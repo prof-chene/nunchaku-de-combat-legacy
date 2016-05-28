@@ -1,3 +1,0 @@
-homepage:
-    path:     /
-    defaults: { _controller: NCFrontBundle:Home:index }

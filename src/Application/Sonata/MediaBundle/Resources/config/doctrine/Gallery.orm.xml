@@ -10,7 +10,7 @@
     -->
     <entity
         name="Application\Sonata\MediaBundle\Entity\Gallery"
-        table="media_gallery"
+        table="gallery"
         >
 
         <id name="id" type="integer" column="id">

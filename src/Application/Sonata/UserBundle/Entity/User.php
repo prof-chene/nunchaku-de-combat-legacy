@@ -3,7 +3,8 @@
 namespace Application\Sonata\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use NCFrontBundle\Entity\Rank;
+use NCBundle\Entity\Event\Participant;
+use NCBundle\Entity\Technique\Rank;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 
 /**
@@ -24,6 +25,12 @@ class User extends BaseUser
      * @var ArrayCollection
      */
     protected $participants;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->participants = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -71,6 +78,20 @@ class User extends BaseUser
     public function setParticipants($participants)
     {
         $this->participants = $participants;
+
+        return $this;
+    }
+
+    /**
+     * @param Participant $participant
+     *
+     * @return $this
+     */
+    public function addParticipant(Participant $participant)
+    {
+        if(!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
 
         return $this;
     }

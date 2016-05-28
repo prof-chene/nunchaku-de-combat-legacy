@@ -34,9 +34,9 @@ news:
     resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
     prefix: /news
 
-# NCFrontBundle
-nc_front:
-    resource: "@NCFrontBundle/Resources/config/routing.yml"
+# NCBundle
+nunchaku_de_combat:
+    resource: "@NCBundle/Resources/config/routing.yml"
     prefix:   /
 
 

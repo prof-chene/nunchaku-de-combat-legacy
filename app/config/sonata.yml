@@ -40,17 +40,23 @@ sonata_media:
     db_driver: doctrine_orm
     default_context: news # you need to set a context
     contexts:
-        default:  # the default context is mandatory
+        news:
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
-                - sonata.media.provider.file
-                - sonata.media.provider.vimeo
             formats:
-                small: { width: 100 , quality: 70}
-                big:   { width: 500 , quality: 70}
-        news:
+                small: { width: 150 , quality: 95}
+                big:   { width: 500 , quality: 90}
+        event:
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+            formats:
+                small: { width: 150 , quality: 95}
+                big:   { width: 500 , quality: 90}
+        technique:
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -91,3 +97,7 @@ sonata_formatter:
                 - sonata.formatter.twig.control_flow
                 - sonata.formatter.twig.gist
                 - sonata.media.formatter.twig
+
+sonata_intl:
+    timezone:
+        default: Europe/Paris
