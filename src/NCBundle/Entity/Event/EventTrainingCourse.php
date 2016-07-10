@@ -9,28 +9,29 @@ use NCBundle\Entity\Technique\Exercise;
 /**
  * EventTrainingCourse
  *
+ * @ORM\Table(name="training_course")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\EventTrainingCourseRepository")
  */
-class EventTrainingCourse extends Event
+class EventTrainingCourse extends AbstractEvent
 {
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Participant", inversedBy="eventTrainingCourses")
-     * @ORM\JoinTable(name="event_trainer",
-     *      joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+     * @ORM\ManyToMany(targetEntity="Participant")
+     * @ORM\JoinTable(name="training_course_trainer",
+     *      joinColumns={@ORM\JoinColumn(name="training_course_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="participant_id", referencedColumnName="id")}
-     *      )
+     * )
      */
     private $trainers;
     /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Technique\Exercise", inversedBy="eventTrainingCourses")
-     * @ORM\JoinTable(name="event_exercise",
-     *      joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="training_course_exercise",
+     *      joinColumns={@ORM\JoinColumn(name="training_course_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="exercise_id", referencedColumnName="id")}
-     *      )
+     * )
      */
     private $exercises;
 

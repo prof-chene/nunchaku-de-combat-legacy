@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Sonata\NewsBundle\Entity;
+namespace Application\Sonata\NewsBundle\Repository\Entity;
 
 use Sonata\NewsBundle\Entity\BasePostRepository;
 

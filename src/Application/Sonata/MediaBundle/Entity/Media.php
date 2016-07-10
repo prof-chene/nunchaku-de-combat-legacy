@@ -2,38 +2,34 @@
 
 namespace Application\Sonata\MediaBundle\Entity;
 
-use NCBundle\Entity\Event\Event;
-use NCBundle\Entity\Technique\Exercise;
-use NCBundle\Entity\Technique\Supply;
-use NCBundle\Entity\Technique\Technique;
+use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractContent;
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
 
 /**
  * Class Media
+ *
  * @package Application\Sonata\MediaBundle\Entity
+ *
+ * @ORM\Table(name="media")
+ * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Media extends BaseMedia
 {
     /**
      * @var int $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     /**
-     * @var Technique
+     * @var AbstractContent
+     *
+     * @ORM\ManyToOne(targetEntity="NCBundle\Entity\AbstractContent", inversedBy="medias")
      */
-    protected $technique;
-    /**
-     * @var Supply
-     */
-    protected $supply;
-    /**
-     * @var Event
-     */
-    protected $event;
-    /**
-     * @var Exercise
-     */
-    protected $exercise;
+    protected $content;
 
     /**
      * Get id
@@ -46,81 +42,21 @@ class Media extends BaseMedia
     }
 
     /**
-     * @return Technique
+     * @return AbstractContent
      */
-    public function getTechnique()
+    public function getContent()
     {
-        return $this->technique;
+        return $this->content;
     }
 
     /**
-     * @param Technique $technique
+     * @param AbstractContent $content
      *
      * @return Media
      */
-    public function setTechnique(Technique$technique)
+    public function setContent($content)
     {
-        $this->technique = $technique;
-
-        return $this;
-    }
-
-    /**
-     * @return Supply
-     */
-    public function getSupply()
-    {
-        return $this->supply;
-    }
-
-    /**
-     * @param Supply $supply
-     *
-     * @return Media
-     */
-    public function setSupply($supply)
-    {
-        $this->supply = $supply;
-
-        return $this;
-    }
-
-    /**
-     * @return Event
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    /**
-     * @param Event $event
-     *
-     * @return Media
-     */
-    public function setEvent($event)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * @return Exercise
-     */
-    public function getExercise()
-    {
-        return $this->exercise;
-    }
-
-    /**
-     * @param Exercise $exercise
-     *
-     * @return Media
-     */
-    public function setExercise($exercise)
-    {
-        $this->exercise = $exercise;
+        $this->content = $content;
 
         return $this;
     }

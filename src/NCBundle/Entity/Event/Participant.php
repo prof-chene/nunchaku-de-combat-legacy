@@ -73,21 +73,14 @@ class Participant
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Event", mappedBy="participants")
+     * @ORM\ManyToMany(targetEntity="AbstractEvent", mappedBy="participants")
      */
     private $events;
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="EventTrainingCourse", mappedBy="trainers")
-     */
-    private $eventTrainingCourses;
 
     public function __construct()
     {
         $this->trialResults = new ArrayCollection();
         $this->events = new ArrayCollection();
-        $this->eventTrainingCourses = new ArrayCollection();
     }
 
     /**
@@ -295,48 +288,14 @@ class Participant
     }
 
     /**
-     * @param Event $event
+     * @param AbstractEvent $event
      *
      * @return $this
      */
-    public function addEvent(Event $event)
+    public function addEvent(AbstractEvent $event)
     {
         if(!$this->events->contains($event)) {
             $this->events->add($event);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getEventTrainingCourses()
-    {
-        return $this->eventTrainingCourses;
-    }
-
-    /**
-     * @param ArrayCollection $eventTrainingCourses
-     *
-     * @return Participant
-     */
-    public function setEventTrainingCourses($eventTrainingCourses)
-    {
-        $this->eventTrainingCourses = $eventTrainingCourses;
-
-        return $this;
-    }
-
-    /**
-     * @param EventTrainingCourse $eventTrainingCourse
-     *
-     * @return $this
-     */
-    public function addEventTrainingCourse(EventTrainingCourse $eventTrainingCourse)
-    {
-        if(!$this->eventTrainingCourses->contains($eventTrainingCourse)) {
-            $this->eventTrainingCourses->add($eventTrainingCourse);
         }
 
         return $this;

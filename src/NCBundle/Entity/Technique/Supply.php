@@ -2,10 +2,9 @@
 
 namespace NCBundle\Entity\Technique;
 
-use Application\Sonata\ClassificationBundle\Entity\Category;
-use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractContent;
 use NCBundle\Entity\Technique\Exercise;
 
 /**
@@ -14,16 +13,8 @@ use NCBundle\Entity\Technique\Exercise;
  * @ORM\Table(name="supply")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\SupplyRepository")
  */
-class Supply
+class Supply extends AbstractContent
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     /**
      * @var string
      *
@@ -37,18 +28,6 @@ class Supply
      */
     private $description;
     /**
-     * @var Category
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Category", inversedBy="supplies")
-     */
-    private $category;
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", mappedBy="supply")
-     */
-    private $medias;
-    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Exercise", inversedBy="supplies")
@@ -57,18 +36,8 @@ class Supply
 
     public function __construct()
     {
-        $this->medias = new ArrayCollection();
+        parent::__construct();
         $this->exercises = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -107,60 +76,6 @@ class Supply
     public function setDescription($description)
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param Category $category
-     *
-     * @return Supply
-     */
-    public function setCategory(Category $category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getMedias()
-    {
-        return $this->medias;
-    }
-
-    /**
-     * @param ArrayCollection $medias
-     *
-     * @return Supply
-     */
-    public function setMedias($medias)
-    {
-        $this->medias = $medias;
-
-        return $this;
-    }
-
-    /**
-     * @param Media $media
-     *
-     * @return $this
-     */
-    public function addMedia(Media $media)
-    {
-        if(!$this->medias->contains($media)) {
-            $this->medias->add($media);
-        }
 
         return $this;
     }

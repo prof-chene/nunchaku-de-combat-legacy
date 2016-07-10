@@ -4,6 +4,7 @@ namespace NCBundle\Entity\FAQ;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractContent;
 
 /**
  * FAQ
@@ -11,16 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="faq")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\FAQ\FAQRepository")
  */
-class FAQ
+class FAQ extends AbstractContent
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     /**
      * @var string
      *
@@ -36,17 +29,8 @@ class FAQ
 
     public function __construct()
     {
+        parent::__construct();
         $this->questions = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

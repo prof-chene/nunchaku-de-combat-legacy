@@ -2,10 +2,9 @@
 
 namespace NCBundle\Entity\Technique;
 
-use Application\Sonata\ClassificationBundle\Entity\Category;
-use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractContent;
 use NCBundle\Entity\Event\EventTrainingCourse;
 use NCBundle\Entity\Technique\Supply;
 
@@ -15,16 +14,8 @@ use NCBundle\Entity\Technique\Supply;
  * @ORM\Table(name="exercise")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\ExerciseRepository")
  */
-class Exercise
+class Exercise extends AbstractContent
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     /**
      * @var string
      *
@@ -37,12 +28,6 @@ class Exercise
      * @ORM\Column(name="description", type="string", length=1500)
      */
     private $description;
-    /**
-     * @var Category
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Category", inversedBy="exercises")
-     */
-    private $category;
     /**
      * @var ArrayCollection
      *
@@ -58,12 +43,6 @@ class Exercise
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", mappedBy="exercise")
-     */
-    private $medias;
-    /**
-     * @var ArrayCollection
-     *
      * @ORM\ManyToMany(targetEntity="Supply", mappedBy="exercises")
      */
     private $supplies;
@@ -76,21 +55,11 @@ class Exercise
 
     public function __construct()
     {
+        parent::__construct();
         $this->techniqueExecutions = new ArrayCollection();
         $this->syllabusRequirements = new ArrayCollection();
         $this->supplies = new ArrayCollection();
-        $this->medias = new ArrayCollection();
         $this->eventTrainingCourses = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -129,26 +98,6 @@ class Exercise
     public function setDescription($description)
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param Category $category
-     *
-     * @return Exercise
-     */
-    public function setCategory(Category $category)
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -216,40 +165,6 @@ class Exercise
     {
         if(!$this->syllabusRequirements->contains($syllabusRequirement)) {
             $this->syllabusRequirements->add($syllabusRequirement);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getMedias()
-    {
-        return $this->medias;
-    }
-
-    /**
-     * @param ArrayCollection $medias
-     *
-     * @return Technique
-     */
-    public function setMedias($medias)
-    {
-        $this->medias = $medias;
-
-        return $this;
-    }
-
-    /**
-     * @param Media $media
-     *
-     * @return $this
-     */
-    public function addMedia(Media $media)
-    {
-        if(!$this->medias->contains($media)) {
-            $this->medias->add($media);
         }
 
         return $this;

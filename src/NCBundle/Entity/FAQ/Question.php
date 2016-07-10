@@ -2,8 +2,9 @@
 
 namespace NCBundle\Entity\FAQ;
 
-use Application\Sonata\ClassificationBundle\Entity\Category;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractContent;
 
 /**
  * Question
@@ -11,20 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="question")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\FAQ\QuestionRepository")
  */
-class Question
+class Question extends AbstractContent
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="question", type="string", length=255)
      */
     private $question;
     /**
@@ -40,27 +33,11 @@ class Question
      */
     private $position;
     /**
-     * @var Category
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Category", inversedBy="questions")
-     */
-    private $category;
-    /**
      * @var FAQ
      *
      * @ORM\ManyToOne(targetEntity="FAQ", inversedBy="questions")
      */
     private $faq;
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return string
@@ -118,26 +95,6 @@ class Question
     public function setPosition($position)
     {
         $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * @return Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param Category $category
-     *
-     * @return Question
-     */
-    public function setCategory(Category$category)
-    {
-        $this->category = $category;
 
         return $this;
     }

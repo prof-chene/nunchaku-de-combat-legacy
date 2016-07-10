@@ -8,9 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * EventCompetition
  *
+ * @ORM\Table(name="competition")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\EventCompetitionRepository")
  */
-class EventCompetition extends Event
+class EventCompetition extends AbstractEvent
 {
     /**
      * @var ArrayCollection
@@ -21,7 +22,6 @@ class EventCompetition extends Event
 
     public function __construct()
     {
-        parent::__construct();
         $this->trials = new ArrayCollection();
     }
 

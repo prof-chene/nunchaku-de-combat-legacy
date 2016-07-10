@@ -2,26 +2,17 @@
 
 namespace NCBundle\Entity\Event;
 
-use Application\Sonata\MediaBundle\Entity\Media;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractContent;
 
 /**
  * Event
  *
  * @ORM\Table(name="event")
- * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\EventRepository")
+ * @ORM\Entity
  */
-abstract class Event
+abstract class AbstractEvent extends AbstractContent
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     /**
      * @var string
      *
@@ -55,30 +46,18 @@ abstract class Event
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", mappedBy="event")
-     */
-    private $medias;
-    /**
-     * @var ArrayCollection
-     *
      * @ORM\ManyToMany(targetEntity="Participant", inversedBy="events")
+     * @ORM\JoinTable(name="event_participant",
+     *      joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="participant_id", referencedColumnName="id")}
+     *  )
      */
     private $participants;
-    
+
     public function __construct()
     {
-        $this->medias = new ArrayCollection();
+        parent::__construct();
         $this->participants = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -177,40 +156,6 @@ abstract class Event
     public function setAddress($address)
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getMedias()
-    {
-        return $this->medias;
-    }
-
-    /**
-     * @param ArrayCollection $medias
-     *
-     * @return Event
-     */
-    public function setMedias($medias)
-    {
-        $this->medias = $medias;
-
-        return $this;
-    }
-
-    /**
-     * @param Media $media
-     *
-     * @return $this
-     */
-    public function addMedia(Media $media)
-    {
-        if(!$this->medias->contains($media)) {
-            $this->medias->add($media);
-        }
 
         return $this;
     }

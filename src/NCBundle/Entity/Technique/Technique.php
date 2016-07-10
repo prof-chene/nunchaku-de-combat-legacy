@@ -2,10 +2,9 @@
 
 namespace NCBundle\Entity\Technique;
 
-use Application\Sonata\ClassificationBundle\Entity\Category;
-use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractContent;
 
 /**
  * Technique
@@ -13,16 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="technique")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\TechniqueRepository")
  */
-class Technique
+class Technique extends AbstractContent
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     /**
      * @var string
      *
@@ -36,38 +27,16 @@ class Technique
      */
     private $description;
     /**
-     * @var Category
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Category", inversedBy="techniques")
-     */
-    private $category;
-    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="TechniqueExecution", mappedBy="technique")
      */
     private $techniqueExecutions;
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", mappedBy="technique")
-     */
-    private $medias;
 
     public function __construct()
     {
+        parent::__construct();
         $this->techniqueExecutions = new ArrayCollection();
-        $this->medias = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -111,26 +80,6 @@ class Technique
     }
 
     /**
-     * @return Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param Category $category
-     *
-     * @return Technique
-     */
-    public function setCategory(Category $category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
      * @return ArrayCollection
      */
     public function getTechniqueExecutions()
@@ -160,40 +109,6 @@ class Technique
         if(!$this->techniqueExecutions->contains($techniqueExecution)) {
             $this->techniqueExecutions->add($techniqueExecution);
         }
-
-        return $this;
-    }
-
-    /**
-     * @param Media $media
-     *
-     * @return $this
-     */
-    public function addMedia(Media $media)
-    {
-        if(!$this->medias->contains($media)) {
-            $this->medias->add($media);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getMedias()
-    {
-        return $this->medias;
-    }
-
-    /**
-     * @param ArrayCollection $medias
-     *
-     * @return Technique
-     */
-    public function setMedias($medias)
-    {
-        $this->medias = $medias;
 
         return $this;
     }
