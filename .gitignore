@@ -1,5 +1,5 @@
 /web/bundles/
-/web/assetics/*
+/web/assetic/*
 /web/uploads/media/*
 /app/bootstrap.php.cache
 /app/cache/*
