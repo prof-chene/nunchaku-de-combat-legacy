@@ -4,6 +4,8 @@ namespace Application\Sonata\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Technique\Rank;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
@@ -14,6 +16,23 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
+ *
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="fos_user.username.already_used"
+ * )
+ * @UniqueEntity(
+ *     fields={"usernameCanonical"},
+ *     message="fos_user.username.already_used"
+ * )
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="fos_user.email.already_used"
+ * )
+ * @UniqueEntity(
+ *     fields={"emailCanonical"},
+ *     message="fos_user.email.already_used"
+ * )
  */
 class User extends BaseUser
 {
@@ -25,6 +44,18 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * @var string
+     *
+     * @Assert\Email
+     */
+    protected $email;
+    /**
+     * @var string
+     *
+     * @Assert\Email
+     */
+    protected $emailCanonical;
     /**
      * @var Rank
      *

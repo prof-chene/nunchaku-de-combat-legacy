@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="form_error_unique_username">
+                <source>form.error.unique_username</source>
+                <target>Ce nom d'utilisateur existe déjà</target>
+            </trans-unit>
+            <trans-unit id="form_error_unique_email">
+                <source>form.error.unique_email</source>
+                <target>Cette adresse e-mail est déjà utilisée</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

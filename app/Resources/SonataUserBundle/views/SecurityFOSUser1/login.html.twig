@@ -1,0 +1,6 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    {% include '::flash_messages.html.twig' %}
+    {% render url('security_login_form') %}
+{% endblock %}

@@ -101,3 +101,9 @@ sonata_formatter:
 sonata_intl:
     timezone:
         default: Europe/Paris
+
+sonata_user:
+    profile:
+        register:
+            form:
+                type: app_user_registration

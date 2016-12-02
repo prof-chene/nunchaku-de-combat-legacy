@@ -1,0 +1,3 @@
+security_login_form:
+    path:     /loginForm
+    defaults: { _controller: ApplicationSonataUserBundle:SecurityFOSUser1:loginForm }

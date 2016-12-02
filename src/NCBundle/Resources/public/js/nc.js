@@ -12,12 +12,5 @@ jQuery(function($) {
             });
             $(linkClass).fadeIn();
         });
-
-        $('a.colorbox').colorbox({
-            rel: function(){
-                return $(this).data('group');
-
-            }
-        });
     });
 });

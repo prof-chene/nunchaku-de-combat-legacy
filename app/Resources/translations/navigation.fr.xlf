@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Nav -->
+            <!-- Menu -->
+            <trans-unit id="menu_official_curriculum">
+                <source>menu.official_curriculum</source>
+                <target>Programme officiel</target>
+            </trans-unit>
+            <trans-unit id="menu_training">
+                <source>menu.training</source>
+                <target>S'entraîner</target>
+            </trans-unit>
+            <trans-unit id="menu_events">
+                <source>menu.events</source>
+                <target>Evènements</target>
+            </trans-unit>
+            <trans-unit id="menu_blog">
+                <source>menu.blog</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="menu_faq">
+                <source>menu.faq</source>
+                <target>FAQ</target>
+            </trans-unit>
+            <trans-unit id="menu_media_library">
+                <source>menu.media_library</source>
+                <target>Médiathèque</target>
+            </trans-unit>
+            <trans-unit id="menu_log_in">
+                <source>menu.log_in</source>
+                <target>Connexion</target>
+            </trans-unit>
+            <trans-unit id="menu_register">
+                <source>menu.register</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <!-- Titles -->
+            <trans-unit id="h1_official_curriculum">
+                <source>h1.official_curriculum</source>
+                <target>Programme officiel</target>
+            </trans-unit>
+            <trans-unit id="h1_training">
+                <source>h1.training</source>
+                <target>S'entraîner</target>
+            </trans-unit>
+            <trans-unit id="h1_events">
+                <source>h1.events</source>
+                <target>Evènements</target>
+            </trans-unit>
+            <trans-unit id="h1_blog">
+                <source>h1.blog</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="h1_faq">
+                <source>h1.faq</source>
+                <target>FAQ</target>
+            </trans-unit>
+            <trans-unit id="h1_media_library">
+                <source>h1.media_library</source>
+                <target>Médiathèque</target>
+            </trans-unit>
+            <trans-unit id="h1_log_in">
+                <source>h1.fos_user_security_login</source>
+                <target>Identifiez-vous</target>
+            </trans-unit>
+            <trans-unit id="h1_fos_user_registration_register">
+                <source>h1.fos_user_registration_register</source>
+                <target>Devenez un ninja. Gratuitement.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

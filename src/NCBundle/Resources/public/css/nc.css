@@ -21,6 +21,10 @@ body {
 /* ======
    Header
    ====== */
+header#header {
+    min-height: 50px;
+}
+
 nav.navbar-default {
     background: #000;
     border: none;
@@ -33,9 +37,9 @@ nav.navbar-default .navbar-collapse .navbar-nav > li > a:focus {
     color: #fff;
 }
 
-nav.navbar-default .navbar-collapse .navbar-nav > li > a.active,
-nav.navbar-default .navbar-collapse .navbar-nav > li > a:hover,
-nav.navbar-default .navbar-collapse .navbar-nav > li > a:focus {
+nav.navbar-default .navbar-collapse .navbar-nav > li.current,
+nav.navbar-default .navbar-collapse .navbar-nav > li:hover,
+nav.navbar-default .navbar-collapse .navbar-nav > li:focus {
     background-color: #761c19;
 }
 
@@ -43,7 +47,6 @@ nav.navbar-default .navbar-collapse {
     border: none;
 }
 nav.navbar-default .navbar-toggle {
-    margin-top: 38px;
     border-color: #761c19;
 }
 
@@ -63,7 +66,7 @@ nav.navbar-default .navbar-toggle:focus .icon-bar {
 
 nav.navbar-default .navbar-brand {
     padding: 0;
-    margin: 30px 0 0 0;
+    margin: 0 0 0 0;
 }
 
 /* ========
@@ -392,12 +395,18 @@ a.btn-primary {
     border-color: #6b0909;
 }
 
-button.btn-primary:hover,
-a.btn-primary:hover,
-button.btn-primary:focus,
-a.btn-primary:focus
-button.btn-primary:active,
-a.btn-primary:active {
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.btn-primary:active.focus,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.open>.dropdown-toggle.btn-primary.focus,
+.open>.dropdown-toggle.btn-primary:focus,
+.open>.dropdown-toggle.btn-primary:hover {
     background-color: #650606;
     border-color: #5a0808;
 }
