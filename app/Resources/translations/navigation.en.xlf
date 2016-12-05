@@ -26,6 +26,14 @@
                 <source>menu.media_library</source>
                 <target>Media library</target>
             </trans-unit>
+            <trans-unit id="h1_fos_user_registration_check_email">
+                <source>h1.fos_user_registration_check_email</source>
+                <target>E-mail check required</target>
+            </trans-unit>
+            <trans-unit id="h1_fos_user_registration_confirmed">
+                <source>h1.fos_user_registration_confirmed</source>
+                <target>Registration confirmed</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

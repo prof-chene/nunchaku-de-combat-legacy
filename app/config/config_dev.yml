@@ -30,8 +30,8 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    delivery_address: nunchaku.de.combat@gmail.com
 
 assetic:
     use_controller: false

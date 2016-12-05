@@ -69,6 +69,14 @@
                 <source>h1.fos_user_registration_register</source>
                 <target>Devenez un ninja. Gratuitement.</target>
             </trans-unit>
+            <trans-unit id="h1_fos_user_registration_check_email">
+                <source>h1.fos_user_registration_check_email</source>
+                <target>Vérification de votre email requise</target>
+            </trans-unit>
+            <trans-unit id="h1_fos_user_registration_confirmed">
+                <source>h1.fos_user_registration_confirmed</source>
+                <target>Inscription confirmée</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

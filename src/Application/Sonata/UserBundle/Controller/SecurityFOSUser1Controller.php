@@ -29,7 +29,6 @@ class SecurityFOSUser1Controller extends Controller
 
             return new RedirectResponse($this->container->get('router')->generate('homepage'));
         }
-
         if ($this->container->get('request')->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $this->container->get('session')->getFlashBag()->set('danger',
                 $this->container->get('request')->attributes->get(Security::AUTHENTICATION_ERROR)->getMessage());
@@ -38,17 +37,6 @@ class SecurityFOSUser1Controller extends Controller
                 $this->container->get('session')->get(Security::AUTHENTICATION_ERROR)->getMessage());
             $this->container->get('session')->remove(Security::AUTHENTICATION_ERROR);
         }
-
-        return array();
-    }
-
-    /**
-     * @Template()
-     *
-     * @return array
-     */
-    public function loginFormAction()
-    {
         $form = $this->container->get('form.factory')->create(LoginType::class, null, array(
             'action' => $this->container->get('router')->generate('sonata_user_security_check'),
         ));
@@ -57,4 +45,5 @@ class SecurityFOSUser1Controller extends Controller
             'form' => $form->createView(),
         );
     }
+
 }

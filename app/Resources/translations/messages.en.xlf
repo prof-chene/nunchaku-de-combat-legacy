@@ -2,6 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>
                 <target>Username</target>
@@ -33,6 +34,23 @@
             <trans-unit id="bad_credentials">
                 <source>Bad credentials.</source>
                 <target>Bad credentials</target>
+            </trans-unit>
+            <trans-unit id="user_create_success">
+                <source>user.create.success</source>
+                <target>The user has been created successfully</target>
+            </trans-unit>
+            <trans-unit id="registration_check_email">
+                <source>registration.check_email</source>
+                <target>An email has been sent to %email%. It contains an activation link you must click to activate your account.</target>
+            </trans-unit>
+            <trans-unit id="registration_confirmed">
+                <source>registration.confirmed</source>
+                <target>Congratulations %username%, your account has been successfully activated.</target>
+            </trans-unit>
+            <!-- User's profile -->
+            <trans-unit id="profile_show_link">
+                <source>profile.show.link</source>
+                <target>Go to my profile</target>
             </trans-unit>
         </body>
     </file>

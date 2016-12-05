@@ -1,8 +1,6 @@
 {% extends '::layout.html.twig' %}
 
-{% form_theme form 'SonataUserBundle:SecurityFOSUser1/Form:fields.html.twig' %}
-
 {% block content %}
     {% include '::flash_messages.html.twig' %}
-    {{ form(form) }}
+    <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
 {% endblock %}

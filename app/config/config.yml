@@ -85,6 +85,9 @@ fos_user:
     registration:
         confirmation:
             enabled: true
+    from_email:
+        address: nunchaku.de.combat@gmail.com
+        sender_name: Nunchaku de combat
 
 # IvoryCKEditor Configuration
 ivory_ck_editor:
