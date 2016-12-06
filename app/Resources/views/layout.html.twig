@@ -13,12 +13,12 @@
         <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('images/favicon/apple-touch-icon-144x144.png') }}">
         <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/favicon/apple-touch-icon-152x152.png') }}">
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-touch-icon-180x180.png') }}">
-        <link rel="icon" type="image/png" href="{{ asset('images/favicon/favicon-32x32.png" sizes="32x32') }}">
-        <link rel="icon" type="image/png" href="{{ asset('images/favicon/android-chrome-192x192.png" sizes="192x192') }}">
-        <link rel="icon" type="image/png" href="{{ asset('images/favicon/favicon-96x96.png" sizes="96x96') }}">
-        <link rel="icon" type="image/png" href="{{ asset('images/favicon/favicon-16x16.png" sizes="16x16') }}">
-        <link rel="manifest" href="/manifest.json">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#7d0404">
+        <link rel="icon" sizes="32x32" type="image/png" href="{{ asset('images/favicon/favicon-32x32.png') }}">
+        <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('images/favicon/android-chrome-192x192.png') }}">
+        <link rel="icon" sizes="96x96" type="image/png" href="{{ asset('images/favicon/favicon-96x96.png') }}">
+        <link rel="icon" sizes="16x16" type="image/png" href="{{ asset('images/favicon/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ asset('images/favicon/manifest.json') }}">
+        <link rel="mask-icon" href="{{ asset('images/favicon/safari-pinned-tab.svg') }}" color="#7d0404">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="msapplication-TileImage" content="/mstile-144x144.png">
         <meta name="theme-color" content="#ffffff">
@@ -26,7 +26,7 @@
             'js/jquery/jquery.min.js'
             'js/jquery/*'
             'js/bootstrap/*'
-            '@NCBundle/Resources/public/js/*'
+            'bundles/nc/js/*'
             output='assetic/app.js'
         %}
             <script src="{{ asset_url }}"></script>
@@ -56,7 +56,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="{{ path('homepage') }}" class="navbar-brand">
-                            {% image '@NCBundle/Resources/public/images/NC_logo.png' output='assetic/logo.png' %}
+                            {% image 'bundles/nc/images/NC_logo.png' output='assetic/logo.png' %}
                             <img src="{{ asset_url }}" alt="Nunchaku de combat" title="Nunchaku de combat"/>
                             {% endimage %}
                         </a>
@@ -64,7 +64,7 @@
                     <div class="navbar-collapse collapse">
                         {{ knp_menu_render('NCBundle:Builder:mainMenu') }}
                         {% if app.user %}
-                            {% image '@NCBundle/Resources/public/images/NC_account_icon.png' output='assetic/account_icon.png' %}
+                            {% image 'bundles/nc/images/NC_account_icon.png' output='assetic/account_icon.png' %}
                             <img src="{{ asset_url }}" alt="Account" title="My account" class ="pull-right" />
                             {% endimage %}
                         {% else %}
