@@ -41,7 +41,7 @@
             </trans-unit>
             <trans-unit id="registration_check_email">
                 <source>registration.check_email</source>
-                <target>An email has been sent to %email%. It contains an activation link you must click to activate your account.</target>
+                <target>An email has been sent to %email%. It contains an activation link you must click to activate your account. Please check your spam folder.</target>
             </trans-unit>
             <trans-unit id="registration_confirmed">
                 <source>registration.confirmed</source>
