@@ -2,6 +2,12 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <!-- Nav -->
+            <trans-unit id="nav_toggle">
+                <source>nav.toggle</source>
+                <target>Toggle navigation</target>
+            </trans-unit>
+            <!-- Menu -->
             <trans-unit id="menu_official_curriculum">
                 <source>menu.official_curriculum</source>
                 <target>Official Curriculum</target>
@@ -25,6 +31,51 @@
             <trans-unit id="menu_media_library">
                 <source>menu.media_library</source>
                 <target>Media library</target>
+            </trans-unit>
+            <trans-unit id="menu_log_in">
+                <source>menu.log_in</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="menu_register">
+                <source>menu.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="menu_administration">
+                <source>menu.administration</source>
+                <target>Site administration</target>
+            </trans-unit>
+            <!-- Titles -->
+            <trans-unit id="h1_official_curriculum">
+                <source>h1.official_curriculum</source>
+                <target>Official curriculum</target>
+            </trans-unit>
+            <trans-unit id="h1_training">
+                <source>h1.training</source>
+                <target>Training</target>
+            </trans-unit>
+            <trans-unit id="h1_events">
+                <source>h1.events</source>
+                <target>Events</target>
+            </trans-unit>
+            <trans-unit id="h1_blog">
+                <source>h1.blog</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="h1_faq">
+                <source>h1.faq</source>
+                <target>FAQ</target>
+            </trans-unit>
+            <trans-unit id="h1_media_library">
+                <source>h1.media_library</source>
+                <target>Media library</target>
+            </trans-unit>
+            <trans-unit id="h1_log_in">
+                <source>h1.fos_user_security_login</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="h1_fos_user_registration_register">
+                <source>h1.fos_user_registration_register</source>
+                <target>Become a ninja. For free.</target>
             </trans-unit>
             <trans-unit id="h1_fos_user_registration_check_email">
                 <source>h1.fos_user_registration_check_email</source>

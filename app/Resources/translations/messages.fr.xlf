@@ -52,6 +52,10 @@
                 <source>profile.show.link</source>
                 <target>Voir mon profil</target>
             </trans-unit>
+            <trans-unit id="logout">
+                <source>logout</source>
+                <target>Déconnexion</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

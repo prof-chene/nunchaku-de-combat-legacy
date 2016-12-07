@@ -45,89 +45,15 @@
         {% endblock %}
     </head>
     <body>
-        <header id="header">
-            <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a href="{{ path('homepage') }}" class="navbar-brand">
-                            {% image 'bundles/nc/images/NC_logo.png' output='assetic/logo.png' %}
-                            <img src="{{ asset_url }}" alt="Nunchaku de combat" title="Nunchaku de combat"/>
-                            {% endimage %}
-                        </a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        {{ knp_menu_render('NCBundle:Builder:mainMenu') }}
-                        {% if app.user %}
-                            {% image 'bundles/nc/images/NC_account_icon.png' output='assetic/account_icon.png' %}
-                            <img src="{{ asset_url }}" alt="Account" title="My account" class ="pull-right" />
-                            {% endimage %}
-                        {% else %}
-                            <ul class="nav navbar-nav pull-right">
-                                <li{% if app.request.attributes.get('_route') == 'fos_user_security_login' %} class="current"{% endif %}>
-                                    <a href="{{ path('fos_user_security_login') }}">
-                                        {{ 'menu.log_in'|trans({}, 'navigation') }}
-                                    </a>
-                                <li{% if app.request.attributes.get('_route') == 'fos_user_registration_register' %} class="current"{% endif %}>
-                                    <a href="{{ path('fos_user_registration_register') }}">
-                                        {{ 'menu.register'|trans({}, 'navigation') }}
-                                    </a>
-                                </li>
-                            </ul>
-                        {% endif %}
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <div class="container">
-            {# If a translation exists for the current route, we display it #}
+        {% include '::header.html.twig' %}
+        <section class="container">
+            {# If a translation exists for the current route, we display it as the main title #}
             {% if ('h1.'~app.request.attributes.get('_route'))|trans({}, 'navigation') != 'h1.'~app.request.attributes.get('_route') %}
                 <h1>{{ ('h1.'~app.request.attributes.get('_route'))|trans({}, 'navigation') }}</h1>
             {% endif %}
             {% block content %}
             {% endblock %}
-        </div>
-        <footer class="text-center">
-            <div class="container">
-                <a class="btn btn-primary" href="#header" role="button">Back To Top</a>
-                <div class="footer_container">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#">
-                                <span class="social-icon-fb"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="social-icon-rss"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="social-icon-twitter"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="social-icon-linkedin"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="social-icon-dribbble"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer_bottom_content">
-                    Copyright © 2016 Alexandre Duchêne
-                </div>
-            </div>
-        </footer>
+        </section>
+        {% include '::footer.html.twig' %}
     </body>
 </html>

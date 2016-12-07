@@ -30,19 +30,51 @@ nav.navbar-default {
     border: none;
 }
 
-nav.navbar-default .navbar-collapse .navbar-nav > li > a,
-nav.navbar-default .navbar-collapse .navbar-nav > li > a:active,
-nav.navbar-default .navbar-collapse .navbar-nav > li > a:hover,
-nav.navbar-default .navbar-collapse .navbar-nav > li > a:focus {
-    color: #fff;
+/* Logo */
+nav.navbar-default .navbar-brand {
+    padding: 0;
+    margin: 0 0 0 0;
 }
 
+/* Menu */
 nav.navbar-default .navbar-collapse .navbar-nav > li.current,
 nav.navbar-default .navbar-collapse .navbar-nav > li:hover,
 nav.navbar-default .navbar-collapse .navbar-nav > li:focus {
     background-color: #761c19;
 }
 
+nav.navbar-default .navbar-collapse .navbar-nav > li > a,
+nav.navbar-default .navbar-collapse .navbar-nav > li > a:active,
+nav.navbar-default .navbar-collapse .navbar-nav > li > a:hover,
+nav.navbar-default .navbar-collapse .navbar-nav > li > a:focus {
+    background: inherit;
+    border: none;
+    color: #fff;
+}
+
+/* Menu - dropdown */
+nav.navbar-default .navbar-collapse .navbar-nav #dropdown-profile {
+    padding-bottom:0;
+}
+
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu {
+    background: #000;
+}
+
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu > li > a,
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu > li > a:active,
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu > li > a:hover,
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu > li > a:focus {
+    color: #fff;
+}
+
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu > li > a:active,
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu > li > a:hover,
+nav.navbar-default .navbar-collapse .navbar-nav .dropdown-menu > li > a:focus {
+    background-color: #761c19;
+}
+
+/* Menu - small screens */
 nav.navbar-default .navbar-collapse {
     border: none;
 }
@@ -62,11 +94,6 @@ nav.navbar-default .navbar-toggle .icon-bar {
 nav.navbar-default .navbar-toggle:hover .icon-bar,
 nav.navbar-default .navbar-toggle:focus .icon-bar {
     background-color: #000;
-}
-
-nav.navbar-default .navbar-brand {
-    padding: 0;
-    margin: 0 0 0 0;
 }
 
 /* ========

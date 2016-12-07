@@ -3,6 +3,10 @@
     <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
         <body>
             <!-- Nav -->
+            <trans-unit id="nav_toggle">
+                <source>nav.toggle</source>
+                <target>Activer la navigation</target>
+            </trans-unit>
             <!-- Menu -->
             <trans-unit id="menu_official_curriculum">
                 <source>menu.official_curriculum</source>
@@ -35,6 +39,10 @@
             <trans-unit id="menu_register">
                 <source>menu.register</source>
                 <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="menu_administration">
+                <source>menu.administration</source>
+                <target>Administration du site</target>
             </trans-unit>
             <!-- Titles -->
             <trans-unit id="h1_official_curriculum">
