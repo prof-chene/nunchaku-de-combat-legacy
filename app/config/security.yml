@@ -16,30 +16,26 @@ security:
 
     firewalls:
         dev:
-            pattern:            ^/(_(profiler|wdt)|css|images|js)/
-            security:           false
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         main:
-            pattern:            .*
-            context:            user
+            pattern: .*
+            context: user
             form_login:
-                provider:       fos_userbundle
-                login_path:     /login
-                use_forward:    false
-                check_path:     /login_check
-                failure_path:   null
-            logout:             true
-            anonymous:          true
+                provider: fos_userbundle
+                login_path: application_sonata_user_security_login
+                check_path: application_sonata_user_security_login_check
+                default_target_path: homepage
+                failure_path: application_sonata_user_security_login
+                use_referer: true
+            logout:
+                path: application_sonata_user_security_logout
+                target: homepage
+            anonymous: true
 
+    # WE USE [a-z]+ FOR THE LOCALE
     access_control:
-        # Login pages
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-        # Secured part of the site
-        # This config requires being logged for the whole site and having the admin role for the admin part.
-        # Change these rules to adapt them to your needs
-        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/[a-z]+/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
     acl:

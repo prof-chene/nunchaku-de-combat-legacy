@@ -24,7 +24,8 @@ sonata_admin:
     title_logo: /images/favicon/favicon-32x32.png
     templates:
         # Override default template
-        layout: ::admin_layout.html.twig
+        layout: ::Admin/admin_layout.html.twig
+        user_block: ::Admin/user_block.html.twig
 sonata_news:
     title:        News
     link:         https://sonata-project.org
@@ -107,4 +108,5 @@ sonata_user:
     profile:
         register:
             form:
-                type: app_user_registration
+                type: application_sonata_user_registration_form_type
+                handler: application_sonata_user.registration.form.handler

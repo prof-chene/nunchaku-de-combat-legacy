@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Class SecurityFOSUser1Controller
  * @package Application\Sonata\UserBundle\Controller
  */
-class SecurityFOSUser1Controller extends Controller
+class SecurityFOSUser1Controller extends \Sonata\UserBundle\Controller\SecurityFOSUser1Controller
 {
     /**
      * @Template
@@ -22,10 +22,10 @@ class SecurityFOSUser1Controller extends Controller
      */
     public function loginAction()
     {
-        $user = $this->getUser();
-        if ($user instanceof UserInterface) {
+        $token = $this->container->get('security.token_storage')->getToken();
+        if ($token && $token->getUser() instanceof UserInterface) {
             $this->container->get('session')->getFlashBag()->set('info',
-                $this->get('translator')->trans('sonata_user_already_authenticated', array(), 'SonataUserBundle'));
+                $this->container->get('translator')->trans('sonata_user_already_authenticated', array(), 'SonataUserBundle'));
 
             return new RedirectResponse($this->container->get('router')->generate('homepage'));
         }
@@ -38,7 +38,7 @@ class SecurityFOSUser1Controller extends Controller
             $this->container->get('session')->remove(Security::AUTHENTICATION_ERROR);
         }
         $form = $this->container->get('form.factory')->create(LoginType::class, null, array(
-            'action' => $this->container->get('router')->generate('sonata_user_security_check'),
+            'action' => $this->container->get('router')->generate('application_sonata_user_security_login_check'),
         ));
 
         return array(

@@ -50,7 +50,7 @@
             <!-- User's profile -->
             <trans-unit id="profile_show_link">
                 <source>profile.show.link</source>
-                <target>Go to my profile</target>
+                <target>My profile</target>
             </trans-unit>
             <trans-unit id="logout">
                 <source>logout</source>

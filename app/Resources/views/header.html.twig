@@ -17,34 +17,54 @@
             <div id="navbar" class="navbar-collapse collapse">
                 {{ knp_menu_render('NCBundle:Builder:mainMenu') }}
                 <ul class="nav navbar-nav navbar-right">
-                {% if app.user %}
                     <li class="dropdown">
-                        <a href="#" id="dropdown-profile" class="btn dropdown-toggle" data-toggle="dropdown" >
-                            {{ app.user.username }}
-                            {% image 'bundles/nc/images/NC_account_icon.png' output='assetic/account_icon.png' %}
-                                <img src="{{ asset_url }}" alt="Account" title="My account" />
-                            {% endimage %}
+                        <a href="#" id="dropdown-language" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" role="button">
+                            <span class="lang-sm lang-lbl" lang="{{ app.request.locale }}"></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-profile">
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li><a href="{{ path('sonata_admin_dashboard') }}">{{ 'menu.administration'|trans({}, 'navigation') }}</a></li>
-                            {% endif %}
-                            <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'profile.show.link'|trans }}</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}">{{ 'logout'|trans }}</a></li>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-language">
+                            {% set locales_split = locales|split('|') %}
+                            {% for locale in locales_split %}
+                                {% if app.request.locale == locale %}
+                                    {% set route = '#' %}
+                                {% else %}
+                                    {% set route = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ '_locale': locale })) %}
+                                {% endif %}
+                                <li>
+                                    <a href="{{ route }}">
+                                        <span class="lang-sm lang-lbl" lang="{{ locale }}"></span>
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </li>
-                {% else %}
-                    <li{% if 'user_security' in app.request.attributes.get('_route') %} class="current"{% endif %}>
-                        <a href="{{ path('fos_user_security_login') }}">
-                            {{ 'menu.log_in'|trans({}, 'navigation') }}
-                        </a>
-                    <li{% if 'user_registration' in app.request.attributes.get('_route') %} class="current"{% endif %}>
-                        <a href="{{ path('fos_user_registration_register') }}">
-                            {{ 'menu.register'|trans({}, 'navigation') }}
-                        </a>
-                    </li>
-                {% endif %}
+                    {% if app.user %}
+                        <li class="dropdown">
+                            <a href="#" id="dropdown-profile" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" role="button">
+                                {{ app.user.username }}
+                                {% image 'bundles/nc/images/NC_account_icon.png' output='assetic/account_icon.png' %}
+                                    <img src="{{ asset_url }}" alt="Account" title="My account" />
+                                {% endimage %}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-profile">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li><a href="{{ path('sonata_admin_dashboard') }}">{{ 'menu.administration'|trans({}, 'navigation') }}</a></li>
+                                {% endif %}
+                                <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'profile.show.link'|trans }}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{{ path('application_sonata_user_security_logout') }}">{{ 'logout'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li{% if 'user_security' in app.request.attributes.get('_route') %} class="current"{% endif %}>
+                            <a href="{{ path('application_sonata_user_security_login') }}">
+                                {{ 'menu.log_in'|trans({}, 'navigation') }}
+                            </a>
+                        <li{% if 'user_registration' in app.request.attributes.get('_route') %} class="current"{% endif %}>
+                            <a href="{{ path('fos_user_registration_register') }}">
+                                {{ 'menu.register'|trans({}, 'navigation') }}
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

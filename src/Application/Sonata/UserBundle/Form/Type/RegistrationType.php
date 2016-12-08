@@ -58,6 +58,6 @@ class RegistrationType extends AbstractType
      */
     public function getName()
     {
-        return 'app_user_registration';
+        return 'application_sonata_user_registration_form_type';
     }
 }
