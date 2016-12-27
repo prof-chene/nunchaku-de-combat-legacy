@@ -24,18 +24,14 @@ class RegistrationFOSUser1Controller extends \Sonata\UserBundle\Controller\Regis
     {
         $user = $this->getUser();
         if ($user instanceof UserInterface) {
-            $this->container->get('session')->getFlashBag()->set('info',
-                $this->get('translator')->trans('sonata_user_already_authenticated', array(), 'SonataUserBundle'));
+            $this->container->get('session')->getFlashBag()->set('info', 'user.already_authenticated');
 
             return new RedirectResponse($this->container->get('router')->generate('homepage'));
         }
 
         $form = $this->get('sonata.user.registration.form');
-        $formHandler = $this->get('sonata.user.registration.form.handler');
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
-
-        $process = $formHandler->process($confirmationEnabled);
-        if ($process) {
+        if ($this->get('sonata.user.registration.form.handler')->process($confirmationEnabled)) {
             $user = $form->getData();
 
             $authUser = false;
@@ -138,15 +134,10 @@ class RegistrationFOSUser1Controller extends \Sonata\UserBundle\Controller\Regis
      * @Template
      *
      * @return array
-     *
-     * @throws AccessDeniedException
      */
     public function confirmedAction()
     {
         $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw $this->createAccessDeniedException('This user does not have access to this section.');
-        }
 
         return array(
             'user' => $user,

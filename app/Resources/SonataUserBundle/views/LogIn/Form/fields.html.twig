@@ -1,0 +1,13 @@
+{% block _log_in_username_widget %}
+    {{ form_widget(form, {'full_name': '_username'}) }}
+{% endblock %}
+{% block _log_in_password_label %}
+    {{ form_label(form) }}
+    <a href="{{ path('application_sonata_user_reset_password_request') }}" class="btn btn-sm" role="button">{{ 'password_forgotten'|trans }}?</a>
+{% endblock %}
+{% block _log_in_password_widget %}
+    {{ form_widget(form, {'full_name': '_password'}) }}
+{% endblock %}
+{% block _log_in_remember_me_widget %}
+    {{ form_widget(form, {'full_name': '_remember_me'}) }}
+{% endblock %}

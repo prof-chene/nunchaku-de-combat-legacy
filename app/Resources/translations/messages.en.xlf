@@ -11,6 +11,10 @@
                 <source>email</source>
                 <target>Email</target>
             </trans-unit>
+            <trans-unit id="username_email">
+                <source>username_email</source>
+                <target>Username or email</target>
+            </trans-unit>
             <trans-unit id="password">
                 <source>password</source>
                 <target>Password</target>
@@ -19,13 +23,17 @@
                 <source>password_confirmation</source>
                 <target>Type password again</target>
             </trans-unit>
+            <trans-unit id="password_forgotten">
+                <source>password_forgotten</source>
+                <target>Forgot your password</target>
+            </trans-unit>
             <trans-unit id="remember_me">
                 <source>remember_me</source>
                 <target>Remember me</target>
             </trans-unit>
-            <trans-unit id="connection">
-                <source>connection</source>
-                <target>Connection</target>
+            <trans-unit id="log_in">
+                <source>log_in</source>
+                <target>Log in</target>
             </trans-unit>
             <trans-unit id="registration_submit">
                 <source>registration.submit</source>
@@ -39,6 +47,22 @@
                 <source>user.create.success</source>
                 <target>The user has been created successfully</target>
             </trans-unit>
+            <trans-unit id="user_already_authenticated">
+                <source>user.already_authenticated</source>
+                <target>You are already logged in</target>
+            </trans-unit>
+            <trans-unit id="user_is_disabled">
+                <source>user.is_disabled</source>
+                <target>This user is disabled</target>
+            </trans-unit>
+            <trans-unit id="no_account_yet">
+                <source>no_account_yet</source>
+                <target>Don't have an account yet</target>
+            </trans-unit>
+            <trans-unit id="register_me">
+                <source>register_me</source>
+                <target>Sign up</target>
+            </trans-unit>
             <trans-unit id="registration_check_email">
                 <source>registration.check_email</source>
                 <target>An email has been sent to %email%. It contains an activation link you must click to activate your account. Please check your spam folder.</target>
@@ -47,14 +71,38 @@
                 <source>registration.confirmed</source>
                 <target>Congratulations %username%, your account has been successfully activated.</target>
             </trans-unit>
+            <trans-unit id="reset_password_request">
+                <source>reset_password.request</source>
+                <target>Reset your password</target>
+            </trans-unit>
+            <trans-unit id="reset_password_check_email">
+                <source>reset_password.check_email</source>
+                <target>An email has been sent to %email%. It contains an activation link you must click to reset your password. Please check your spam folder.</target>
+            </trans-unit>
+            <trans-unit id="reset_password_already_requested">
+                <source>reset_password.already_requested</source>
+                <target>A new password has already been requested during the last %hours% hours for this user</target>
+            </trans-unit>
+            <trans-unit id="reset_password_invalid_link">
+                <source>reset_password.invalid_link</source>
+                <target>Your password reset link is invalid. Please generate a new one.</target>
+            </trans-unit>
+            <trans-unit id="reset_password_expired_link">
+                <source>reset_password.expired_link</source>
+                <target>Your password reset link has expired. Please generate a new one.</target>
+            </trans-unit>
+            <trans-unit id="reset_password_success">
+                <source>reset_password.success</source>
+                <target>Your password has been successfully changed</target>
+            </trans-unit>
             <!-- User's profile -->
             <trans-unit id="profile_show_link">
                 <source>profile.show.link</source>
                 <target>My profile</target>
             </trans-unit>
-            <trans-unit id="logout">
-                <source>logout</source>
-                <target>Logout</target>
+            <trans-unit id="log_out">
+                <source>log_out</source>
+                <target>Log out</target>
             </trans-unit>
         </body>
     </file>

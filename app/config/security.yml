@@ -23,19 +23,21 @@ security:
             context: user
             form_login:
                 provider: fos_userbundle
-                login_path: application_sonata_user_security_login
-                check_path: application_sonata_user_security_login_check
+                login_path: application_sonata_user_log_in
+                check_path: application_sonata_user_log_in_check
                 default_target_path: homepage
-                failure_path: application_sonata_user_security_login
+                failure_path: application_sonata_user_log_in
                 use_referer: true
+                remember_me: true
             logout:
-                path: application_sonata_user_security_logout
+                path: application_sonata_user_log_out
                 target: homepage
             anonymous: true
 
     # WE USE [a-z]+ FOR THE LOCALE
     access_control:
-        - { path: ^/[a-z]+/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/[a-z]+/register/confirmed, role: [ROLE_USER] }
+        - { path: ^/[a-z]+/admin/.*, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
     acl:

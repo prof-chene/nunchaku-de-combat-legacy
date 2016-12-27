@@ -51,12 +51,12 @@
                                 {% endif %}
                                 <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'profile.show.link'|trans }}</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="{{ path('application_sonata_user_security_logout') }}">{{ 'logout'|trans }}</a></li>
+                                <li><a href="{{ path('application_sonata_user_log_out') }}">{{ 'log_out'|trans }}</a></li>
                             </ul>
                         </li>
                     {% else %}
-                        <li{% if 'user_security' in app.request.attributes.get('_route') %} class="current"{% endif %}>
-                            <a href="{{ path('application_sonata_user_security_login') }}">
+                        <li{% if 'application_sonata_user_log_in' in app.request.attributes.get('_route') %} class="current"{% endif %}>
+                            <a href="{{ path('application_sonata_user_log_in') }}">
                                 {{ 'menu.log_in'|trans({}, 'navigation') }}
                             </a>
                         <li{% if 'user_registration' in app.request.attributes.get('_route') %} class="current"{% endif %}>

@@ -10,7 +10,6 @@ root:
 nunchaku_de_combat:
     resource: "@NCBundle/Resources/config/routing.yml"
 
-# Sonata #
 # Admin
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
@@ -24,11 +23,11 @@ _sonata_admin:
     requirements:
         _locale: '%locales%'
 # User
-application_sonata_user:
-    resource: "@ApplicationSonataUserBundle/Resources/config/routing.yml"
-sonata_user_resetting:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
-    prefix: /{_locale}/resetting
+application_sonata_user_log_in:
+    resource: "@ApplicationSonataUserBundle/Resources/config/routing/logIn.yml"
+application_sonata_user_reset_password:
+    resource: "@ApplicationSonataUserBundle/Resources/config/routing/resetPassword.yml"
+    prefix: /{_locale}/reset-password
     requirements:
         _locale: '%locales%'
 sonata_user_profile:

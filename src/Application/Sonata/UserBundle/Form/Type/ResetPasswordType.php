@@ -3,15 +3,17 @@
 namespace Application\Sonata\UserBundle\Form\Type;
 
 use Application\Sonata\UserBundle\Entity\User;
+use Application\Sonata\UserBundle\Validator\Constraints\UserExists;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class LoginType
- * @package Application\Sonata\Form
+ * Class ResetPasswordType
+ *
+ * @package Application\Sonata\UserBundle\Form\Type
  */
-class LogInType extends AbstractType
+class ResetPasswordType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,21 +22,13 @@ class LogInType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', array(
-                'label'     => 'username',
+            ->add('username_email', 'text', array(
+                'label'     => 'username_email',
                 'required'  => true,
-            ))
-            ->add('password', 'password', array(
-                'label'     => 'password',
-                'required'  => true,
-            ))
-            ->add('remember_me', 'checkbox', array(
-                'value'     => 'on',
-                'label'     => 'remember_me',
-                'required'  => false,
+                'constraints' => new UserExists(),
             ))
             ->add('submit', 'submit', array(
-                'label'     => 'log_in'
+                'label'     => 'reset_password.request'
             ))
         ;
     }
@@ -45,8 +39,7 @@ class LogInType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => User::class,
-            'intention' => 'login',
+            'intention' => 'reset_password',
         ));
     }
 }

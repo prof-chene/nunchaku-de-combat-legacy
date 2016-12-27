@@ -38,7 +38,7 @@
             </trans-unit>
             <trans-unit id="menu_register">
                 <source>menu.register</source>
-                <target>Register</target>
+                <target>Sign up</target>
             </trans-unit>
             <trans-unit id="menu_administration">
                 <source>menu.administration</source>
@@ -69,8 +69,8 @@
                 <source>h1.media_library</source>
                 <target>Media library</target>
             </trans-unit>
-            <trans-unit id="h1_log_in">
-                <source>h1.fos_user_security_login</source>
+            <trans-unit id="h1_application_sonata_user_log_in">
+                <source>h1.application_sonata_user_log_in</source>
                 <target>Log in</target>
             </trans-unit>
             <trans-unit id="h1_fos_user_registration_register">
@@ -84,6 +84,18 @@
             <trans-unit id="h1_fos_user_registration_confirmed">
                 <source>h1.fos_user_registration_confirmed</source>
                 <target>Registration confirmed</target>
+            </trans-unit>
+            <trans-unit id="h1_application_sonata_user_reset_password_request">
+                <source>h1.application_sonata_user_reset_password_request</source>
+                <target>Reset your password</target>
+            </trans-unit>
+            <trans-unit id="h1_application_sonata_user_reset_password_check_email">
+                <source>h1.application_sonata_user_reset_password_check_email</source>
+                <target>Reset your password</target>
+            </trans-unit>
+            <trans-unit id="h1_application_sonata_user_reset_password_reset">
+                <source>h1.application_sonata_user_reset_password_reset</source>
+                <target>Reset your password</target>
             </trans-unit>
         </body>
     </file>

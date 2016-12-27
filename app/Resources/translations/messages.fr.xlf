@@ -11,6 +11,10 @@
                 <source>email</source>
                 <target>E-mail</target>
             </trans-unit>
+            <trans-unit id="username_email">
+                <source>username_email</source>
+                <target>Nom d'utilisateur ou email</target>
+            </trans-unit>
             <trans-unit id="password">
                 <source>password</source>
                 <target>Mot de passe</target>
@@ -19,12 +23,16 @@
                 <source>password_confirmation</source>
                 <target>Retapper le mot de passe</target>
             </trans-unit>
+            <trans-unit id="password_forgotten">
+                <source>password_forgotten</source>
+                <target>Mot de passe oublié</target>
+            </trans-unit>
             <trans-unit id="remember_me">
                 <source>remember_me</source>
                 <target>Se souvenir de moi</target>
             </trans-unit>
-            <trans-unit id="connection">
-                <source>connection</source>
+            <trans-unit id="log_in">
+                <source>log_in</source>
                 <target>Connexion</target>
             </trans-unit>
             <trans-unit id="registration_submit">
@@ -39,6 +47,22 @@
                 <source>user.create.success</source>
                 <target>L'utilisateur a été créé avec succès</target>
             </trans-unit>
+            <trans-unit id="user_already_authenticated">
+                <source>user.already_authenticated</source>
+                <target>Vous êtes déjà identifié</target>
+            </trans-unit>
+            <trans-unit id="user_is_disabled">
+                <source>user.is_disabled</source>
+                <target>Cet utilisateur est désactivé</target>
+            </trans-unit>
+            <trans-unit id="no_account_yet">
+                <source>no_account_yet</source>
+                <target>Pas encore de compte</target>
+            </trans-unit>
+            <trans-unit id="register_me">
+                <source>register_me</source>
+                <target>Je m'inscris</target>
+            </trans-unit>
             <trans-unit id="registration_check_email">
                 <source>registration.check_email</source>
                 <target>Un e-mail a été envoyé à l'adresse %email%. Il contient un lien d'activation sur lequel il vous faudra cliquer afin d'activer votre compte. Pensez à vérifier votre dossier spam.</target>
@@ -47,13 +71,37 @@
                 <source>registration.confirmed</source>
                 <target>Félicitations %username%, votre compte a bien été activé</target>
             </trans-unit>
+            <trans-unit id="reset_password_request">
+                <source>reset_password.request</source>
+                <target>Réinitialiser votre mot de passe</target>
+            </trans-unit>
+            <trans-unit id="reset_password_check_email">
+                <source>reset_password.check_email</source>
+                <target>Un e-mail a été envoyé à l'adresse %email%. Il contient un lien d'activation sur lequel il vous faudra cliquer afin de réinitialiser votre mot de passe. Pensez à vérifier votre dossier spam.</target>
+            </trans-unit>
+            <trans-unit id="reset_password_already_requested">
+                <source>reset_password.already_requested</source>
+                <target>Un nouveau mot de passe a déjà été demandé dans les dernières %hours% heures pour cet utilisateur</target>
+            </trans-unit>
+            <trans-unit id="reset_password_invalid_link">
+                <source>reset_password.invalid_link</source>
+                <target>Le lien de reinitialisation de votre mot de passe est erroné. Veuillez en générer un nouveau.</target>
+            </trans-unit>
+            <trans-unit id="reset_password_expired_link">
+                <source>reset_password.expired_link</source>
+                <target>Le lien de reinitialisation de votre mot de passe a expiré. Veuillez en générer un nouveau.</target>
+            </trans-unit>
+            <trans-unit id="reset_password_success">
+                <source>reset_password.success</source>
+                <target>Votre mot de passe a été modifié avec succès</target>
+            </trans-unit>
             <!-- User's profile -->
             <trans-unit id="profile_show_link">
                 <source>profile.show.link</source>
                 <target>Voir mon profil</target>
             </trans-unit>
-            <trans-unit id="logout">
-                <source>logout</source>
+            <trans-unit id="log_out">
+                <source>log_out</source>
                 <target>Déconnexion</target>
             </trans-unit>
         </body>
