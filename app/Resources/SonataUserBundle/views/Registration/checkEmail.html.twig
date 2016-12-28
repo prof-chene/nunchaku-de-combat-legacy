@@ -2,5 +2,5 @@
 
 {% block content %}
     {% include '::flash_messages.html.twig' %}
-    <p class="text-success">{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+    <p class="text-success">{{ 'registration.check_email'|trans({'%email%': email}) }}</p>
 {% endblock %}

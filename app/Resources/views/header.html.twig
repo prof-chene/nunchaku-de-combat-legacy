@@ -60,7 +60,7 @@
                                 {{ 'menu.log_in'|trans({}, 'navigation') }}
                             </a>
                         <li{% if 'user_registration' in app.request.attributes.get('_route') %} class="current"{% endif %}>
-                            <a href="{{ path('fos_user_registration_register') }}">
+                            <a href="{{ path('application_sonata_user_registration_register') }}">
                                 {{ 'menu.register'|trans({}, 'navigation') }}
                             </a>
                         </li>

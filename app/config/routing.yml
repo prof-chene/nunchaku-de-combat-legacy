@@ -30,14 +30,14 @@ application_sonata_user_reset_password:
     prefix: /{_locale}/reset-password
     requirements:
         _locale: '%locales%'
+application_sonata_user_register:
+    resource: "@ApplicationSonataUserBundle/Resources/config/routing/register.yml"
+    prefix: /{_locale}/register
+    requirements:
+        _locale: '%locales%'
 sonata_user_profile:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
     prefix: /{_locale}/profile
-    requirements:
-        _locale: '%locales%'
-sonata_user_register:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
-    prefix: /{_locale}/register
     requirements:
         _locale: '%locales%'
 sonata_user_change_password:

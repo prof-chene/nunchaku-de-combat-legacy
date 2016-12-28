@@ -6,5 +6,5 @@
     {% include '::flash_messages.html.twig' %}
     {{ form(form) }}
     <hr/>
-    <p><strong>{{ 'no_account_yet'|trans }}?<a href="{{ path('sonata_user_registration_register') }}" class="btn" role="button">{{ 'register_me'|trans }}</a></strong></p>
+    <p><strong>{{ 'no_account_yet'|trans }}?<a href="{{ path('application_sonata_user_registration_register') }}" class="btn" role="button">{{ 'register_me'|trans }}</a></strong></p>
 {% endblock %}

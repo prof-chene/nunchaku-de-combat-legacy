@@ -1,0 +1,14 @@
+application_sonata_user_registration_register:
+    path: /
+    defaults: { _controller: ApplicationSonataUserBundle:Registration:register }
+application_sonata_user_registration_check_email:
+    path: /check-email
+    defaults: { _controller: ApplicationSonataUserBundle:Registration:checkEmail }
+application_sonata_user_registration_confirm:
+    path: /confirm/{token}
+    defaults: { _controller: ApplicationSonataUserBundle:Registration:confirm }
+
+# Required because fos mailer uses this route
+fos_user_registration_confirm:
+    path: /confirm/{token}
+    defaults: { _controller: ApplicationSonataUserBundle:Registration:confirm }

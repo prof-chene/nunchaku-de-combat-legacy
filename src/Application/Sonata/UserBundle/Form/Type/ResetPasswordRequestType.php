@@ -2,18 +2,16 @@
 
 namespace Application\Sonata\UserBundle\Form\Type;
 
-use Application\Sonata\UserBundle\Entity\User;
 use Application\Sonata\UserBundle\Validator\Constraints\UserExists;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ResetPasswordType
+ * Class ResetPasswordRequestType
  *
  * @package Application\Sonata\UserBundle\Form\Type
  */
-class ResetPasswordType extends AbstractType
+class ResetPasswordRequestType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -31,15 +29,5 @@ class ResetPasswordType extends AbstractType
                 'label'     => 'reset_password.request'
             ))
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'intention' => 'reset_password',
-        ));
     }
 }

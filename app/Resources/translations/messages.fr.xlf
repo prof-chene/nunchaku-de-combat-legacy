@@ -43,10 +43,6 @@
                 <source>Bad credentials.</source>
                 <target>Nom d'utilisateur ou mot de passe incorrect</target>
             </trans-unit>
-            <trans-unit id="user_create_success">
-                <source>user.create.success</source>
-                <target>L'utilisateur a été créé avec succès</target>
-            </trans-unit>
             <trans-unit id="user_already_authenticated">
                 <source>user.already_authenticated</source>
                 <target>Vous êtes déjà identifié</target>
@@ -66,6 +62,10 @@
             <trans-unit id="registration_check_email">
                 <source>registration.check_email</source>
                 <target>Un e-mail a été envoyé à l'adresse %email%. Il contient un lien d'activation sur lequel il vous faudra cliquer afin d'activer votre compte. Pensez à vérifier votre dossier spam.</target>
+            </trans-unit>
+            <trans-unit id="registration_invalid_link">
+                <source>registration.invalid_link</source>
+                <target>Le lien d'activation de votre compte est erroné</target>
             </trans-unit>
             <trans-unit id="registration_confirmed">
                 <source>registration.confirmed</source>

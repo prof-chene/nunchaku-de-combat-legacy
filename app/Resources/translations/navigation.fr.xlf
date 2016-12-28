@@ -73,16 +73,16 @@
                 <source>h1.application_sonata_user_log_in</source>
                 <target>Identifiez-vous</target>
             </trans-unit>
-            <trans-unit id="h1_fos_user_registration_register">
-                <source>h1.fos_user_registration_register</source>
+            <trans-unit id="h1_application_sonata_user_registration_register">
+                <source>h1.application_sonata_user_registration_register</source>
                 <target>Devenez un ninja. Gratuitement.</target>
             </trans-unit>
-            <trans-unit id="h1_fos_user_registration_check_email">
-                <source>h1.fos_user_registration_check_email</source>
+            <trans-unit id="h1_application_sonata_user_registration_check_email">
+                <source>h1.application_sonata_user_registration_check_email</source>
                 <target>Vérification de votre email requise</target>
             </trans-unit>
-            <trans-unit id="h1_fos_user_registration_confirmed">
-                <source>h1.fos_user_registration_confirmed</source>
+            <trans-unit id="h1_application_sonata_user_registration_confirmed">
+                <source>h1.application_sonata_user_registration_confirmed</source>
                 <target>Inscription confirmée</target>
             </trans-unit>
             <trans-unit id="h1_application_sonata_user_reset_password_request">

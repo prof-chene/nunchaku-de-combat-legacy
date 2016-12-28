@@ -11,28 +11,38 @@ services:
         tags:
             - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin }
     # Form
-    application_sonata_user.reset_password.form:
+    application_sonata_user.registration.form:
         class: Symfony\Component\Form\Form
         factory: 'form.factory:create'
-        arguments: ['@application_sonata_user.reset_password.form.type']
+        arguments: ['@application_sonata_user.registration.form.type']
+    application_sonata_user.reset_password_request.form:
+        class: Symfony\Component\Form\Form
+        factory: 'form.factory:create'
+        arguments: ['@application_sonata_user.reset_password_request.form.type']
     # FormTypes
     application_sonata_user.registration.form.type:
         class: Application\Sonata\UserBundle\Form\Type\RegistrationType
         tags:
             - { name: form.type, label: Registration, alias: application_sonata_user_registration_form_type }
-    application_sonata_user.reset_password.form.type:
-        class: Application\Sonata\UserBundle\Form\Type\ResetPasswordType
+    application_sonata_user.reset_password_request.form.type:
+        class: Application\Sonata\UserBundle\Form\Type\ResetPasswordRequestType
         tags:
-            - { name: form.type, label: ResetPassword, alias: application_sonata_user_reset_password_form_type }
+            - { name: form.type, label: ResetPassword, alias: application_sonata_user_reset_password_request_form_type }
     # FormHandlers
     application_sonata_user.registration.form.handler:
         class: Application\Sonata\UserBundle\Form\Handler\RegistrationHandler
-        parent: sonata.user.registration.form.handler.default
-        scope: request
-    application_sonata_user.reset_password.form.handler:
-        class: Application\Sonata\UserBundle\Form\Handler\ResetPasswordHandler
         arguments:
-            - '@application_sonata_user.reset_password.form'
+            - '@application_sonata_user.registration.form'
+            - '@request'
+            - '@session'
+            - '@sonata.user.user_manager'
+            - '@fos_user.mailer'
+            - '@fos_user.util.token_generator'
+        scope: request
+    application_sonata_user.reset_password_request.form.handler:
+        class: Application\Sonata\UserBundle\Form\Handler\ResetPasswordRequestHandler
+        arguments:
+            - '@application_sonata_user.reset_password_request.form'
             - '@request'
             - '@session'
             - '@translator.default'

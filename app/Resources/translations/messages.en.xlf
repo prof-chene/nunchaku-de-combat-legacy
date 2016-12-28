@@ -43,10 +43,6 @@
                 <source>Bad credentials.</source>
                 <target>Bad credentials</target>
             </trans-unit>
-            <trans-unit id="user_create_success">
-                <source>user.create.success</source>
-                <target>The user has been created successfully</target>
-            </trans-unit>
             <trans-unit id="user_already_authenticated">
                 <source>user.already_authenticated</source>
                 <target>You are already logged in</target>
@@ -66,6 +62,10 @@
             <trans-unit id="registration_check_email">
                 <source>registration.check_email</source>
                 <target>An email has been sent to %email%. It contains an activation link you must click to activate your account. Please check your spam folder.</target>
+            </trans-unit>
+            <trans-unit id="registration_invalid_link">
+                <source>registration.invalid_link</source>
+                <target>Your account activation link is invalid</target>
             </trans-unit>
             <trans-unit id="registration_confirmed">
                 <source>registration.confirmed</source>

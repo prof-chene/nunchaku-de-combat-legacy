@@ -3,7 +3,7 @@
     <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="username_email_not_found">
-                <source>username_email_not_found</source>
+                <source>username_email.not_found</source>
                 <target>Nom d'utilisateur ou email inexistant</target>
             </trans-unit>
         </body>

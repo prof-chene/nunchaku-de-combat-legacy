@@ -2,7 +2,7 @@
 
 namespace Application\Sonata\UserBundle\Form\Handler;
 
-use FOS\UserBundle\Model\UserInterface;
+use Sonata\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\UserBundle\Entity\UserManager;
@@ -12,11 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * Class ResetPasswordHandler
+ * Class ResetPasswordRequestHandler
  *
  * @package Application\Sonata\UserBundle\Form\Handler
  */
-class ResetPasswordHandler
+class ResetPasswordRequestHandler
 {
     /**
      * @var FormInterface
@@ -94,12 +94,12 @@ class ResetPasswordHandler
                 $data = $this->form->getData();
                 $user = $this->userManager->findUserByUsernameOrEmail($data['username_email']);
                 if (!$user->isEnabled()) {
-                    $this->session->getFlashBag()->set('danger', 'user.is_disabled');
+                    $this->session->getFlashBag()->add('danger', 'user.is_disabled');
 
                     return false;
                 }
                 if ($user->isPasswordRequestNonExpired($this->tokenTtl)) {
-                    $this->session->getFlashBag()->set('danger', $this->translator->trans(
+                    $this->session->getFlashBag()->add('danger', $this->translator->trans(
                         'reset_password.already_requested',
                         array('%hours%' => $this->tokenTtl/3600)
                     ));
@@ -115,13 +115,16 @@ class ResetPasswordHandler
         return false;
     }
 
+    /**
+     * @param UserInterface $user
+     */
     protected function onSuccess(UserInterface $user)
     {
         if (is_null($user->getConfirmationToken())) {
             $user->setConfirmationToken($this->tokenGenerator->generateToken());
         }
         $this->mailer->sendResettingEmailMessage($user);
-        $this->session->set('fos_user_send_resetting_email/email', $user->getEmail());
+        $this->session->set('reset_password/email', $user->getEmail());
         $user->setPasswordRequestedAt(new \DateTime());
         $this->userManager->save($user);
     }

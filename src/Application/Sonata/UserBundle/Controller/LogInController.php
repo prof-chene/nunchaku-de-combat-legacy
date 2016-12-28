@@ -3,8 +3,6 @@
 namespace Application\Sonata\UserBundle\Controller;
 
 use Application\Sonata\UserBundle\Form\Type\LogInType;
-use Sonata\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -23,17 +21,14 @@ class LogInController extends Controller
      */
     public function logInAction(Request $request)
     {
-        if ($this->getUser() instanceof UserInterface) {
-            $this->get('session')->getFlashBag()->set('info', 'user.already_authenticated');
-
-            return $this->redirect($this->generateUrl('homepage'));
+        if ($this->isAuthenticated()) {
+            return $this->redirectIfAlreadyAuthenticated();
         }
+
         if ($request->request->has((Security::AUTHENTICATION_ERROR))) {
-            $this->get('session')->getFlashBag()->set('danger',
-                $request->request->get(Security::AUTHENTICATION_ERROR)->getMessage());
+            $this->addFlash('danger', $request->request->get(Security::AUTHENTICATION_ERROR)->getMessage());
         } else if ($this->get('session')->has(Security::AUTHENTICATION_ERROR)) {
-            $this->get('session')->getFlashBag()->set('danger',
-                $this->get('session')->get(Security::AUTHENTICATION_ERROR)->getMessage());
+            $this->addFlash('danger', $this->get('session')->get(Security::AUTHENTICATION_ERROR)->getMessage());
             $this->get('session')->remove(Security::AUTHENTICATION_ERROR);
         }
         $form = $this->createForm(LogInType::class, null, array(

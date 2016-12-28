@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class RegistrationType
+ *
  * @package Sonata\UserBundle\Form\Type
  */
 class RegistrationType extends AbstractType
@@ -27,7 +28,7 @@ class RegistrationType extends AbstractType
             ))
             ->add('plainPassword', 'repeated', array(
                 'type' => 'password',
-                'invalid_message' => 'fos_user.password.mismatch',
+                'invalid_message' => 'password.mismatch',
                 'first_options' => array(
                     'label' => 'password',
                 ),
@@ -35,7 +36,7 @@ class RegistrationType extends AbstractType
                     'label' => 'password_confirmation',
                 ),
             ))
-            ->add('_submit', 'submit', array(
+            ->add('submit', 'submit', array(
                 'label' => 'registration.submit',
             ))
         ;
@@ -48,15 +49,6 @@ class RegistrationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => User::class,
-            'intention' => 'registration',
         ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'application_sonata_user_registration_form_type';
     }
 }
