@@ -2,6 +2,7 @@
 
 namespace NCBundle\Entity\Event;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
 

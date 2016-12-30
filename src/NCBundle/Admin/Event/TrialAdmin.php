@@ -33,7 +33,7 @@ class TrialAdmin extends Admin
             ->add('name', 'text')
             ->add('rules', 'textarea')
             ->add('competition', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Event\EventCompetition',
+                'class' => 'NCBundle\Entity\Event\Competition',
                 'property' => 'name',
                 'required' => true,
             ))

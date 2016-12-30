@@ -9,16 +9,16 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class EventShowAdmin
+ * Class TrainingCourseAdmin
  *
  * @package NCBundle\Admin\Event
  */
-class EventShowAdmin extends Admin
+class TrainingCourseAdmin extends Admin
 {
     /**
      * @var string
      */
-    protected $baseRouteName = 'admin_show';
+    protected $baseRouteName = 'admin_training_course';
     /**
      * @var string
      */
@@ -40,6 +40,30 @@ class EventShowAdmin extends Admin
                 array(
                     'type_options' => array(
                         'data_class' => 'NCBundle\Entity\Event\Participant',
+                    )
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                )
+            )
+            ->add('trainers',
+                'sonata_type_collection',
+                array(
+                    'type_options' => array(
+                        'data_class' => 'NCBundle\Entity\Event\Participant',
+                    )
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                )
+            )
+            ->add('exercises',
+                'sonata_type_collection',
+                array(
+                    'type_options' => array(
+                        'data_class' => 'NCBundle\Entity\Technique\Exercise',
                     )
                 ),
                 array(
@@ -81,6 +105,9 @@ class EventShowAdmin extends Admin
             ->add('address')
             ->add('participants.lastname')
             ->add('participants.firstname')
+            ->add('trainers.lastname')
+            ->add('trainers.firstname')
+            ->add('exercises.name')
             ->add('medias.name');
     }
 
@@ -99,6 +126,14 @@ class EventShowAdmin extends Admin
                 'associated_property' => function (Participant $participant) {
                     return $participant->getLastname() . ' ' . $participant->getFirstname();
                 },
+            ))
+            ->add('trainers', null, array(
+                'associated_property' => function (Participant $trainer) {
+                    return $trainer->getLastname() . ' ' . $trainer->getFirstname();
+                },
+            ))
+            ->add('exercises', null, array(
+                'associated_property' => 'name',
             ))
             ->add('medias', null, array(
                 'associated_property' => 'name',

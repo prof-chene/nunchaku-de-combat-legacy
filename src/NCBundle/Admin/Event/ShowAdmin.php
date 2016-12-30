@@ -9,16 +9,16 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class EventCompetitionAdmin
+ * Class ShowAdmin
  *
  * @package NCBundle\Admin\Event
  */
-class EventCompetitionAdmin extends Admin
+class ShowAdmin extends Admin
 {
     /**
      * @var string
      */
-    protected $baseRouteName = 'admin_competition';
+    protected $baseRouteName = 'admin_show';
     /**
      * @var string
      */
@@ -40,18 +40,6 @@ class EventCompetitionAdmin extends Admin
                 array(
                     'type_options' => array(
                         'data_class' => 'NCBundle\Entity\Event\Participant',
-                    )
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            )
-            ->add('trials',
-                'sonata_type_collection',
-                array(
-                    'type_options' => array(
-                        'data_class' => 'NCBundle\Entity\Event\Trial',
                     )
                 ),
                 array(
@@ -93,7 +81,6 @@ class EventCompetitionAdmin extends Admin
             ->add('address')
             ->add('participants.lastname')
             ->add('participants.firstname')
-            ->add('trials.name')
             ->add('medias.name');
     }
 
@@ -112,9 +99,6 @@ class EventCompetitionAdmin extends Admin
                 'associated_property' => function (Participant $participant) {
                     return $participant->getLastname() . ' ' . $participant->getFirstname();
                 },
-            ))
-            ->add('trials', null, array(
-                'associated_property' => 'name',
             ))
             ->add('medias', null, array(
                 'associated_property' => 'name',

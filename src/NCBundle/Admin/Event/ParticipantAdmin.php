@@ -85,7 +85,7 @@ class ParticipantAdmin extends Admin
             ))
             ->add('trialResults', null, array(
                 'associated_property' => function (TrialResult $trialResult) {
-                    return $trialResult->getTrial()->getEventCompetition()->getName() .
+                    return $trialResult->getTrial()->getCompetition()->getName() .
                     ' - ' . $trialResult->getTrial()->getName() .
                     ' : ' . $trialResult->getPlace();
                 },

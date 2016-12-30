@@ -1,7 +1,7 @@
 services:
     admin.competition:
-        class: NCBundle\Admin\Event\EventCompetitionAdmin
-        arguments: [~, NCBundle\Entity\Event\EventCompetition, ~]
+        class: NCBundle\Admin\Event\CompetitionAdmin
+        arguments: [~, NCBundle\Entity\Event\Competition, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Competitions, group: Event }
     admin.trial:
@@ -15,13 +15,13 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Results, group: Event }
     admin.training_course:
-        class: NCBundle\Admin\Event\EventTrainingCourseAdmin
-        arguments: [~, NCBundle\Entity\Event\EventTrainingCourse, ~]
+        class: NCBundle\Admin\Event\TrainingCourseAdmin
+        arguments: [~, NCBundle\Entity\Event\TrainingCourse, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Training courses, group: Event }
     admin.show:
-        class: NCBundle\Admin\Event\EventShowAdmin
-        arguments: [~, NCBundle\Entity\Event\EventShow, ~]
+        class: NCBundle\Admin\Event\ShowAdmin
+        arguments: [~, NCBundle\Entity\Event\Show, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Shows, group: Event }
     admin.participant:
