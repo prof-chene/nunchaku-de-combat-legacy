@@ -47,3 +47,6 @@
 
 # PhpStorm
 /.idea/
+
+# Php-cs-fixer
+/.php_cs.cache

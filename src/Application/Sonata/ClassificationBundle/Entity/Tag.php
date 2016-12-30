@@ -78,7 +78,7 @@ class Tag extends BaseTag
      */
     public function addContent(AbstractContent $content)
     {
-        if(!$this->contents->contains($content)) {
+        if (!$this->contents->contains($content)) {
             $this->contents->add($content);
         }
 

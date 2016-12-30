@@ -40,5 +40,4 @@ class UserExistsValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
-
 }

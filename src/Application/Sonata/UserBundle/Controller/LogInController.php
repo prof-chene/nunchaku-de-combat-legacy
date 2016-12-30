@@ -27,7 +27,7 @@ class LogInController extends Controller
 
         if ($request->request->has((Security::AUTHENTICATION_ERROR))) {
             $this->addFlash('danger', $request->request->get(Security::AUTHENTICATION_ERROR)->getMessage());
-        } else if ($this->get('session')->has(Security::AUTHENTICATION_ERROR)) {
+        } elseif ($this->get('session')->has(Security::AUTHENTICATION_ERROR)) {
             $this->addFlash('danger', $this->get('session')->get(Security::AUTHENTICATION_ERROR)->getMessage());
             $this->get('session')->remove(Security::AUTHENTICATION_ERROR);
         }
