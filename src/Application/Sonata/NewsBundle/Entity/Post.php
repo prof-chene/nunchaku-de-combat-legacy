@@ -11,7 +11,7 @@ use Sonata\NewsBundle\Entity\BasePost as BasePost;
  * @package Application\Sonata\NewsBundle\Entity
  *
  * @ORM\Table(name="post")
- * @ORM\Entity(repositoryClass="Application\Sonata\NewsBundle\Entity\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="Application\Sonata\NewsBundle\Repository\PostRepository")
  */
 class Post extends BasePost
 {

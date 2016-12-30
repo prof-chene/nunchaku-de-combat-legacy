@@ -2,9 +2,9 @@
 
 namespace NCBundle\Entity\Technique;
 
-use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractEditorial;
 
 /**
  * Rank
@@ -12,28 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="rank")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankRepository")
  */
-class Rank
+class Rank extends AbstractEditorial
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=500)
-     */
-    private $description;
     /**
      * @var int
      *
@@ -55,64 +35,15 @@ class Rank
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\UserBundle\Entity\User", mappedBy="rank")
+     * @ORM\OneToMany(targetEntity="RankHolder", mappedBy="rank")
      */
-    private $users;
+    private $holders;
 
     public function __construct()
     {
+        parent::__construct();
         $this->syllabuses = new ArrayCollection();
-        $this->users = new ArrayCollection();
-    }
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Rank
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Rank
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
+        $this->holders = new ArrayCollection();
     }
 
     /**
@@ -126,7 +57,7 @@ class Rank
     /**
      * @param int $level
      *
-     * @return Rank
+     * @return $this
      */
     public function setLevel($level)
     {
@@ -146,7 +77,7 @@ class Rank
     /**
      * @param Style $style
      *
-     * @return Rank
+     * @return $this
      */
     public function setStyle($style)
     {
@@ -166,7 +97,7 @@ class Rank
     /**
      * @param ArrayCollection $syllabuses
      *
-     * @return Rank
+     * @return $this
      */
     public function setSyllabuses($syllabuses)
     {
@@ -182,7 +113,7 @@ class Rank
      */
     public function addSyllabus(Syllabus $syllabus)
     {
-        if(!$this->syllabuses->contains($syllabus)) {
+        if (!$this->syllabuses->contains($syllabus)) {
             $this->syllabuses->add($syllabus);
         }
 
@@ -192,32 +123,32 @@ class Rank
     /**
      * @return ArrayCollection
      */
-    public function getUsers()
+    public function getHolders()
     {
-        return $this->users;
+        return $this->holders;
     }
 
     /**
-     * @param ArrayCollection $users
+     * @param ArrayCollection $holders
      *
-     * @return Rank
+     * @return $this
      */
-    public function setUsers($users)
+    public function setHolders($holders)
     {
-        $this->users = $users;
+        $this->holders = $holders;
 
         return $this;
     }
 
     /**
-     * @param User $user
+     * @param RankHolder $holder
      *
      * @return $this
      */
-    public function addUser(User $user)
+    public function addHolder(RankHolder $holder)
     {
-        if(!$this->users->contains($user)) {
-            $this->users->add($user);
+        if (!$this->holders->contains($holder)) {
+            $this->holders->add($holder);
         }
 
         return $this;

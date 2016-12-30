@@ -5,9 +5,9 @@ namespace NCBundle\Repository\Event;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class EventCompetitionRepository
+ * Class CompetitionRepository
  * @package NCBundle\Repository\Event
  */
-class EventCompetitionRepository extends EntityRepository
+class CompetitionRepository extends EntityRepository
 {
 }

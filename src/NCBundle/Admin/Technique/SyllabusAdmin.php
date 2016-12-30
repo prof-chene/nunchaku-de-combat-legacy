@@ -3,12 +3,13 @@
 namespace NCBundle\Admin\Technique;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class SyllabusAdmin
+ *
  * @package NCBundle\Admin\Technique
  */
 class SyllabusAdmin extends Admin
@@ -47,8 +48,7 @@ class SyllabusAdmin extends Admin
                     'edit' => 'inline',
                     'inline' => 'table',
                 )
-            )
-        ;
+            );
     }
 
     /**
@@ -60,8 +60,7 @@ class SyllabusAdmin extends Admin
             ->add('name')
             ->add('description')
             ->add('rank.name')
-            ->add('syllabusRequirements.exercise.name')
-        ;
+            ->add('syllabusRequirements.exercise.name');
     }
 
     /**
@@ -77,7 +76,6 @@ class SyllabusAdmin extends Admin
             ))
             ->add('syllabusRequirements', null, array(
                 'associated_property' => 'exercise.name',
-            ))
-        ;
+            ));
     }
 }

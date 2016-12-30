@@ -3,12 +3,13 @@
 namespace NCBundle\Admin\Technique;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class ExerciseAdmin
+ *
  * @package NCBundle\Admin\Technique
  */
 class ExerciseAdmin extends Admin
@@ -66,7 +67,7 @@ class ExerciseAdmin extends Admin
                     'type_options' => array(
                         'sonata_field_description' => array(
                             'link_parameters' => array(
-                                'context'      => 'technique',
+                                'context' => 'technique',
                                 'hide_context' => true,
                             )
                         )
@@ -77,8 +78,7 @@ class ExerciseAdmin extends Admin
                     'edit' => 'inline',
                     'inline' => 'table',
                 )
-            )
-        ;
+            );
     }
 
     /**
@@ -92,8 +92,7 @@ class ExerciseAdmin extends Admin
             ->add('category.name')
             ->add('techniqueExecutions.technique.name')
             ->add('supplies.name')
-            ->add('medias.name')
-        ;
+            ->add('medias.name');
     }
 
     /**
@@ -115,7 +114,6 @@ class ExerciseAdmin extends Admin
             ))
             ->add('medias', null, array(
                 'associated_property' => 'name',
-            ))
-        ;
+            ));
     }
 }

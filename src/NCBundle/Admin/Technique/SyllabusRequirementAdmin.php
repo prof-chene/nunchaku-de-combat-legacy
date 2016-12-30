@@ -3,8 +3,8 @@
 namespace NCBundle\Admin\Technique;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 class SyllabusRequirementAdmin extends Admin
@@ -17,6 +17,7 @@ class SyllabusRequirementAdmin extends Admin
      * @var string
      */
     protected $baseRoutePattern = 'syllabus/requirement';
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -31,8 +32,7 @@ class SyllabusRequirementAdmin extends Admin
                 'required' => true,
             ))
             ->add('detail', 'textarea')
-            ->add('points', 'integer')
-        ;
+            ->add('points', 'integer');
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -41,8 +41,7 @@ class SyllabusRequirementAdmin extends Admin
             ->add('exercise.name')
             ->add('syllabus.name')
             ->add('detail')
-            ->add('points')
-        ;
+            ->add('points');
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -55,7 +54,6 @@ class SyllabusRequirementAdmin extends Admin
                 'associated_property' => 'name',
             ))
             ->add('detail', 'textarea')
-            ->add('points', 'integer')
-        ;
+            ->add('points', 'integer');
     }
 }

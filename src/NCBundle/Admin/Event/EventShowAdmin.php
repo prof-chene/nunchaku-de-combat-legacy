@@ -4,12 +4,13 @@ namespace NCBundle\Admin\Event;
 
 use NCBundle\Entity\Event\Participant;
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class EventShowAdmin
+ *
  * @package NCBundle\Admin\Event
  */
 class EventShowAdmin extends Admin
@@ -22,6 +23,7 @@ class EventShowAdmin extends Admin
      * @var string
      */
     protected $baseRoutePattern = 'event';
+
     /**
      * @param FormMapper $formMapper
      */
@@ -52,7 +54,7 @@ class EventShowAdmin extends Admin
                     'type_options' => array(
                         'sonata_field_description' => array(
                             'link_parameters' => array(
-                                'context'      => 'event',
+                                'context' => 'event',
                                 'hide_context' => true,
                             )
                         )
@@ -63,8 +65,7 @@ class EventShowAdmin extends Admin
                     'edit' => 'inline',
                     'inline' => 'table',
                 )
-            )
-        ;
+            );
     }
 
     /**
@@ -80,8 +81,7 @@ class EventShowAdmin extends Admin
             ->add('address')
             ->add('participants.lastname')
             ->add('participants.firstname')
-            ->add('medias.name')
-        ;
+            ->add('medias.name');
     }
 
     /**
@@ -96,13 +96,12 @@ class EventShowAdmin extends Admin
             ->add('endDate')
             ->add('address')
             ->add('participants', null, array(
-                'associated_property' => function(Participant $participant) {
-                    return $participant->getLastname().' '.$participant->getFirstname();
+                'associated_property' => function (Participant $participant) {
+                    return $participant->getLastname() . ' ' . $participant->getFirstname();
                 },
             ))
             ->add('medias', null, array(
                 'associated_property' => 'name',
-            ))
-        ;
+            ));
     }
 }

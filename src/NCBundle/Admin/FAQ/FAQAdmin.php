@@ -3,12 +3,13 @@
 namespace NCBundle\Admin\FAQ;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class FAQAdmin
+ *
  * @package NCBundle\Admin\FAQ
  */
 class FAQAdmin extends Admin
@@ -21,6 +22,7 @@ class FAQAdmin extends Admin
      * @var string
      */
     protected $baseRoutePattern = 'faq';
+
     /**
      * @param FormMapper $formMapper
      */
@@ -39,8 +41,7 @@ class FAQAdmin extends Admin
                     'edit' => 'inline',
                     'inline' => 'table',
                 )
-            )
-        ;
+            );
     }
 
     /**

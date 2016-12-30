@@ -6,6 +6,10 @@
                 <source>username_email.not_found</source>
                 <target>Nom d'utilisateur ou email inexistant</target>
             </trans-unit>
+            <trans-unit id="slug_already_used">
+                <source>slug.already_used</source>
+                <target>Cette url courte existe déjà</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

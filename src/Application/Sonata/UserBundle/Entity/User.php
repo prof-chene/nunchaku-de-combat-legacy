@@ -2,13 +2,14 @@
 
 namespace Application\Sonata\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Technique\Rank;
+use NCBundle\Entity\Technique\RankHolder;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
@@ -59,15 +60,21 @@ class User extends BaseUser
     /**
      * @var Rank
      *
-     * @ORM\ManyToOne(targetEntity="NCBundle\Entity\Technique\Rank", inversedBy="users")
+     * @ORM\OneToMany(targetEntity="NCBundle\Entity\Technique\RankHolder", mappedBy="holder")
      */
-    protected $rank;
+    protected $ranks;
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="NCBundle\Entity\Event\Participant", mappedBy="user")
      */
     protected $participants;
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="NCBundle\Entity\Event\Participant", mappedBy="registrant")
+     */
+    protected $registrants;
 
     /**
      * @var Collection
@@ -83,7 +90,9 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->ranks = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->registrants = new ArrayCollection();
     }
 
     /**
@@ -97,21 +106,35 @@ class User extends BaseUser
     }
 
     /**
-     * @return Rank
+     * @return ArrayCollection
      */
-    public function getRank()
+    public function getRanks()
     {
         return $this->rank;
     }
 
     /**
-     * @param Rank $rank
+     * @param ArrayCollection $ranks
      *
      * @return User
      */
-    public function setRank(Rank $rank)
+    public function setRanks($ranks)
     {
-        $this->rank = $rank;
+        $this->ranks = $ranks;
+
+        return $this;
+    }
+
+    /**
+     * @param RankHolder $rank
+     *
+     * @return $this
+     */
+    public function addRank(RankHolder $rank)
+    {
+        if(!$this->ranks->contains($rank)) {
+            $this->ranks->add($rank);
+        }
 
         return $this;
     }
@@ -145,6 +168,40 @@ class User extends BaseUser
     {
         if(!$this->participants->contains($participant)) {
             $this->participants->add($participant);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRegistrants()
+    {
+        return $this->registrants;
+    }
+
+    /**
+     * @param ArrayCollection $registrants
+     *
+     * @return User
+     */
+    public function setRegistrants($registrants)
+    {
+        $this->registrants = $registrants;
+
+        return $this;
+    }
+
+    /**
+     * @param Participant $registrant
+     *
+     * @return $this
+     */
+    public function addRegistrant(Participant $registrant)
+    {
+        if(!$this->registrants->contains($registrant)) {
+            $this->registrants->add($registrant);
         }
 
         return $this;

@@ -3,12 +3,13 @@
 namespace NCBundle\Admin\FAQ;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class QuestionAdmin
+ *
  * @package NCBundle\Admin\FAQ
  */
 class QuestionAdmin extends Admin
@@ -40,8 +41,7 @@ class QuestionAdmin extends Admin
                 'class' => 'NCBundle\Entity\FAQ\FAQ',
                 'property' => 'name',
                 'required' => false,
-            ))
-        ;
+            ));
     }
 
     /**
@@ -54,8 +54,7 @@ class QuestionAdmin extends Admin
             ->add('answer')
             ->add('position')
             ->add('category.name')
-            ->add('faq.name')
-        ;
+            ->add('faq.name');
     }
 
     /**
@@ -78,7 +77,6 @@ class QuestionAdmin extends Admin
             ))
             ->add('faq', null, array(
                 'associated_property' => 'name',
-            ))
-        ;
+            ));
     }
 }

@@ -50,7 +50,7 @@ class SyllabusRequirement
     /**
      * @param Exercise $exercise
      *
-     * @return SyllabusRequirement
+     * @return $this
      */
     public function setExercise($exercise)
     {
@@ -70,7 +70,7 @@ class SyllabusRequirement
     /**
      * @param Syllabus $syllabus
      *
-     * @return SyllabusRequirement
+     * @return $this
      */
     public function setSyllabus($syllabus)
     {
@@ -90,7 +90,7 @@ class SyllabusRequirement
     /**
      * @param string $detail
      *
-     * @return SyllabusRequirement
+     * @return $this
      */
     public function setDetail($detail)
     {
@@ -110,7 +110,7 @@ class SyllabusRequirement
     /**
      * @param int $points
      *
-     * @return SyllabusRequirement
+     * @return $this
      */
     public function setPoints($points)
     {

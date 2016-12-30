@@ -4,7 +4,7 @@ namespace NCBundle\Entity\Technique;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use NCBundle\Entity\AbstractContent;
+use NCBundle\Entity\AbstractEditorial;
 
 /**
  * Technique
@@ -12,20 +12,8 @@ use NCBundle\Entity\AbstractContent;
  * @ORM\Table(name="technique")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\TechniqueRepository")
  */
-class Technique extends AbstractContent
+class Technique extends AbstractEditorial
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=1500)
-     */
-    private $description;
     /**
      * @var ArrayCollection
      *
@@ -40,46 +28,6 @@ class Technique extends AbstractContent
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Technique
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Technique
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
      * @return ArrayCollection
      */
     public function getTechniqueExecutions()
@@ -90,7 +38,7 @@ class Technique extends AbstractContent
     /**
      * @param ArrayCollection $techniqueExecutions
      *
-     * @return Technique
+     * @return $this
      */
     public function setTechniqueExecutions($techniqueExecutions)
     {
@@ -106,7 +54,7 @@ class Technique extends AbstractContent
      */
     public function addTechniqueExecution(TechniqueExecution $techniqueExecution)
     {
-        if(!$this->techniqueExecutions->contains($techniqueExecution)) {
+        if (!$this->techniqueExecutions->contains($techniqueExecution)) {
             $this->techniqueExecutions->add($techniqueExecution);
         }
 

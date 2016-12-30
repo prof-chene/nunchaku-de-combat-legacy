@@ -4,6 +4,8 @@ namespace NCBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AbstractContent
@@ -12,6 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="content")
  * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="content_type", type="string")
+ *
+ * @UniqueEntity(
+ *     fields={"slug"},
+ *     message="slug.already_used"
+ * )
  */
 abstract class AbstractContent
 {
@@ -23,6 +32,12 @@ abstract class AbstractContent
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=50)
+     */
+    protected $slug;
     /**
      * @var bool
      *
@@ -74,6 +89,26 @@ abstract class AbstractContent
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return AbstractContent
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
     /**
@@ -183,7 +218,7 @@ abstract class AbstractContent
      */
     public function addTag(Tag $tag)
     {
-        if(!$this->tags->contains($tag)) {
+        if (!$this->tags->contains($tag)) {
             $this->tags->add($tag);
         }
 
@@ -209,6 +244,7 @@ abstract class AbstractContent
 
         return $this;
     }
+
     /**
      * @param Media $media
      *
@@ -216,10 +252,37 @@ abstract class AbstractContent
      */
     public function addMedia(Media $media)
     {
-        if(!$this->medias->contains($media)) {
+        if (!$this->medias->contains($media)) {
             $this->medias->add($media);
         }
 
         return $this;
+    }
+
+    public function prePersist()
+    {
+        if (empty($this->getPublicationDateStart())) {
+            $this->setPublicationDateStart(new \DateTime());
+        }
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    public function preUpdate()
+    {
+        if (empty($this->getPublicationDateStart())) {
+            $this->setPublicationDateStart(new \DateTime());
+        }
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * To be published, a content must be enabled and its publication date in the past
+     *
+     * @return bool
+     */
+    public function isPublic()
+    {
+        return $this->getPublicationDateStart()->diff(new \DateTime())->invert == 0 && $this->isEnabled();
     }
 }

@@ -39,7 +39,6 @@ class TechniqueExecution
      */
     private $order;
 
-
     /**
      * @return Technique
      */
@@ -51,7 +50,7 @@ class TechniqueExecution
     /**
      * @param Technique $technique
      *
-     * @return TechniqueExecution
+     * @return $this
      */
     public function setTechnique($technique)
     {
@@ -71,7 +70,7 @@ class TechniqueExecution
     /**
      * @param Exercise $exercise
      *
-     * @return TechniqueExecution
+     * @return $this
      */
     public function setExercise($exercise)
     {
@@ -91,7 +90,7 @@ class TechniqueExecution
     /**
      * @param string $detail
      *
-     * @return TechniqueExecution
+     * @return $this
      */
     public function setDetail($detail)
     {
@@ -111,7 +110,7 @@ class TechniqueExecution
     /**
      * @param int $order
      *
-     * @return TechniqueExecution
+     * @return $this
      */
     public function setOrder($order)
     {

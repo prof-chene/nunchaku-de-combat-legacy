@@ -44,7 +44,7 @@ class TrialResult
     /**
      * @param Trial $trial
      *
-     * @return TrialResult
+     * @return $this
      */
     public function setTrial($trial)
     {
@@ -64,7 +64,7 @@ class TrialResult
     /**
      * @param Participant $participant
      *
-     * @return TrialResult
+     * @return $this
      */
     public function setParticipant(Participant $participant)
     {
@@ -84,7 +84,7 @@ class TrialResult
     /**
      * @param int $place
      *
-     * @return TrialResult
+     * @return $this
      */
     public function setPlace($place)
     {

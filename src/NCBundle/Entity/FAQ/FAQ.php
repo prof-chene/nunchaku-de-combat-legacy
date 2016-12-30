@@ -4,7 +4,7 @@ namespace NCBundle\Entity\FAQ;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use NCBundle\Entity\AbstractContent;
+use NCBundle\Entity\AbstractEditorial;
 
 /**
  * FAQ
@@ -12,14 +12,8 @@ use NCBundle\Entity\AbstractContent;
  * @ORM\Table(name="faq")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\FAQ\FAQRepository")
  */
-class FAQ extends AbstractContent
+class FAQ extends AbstractEditorial
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
     /**
      * @var ArrayCollection
      *
@@ -31,26 +25,6 @@ class FAQ extends AbstractContent
     {
         parent::__construct();
         $this->questions = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -80,7 +54,7 @@ class FAQ extends AbstractContent
      */
     public function addQuestion(Question $question)
     {
-        if(!$this->questions->contains($question)) {
+        if (!$this->questions->contains($question)) {
             $this->questions->add($question);
         }
 

@@ -4,6 +4,7 @@ namespace NCBundle\Entity\Technique;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractEditorial;
 
 /**
  * Style
@@ -11,28 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="style")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\StyleRepository")
  */
-class Style
+class Style extends AbstractEditorial
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=1500)
-     */
-    private $description;
     /**
      * @var ArrayCollection
      *
@@ -42,57 +23,8 @@ class Style
 
     public function __construct()
     {
+        parent::__construct();
         $this->ranks = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Style
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Style
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
     }
 
     /**
@@ -106,7 +38,7 @@ class Style
     /**
      * @param ArrayCollection $ranks
      *
-     * @return Style
+     * @return $this
      */
     public function setRanks($ranks)
     {
@@ -122,7 +54,7 @@ class Style
      */
     public function addRank(Rank $rank)
     {
-        if(!$this->ranks->contains($rank)) {
+        if (!$this->ranks->contains($rank)) {
             $this->ranks->add($rank);
         }
 

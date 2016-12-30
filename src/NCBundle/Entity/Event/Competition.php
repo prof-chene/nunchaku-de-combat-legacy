@@ -6,22 +6,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * EventCompetition
+ * Competition
  *
  * @ORM\Table(name="competition")
- * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\EventCompetitionRepository")
+ * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\CompetitionRepository")
  */
-class EventCompetition extends AbstractEvent
+class Competition extends AbstractEvent
 {
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Trial", mappedBy="eventCompetition")
+     * @ORM\OneToMany(targetEntity="Trial", mappedBy="competition")
      */
     private $trials;
 
     public function __construct()
     {
+        parent::__construct();
         $this->trials = new ArrayCollection();
     }
 
@@ -36,7 +37,7 @@ class EventCompetition extends AbstractEvent
     /**
      * @param ArrayCollection $trials
      *
-     * @return EventCompetition
+     * @return $this
      */
     public function setTrials($trials)
     {
@@ -52,7 +53,7 @@ class EventCompetition extends AbstractEvent
      */
     public function addTrial(Trial $trial)
     {
-        if(!$this->trials->contains($trial)) {
+        if (!$this->trials->contains($trial)) {
             $this->trials->add($trial);
         }
 

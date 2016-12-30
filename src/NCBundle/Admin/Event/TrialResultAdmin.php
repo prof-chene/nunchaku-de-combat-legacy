@@ -5,12 +5,13 @@ namespace NCBundle\Admin\Event;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\TrialResult;
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class TrialResultAdmin
+ *
  * @package NCBundle\Admin\Event
  */
 class TrialResultAdmin extends Admin
@@ -23,6 +24,7 @@ class TrialResultAdmin extends Admin
      * @var string
      */
     protected $baseRoutePattern = 'event';
+
     /**
      * @param FormMapper $formMapper
      */
@@ -36,13 +38,12 @@ class TrialResultAdmin extends Admin
             ))
             ->add('participant', 'sonata_type_model', array(
                 'class' => 'NCBundle\Entity\Event\Participant',
-                'property' => function(Participant $participant) {
-                    return $participant->getFirstname().' '.$participant->getLastname();
+                'property' => function (Participant $participant) {
+                    return $participant->getFirstname() . ' ' . $participant->getLastname();
                 },
                 'required' => true,
             ))
-            ->add('place')
-        ;
+            ->add('place');
     }
 
     /**
@@ -54,8 +55,7 @@ class TrialResultAdmin extends Admin
             ->add('trial.name')
             ->add('participant.lastname')
             ->add('participant.firstname')
-            ->add('place')
-        ;
+            ->add('place');
     }
 
     /**
@@ -71,11 +71,10 @@ class TrialResultAdmin extends Admin
                 'associated_property' => 'name',
             ))
             ->add('trialResults', null, array(
-                'associated_property' => function(TrialResult $result) {
-                    return $result->getParticipant()->getLastname().' '.$result->getParticipant()->getFirstname().
-                    ' : '.$result->getPlace();
+                'associated_property' => function (TrialResult $result) {
+                    return $result->getParticipant()->getLastname() . ' ' . $result->getParticipant()->getFirstname() .
+                    ' : ' . $result->getPlace();
                 },
-            ))
-        ;
+            ));
     }
 }

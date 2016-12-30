@@ -2,15 +2,15 @@
 
 namespace NCBundle\Admin\Event;
 
-use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\TrialResult;
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class TrialAdmin
+ *
  * @package NCBundle\Admin\Event
  */
 class TrialAdmin extends Admin
@@ -23,6 +23,7 @@ class TrialAdmin extends Admin
      * @var string
      */
     protected $baseRoutePattern = 'event';
+
     /**
      * @param FormMapper $formMapper
      */
@@ -47,8 +48,7 @@ class TrialAdmin extends Admin
                     'edit' => 'inline',
                     'inline' => 'table',
                 )
-            )
-        ;
+            );
     }
 
     /**
@@ -61,8 +61,7 @@ class TrialAdmin extends Admin
             ->add('rules')
             ->add('competition.name')
             ->add('trialResults.participant.lastname')
-            ->add('trialResults.participant.firstname')
-        ;
+            ->add('trialResults.participant.firstname');
     }
 
     /**
@@ -77,11 +76,10 @@ class TrialAdmin extends Admin
                 'associated_property' => 'name',
             ))
             ->add('trialResults', null, array(
-                'associated_property' => function(TrialResult $result) {
-                    return $result->getParticipant()->getLastname().' '.$result->getParticipant()->getFirstname().
-                    ' : '.$result->getPlace();
+                'associated_property' => function (TrialResult $result) {
+                    return $result->getParticipant()->getLastname() . ' ' . $result->getParticipant()->getFirstname() .
+                    ' : ' . $result->getPlace();
                 },
-            ))
-        ;
+            ));
     }
 }

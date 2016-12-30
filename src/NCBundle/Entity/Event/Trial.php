@@ -22,23 +22,23 @@ class Trial
      */
     private $id;
     /**
+     * @var Competition
+     *
+     * @ORM\ManyToOne(targetEntity="Competition", inversedBy="trials")
+     */
+    private $competition;
+    /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=1500)
+     * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
     /**
      * @var string
      *
-     * @ORM\Column(name="rules", type="string", length=1500)
+     * @ORM\Column(name="rules", type="text")
      */
     private $rules;
-    /**
-     * @var EventCompetition
-     *
-     * @ORM\ManyToOne(targetEntity="EventCompetition", inversedBy="trials")
-     */
-    private $eventCompetition;
     /**
      * @var ArrayCollection
      *
@@ -54,11 +54,31 @@ class Trial
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Competition
+     */
+    public function getCompetition()
+    {
+        return $this->competition;
+    }
+
+    /**
+     * @param Competition $competition
+     *
+     * @return $this
+     */
+    public function setCompetition($competition)
+    {
+        $this->competition = $competition;
+
+        return $this;
     }
 
     /**
@@ -72,7 +92,7 @@ class Trial
     /**
      * @param string $name
      *
-     * @return Trial
+     * @return $this
      */
     public function setName($name)
     {
@@ -92,31 +112,11 @@ class Trial
     /**
      * @param string $rules
      *
-     * @return Trial
+     * @return $this
      */
     public function setRules($rules)
     {
         $this->rules = $rules;
-
-        return $this;
-    }
-
-    /**
-     * @return EventCompetition
-     */
-    public function getEventCompetition()
-    {
-        return $this->eventCompetition;
-    }
-
-    /**
-     * @param EventCompetition $eventCompetition
-     *
-     * @return Trial
-     */
-    public function setEventCompetition($eventCompetition)
-    {
-        $this->eventCompetition = $eventCompetition;
 
         return $this;
     }
@@ -132,7 +132,7 @@ class Trial
     /**
      * @param ArrayCollection $trialResults
      *
-     * @return Trial
+     * @return $this
      */
     public function setTrialResults($trialResults)
     {
@@ -148,7 +148,7 @@ class Trial
      */
     public function addTrialResult(TrialResult $trialResult)
     {
-        if(!$this->trialResults->contains($trialResult)) {
+        if (!$this->trialResults->contains($trialResult)) {
             $this->trialResults->add($trialResult);
         }
 

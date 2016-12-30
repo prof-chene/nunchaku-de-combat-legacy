@@ -3,28 +3,18 @@
 namespace NCBundle\Entity\Event;
 
 use Doctrine\ORM\Mapping as ORM;
-use NCBundle\Entity\AbstractContent;
+use NCBundle\Entity\AbstractEditorial;
 
 /**
- * Event
+ * Class AbstractEvent
+ *
+ * @package NCBundle\Entity\Event
  *
  * @ORM\Table(name="event")
  * @ORM\Entity
  */
-abstract class AbstractEvent extends AbstractContent
+abstract class AbstractEvent extends AbstractEditorial
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=500)
-     */
-    private $description;
     /**
      * @var \DateTime
      *
@@ -46,11 +36,7 @@ abstract class AbstractEvent extends AbstractContent
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Participant", inversedBy="events")
-     * @ORM\JoinTable(name="event_participant",
-     *      joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="participant_id", referencedColumnName="id")}
-     *  )
+     * @ORM\OneToMany(targetEntity="Participant", mappedBy="event")
      */
     private $participants;
 
@@ -58,46 +44,6 @@ abstract class AbstractEvent extends AbstractContent
     {
         parent::__construct();
         $this->participants = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Event
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Event
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
     }
 
     /**
@@ -111,7 +57,7 @@ abstract class AbstractEvent extends AbstractContent
     /**
      * @param \DateTime $startDate
      *
-     * @return Event
+     * @return $this
      */
     public function setStartDate($startDate)
     {
@@ -131,7 +77,7 @@ abstract class AbstractEvent extends AbstractContent
     /**
      * @param \DateTime $endDate
      *
-     * @return Event
+     * @return $this
      */
     public function setEndDate($endDate)
     {
@@ -151,7 +97,7 @@ abstract class AbstractEvent extends AbstractContent
     /**
      * @param string $address
      *
-     * @return Event
+     * @return $this
      */
     public function setAddress($address)
     {
@@ -171,7 +117,7 @@ abstract class AbstractEvent extends AbstractContent
     /**
      * @param ArrayCollection $participants
      *
-     * @return Event
+     * @return $this
      */
     public function setParticipants($participants)
     {
@@ -187,7 +133,7 @@ abstract class AbstractEvent extends AbstractContent
      */
     public function addParticipant(Participant $participant)
     {
-        if(!$this->participants->contains($participant)) {
+        if (!$this->participants->contains($participant)) {
             $this->participants->add($participant);
         }
 

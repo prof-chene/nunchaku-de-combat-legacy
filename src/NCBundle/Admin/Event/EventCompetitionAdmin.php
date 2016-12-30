@@ -4,12 +4,13 @@ namespace NCBundle\Admin\Event;
 
 use NCBundle\Entity\Event\Participant;
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class EventCompetitionAdmin
+ *
  * @package NCBundle\Admin\Event
  */
 class EventCompetitionAdmin extends Admin
@@ -22,6 +23,7 @@ class EventCompetitionAdmin extends Admin
      * @var string
      */
     protected $baseRoutePattern = 'event';
+
     /**
      * @param FormMapper $formMapper
      */
@@ -64,7 +66,7 @@ class EventCompetitionAdmin extends Admin
                     'type_options' => array(
                         'sonata_field_description' => array(
                             'link_parameters' => array(
-                                'context'      => 'event',
+                                'context' => 'event',
                                 'hide_context' => true,
                             )
                         )
@@ -75,8 +77,7 @@ class EventCompetitionAdmin extends Admin
                     'edit' => 'inline',
                     'inline' => 'table',
                 )
-            )
-        ;
+            );
     }
 
     /**
@@ -93,8 +94,7 @@ class EventCompetitionAdmin extends Admin
             ->add('participants.lastname')
             ->add('participants.firstname')
             ->add('trials.name')
-            ->add('medias.name')
-        ;
+            ->add('medias.name');
     }
 
     /**
@@ -109,8 +109,8 @@ class EventCompetitionAdmin extends Admin
             ->add('endDate')
             ->add('address')
             ->add('participants', null, array(
-                'associated_property' => function(Participant $participant) {
-                    return $participant->getLastname().' '.$participant->getFirstname();
+                'associated_property' => function (Participant $participant) {
+                    return $participant->getLastname() . ' ' . $participant->getFirstname();
                 },
             ))
             ->add('trials', null, array(
@@ -118,7 +118,6 @@ class EventCompetitionAdmin extends Admin
             ))
             ->add('medias', null, array(
                 'associated_property' => 'name',
-            ))
-        ;
+            ));
     }
 }

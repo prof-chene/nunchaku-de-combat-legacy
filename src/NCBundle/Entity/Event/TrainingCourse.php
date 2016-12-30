@@ -7,30 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\Technique\Exercise;
 
 /**
- * EventTrainingCourse
+ * TrainingCourse
  *
  * @ORM\Table(name="training_course")
- * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\EventTrainingCourseRepository")
+ * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\TrainingCourseRepository")
  */
-class EventTrainingCourse extends AbstractEvent
+class TrainingCourse extends AbstractEvent
 {
     /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Participant")
-     * @ORM\JoinTable(name="training_course_trainer",
-     *      joinColumns={@ORM\JoinColumn(name="training_course_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="participant_id", referencedColumnName="id")}
+     * @ORM\JoinTable(name="training_course_trainer")}
      * )
      */
     private $trainers;
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Technique\Exercise", inversedBy="eventTrainingCourses")
-     * @ORM\JoinTable(name="training_course_exercise",
-     *      joinColumns={@ORM\JoinColumn(name="training_course_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="exercise_id", referencedColumnName="id")}
+     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Technique\Exercise", inversedBy="trainingCourses")
+     * @ORM\JoinTable(name="training_course_exercise")}
      * )
      */
     private $exercises;
@@ -53,7 +49,7 @@ class EventTrainingCourse extends AbstractEvent
     /**
      * @param ArrayCollection $trainers
      *
-     * @return EventTrainingCourse
+     * @return $this
      */
     public function setTrainers($trainers)
     {
@@ -69,7 +65,7 @@ class EventTrainingCourse extends AbstractEvent
      */
     public function addTrainer(Participant $trainer)
     {
-        if(!$this->trainers->contains($trainer)) {
+        if (!$this->trainers->contains($trainer)) {
             $this->trainers->add($trainer);
         }
 
@@ -87,7 +83,7 @@ class EventTrainingCourse extends AbstractEvent
     /**
      * @param ArrayCollection $exercises
      *
-     * @return EventTrainingCourse
+     * @return $this
      */
     public function setExercises($exercises)
     {
@@ -103,7 +99,7 @@ class EventTrainingCourse extends AbstractEvent
      */
     public function addExercise(Exercise $exercise)
     {
-        if(!$this->exercises->contains($exercise)) {
+        if (!$this->exercises->contains($exercise)) {
             $this->exercises->add($exercise);
         }
 

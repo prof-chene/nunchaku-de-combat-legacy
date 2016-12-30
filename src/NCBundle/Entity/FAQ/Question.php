@@ -2,9 +2,7 @@
 
 namespace NCBundle\Entity\FAQ;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use NCBundle\Entity\AbstractContent;
 
 /**
  * Question
@@ -12,8 +10,16 @@ use NCBundle\Entity\AbstractContent;
  * @ORM\Table(name="question")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\FAQ\QuestionRepository")
  */
-class Question extends AbstractContent
+class Question
 {
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
     /**
      * @var string
      *
@@ -40,6 +46,14 @@ class Question extends AbstractContent
     private $faq;
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return string
      */
     public function getQuestion()
@@ -50,7 +64,7 @@ class Question extends AbstractContent
     /**
      * @param string $question
      *
-     * @return Question
+     * @return $this
      */
     public function setQuestion($question)
     {
@@ -70,7 +84,7 @@ class Question extends AbstractContent
     /**
      * @param string $answer
      *
-     * @return Question
+     * @return $this
      */
     public function setAnswer($answer)
     {
@@ -90,7 +104,7 @@ class Question extends AbstractContent
     /**
      * @param int $position
      *
-     * @return Question
+     * @return $this
      */
     public function setPosition($position)
     {
@@ -110,7 +124,7 @@ class Question extends AbstractContent
     /**
      * @param FAQ $faq
      *
-     * @return Question
+     * @return $this
      */
     public function setFaq($faq)
     {

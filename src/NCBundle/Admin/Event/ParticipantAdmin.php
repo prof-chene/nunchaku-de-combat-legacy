@@ -3,15 +3,15 @@
 namespace NCBundle\Admin\Event;
 
 use Application\Sonata\UserBundle\Entity\User;
-use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\TrialResult;
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class ParticipantAdmin
+ *
  * @package NCBundle\Admin\Event
  */
 class ParticipantAdmin extends Admin
@@ -24,6 +24,7 @@ class ParticipantAdmin extends Admin
      * @var string
      */
     protected $baseRoutePattern = 'event';
+
     /**
      * @param FormMapper $formMapper
      */
@@ -45,8 +46,7 @@ class ParticipantAdmin extends Admin
                 'class' => 'Application\Sonata\UserBundle\Entity\User',
                 'property' => 'name',
                 'required' => false,
-            ))
-        ;
+            ));
     }
 
     /**
@@ -63,8 +63,7 @@ class ParticipantAdmin extends Admin
             ->add('address')
             ->add('user.lastName')
             ->add('user.firstname')
-            ->add('trialResults.trial.competition.name')
-        ;
+            ->add('trialResults.trial.competition.name');
     }
 
     /**
@@ -80,17 +79,16 @@ class ParticipantAdmin extends Admin
             ->add('gender')
             ->add('address')
             ->add('user', null, array(
-                'associated_property' => function(User $user) {
-                    return $user->getLastname().' '.$user->getFirstname();
+                'associated_property' => function (User $user) {
+                    return $user->getLastname() . ' ' . $user->getFirstname();
                 },
             ))
             ->add('trialResults', null, array(
-                'associated_property' => function(TrialResult $trialResult) {
-                    return $trialResult->getTrial()->getEventCompetition()->getName().
-                    ' - '.$trialResult->getTrial()->getName().
-                    ' : '.$trialResult->getPlace();
+                'associated_property' => function (TrialResult $trialResult) {
+                    return $trialResult->getTrial()->getEventCompetition()->getName() .
+                    ' - ' . $trialResult->getTrial()->getName() .
+                    ' : ' . $trialResult->getPlace();
                 },
-            ))
-        ;
+            ));
     }
 }

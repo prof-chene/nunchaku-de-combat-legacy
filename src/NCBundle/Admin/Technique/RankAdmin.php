@@ -3,12 +3,13 @@
 namespace NCBundle\Admin\Technique;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class RankAdmin
+ *
  * @package NCBundle\Admin\Technique
  */
 class RankAdmin extends Admin
@@ -35,8 +36,7 @@ class RankAdmin extends Admin
                 'class' => 'NCBundle\Entity\Technique\Style',
                 'property' => 'name',
                 'required' => true,
-            ))
-        ;
+            ));
     }
 
     /**
@@ -48,8 +48,7 @@ class RankAdmin extends Admin
             ->add('name')
             ->add('description')
             ->add('level')
-            ->add('style.name')
-        ;
+            ->add('style.name');
     }
 
     /**
@@ -63,7 +62,6 @@ class RankAdmin extends Admin
             ->add('level')
             ->add('style', null, array(
                 'associated_property' => 'name',
-            ))
-        ;
+            ));
     }
 }

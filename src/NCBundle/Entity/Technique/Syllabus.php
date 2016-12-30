@@ -4,6 +4,7 @@ namespace NCBundle\Entity\Technique;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use NCBundle\Entity\AbstractEditorial;
 
 /**
  * Syllabus
@@ -11,28 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="syllabus")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\SyllabusRepository")
  */
-class Syllabus
+class Syllabus extends AbstractEditorial
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=500)
-     */
-    private $description;
     /**
      * @var Rank
      *
@@ -48,57 +29,8 @@ class Syllabus
 
     public function __construct()
     {
+        parent::__construct();
         $this->syllabusRequirements = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Syllabus
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Syllabus
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
     }
 
     /**
@@ -111,7 +43,8 @@ class Syllabus
 
     /**
      * @param Rank $rank
-     * @return Syllabus
+     *
+     * @return $this
      */
     public function setRank(Rank $rank)
     {
@@ -131,7 +64,7 @@ class Syllabus
     /**
      * @param ArrayCollection $syllabusRequirements
      *
-     * @return Syllabus
+     * @return $this
      */
     public function setSyllabusRequirements($syllabusRequirements)
     {
@@ -147,7 +80,7 @@ class Syllabus
      */
     public function addSyllabusRequirement(SyllabusRequirement $syllabusRequirement)
     {
-        if(!$this->syllabusRequirements->contains($syllabusRequirement)) {
+        if (!$this->syllabusRequirements->contains($syllabusRequirement)) {
             $this->syllabusRequirements->add($syllabusRequirement);
         }
 

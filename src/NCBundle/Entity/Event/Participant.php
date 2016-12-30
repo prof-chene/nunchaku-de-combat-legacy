@@ -65,6 +65,12 @@ class Participant
      */
     private $user;
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="registrants")
+     */
+    private $registrant;
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="participant")
@@ -73,9 +79,9 @@ class Participant
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AbstractEvent", mappedBy="participants")
+     * @ORM\ManyToOne(targetEntity="AbstractEvent", inversedBy="participants")
      */
-    private $events;
+    private $event;
 
     public function __construct()
     {
@@ -86,7 +92,7 @@ class Participant
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -104,7 +110,7 @@ class Participant
     /**
      * @param string $firstname
      *
-     * @return Participant
+     * @return $this
      */
     public function setFirstname($firstname)
     {
@@ -124,7 +130,7 @@ class Participant
     /**
      * @param string $lastname
      *
-     * @return Participant
+     * @return $this
      */
     public function setLastname($lastname)
     {
@@ -144,7 +150,7 @@ class Participant
     /**
      * @param string $phone
      *
-     * @return Participant
+     * @return $this
      */
     public function setPhone($phone)
     {
@@ -164,7 +170,7 @@ class Participant
     /**
      * @param \DateTime $dateOfBirth
      *
-     * @return Participant
+     * @return $this
      */
     public function setDateOfBirth($dateOfBirth)
     {
@@ -184,7 +190,7 @@ class Participant
     /**
      * @param string $gender
      *
-     * @return Participant
+     * @return $this
      */
     public function setGender($gender)
     {
@@ -204,7 +210,7 @@ class Participant
     /**
      * @param string $address
      *
-     * @return Participant
+     * @return $this
      */
     public function setAddress($address)
     {
@@ -224,11 +230,31 @@ class Participant
     /**
      * @param User $user
      *
-     * @return Participant
+     * @return $this
      */
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getRegistrant()
+    {
+        return $this->registrant;
+    }
+
+    /**
+     * @param User $registrant
+     *
+     * @return $this
+     */
+    public function setRegistrant(User $registrant)
+    {
+        $this->registrant = $registrant;
 
         return $this;
     }
@@ -244,7 +270,7 @@ class Participant
     /**
      * @param ArrayCollection $trialResults
      *
-     * @return Participant
+     * @return $this
      */
     public function setTrialResults($trialResults)
     {
@@ -260,7 +286,7 @@ class Participant
      */
     public function addTrialResult(TrialResult $trialResult)
     {
-        if(!$this->trialResults->contains($trialResult)) {
+        if (!$this->trialResults->contains($trialResult)) {
             $this->trialResults->add($trialResult);
         }
 
@@ -268,23 +294,11 @@ class Participant
     }
 
     /**
-     * @return ArrayCollection
+     * @return AbstractEvent
      */
-    public function getEvents()
+    public function getEvent()
     {
-        return $this->events;
-    }
-
-    /**
-     * @param ArrayCollection $events
-     *
-     * @return Participant
-     */
-    public function setEvents($events)
-    {
-        $this->events = $events;
-
-        return $this;
+        return $this->event;
     }
 
     /**
@@ -292,11 +306,9 @@ class Participant
      *
      * @return $this
      */
-    public function addEvent(AbstractEvent $event)
+    public function setEvent(AbstractEvent $event)
     {
-        if(!$this->events->contains($event)) {
-            $this->events->add($event);
-        }
+        $this->event = $event;
 
         return $this;
     }

@@ -4,8 +4,7 @@ namespace NCBundle\Entity\Technique;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use NCBundle\Entity\AbstractContent;
-use NCBundle\Entity\Technique\Exercise;
+use NCBundle\Entity\AbstractEditorial;
 
 /**
  * Supply
@@ -13,20 +12,8 @@ use NCBundle\Entity\Technique\Exercise;
  * @ORM\Table(name="supply")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\SupplyRepository")
  */
-class Supply extends AbstractContent
+class Supply extends AbstractEditorial
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=500)
-     */
-    private $description;
     /**
      * @var ArrayCollection
      *
@@ -41,46 +28,6 @@ class Supply extends AbstractContent
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Supply
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Supply
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
      * @return ArrayCollection
      */
     public function getExercises()
@@ -91,7 +38,7 @@ class Supply extends AbstractContent
     /**
      * @param ArrayCollection $exercises
      *
-     * @return Supply
+     * @return $this
      */
     public function setExercises($exercises)
     {
@@ -107,7 +54,7 @@ class Supply extends AbstractContent
      */
     public function addExercise(Exercise $exercise)
     {
-        if(!$this->exercises->contains($exercise)) {
+        if (!$this->exercises->contains($exercise)) {
             $this->exercises->add($exercise);
         }
 

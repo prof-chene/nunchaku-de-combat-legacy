@@ -4,9 +4,8 @@ namespace NCBundle\Entity\Technique;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use NCBundle\Entity\AbstractContent;
-use NCBundle\Entity\Event\EventTrainingCourse;
-use NCBundle\Entity\Technique\Supply;
+use NCBundle\Entity\AbstractEditorial;
+use NCBundle\Entity\Event\TrainingCourse;
 
 /**
  * Exercise
@@ -14,20 +13,8 @@ use NCBundle\Entity\Technique\Supply;
  * @ORM\Table(name="exercise")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\ExerciseRepository")
  */
-class Exercise extends AbstractContent
+class Exercise extends AbstractEditorial
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=1500)
-     */
-    private $description;
     /**
      * @var ArrayCollection
      *
@@ -49,9 +36,9 @@ class Exercise extends AbstractContent
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Event\EventTrainingCourse", mappedBy="exercises")
+     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Event\TrainingCourse", mappedBy="exercises")
      */
-    private $eventTrainingCourses;
+    private $trainingCourses;
 
     public function __construct()
     {
@@ -59,47 +46,7 @@ class Exercise extends AbstractContent
         $this->techniqueExecutions = new ArrayCollection();
         $this->syllabusRequirements = new ArrayCollection();
         $this->supplies = new ArrayCollection();
-        $this->eventTrainingCourses = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Exercise
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Exercise
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
+        $this->trainingCourses = new ArrayCollection();
     }
 
     /**
@@ -113,7 +60,7 @@ class Exercise extends AbstractContent
     /**
      * @param ArrayCollection $techniqueExecutions
      *
-     * @return Exercise
+     * @return $this
      */
     public function setTechniqueExecutions($techniqueExecutions)
     {
@@ -129,7 +76,7 @@ class Exercise extends AbstractContent
      */
     public function addTechniqueExecution(TechniqueExecution $techniqueExecution)
     {
-        if(!$this->techniqueExecutions->contains($techniqueExecution)) {
+        if (!$this->techniqueExecutions->contains($techniqueExecution)) {
             $this->techniqueExecutions->add($techniqueExecution);
         }
 
@@ -147,7 +94,7 @@ class Exercise extends AbstractContent
     /**
      * @param ArrayCollection $syllabusRequirements
      *
-     * @return Exercise
+     * @return $this
      */
     public function setSyllabusRequirements($syllabusRequirements)
     {
@@ -163,7 +110,7 @@ class Exercise extends AbstractContent
      */
     public function addSyllabusRequirement(SyllabusRequirement $syllabusRequirement)
     {
-        if(!$this->syllabusRequirements->contains($syllabusRequirement)) {
+        if (!$this->syllabusRequirements->contains($syllabusRequirement)) {
             $this->syllabusRequirements->add($syllabusRequirement);
         }
 
@@ -181,7 +128,7 @@ class Exercise extends AbstractContent
     /**
      * @param ArrayCollection $supplies
      *
-     * @return Exercise
+     * @return $this
      */
     public function setSupplies($supplies)
     {
@@ -197,7 +144,7 @@ class Exercise extends AbstractContent
      */
     public function addSupply(Supply $supply)
     {
-        if(!$this->supplies->contains($supply)) {
+        if (!$this->supplies->contains($supply)) {
             $this->supplies->add($supply);
         }
 
@@ -207,32 +154,32 @@ class Exercise extends AbstractContent
     /**
      * @return ArrayCollection
      */
-    public function getEventTrainingCourses()
+    public function getTrainingCourses()
     {
-        return $this->eventTrainingCourses;
+        return $this->trainingCourses;
     }
 
     /**
-     * @param ArrayCollection $eventTrainingCourses
+     * @param ArrayCollection $trainingCourses
      *
-     * @return Exercise
+     * @return $this
      */
-    public function setEventTrainingCourses($eventTrainingCourses)
+    public function setTrainingCourses($trainingCourses)
     {
-        $this->eventTrainingCourses = $eventTrainingCourses;
+        $this->trainingCourses = $trainingCourses;
 
         return $this;
     }
 
     /**
-     * @param EventTrainingCourse $eventTrainingCourse
+     * @param TrainingCourse $trainingCourse
      *
      * @return $this
      */
-    public function addEventTrainingCourse(EventTrainingCourse $eventTrainingCourse)
+    public function addTrainingCourse(TrainingCourse $trainingCourse)
     {
-        if(!$this->eventTrainingCourses->contains($eventTrainingCourse)) {
-            $this->eventTrainingCourses->add($eventTrainingCourse);
+        if (!$this->trainingCourses->contains($trainingCourse)) {
+            $this->trainingCourses->add($trainingCourse);
         }
 
         return $this;
