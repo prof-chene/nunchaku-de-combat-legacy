@@ -3,17 +3,17 @@
 namespace Application\Sonata\ClassificationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sonata\ClassificationBundle\Entity\BaseCategory;
+use Sonata\ClassificationBundle\Entity\BaseContext as BaseContext;
 
 /**
- * Class Category
+ * Class Context
  *
  * @package Application\Sonata\ClassificationBundle\Entity
  *
- * @ORM\Table(name="category")
+ * @ORM\Table(name="context")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
-class Category extends BaseCategory
+class Context extends BaseContext
 {
     /**
      * @var int
