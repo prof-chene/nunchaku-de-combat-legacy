@@ -46,18 +46,18 @@ sonata_user_change_password:
     requirements:
         _locale: '%locales%'
 # Media
-#gallery:
-#    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
-#    prefix: /{_locale}/media/gallery
-#    requirements:
-#        _locale: '%locales%'
-#media:
-#    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
-#    prefix: /{_locale}/media
-#    requirements:
-#        _locale: '%locales%'
-#news:
-#    resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
-#    prefix: /{_locale}/news
-#    requirements:
-#        _locale: '%locales%'
+sonata_gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /{_locale}/media/gallery
+    requirements:
+        _locale: '%locales%'
+sonata_media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /{_locale}/media
+    requirements:
+        _locale: '%locales%'
+sonata_news:
+    resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
+    prefix: /{_locale}/news
+    requirements:
+        _locale: '%locales%'

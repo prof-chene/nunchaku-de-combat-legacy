@@ -1,9 +1,14 @@
 services:
+    admin.abstract_editorial:
+        abstract: true
+        calls:
+            - [setPoolFormatter, ['@sonata.formatter.pool']]
     admin.competition:
         class: NCBundle\Admin\Event\CompetitionAdmin
         arguments: [~, NCBundle\Entity\Event\Competition, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Competitions, group: Event }
+        parent: admin.abstract_editorial
     admin.trial:
         class: NCBundle\Admin\Event\TrialAdmin
         arguments: [~, NCBundle\Entity\Event\Trial, ~]

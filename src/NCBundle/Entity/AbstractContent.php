@@ -2,6 +2,9 @@
 
 namespace NCBundle\Entity;
 
+use Application\Sonata\ClassificationBundle\Entity\Tag;
+use Application\Sonata\MediaBundle\Entity\Media;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -14,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="content")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="content_type", type="string")
  *
@@ -71,7 +75,7 @@ abstract class AbstractContent
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", mappedBy="content")
+     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", mappedBy="content", cascade={"persist"})
      */
     protected $medias;
 
@@ -106,7 +110,7 @@ abstract class AbstractContent
      */
     public function setSlug($slug)
     {
-        $this->slug = $slug;
+        $this->slug = self::slugify($slug);
 
         return $this;
     }
@@ -259,6 +263,29 @@ abstract class AbstractContent
         return $this;
     }
 
+    /**
+     * source : http://snipplr.com/view/22741/slugify-a-string-in-php/.
+     *
+     * @static
+     *
+     * @param string $text
+     *
+     * @return mixed|string
+     */
+    public static function slugify($text)
+    {
+        $text = Slugify::create()->slugify($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
     public function prePersist()
     {
         if (empty($this->getPublicationDateStart())) {
@@ -268,6 +295,9 @@ abstract class AbstractContent
         $this->setUpdatedAt(new \DateTime());
     }
 
+    /**
+     * @ORM\PreUpdate
+     */
     public function preUpdate()
     {
         if (empty($this->getPublicationDateStart())) {

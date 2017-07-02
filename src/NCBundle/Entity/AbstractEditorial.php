@@ -34,6 +34,13 @@ abstract class AbstractEditorial extends AbstractContent
     protected $rawContent;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="content_formatter", type="text")
+     */
+    protected $contentFormatter;
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -49,6 +56,7 @@ abstract class AbstractEditorial extends AbstractContent
     public function setTitle($title)
     {
         $this->title = $title;
+        $this->setSlug($title);
 
         return $this;
     }
@@ -89,6 +97,26 @@ abstract class AbstractEditorial extends AbstractContent
     public function setRawContent($rawContent)
     {
         $this->rawContent = $rawContent;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentFormatter()
+    {
+        return $this->contentFormatter;
+    }
+
+    /**
+     * @param string $contentFormatter
+     *
+     * @return $this
+     */
+    public function setContentFormatter($contentFormatter)
+    {
+        $this->contentFormatter = $contentFormatter;
 
         return $this;
     }

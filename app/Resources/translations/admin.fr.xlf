@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="group_content">
+                <source>group_content</source>
+                <target>Contenu</target>
+            </trans-unit>
+            <trans-unit id="group_event">
+                <source>group_event</source>
+                <target>Evénement</target>
+            </trans-unit>
+            <trans-unit id="group_scheduling">
+                <source>group_scheduling</source>
+                <target>Planification</target>
+            </trans-unit>
+            <trans-unit id="group_status">
+                <source>group_status</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="tab_informations">
+                <source>tab_informations</source>
+                <target>Informations</target>
+            </trans-unit>
+            <trans-unit id="tab_participants">
+                <source>tab_participants</source>
+                <target>Participants</target>
+            </trans-unit>
+            <trans-unit id="tab_trials">
+                <source>tab_trials</source>
+                <target>Epreuves</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

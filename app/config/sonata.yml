@@ -26,6 +26,8 @@ sonata_admin:
         # Override default template
         layout: ::Admin/admin_layout.html.twig
         user_block: ::Admin/user_block.html.twig
+    options:
+        form_type: ~
 sonata_news:
     title:        News
     link:         https://sonata-project.org
@@ -75,30 +77,33 @@ sonata_media:
             create:     false
 sonata_formatter:
     formatters:
-        markdown:
-            service: sonata.formatter.text.markdown
-            extensions:
-                - sonata.formatter.twig.control_flow
-                - sonata.formatter.twig.gist
-                - sonata.media.formatter.twig
-        text:
-            service: sonata.formatter.text.text
-            extensions:
-                - sonata.formatter.twig.control_flow
-                - sonata.formatter.twig.gist
-                - sonata.media.formatter.twig
-        rawhtml:
-            service: sonata.formatter.text.raw
-            extensions:
-                - sonata.formatter.twig.control_flow
-                - sonata.formatter.twig.gist
-                - sonata.media.formatter.twig
+#        markdown:
+#            service: sonata.formatter.text.markdown
+#            extensions:
+#                - sonata.formatter.twig.control_flow
+#                - sonata.formatter.twig.gist
+#                - sonata.media.formatter.twig
+#        text:
+#            service: sonata.formatter.text.text
+#            extensions:
+#                - sonata.formatter.twig.control_flow
+#                - sonata.formatter.twig.gist
+#                - sonata.media.formatter.twig
+#        rawhtml:
+#            service: sonata.formatter.text.raw
+#            extensions:
+#                - sonata.formatter.twig.control_flow
+#                - sonata.formatter.twig.gist
+#                - sonata.media.formatter.twig
         richhtml:
             service: sonata.formatter.text.raw
             extensions:
                 - sonata.formatter.twig.control_flow
                 - sonata.formatter.twig.gist
                 - sonata.media.formatter.twig
+#        twig:
+#            service: sonata.formatter.text.twigengine
+#            extensions: [] # Twig formatter cannot have extensions
 
 sonata_intl:
     timezone:

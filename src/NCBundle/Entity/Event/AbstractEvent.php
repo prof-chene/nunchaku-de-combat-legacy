@@ -19,19 +19,19 @@ abstract class AbstractEvent extends AbstractEditorial
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="start_date", type="datetime")
+     * @ORM\Column(name="start_date", type="datetime", nullable=true)
      */
     private $startDate;
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="end_date", type="datetime")
+     * @ORM\Column(name="end_date", type="datetime", nullable=true)
      */
     private $endDate;
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=500)
+     * @ORM\Column(name="address", type="string", length=500, nullable=true)
      */
     private $address;
     /**

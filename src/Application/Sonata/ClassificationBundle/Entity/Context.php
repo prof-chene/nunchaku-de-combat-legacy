@@ -2,6 +2,7 @@
 
 namespace Application\Sonata\ClassificationBundle\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\ClassificationBundle\Entity\BaseContext as BaseContext;
 
@@ -16,11 +17,10 @@ use Sonata\ClassificationBundle\Entity\BaseContext as BaseContext;
 class Context extends BaseContext
 {
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="string")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -32,5 +32,13 @@ class Context extends BaseContext
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = Slugify::create()->slugify($id);
     }
 }

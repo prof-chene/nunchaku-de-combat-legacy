@@ -2,3 +2,38 @@
 
 {% block side_bar_after_nav %}
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        'bundles/sonataformatter/markitup/skins/sonata/style.css'
+        'bundles/sonataformatter/markitup/sets/markdown/style.css'
+        'bundles/sonataformatter/markitup/sets/html/style.css'
+        'bundles/sonataformatter/markitup/sets/textile/style.css'
+        filter='cssrewrite'
+        output='assetic/admin_nc.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# THIS IS AN UGLY FIX
+       Ivoryckeditor #}
+    <script>
+        window.CKEDITOR_BASEPATH = '/bundles/ivoryckeditor/';
+    </script>
+    {% javascripts
+        'bundles/ivoryckeditor/ckeditor.js'
+        'bundles/sonataformatter/vendor/markitup-markitup/markitup/jquery.markitup.js'
+        'bundles/sonataformatter/markitup/sets/markdown/set.js'
+        'bundles/sonataformatter/markitup/sets/html/set.js'
+        'bundles/sonataformatter/markitup/sets/textile/set.js'
+        output='assetic/admin_nc.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

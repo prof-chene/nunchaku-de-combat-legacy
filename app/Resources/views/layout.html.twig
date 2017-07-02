@@ -26,18 +26,20 @@
             'js/jquery/jquery.min.js'
             'js/jquery/*'
             'js/bootstrap/*'
+            'bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
             'bundles/nc/js/*'
-            output='assetic/app.js'
+            output='assetic/nc.js'
         %}
-            <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
         {% block javascripts %}
         {% endblock %}
         {% stylesheets
             'css/bootstrap/*'
+            'bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
             'bundles/nc/css/*'
             filter='cssrewrite'
-            output='assetic/app.css'
+            output='assetic/nc.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}

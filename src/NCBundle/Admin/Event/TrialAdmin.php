@@ -22,7 +22,7 @@ class TrialAdmin extends Admin
     /**
      * @var string
      */
-    protected $baseRoutePattern = 'event';
+    protected $baseRoutePattern = 'trial';
 
     /**
      * @param FormMapper $formMapper

@@ -4,7 +4,7 @@ namespace NCBundle\Admin\Event;
 
 use Application\Sonata\UserBundle\Entity\User;
 use NCBundle\Entity\Event\TrialResult;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -14,7 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  *
  * @package NCBundle\Admin\Event
  */
-class ParticipantAdmin extends Admin
+class ParticipantAdmin extends AbstractAdmin
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class ParticipantAdmin extends Admin
     /**
      * @var string
      */
-    protected $baseRoutePattern = 'event';
+    protected $baseRoutePattern = 'participant';
 
     /**
      * @param FormMapper $formMapper
@@ -31,8 +31,8 @@ class ParticipantAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('lastName', 'text')
-            ->add('firstName', 'text')
+            ->add('lastname', 'text')
+            ->add('firstname', 'text')
             ->add('phone', 'text')
             ->add('dateOfBirth', 'date')
             ->add('gender', 'choice', array(
