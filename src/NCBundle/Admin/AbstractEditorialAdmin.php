@@ -71,18 +71,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
                 'target_field' => 'content',
                 'listener' => true,
             ))
-            ->add('medias', 'sonata_type_collection', array(
-                'type_options' => array(
-                    'delete' => false,
-                ),
-            ), array(
-                'edit' => 'inline',
-                'inline' => 'table',
-                'link_parameters' => array(
-                    'hide_context' => true,
-                )
-
-            ))
+            ->add('thumbnail', 'sonata_type_model')
             ->end()
             ->with('group_status', array(
                 'class' => 'col-md-4',

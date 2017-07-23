@@ -96,6 +96,14 @@ class User extends BaseUser
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFullname();
+    }
+
+    /**
      * Get id
      *
      * @return int $id

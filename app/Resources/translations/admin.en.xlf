@@ -30,6 +30,10 @@
                 <source>tab_trials</source>
                 <target>Trials</target>
             </trans-unit>
+            <trans-unit id="tab_schedule">
+                <source>tab_schedule</source>
+                <target>Schedule</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

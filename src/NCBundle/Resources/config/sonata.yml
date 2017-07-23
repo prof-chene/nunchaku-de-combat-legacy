@@ -3,6 +3,7 @@ services:
         abstract: true
         calls:
             - [setPoolFormatter, ['@sonata.formatter.pool']]
+
     admin.competition:
         class: NCBundle\Admin\Event\CompetitionAdmin
         arguments: [~, NCBundle\Entity\Event\Competition, ~]
@@ -24,11 +25,13 @@ services:
         arguments: [~, NCBundle\Entity\Event\TrainingCourse, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Training courses, group: Event }
+        parent: admin.abstract_editorial
     admin.show:
         class: NCBundle\Admin\Event\ShowAdmin
         arguments: [~, NCBundle\Entity\Event\Show, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Shows, group: Event }
+        parent: admin.abstract_editorial
     admin.participant:
         class: NCBundle\Admin\Event\ParticipantAdmin
         arguments: [~, NCBundle\Entity\Event\Participant, ~]
@@ -40,6 +43,7 @@ services:
         arguments: [~, NCBundle\Entity\FAQ\FAQ, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: FAQs, group: FAQ }
+        parent: admin.abstract_editorial
     admin.question:
         class: NCBundle\Admin\FAQ\QuestionAdmin
         arguments: [~, NCBundle\Entity\FAQ\Question, ~]
@@ -51,6 +55,7 @@ services:
         arguments: [~, NCBundle\Entity\Technique\Technique, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Techniques, group: Technique }
+        parent: admin.abstract_editorial
     admin.technique_execution:
         class: NCBundle\Admin\Technique\TechniqueExecutionAdmin
         arguments: [~, NCBundle\Entity\Technique\TechniqueExecution, ~]
@@ -61,11 +66,13 @@ services:
         arguments: [~, NCBundle\Entity\Technique\Exercise, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Exercises, group: Technique }
+        parent: admin.abstract_editorial
     admin.syllabus:
         class: NCBundle\Admin\Technique\SyllabusAdmin
         arguments: [~, NCBundle\Entity\Technique\Syllabus, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Syllabuses, group: Technique }
+        parent: admin.abstract_editorial
     admin.syllabus_requirement:
         class: NCBundle\Admin\Technique\SyllabusRequirementAdmin
         arguments: [~, NCBundle\Entity\Technique\SyllabusRequirement, ~]
@@ -76,13 +83,16 @@ services:
         arguments: [~, NCBundle\Entity\Technique\Rank, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Ranks, group: Technique }
+        parent: admin.abstract_editorial
     admin.style:
         class: NCBundle\Admin\Technique\StyleAdmin
         arguments: [~, NCBundle\Entity\Technique\Style, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Styles, group: Technique }
+        parent: admin.abstract_editorial
     admin.supply:
         class: NCBundle\Admin\Technique\SupplyAdmin
         arguments: [~, NCBundle\Entity\Technique\Supply, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Supplies, group: Technique }
+        parent: admin.abstract_editorial

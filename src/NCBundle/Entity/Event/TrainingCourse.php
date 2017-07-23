@@ -17,14 +17,6 @@ class TrainingCourse extends AbstractEvent
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Participant")
-     * @ORM\JoinTable(name="training_course_trainer")}
-     * )
-     */
-    private $trainers;
-    /**
-     * @var ArrayCollection
-     *
      * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Technique\Exercise", inversedBy="trainingCourses")
      * @ORM\JoinTable(name="training_course_exercise")}
      * )
@@ -34,42 +26,7 @@ class TrainingCourse extends AbstractEvent
     public function __construct()
     {
         parent::__construct();
-        $this->trainers = new ArrayCollection();
         $this->exercises = new ArrayCollection();
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTrainers()
-    {
-        return $this->trainers;
-    }
-
-    /**
-     * @param ArrayCollection $trainers
-     *
-     * @return $this
-     */
-    public function setTrainers($trainers)
-    {
-        $this->trainers = $trainers;
-
-        return $this;
-    }
-
-    /**
-     * @param Participant $trainer
-     *
-     * @return $this
-     */
-    public function addTrainer(Participant $trainer)
-    {
-        if (!$this->trainers->contains($trainer)) {
-            $this->trainers->add($trainer);
-        }
-
-        return $this;
     }
 
     /**

@@ -2,12 +2,12 @@
 
 namespace NCBundle\Admin\Technique;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class SyllabusRequirementAdmin extends Admin
+class SyllabusRequirementAdmin extends AbstractAdmin
 {
     /**
      * @var string

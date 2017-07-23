@@ -31,10 +31,10 @@ class ParticipantAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('lastname', 'text')
-            ->add('firstname', 'text')
-            ->add('phone', 'text')
-            ->add('dateOfBirth', 'date')
+            ->add('lastname')
+            ->add('firstname')
+            ->add('phone')
+            ->add('dateOfBirth', 'sonata_type_date_picker')
             ->add('gender', 'choice', array(
                 'choices' => array(
                     'm' => 'male',
@@ -42,10 +42,15 @@ class ParticipantAdmin extends AbstractAdmin
                 )
             ))
             ->add('address', 'textarea')
-            ->add('user', 'sonata_type_model', array(
+            ->add('user', 'sonata_type_model_autocomplete', array(
                 'class' => 'Application\Sonata\UserBundle\Entity\User',
-                'property' => 'name',
+                'property' => array('firstname', 'lastname', 'username'),
                 'required' => false,
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+                'to_string_callback' => function($entity, $property) {
+                    return $entity->getFullname().' (@'.$entity->getUsername().')';
+                },
             ));
     }
 
@@ -61,9 +66,9 @@ class ParticipantAdmin extends AbstractAdmin
             ->add('dateOfBirth')
             ->add('gender')
             ->add('address')
-            ->add('user.lastName')
+            ->add('user.lastname')
             ->add('user.firstname')
-            ->add('trialResults.trial.competition.name');
+            ->add('event.title');
     }
 
     /**
@@ -80,15 +85,11 @@ class ParticipantAdmin extends AbstractAdmin
             ->add('address')
             ->add('user', null, array(
                 'associated_property' => function (User $user) {
-                    return $user->getLastname() . ' ' . $user->getFirstname();
+                    return $user->getFullname();
                 },
             ))
-            ->add('trialResults', null, array(
-                'associated_property' => function (TrialResult $trialResult) {
-                    return $trialResult->getTrial()->getCompetition()->getName() .
-                    ' - ' . $trialResult->getTrial()->getName() .
-                    ' : ' . $trialResult->getPlace();
-                },
+            ->add('event', null, array(
+                'associated_property' => 'title',
             ));
     }
 }

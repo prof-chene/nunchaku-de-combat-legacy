@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package NCBundle\Entity\Event
  *
- * @ORM\Table(name="show")
+ * @ORM\Table(name="`show`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\ShowRepository")
  */
 class Show extends AbstractEvent

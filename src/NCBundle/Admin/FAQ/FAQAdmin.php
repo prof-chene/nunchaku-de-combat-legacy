@@ -2,7 +2,7 @@
 
 namespace NCBundle\Admin\FAQ;
 
-use Sonata\AdminBundle\Admin\Admin;
+use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  *
  * @package NCBundle\Admin\FAQ
  */
-class FAQAdmin extends Admin
+class FAQAdmin extends AbstractEditorialAdmin
 {
     /**
      * @var string

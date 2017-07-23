@@ -59,6 +59,18 @@ class Participant
      */
     private $address;
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="trainer", type="boolean")
+     */
+    private $trainer;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="referee", type="boolean")
+     */
+    private $referee;
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="participants")
@@ -217,6 +229,38 @@ class Participant
         $this->address = $address;
 
         return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isTrainer()
+    {
+        return $this->trainer;
+    }
+
+    /**
+     * @param boolean $trainer
+     */
+    public function setTrainer($trainer)
+    {
+        $this->trainer = $trainer;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isReferee()
+    {
+        return $this->referee;
+    }
+
+    /**
+     * @param boolean $referee
+     */
+    public function setReferee($referee)
+    {
+        $this->referee = $referee;
     }
 
     /**

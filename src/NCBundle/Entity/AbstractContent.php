@@ -69,19 +69,18 @@ abstract class AbstractContent
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Application\Sonata\ClassificationBundle\Entity\Tag", mappedBy="contents")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="contents")
      */
-    protected $tags;
+    protected $thumbnail;
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\Media", mappedBy="content", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Application\Sonata\ClassificationBundle\Entity\Tag", mappedBy="contents")
      */
-    protected $medias;
+    protected $tags;
 
     public function __construct()
     {
-        $this->medias = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
 
@@ -198,6 +197,26 @@ abstract class AbstractContent
     /**
      * @return ArrayCollection
      */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * @param ArrayCollection $thumbnail
+     *
+     * @return $this
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
     public function getTags()
     {
         return $this->tags;
@@ -224,40 +243,6 @@ abstract class AbstractContent
     {
         if (!$this->tags->contains($tag)) {
             $this->tags->add($tag);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getMedias()
-    {
-        return $this->medias;
-    }
-
-    /**
-     * @param ArrayCollection $medias
-     *
-     * @return AbstractContent
-     */
-    public function setMedias($medias)
-    {
-        $this->medias = $medias;
-
-        return $this;
-    }
-
-    /**
-     * @param Media $media
-     *
-     * @return $this
-     */
-    public function addMedia(Media $media)
-    {
-        if (!$this->medias->contains($media)) {
-            $this->medias->add($media);
         }
 
         return $this;

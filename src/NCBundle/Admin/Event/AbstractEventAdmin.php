@@ -38,17 +38,9 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                 'target_field' => 'content',
                 'listener' => true,
             ))
-            ->add('medias', 'sonata_type_collection', array(
-                'type_options' => array(
-                    'delete' => false,
-                ),
-            ), array(
-                'edit' => 'inline',
-                'inline' => 'table',
-                'link_parameters' => array(
-                    'hide_context' => true,
-                )
-
+            ->add('thumbnail', 'sonata_media_type', array(
+                'context' => 'event',
+                'provider' => 'sonata.media.provider.image',
             ))
             ->end()
             ->with('group_status', array(
@@ -67,9 +59,6 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
             ->end()
             ->tab('tab_participants')
             ->add('participants', 'sonata_type_collection', array(
-                'type_options' => array(
-                    'delete' => false,
-                ),
             ), array(
                 'edit' => 'inline',
                 'inline' => 'table',
@@ -77,7 +66,6 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                     'hide_context' => true,
                 )
             ))
-            ->end()
             ->end();
     }
 

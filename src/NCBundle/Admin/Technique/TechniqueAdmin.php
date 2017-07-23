@@ -2,7 +2,7 @@
 
 namespace NCBundle\Admin\Technique;
 
-use Sonata\AdminBundle\Admin\Admin;
+use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  *
  * @package NCBundle\Admin\Technique
  */
-class TechniqueAdmin extends Admin
+class TechniqueAdmin extends AbstractEditorialAdmin
 {
     /**
      * @var string

@@ -4,7 +4,7 @@ namespace NCBundle\Admin\Event;
 
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\TrialResult;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -14,7 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  *
  * @package NCBundle\Admin\Event
  */
-class TrialResultAdmin extends Admin
+class TrialResultAdmin extends AbstractAdmin
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class TrialResultAdmin extends Admin
     /**
      * @var string
      */
-    protected $baseRoutePattern = 'event';
+    protected $baseRoutePattern = 'trialResult';
 
     /**
      * @param FormMapper $formMapper

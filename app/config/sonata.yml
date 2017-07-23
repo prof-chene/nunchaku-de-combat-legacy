@@ -1,3 +1,6 @@
+parameters:
+    sonata.user.admin.user.class: Application\Sonata\UserBundle\Admin\UserAdmin
+
 doctrine:
     orm:
         entity_managers:
