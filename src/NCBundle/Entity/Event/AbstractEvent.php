@@ -4,6 +4,7 @@ namespace NCBundle\Entity\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use NCBundle\Entity\AbstractEditorial;
 
 /**
@@ -37,7 +38,8 @@ abstract class AbstractEvent extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Participant", mappedBy="event")
+     * @Assert\Valid()
+     * @ORM\OneToMany(targetEntity="Participant", mappedBy="event", cascade={"persist", "remove"})
      */
     private $participants;
 

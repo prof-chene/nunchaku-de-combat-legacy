@@ -49,46 +49,6 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
     }
 
     /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $isHorizontal = $this->getConfigurationPool()->getOption('form_type') == 'horizontal';
-        $formMapper
-            ->with('group_content', array(
-                'class' => 'col-md-8',
-            ))
-            ->add('title')
-            ->add('content', 'sonata_formatter_type', array(
-                'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
-                'format_field' => 'contentFormatter',
-                'source_field' => 'rawContent',
-                'source_field_options' => array(
-                    'horizontal_input_wrapper_class' => $isHorizontal ? 'col-lg-12' : '',
-                    'attr' => array('class' => $isHorizontal ? 'span10 col-sm-10 col-md-10' : '', 'rows' => 20),
-                ),
-                'ckeditor_context' => 'content',
-                'target_field' => 'content',
-                'listener' => true,
-            ))
-            ->add('thumbnail', 'sonata_type_model')
-            ->end()
-            ->with('group_status', array(
-                'class' => 'col-md-4',
-            ))
-            ->add('tags', 'sonata_type_model_autocomplete', array(
-                'property' => 'name',
-                'multiple' => 'true',
-                'required' => false,
-                'minimum_input_length' => 2,
-                'quiet_millis' => 500,
-            ))
-            ->add('publicationDateStart', 'sonata_type_datetime_picker')
-            ->add('enabled')
-            ->end();
-    }
-
-    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

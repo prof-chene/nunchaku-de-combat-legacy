@@ -26,6 +26,11 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                 'class' => 'col-md-8',
             ))
             ->add('title')
+            ->add('thumbnail', 'sonata_media_type', array(
+                'context' => 'event',
+                'provider' => 'sonata.media.provider.image',
+                'required' => false,
+            ))
             ->add('content', 'sonata_formatter_type', array(
                 'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
                 'format_field' => 'contentFormatter',
@@ -34,17 +39,26 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                     'horizontal_input_wrapper_class' => $isHorizontal ? 'col-lg-12' : '',
                     'attr' => array('class' => $isHorizontal ? 'span10 col-sm-10 col-md-10' : '', 'rows' => 20),
                 ),
-                'ckeditor_context' => 'content',
+                'ckeditor_context' => 'event',
                 'target_field' => 'content',
                 'listener' => true,
             ))
-            ->add('thumbnail', 'sonata_media_type', array(
-                'context' => 'event',
-                'provider' => 'sonata.media.provider.image',
+            ->end()
+            ->with('group_scheduling', array(
+                'class' => 'col-md-4',
+            ))
+            ->add('address')
+            ->add('startDate', 'sonata_type_datetime_picker', array(
+                'datepicker_use_button' => false,
+                'dp_default_date' => new \DateTime(),
+            ))
+            ->add('endDate', 'sonata_type_datetime_picker', array(
+                'datepicker_use_button' => false,
+                'dp_default_date' => new \DateTime(),
             ))
             ->end()
             ->with('group_status', array(
-                'class' => 'col-md-4',
+                'class' => 'col-md-6',
             ))
             ->add('tags', 'sonata_type_model_autocomplete', array(
                 'property' => 'name',
@@ -53,12 +67,16 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                 'minimum_input_length' => 2,
                 'quiet_millis' => 500,
             ))
-            ->add('publicationDateStart', 'sonata_type_datetime_picker')
+            ->add('publicationDateStart', 'sonata_type_datetime_picker', array(
+                'datepicker_use_button' => false,
+                'dp_default_date' => new \DateTime(),
+            ))
             ->add('enabled')
             ->end()
             ->end()
             ->tab('tab_participants')
             ->add('participants', 'sonata_type_collection', array(
+                'required' => false,
             ), array(
                 'edit' => 'inline',
                 'inline' => 'table',
@@ -66,6 +84,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                     'hide_context' => true,
                 )
             ))
+            ->end()
             ->end();
     }
 
@@ -74,14 +93,10 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        parent::configureDatagridFilters($datagridMapper);
         $datagridMapper
-            ->add('title')
             ->add('startDate', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker',))
-            ->add('endDate', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker',))
-            ->add('tags', null, array(
-                'field_options' => array('expanded' => true, 'multiple' => true),
-            ))
-            ->add('enabled');
+            ->add('endDate', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker',));
     }
 
     /**
@@ -89,11 +104,9 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        parent::configureListFields($listMapper);
         $listMapper
-            ->addIdentifier('title')
             ->add('startDate')
-            ->add('endDate')
-            ->add('tags')
-            ->add('enabled');
+            ->add('endDate');
     }
 }

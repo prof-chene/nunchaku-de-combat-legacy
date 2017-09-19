@@ -5,6 +5,7 @@ namespace NCBundle\Entity\Event;
 use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Participant
@@ -25,11 +26,15 @@ class Participant
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="firstname", type="string", length=100)
      */
     private $firstname;
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="lastname", type="string", length=100)
      */
@@ -43,11 +48,15 @@ class Participant
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="date_of_birth", type="datetime")
      */
     private $dateOfBirth;
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="gender", type="string", length=1)
      */
@@ -58,6 +67,12 @@ class Participant
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="host", type="boolean")
+     */
+    private $host;
     /**
      * @var bool
      *
@@ -91,6 +106,8 @@ class Participant
     /**
      * @var ArrayCollection
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\ManyToOne(targetEntity="AbstractEvent", inversedBy="participants")
      */
     private $event;
@@ -98,7 +115,6 @@ class Participant
     public function __construct()
     {
         $this->trialResults = new ArrayCollection();
-        $this->events = new ArrayCollection();
     }
 
     /**
@@ -227,6 +243,26 @@ class Participant
     public function setAddress($address)
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * @param boolean $host
+     *
+     * @return $this
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
 
         return $this;
     }

@@ -69,7 +69,7 @@ abstract class AbstractContent
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="contents")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="contents", cascade={"persist"})
      */
     protected $thumbnail;
     /**

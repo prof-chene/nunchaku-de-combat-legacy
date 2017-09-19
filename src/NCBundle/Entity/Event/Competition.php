@@ -16,7 +16,7 @@ class Competition extends AbstractEvent
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Trial", mappedBy="competition")
+     * @ORM\OneToMany(targetEntity="Trial", mappedBy="competition", cascade={"persist", "remove"})
      */
     private $trials;
 

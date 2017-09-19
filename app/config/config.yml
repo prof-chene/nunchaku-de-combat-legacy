@@ -40,6 +40,7 @@ twig:
     form:
         resources:
             - 'bootstrap_3_layout.html.twig'
+            - 'SonataMediaBundle:Form:media_widgets.html.twig'
     form_themes:
         - 'SonataCoreBundle:Form:datepicker.html.twig'
         - 'SonataFormatterBundle:Form:formatter.html.twig'
@@ -98,6 +99,25 @@ fos_user:
 # IvoryCKEditor Configuration
 ivory_ck_editor:
     configs:
+        content:
+            # default toolbar plus Format button
+            toolbar:
+            - [Bold, Italic, Underline, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, -, NumberedList, BulletedList, -, Outdent, Indent, -, Blockquote, -, Image, Link, Unlink, Table]
+            - [Format, Maximize, Source]
+            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            # Display images by default when clicking the image dialog browse button
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+            # Upload file as image when sending a file from the image dialog
+            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
+                context: content
+            uiColor: "#3c8dbc"
         news:
             # default toolbar plus Format button
             toolbar:
@@ -117,7 +137,7 @@ ivory_ck_editor:
                 provider: sonata.media.provider.image
                 context: news
             uiColor: "#3c8dbc"
-        content:
+        event:
             # default toolbar plus Format button
             toolbar:
             - [Bold, Italic, Underline, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, -, NumberedList, BulletedList, -, Outdent, Indent, -, Blockquote, -, Image, Link, Unlink, Table]
@@ -134,5 +154,24 @@ ivory_ck_editor:
             filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
-                context: news
+                context: event
+            uiColor: "#3c8dbc"
+        technique:
+            # default toolbar plus Format button
+            toolbar:
+            - [Bold, Italic, Underline, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, -, NumberedList, BulletedList, -, Outdent, Indent, -, Blockquote, -, Image, Link, Unlink, Table]
+            - [Format, Maximize, Source]
+            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            # Display images by default when clicking the image dialog browse button
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+            # Upload file as image when sending a file from the image dialog
+            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
+                context: technique
             uiColor: "#3c8dbc"

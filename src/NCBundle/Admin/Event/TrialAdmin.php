@@ -29,26 +29,21 @@ class TrialAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $isHorizontal = $this->getConfigurationPool()->getOption('form_type') == 'horizontal';
         $formMapper
             ->add('name', 'text')
-            ->add('rules', 'textarea')
-            ->add('competition', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Event\Competition',
-                'property' => 'name',
-                'required' => true,
-            ))
-            ->add('trialResults',
-                'sonata_type_collection',
-                array(
-                    'type_options' => array(
-                        'data_class' => 'NCBundle\Entity\Event\TrialResult',
-                    )
+            ->add('rules', 'sonata_formatter_type', array(
+                'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
+                'format_field' => 'rulesFormatter',
+                'source_field' => 'rawRules',
+                'source_field_options' => array(
+                    'horizontal_input_wrapper_class' => $isHorizontal ? 'col-lg-12' : '',
+                    'attr' => array('class' => $isHorizontal ? 'span10 col-sm-10 col-md-10' : '', 'rows' => 20),
                 ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            );
+                'ckeditor_context' => 'event',
+                'target_field' => 'rules',
+                'listener' => true,
+            ));
     }
 
     /**
@@ -59,9 +54,7 @@ class TrialAdmin extends AbstractAdmin
         $datagridMapper
             ->add('name')
             ->add('rules')
-            ->add('competition.name')
-            ->add('trialResults.participant.lastname')
-            ->add('trialResults.participant.firstname');
+            ->add('competition.title');
     }
 
     /**
@@ -73,13 +66,7 @@ class TrialAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('rules')
             ->add('competition', null, array(
-                'associated_property' => 'name',
-            ))
-            ->add('trialResults', null, array(
-                'associated_property' => function (TrialResult $result) {
-                    return $result->getParticipant()->getLastname() . ' ' . $result->getParticipant()->getFirstname() .
-                    ' : ' . $result->getPlace();
-                },
+                'associated_property' => 'title',
             ));
     }
 }

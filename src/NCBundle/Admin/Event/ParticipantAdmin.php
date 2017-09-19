@@ -3,7 +3,6 @@
 namespace NCBundle\Admin\Event;
 
 use Application\Sonata\UserBundle\Entity\User;
-use NCBundle\Entity\Event\TrialResult;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -34,7 +33,10 @@ class ParticipantAdmin extends AbstractAdmin
             ->add('lastname')
             ->add('firstname')
             ->add('phone')
-            ->add('dateOfBirth', 'sonata_type_date_picker')
+            ->add('dateOfBirth', 'sonata_type_date_picker', array(
+                'datepicker_use_button' => false,
+                'dp_max_date' => new \DateTime(),
+            ))
             ->add('gender', 'choice', array(
                 'choices' => array(
                     'm' => 'male',
@@ -43,6 +45,7 @@ class ParticipantAdmin extends AbstractAdmin
             ))
             ->add('address', 'textarea')
             ->add('user', 'sonata_type_model_autocomplete', array(
+                'placeholder' => 'choose_user',
                 'class' => 'Application\Sonata\UserBundle\Entity\User',
                 'property' => array('firstname', 'lastname', 'username'),
                 'required' => false,
@@ -51,7 +54,39 @@ class ParticipantAdmin extends AbstractAdmin
                 'to_string_callback' => function($entity, $property) {
                     return $entity->getFullname().' (@'.$entity->getUsername().')';
                 },
-            ));
+            ))
+            ->add('event', 'hidden', array(
+                'data' => $this->getParentFieldDescription()->getAdmin()->getSubject()
+            ))
+            ->add('registrant', 'hidden', array(
+                'data' => $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser()
+            ))
+        ;
+
+        // Stuff related to the parent Event
+        if ($this->hasParentFieldDescription()) {
+//            $formMapper->getFormBuilder()->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $formEvent) {
+//                $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+//                $event = $this->getParentFieldDescription()->getAdmin()->getSubject();
+//                $participant = $formEvent->getForm()->getData();
+//                if ($participant instanceof Participant) {
+//                    $participant->setEvent($event)->setRegistrant($user);
+//                }
+//            });
+
+            // Conditionnal field based on the Event type
+            switch ($this->getParentFieldDescription()->getAdmin()->getCode()) {
+                case 'admin.show':
+                    $formMapper->add('host');
+                    break;
+                case 'admin.trainingCourse':
+                    $formMapper->add('trainer');
+                    break;
+                case 'admin.competition':
+                    $formMapper->add('referee');
+                    break;
+            }
+        }
     }
 
     /**

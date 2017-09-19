@@ -28,9 +28,7 @@ class CompetitionAdmin extends AbstractEventAdmin
         $formMapper
             ->tab('tab_trials')
             ->add('trials', 'sonata_type_collection', array(
-                'type_options' => array(
-                    'delete' => false,
-                ),
+                'required' => false,
             ), array(
                 'edit' => 'inline',
                 'inline' => 'table',

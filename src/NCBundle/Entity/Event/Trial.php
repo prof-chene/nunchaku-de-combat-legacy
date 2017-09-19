@@ -40,6 +40,18 @@ class Trial
      */
     private $rules;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="raw_rules", type="text")
+     */
+    protected $rawRules;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rules_formatter", type="string", length=50)
+     */
+    protected $rulesFormatter;
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="trial")
@@ -117,6 +129,46 @@ class Trial
     public function setRules($rules)
     {
         $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawRules()
+    {
+        return $this->rawRules;
+    }
+
+    /**
+     * @param string $rawRules
+     *
+     * @return $this
+     */
+    public function setRawRules($rawRules)
+    {
+        $this->rawRules = $rawRules;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRulesFormatter()
+    {
+        return $this->rulesFormatter;
+    }
+
+    /**
+     * @param string $rulesFormatter
+     *
+     * @return $this
+     */
+    public function setRulesFormatter($rulesFormatter)
+    {
+        $this->rulesFormatter = $rulesFormatter;
 
         return $this;
     }

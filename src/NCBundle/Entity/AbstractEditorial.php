@@ -32,11 +32,10 @@ abstract class AbstractEditorial extends AbstractContent
      * @ORM\Column(name="raw_content", type="text")
      */
     protected $rawContent;
-
     /**
      * @var string
      *
-     * @ORM\Column(name="content_formatter", type="text")
+     * @ORM\Column(name="content_formatter", type="string", length=50)
      */
     protected $contentFormatter;
 
