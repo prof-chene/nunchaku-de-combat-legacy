@@ -17,7 +17,7 @@ class Supply extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Exercise", inversedBy="supplies")
+     * @ORM\ManyToMany(targetEntity="Exercise", mappedBy="supplies")
      */
     private $exercises;
 

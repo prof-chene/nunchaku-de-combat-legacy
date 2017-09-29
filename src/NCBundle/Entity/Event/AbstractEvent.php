@@ -39,7 +39,7 @@ abstract class AbstractEvent extends AbstractEditorial
      * @var ArrayCollection
      *
      * @Assert\Valid()
-     * @ORM\OneToMany(targetEntity="Participant", mappedBy="event", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Participant", mappedBy="event", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $participants;
 
@@ -136,6 +136,8 @@ abstract class AbstractEvent extends AbstractEditorial
      */
     public function addParticipant(Participant $participant)
     {
+        $participant->setEvent($this);
+
         if (!$this->participants->contains($participant)) {
             $this->participants->add($participant);
         }

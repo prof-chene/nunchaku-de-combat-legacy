@@ -18,6 +18,10 @@ class ParticipantAdmin extends AbstractAdmin
     /**
      * @var string
      */
+    protected  $translationDomain = 'admin';
+    /**
+     * @var string
+     */
     protected $baseRouteName = 'admin_participant';
     /**
      * @var string
@@ -55,24 +59,10 @@ class ParticipantAdmin extends AbstractAdmin
                     return $entity->getFullname().' (@'.$entity->getUsername().')';
                 },
             ))
-            ->add('event', 'hidden', array(
-                'data' => $this->getParentFieldDescription()->getAdmin()->getSubject()
-            ))
-            ->add('registrant', 'hidden', array(
-                'data' => $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser()
-            ))
         ;
 
         // Stuff related to the parent Event
         if ($this->hasParentFieldDescription()) {
-//            $formMapper->getFormBuilder()->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $formEvent) {
-//                $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
-//                $event = $this->getParentFieldDescription()->getAdmin()->getSubject();
-//                $participant = $formEvent->getForm()->getData();
-//                if ($participant instanceof Participant) {
-//                    $participant->setEvent($event)->setRegistrant($user);
-//                }
-//            });
 
             // Conditionnal field based on the Event type
             switch ($this->getParentFieldDescription()->getAdmin()->getCode()) {

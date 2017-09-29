@@ -29,15 +29,22 @@ class TechniqueExecution
     /**
      * @var string
      *
-     * @ORM\Column(name="detail", type="string", length=500)
+     * @ORM\Column(name="detail", type="string", length=500, nullable=true)
      */
     private $detail;
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="order", type="integer", length=5)
+     * @return string
      */
-    private $order;
+    public function __toString()
+    {
+        $toString = (string)$this->getTechnique()->getTitle();
+        if (!empty($this->getDetail())) {
+            $toString .= " : ".(string)$this->getDetail();
+        }
+
+        return $toString;
+    }
 
     /**
      * @return Technique
@@ -95,26 +102,6 @@ class TechniqueExecution
     public function setDetail($detail)
     {
         $this->detail = $detail;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOrder()
-    {
-        return $this->order;
-    }
-
-    /**
-     * @param int $order
-     *
-     * @return $this
-     */
-    public function setOrder($order)
-    {
-        $this->order = $order;
 
         return $this;
     }

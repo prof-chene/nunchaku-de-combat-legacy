@@ -7,28 +7,27 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class SyllabusRequirementAdmin extends AbstractAdmin
+class RankRequirementAdmin extends AbstractAdmin
 {
     /**
      * @var string
      */
-    protected $baseRouteName = 'admin_syllabus_requirement';
+    protected  $translationDomain = 'admin';
     /**
      * @var string
      */
-    protected $baseRoutePattern = 'syllabus/requirement';
+    protected $baseRouteName = 'admin_rank_requirement';
+    /**
+     * @var string
+     */
+    protected $baseRoutePattern = 'rank/requirement';
 
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('exercise', 'sonata_type_model', array(
                 'class' => 'NCBundle\Entity\Technique\Exercise',
-                'property' => 'name',
-                'required' => true,
-            ))
-            ->add('syllabus', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Technique\Syllabus',
-                'property' => 'name',
+                'property' => 'title',
                 'required' => true,
             ))
             ->add('detail', 'textarea')
@@ -38,22 +37,20 @@ class SyllabusRequirementAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('exercise.name')
-            ->add('syllabus.name')
-            ->add('detail')
-            ->add('points');
+            ->add('exercise.title')
+            ->add('rank.title')
+            ->add('detail');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
             ->addIdentifier('exercise', null, array(
-                'associated_property' => 'name',
+                'associated_property' => 'title',
             ))
-            ->add('syllabus', null, array(
-                'associated_property' => 'name',
+            ->add('rank', null, array(
+                'associated_property' => 'title',
             ))
-            ->add('detail', 'textarea')
-            ->add('points', 'integer');
+            ->add('detail', 'textarea');
     }
 }

@@ -24,44 +24,40 @@ class RankAdmin extends AbstractEditorialAdmin
     protected $baseRoutePattern = 'rank';
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        parent::configureFormFields($formMapper);
         $formMapper
-            ->add('name', 'text')
-            ->add('description', 'textarea')
-            ->add('level')
-            ->add('style', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Technique\Style',
-                'property' => 'name',
-                'required' => true,
-            ));
+            ->with('tab_syllabus')
+            ->add('level', 'hidden')
+            ->add('rankRequirements', 'sonata_type_collection', array(), array(
+                'required' => false,
+                'edit' => 'inline',
+            ))
+            ->end();
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        parent::configureDatagridFilters($datagridMapper);
         $datagridMapper
-            ->add('name')
-            ->add('description')
-            ->add('level')
-            ->add('style.name');
+            ->add('style.title');
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        parent::configureListFields($listMapper);
         $listMapper
-            ->addIdentifier('name')
-            ->add('description', 'textarea')
-            ->add('level')
             ->add('style', null, array(
-                'associated_property' => 'name',
+                'associated_property' => 'title',
             ));
     }
 }

@@ -42,6 +42,14 @@ abstract class AbstractEditorial extends AbstractContent
     /**
      * @return string
      */
+    public function __toString()
+    {
+        return (string)$this->getTitle();
+    }
+
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return $this->title;

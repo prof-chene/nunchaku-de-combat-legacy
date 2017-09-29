@@ -15,7 +15,35 @@ use Sonata\AdminBundle\Form\FormMapper;
 abstract class AbstractEventAdmin extends AbstractEditorialAdmin
 {
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        parent::prePersist($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getParticipants() as $participant) {
+            $participant->setEvent($object);
+            $participant->setRegistrant($this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser());
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+        parent::preUpdate($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getParticipants() as $participant) {
+            if (!$this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->contains($participant)) {
+                $participant->setEvent($object);
+                $participant->setRegistrant($this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser());
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -58,7 +86,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
             ))
             ->end()
             ->with('group_status', array(
-                'class' => 'col-md-6',
+                'class' => 'col-md-12',
             ))
             ->add('tags', 'sonata_type_model_autocomplete', array(
                 'property' => 'name',
@@ -75,6 +103,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
             ->end()
             ->end()
             ->tab('tab_participants')
+            ->with('')
             ->add('participants', 'sonata_type_collection', array(
                 'required' => false,
             ), array(
@@ -89,7 +118,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -100,7 +129,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {

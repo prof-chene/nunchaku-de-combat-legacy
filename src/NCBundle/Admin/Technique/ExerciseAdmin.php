@@ -24,96 +24,83 @@ class ExerciseAdmin extends AbstractEditorialAdmin
     protected $baseRoutePattern = 'exercise';
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        parent::prePersist($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getTechniqueExecutions() as $techniqueExecution) {
+            $techniqueExecution->setExercise($object);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+        parent::preUpdate($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getTechniqueExecutions() as $techniqueExecution) {
+            if (!$this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->contains($techniqueExecution)) {
+                $techniqueExecution->setExercise($object);
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper->tab('tab_informations');
+        parent::configureFormFields($formMapper);
         $formMapper
-            ->add('name', 'text')
-            ->add('description', 'textarea')
-            ->add('category', 'sonata_type_model', array(
-                'class' => 'Application\Sonata\ClassificationBundle\Entity\Category',
-                'property' => 'name',
+            ->end()
+            ->tab('tab_techniques')
+            ->with('')
+            ->add('techniqueExecutions', 'sonata_type_collection', array(
                 'required' => false,
+            ), array(
+                'edit' => 'inline',
+                'inline' => 'table',
+                'link_parameters' => array(
+                    'hide_context' => true,
+                )
             ))
-            ->add('techniqueExecutions',
-                'sonata_type_collection',
-                array(
-                    'type_options' => array(
-                        'data_class' => 'NCBundle\Entity\Technique\TechniqueExecution',
-                    )
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            )
-            ->add('supplies',
-                'sonata_type_collection',
-                array(
-                    'type_options' => array(
-                        'data_class' => 'NCBundle\Entity\Supply\Supply',
-                    )
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            )
-            ->add('medias',
-                'sonata_type_collection',
-                array(
-                    'type' => 'sonata_type_model_list',
-                    'type_options' => array(
-                        'sonata_field_description' => array(
-                            'link_parameters' => array(
-                                'context' => 'technique',
-                                'hide_context' => true,
-                            )
-                        )
-                    ),
-                    'required' => false,
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            );
+            ->end()
+            ->end()
+            ->tab('tab_supplies')
+            ->with('')
+            ->add('supplies', 'sonata_type_model_autocomplete', array(
+                'property' => 'title',
+                'multiple' => 'true',
+                'required' => false,
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+            ))
+            ->end()
+            ->end();
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        parent::configureDatagridFilters($datagridMapper);
         $datagridMapper
-            ->add('name')
-            ->add('description')
-            ->add('category.name')
-            ->add('techniqueExecutions.technique.name')
-            ->add('supplies.name')
-            ->add('medias.name');
+            ->add('techniqueExecutions');
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        parent::configureListFields($listMapper);
         $listMapper
-            ->addIdentifier('name')
-            ->add('description', 'textarea')
-            ->add('category', null, array(
-                'associated_property' => 'name',
-            ))
-            ->add('techniqueExecutions', null, array(
-                'associated_property' => 'technique.name',
-            ))
-            ->add('supplies', null, array(
-                'associated_property' => 'name',
-            ))
-            ->add('medias', null, array(
-                'associated_property' => 'name',
-            ));
+            ->add('techniqueExecutions');
     }
 }

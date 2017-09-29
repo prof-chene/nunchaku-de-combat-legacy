@@ -19,6 +19,10 @@ class TrialResultAdmin extends AbstractAdmin
     /**
      * @var string
      */
+    protected  $translationDomain = 'admin';
+    /**
+     * @var string
+     */
     protected $baseRouteName = 'admin_trial_result';
     /**
      * @var string

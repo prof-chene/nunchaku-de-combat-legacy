@@ -10,6 +10,10 @@
                 <source>slug.already_used</source>
                 <target>This short url already exists</target>
             </trans-unit>
+            <trans-unit id="rank_level_already_exists">
+                <source>rank_level.already_exists</source>
+                <target>This rank level already exists for this martial arts style</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -42,7 +42,7 @@ class Participant
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=100)
+     * @ORM\Column(name="phone", type="string", length=100, nullable=true)
      */
     private $phone;
     /**
@@ -64,25 +64,25 @@ class Participant
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
     /**
      * @var bool
      *
-     * @ORM\Column(name="host", type="boolean")
+     * @ORM\Column(name="host", type="boolean", nullable=true)
      */
     private $host;
     /**
      * @var bool
      *
-     * @ORM\Column(name="trainer", type="boolean")
+     * @ORM\Column(name="trainer", type="boolean", nullable=true)
      */
     private $trainer;
     /**
      * @var bool
      *
-     * @ORM\Column(name="referee", type="boolean")
+     * @ORM\Column(name="referee", type="boolean", nullable=true)
      */
     private $referee;
     /**
@@ -100,17 +100,15 @@ class Participant
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="participant")
-     */
-    private $trialResults;
-    /**
-     * @var ArrayCollection
-     *
-     * @Assert\NotBlank()
-     *
      * @ORM\ManyToOne(targetEntity="AbstractEvent", inversedBy="participants")
      */
     private $event;
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="participant")
+     */
+    private $trialResults;
 
     public function __construct()
     {
@@ -312,7 +310,7 @@ class Participant
      *
      * @return $this
      */
-    public function setUser(User $user)
+    public function setUser($user = null)
     {
         $this->user = $user;
 
@@ -335,6 +333,26 @@ class Participant
     public function setRegistrant(User $registrant)
     {
         $this->registrant = $registrant;
+
+        return $this;
+    }
+
+    /**
+     * @return AbstractEvent
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * @param AbstractEvent $event
+     *
+     * @return $this
+     */
+    public function setEvent(AbstractEvent $event)
+    {
+        $this->event = $event;
 
         return $this;
     }
@@ -369,26 +387,6 @@ class Participant
         if (!$this->trialResults->contains($trialResult)) {
             $this->trialResults->add($trialResult);
         }
-
-        return $this;
-    }
-
-    /**
-     * @return AbstractEvent
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    /**
-     * @param AbstractEvent $event
-     *
-     * @return $this
-     */
-    public function setEvent(AbstractEvent $event)
-    {
-        $this->event = $event;
 
         return $this;
     }

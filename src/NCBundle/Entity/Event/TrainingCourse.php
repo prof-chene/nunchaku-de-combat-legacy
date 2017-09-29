@@ -56,6 +56,10 @@ class TrainingCourse extends AbstractEvent
      */
     public function addExercise(Exercise $exercise)
     {
+        if(!$exercise->getTrainingCourses()->contains($this)) {
+            $exercise->addTrainingCourse($this);
+        }
+
         if (!$this->exercises->contains($exercise)) {
             $this->exercises->add($exercise);
         }

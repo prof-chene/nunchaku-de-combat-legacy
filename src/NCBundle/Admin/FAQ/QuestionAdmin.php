@@ -17,6 +17,10 @@ class QuestionAdmin extends AbstractAdmin
     /**
      * @var string
      */
+    protected  $translationDomain = 'admin';
+    /**
+     * @var string
+     */
     protected $baseRouteName = 'admin_question';
     /**
      * @var string

@@ -18,7 +18,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
     /**
      * @var string
      */
-    protected  $translationDomain = 'admin';
+    protected $translationDomain = 'admin';
     /**
      * @var FormatterPool
      */
@@ -35,21 +35,68 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    public function prePersist($editorial)
+    public function prePersist($object)
     {
-        $editorial->setContent($this->formatterPool->transform($editorial->getContentFormatter(), $editorial->getRawContent()));
+        $object->setContent($this->formatterPool->transform($object->getContentFormatter(), $object->getRawContent()));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function preUpdate($editorial)
+    public function preUpdate($object)
     {
-        $editorial->setContent($this->formatterPool->transform($editorial->getContentFormatter(), $editorial->getRawContent()));
+        $object->setContent($this->formatterPool->transform($object->getContentFormatter(), $object->getRawContent()));
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $isHorizontal = $this->getConfigurationPool()->getOption('form_type') == 'horizontal';
+        $formMapper
+            ->with('group_content', array(
+                'class' => 'col-md-8',
+            ))
+            ->add('title')
+            ->add('thumbnail', 'sonata_media_type', array(
+                'context' => 'event',
+                'provider' => 'sonata.media.provider.image',
+                'required' => false,
+            ))
+            ->add('content', 'sonata_formatter_type', array(
+                'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
+                'format_field' => 'contentFormatter',
+                'source_field' => 'rawContent',
+                'source_field_options' => array(
+                    'horizontal_input_wrapper_class' => $isHorizontal ? 'col-lg-12' : '',
+                    'attr' => array('class' => $isHorizontal ? 'span10 col-sm-10 col-md-10' : '', 'rows' => 20),
+                ),
+                'ckeditor_context' => 'event',
+                'target_field' => 'content',
+                'listener' => true,
+            ))
+            ->end()
+            ->with('group_status', array(
+                'class' => 'col-md-4',
+            ))
+            ->add('tags', 'sonata_type_model_autocomplete', array(
+                'property' => 'name',
+                'multiple' => 'true',
+                'required' => false,
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+            ))
+            ->add('publicationDateStart', 'sonata_type_datetime_picker', array(
+                'datepicker_use_button' => false,
+                'dp_default_date' => new \DateTime(),
+            ))
+            ->add('enabled')
+            ->end();
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -63,7 +110,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {

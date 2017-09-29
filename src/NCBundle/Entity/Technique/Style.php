@@ -18,6 +18,7 @@ class Style extends AbstractEditorial
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Rank", mappedBy="style")
+     * @Orm\OrderBy({"level" = "ASC"})
      */
     private $ranks;
 
@@ -54,6 +55,8 @@ class Style extends AbstractEditorial
      */
     public function addRank(Rank $rank)
     {
+        $rank->setStyle($this);
+
         if (!$this->ranks->contains($rank)) {
             $this->ranks->add($rank);
         }

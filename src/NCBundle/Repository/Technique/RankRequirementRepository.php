@@ -5,9 +5,9 @@ namespace NCBundle\Repository\Technique;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class SyllabusRequirementRepository
+ * Class RankRequirementRepository
  * @package NCBundle\Repository\Technique
  */
-class SyllabusRequirementRepository extends EntityRepository
+class RankRequirementRepository extends EntityRepository
 {
 }

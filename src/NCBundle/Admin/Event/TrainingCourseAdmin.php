@@ -28,10 +28,9 @@ class TrainingCourseAdmin extends AbstractEventAdmin
         parent::configureFormFields($formMapper);
         $formMapper
             ->tab('tab_schedule')
-            ->add('exercises', 'sonata_type_collection', array(
-                'type_options' => array(
-                    'delete' => false,
-                ),
+            ->with('')
+            ->add('exercises', 'sonata_type_native_collection', array(
+                'required' => false,
             ), array(
                 'edit' => 'inline',
                 'inline' => 'table',
@@ -40,6 +39,7 @@ class TrainingCourseAdmin extends AbstractEventAdmin
                 )
 
             ))
+            ->end()
             ->end();
     }
 }

@@ -2,11 +2,11 @@
 
 namespace NCBundle\Admin\Event;
 
-use NCBundle\Entity\Event\TrialResult;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
  * Class TrialAdmin
@@ -18,11 +18,43 @@ class TrialAdmin extends AbstractAdmin
     /**
      * @var string
      */
+    protected  $translationDomain = 'admin';
+    /**
+     * @var FormatterPool
+     */
+    protected $formatterPool;
+    /**
+     * @var string
+     */
     protected $baseRouteName = 'admin_trial';
     /**
      * @var string
      */
     protected $baseRoutePattern = 'trial';
+
+    /**
+     * @param FormatterPool $formatterPool
+     */
+    public function setPoolFormatter(FormatterPool $formatterPool)
+    {
+        $this->formatterPool = $formatterPool;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        $object->setRules($this->formatterPool->transform($object->getRulesFormatter(), $object->getRawRules()));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+        $object->setRules($this->formatterPool->transform($object->getRulesFormatter(), $object->getRawRules()));
+    }
 
     /**
      * @param FormMapper $formMapper

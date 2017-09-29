@@ -5,27 +5,27 @@ namespace NCBundle\Entity\Technique;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SyllabusRequirement
+ * RankRequirement
  *
- * @ORM\Table(name="syllabus_requirement")
- * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\SyllabusRequirementRepository")
+ * @ORM\Table(name="rank_requirement")
+ * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankRequirementRepository")
  */
-class SyllabusRequirement
+class RankRequirement
 {
     /**
      * @var Exercise
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Exercise", inversedBy="syllabusRequirements")
+     * @ORM\ManyToOne(targetEntity="Exercise", inversedBy="rankRequirements")
      */
     private $exercise;
     /**
-     * @var Syllabus
+     * @var Rank
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Syllabus", inversedBy="syllabusRequirements")
+     * @ORM\ManyToOne(targetEntity="Rank", inversedBy="rankRequirements")
      */
-    private $syllabus;
+    private $rank;
     /**
      * @var string
      *
@@ -60,21 +60,21 @@ class SyllabusRequirement
     }
 
     /**
-     * @return Syllabus
+     * @return Rank
      */
-    public function getSyllabus()
+    public function getRank()
     {
-        return $this->syllabus;
+        return $this->rank;
     }
 
     /**
-     * @param Syllabus $syllabus
+     * @param Rank $rank
      *
      * @return $this
      */
-    public function setSyllabus($syllabus)
+    public function setRank($rank)
     {
-        $this->syllabus = $syllabus;
+        $this->rank = $rank;
 
         return $this;
     }

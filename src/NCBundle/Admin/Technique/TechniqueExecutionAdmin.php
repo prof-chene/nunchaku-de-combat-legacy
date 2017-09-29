@@ -17,6 +17,10 @@ class TechniqueExecutionAdmin extends AbstractAdmin
     /**
      * @var string
      */
+    protected  $translationDomain = 'admin';
+    /**
+     * @var string
+     */
     protected $baseRouteName = 'admin_technique_execution';
     /**
      * @var string
@@ -29,13 +33,8 @@ class TechniqueExecutionAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('detail', 'textarea')
-            ->add('order')
-            ->add('technique', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Technique\Technique',
-                'property' => 'name',
-                'required' => true,
-            ));
+            ->add('technique', 'sonata_type_model')
+            ->add('detail', 'textarea');
     }
 
     /**
@@ -45,9 +44,8 @@ class TechniqueExecutionAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('detail')
-            ->add('order')
-            ->add('technique.name')
-            ->add('exercise.name');
+            ->add('technique.title')
+            ->add('exercise.title');
     }
 
     /**
@@ -56,13 +54,12 @@ class TechniqueExecutionAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
-            ->add('description', 'textarea')
-            ->add('technique', null, array(
-                'associated_property' => 'name',
+            ->addIdentifier('technique', null, array(
+                'associated_property' => 'title',
             ))
+            ->add('detail', 'textarea')
             ->add('exercise', null, array(
-                'associated_property' => 'name',
+                'associated_property' => 'title',
             ));
     }
 }

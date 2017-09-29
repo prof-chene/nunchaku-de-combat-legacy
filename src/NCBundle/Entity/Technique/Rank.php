@@ -5,19 +5,25 @@ namespace NCBundle\Entity\Technique;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Rank
  *
  * @ORM\Table(name="rank")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankRepository")
+ *
+ * @UniqueEntity(
+ *     fields={"level", "style"},
+ *     message="rank_level.already_exists"
+ * )
  */
 class Rank extends AbstractEditorial
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="level", type="integer", length=5)
+     * @ORM\Column(name="level", type="integer", length=5, nullable=true)
      */
     private $level;
     /**
@@ -29,9 +35,9 @@ class Rank extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Syllabus", mappedBy="rank")
+     * @ORM\OneToMany(targetEntity="RankRequirement", mappedBy="rank")
      */
-    private $syllabuses;
+    private $rankRequirements;
     /**
      * @var ArrayCollection
      *
@@ -42,8 +48,21 @@ class Rank extends AbstractEditorial
     public function __construct()
     {
         parent::__construct();
-        $this->syllabuses = new ArrayCollection();
+        $this->rankRequirements = new ArrayCollection();
         $this->holders = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $toString = (string)$this->getTitle();
+        if (!empty($this->getStyle())) {
+            $toString .= " ".(string)$this->getStyle()->getTitle();
+        }
+
+        return $toString;
     }
 
     /**
@@ -89,32 +108,34 @@ class Rank extends AbstractEditorial
     /**
      * @return ArrayCollection
      */
-    public function getSyllabuses()
+    public function getRankRequirements()
     {
-        return $this->syllabuses;
+        return $this->rankRequirements;
     }
 
     /**
-     * @param ArrayCollection $syllabuses
+     * @param ArrayCollection $rankRequirements
      *
      * @return $this
      */
-    public function setSyllabuses($syllabuses)
+    public function setRankRequirements($rankRequirements)
     {
-        $this->syllabuses = $syllabuses;
+        $this->rankRequirements = $rankRequirements;
 
         return $this;
     }
 
     /**
-     * @param Syllabus $syllabus
+     * @param RankRequirement $rankRequirement
      *
      * @return $this
      */
-    public function addSyllabus(Syllabus $syllabus)
+    public function addRankRequirement(RankRequirement $rankRequirement)
     {
-        if (!$this->syllabuses->contains($syllabus)) {
-            $this->syllabuses->add($syllabus);
+        $rankRequirement->setRank($this);
+
+        if (!$this->rankRequirements->contains($rankRequirement)) {
+            $this->rankRequirements->add($rankRequirement);
         }
 
         return $this;
@@ -147,6 +168,8 @@ class Rank extends AbstractEditorial
      */
     public function addHolder(RankHolder $holder)
     {
+        $holder->setRank($this);
+
         if (!$this->holders->contains($holder)) {
             $this->holders->add($holder);
         }

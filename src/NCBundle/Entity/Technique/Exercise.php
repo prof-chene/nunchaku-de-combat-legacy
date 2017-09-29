@@ -18,19 +18,19 @@ class Exercise extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="TechniqueExecution", mappedBy="exercise")
+     * @ORM\OneToMany(targetEntity="TechniqueExecution", mappedBy="exercise", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $techniqueExecutions;
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="SyllabusRequirement", mappedBy="exercise")
+     * @ORM\OneToMany(targetEntity="RankRequirement", mappedBy="exercise")
      */
-    private $syllabusRequirements;
+    private $rankRequirements;
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Supply", mappedBy="exercises")
+     * @ORM\ManyToMany(targetEntity="Supply", inversedBy="exercises")
      */
     private $supplies;
     /**
@@ -44,7 +44,7 @@ class Exercise extends AbstractEditorial
     {
         parent::__construct();
         $this->techniqueExecutions = new ArrayCollection();
-        $this->syllabusRequirements = new ArrayCollection();
+        $this->rankRequirements = new ArrayCollection();
         $this->supplies = new ArrayCollection();
         $this->trainingCourses = new ArrayCollection();
     }
@@ -76,6 +76,8 @@ class Exercise extends AbstractEditorial
      */
     public function addTechniqueExecution(TechniqueExecution $techniqueExecution)
     {
+        $techniqueExecution->setExercise($this);
+
         if (!$this->techniqueExecutions->contains($techniqueExecution)) {
             $this->techniqueExecutions->add($techniqueExecution);
         }
@@ -86,32 +88,34 @@ class Exercise extends AbstractEditorial
     /**
      * @return ArrayCollection
      */
-    public function getSyllabusRequirements()
+    public function getRankRequirements()
     {
-        return $this->syllabusRequirements;
+        return $this->rankRequirements;
     }
 
     /**
-     * @param ArrayCollection $syllabusRequirements
+     * @param ArrayCollection $rankRequirements
      *
      * @return $this
      */
-    public function setSyllabusRequirements($syllabusRequirements)
+    public function setRankRequirements($rankRequirements)
     {
-        $this->syllabusRequirements = $syllabusRequirements;
+        $this->rankRequirements = $rankRequirements;
 
         return $this;
     }
 
     /**
-     * @param SyllabusRequirement $syllabusRequirement
+     * @param RankRequirement $rankRequirement
      *
      * @return $this
      */
-    public function addSyllabusRequirement(SyllabusRequirement $syllabusRequirement)
+    public function addRankRequirement(RankRequirement $rankRequirement)
     {
-        if (!$this->syllabusRequirements->contains($syllabusRequirement)) {
-            $this->syllabusRequirements->add($syllabusRequirement);
+        $rankRequirement->setExercise($this);
+
+        if (!$this->rankRequirements->contains($rankRequirement)) {
+            $this->rankRequirements->add($rankRequirement);
         }
 
         return $this;
@@ -144,6 +148,8 @@ class Exercise extends AbstractEditorial
      */
     public function addSupply(Supply $supply)
     {
+        $supply->setExercises($this);
+
         if (!$this->supplies->contains($supply)) {
             $this->supplies->add($supply);
         }
@@ -178,6 +184,10 @@ class Exercise extends AbstractEditorial
      */
     public function addTrainingCourse(TrainingCourse $trainingCourse)
     {
+        if (!$trainingCourse->getExercises()->contains($this)) {
+            $trainingCourse->addExercise($this);
+        }
+
         if (!$this->trainingCourses->contains($trainingCourse)) {
             $this->trainingCourses->add($trainingCourse);
         }

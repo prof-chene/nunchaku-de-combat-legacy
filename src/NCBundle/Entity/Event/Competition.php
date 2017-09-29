@@ -16,7 +16,7 @@ class Competition extends AbstractEvent
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Trial", mappedBy="competition", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Trial", mappedBy="competition", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $trials;
 
@@ -53,6 +53,8 @@ class Competition extends AbstractEvent
      */
     public function addTrial(Trial $trial)
     {
+        $trial->setCompetition($this);
+
         if (!$this->trials->contains($trial)) {
             $this->trials->add($trial);
         }

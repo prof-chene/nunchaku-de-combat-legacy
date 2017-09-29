@@ -24,53 +24,50 @@ class StyleAdmin extends AbstractEditorialAdmin
     protected $baseRoutePattern = 'style';
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        parent::prePersist($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getRanks() as $rank) {
+            $rank->setStyle($object);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+//        dump($object);
+//        exit;
+        parent::preUpdate($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getRanks() as $rank) {
+            if (!$this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->contains($rank)) {
+                $rank->setStyle($object);
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper->tab('tab_informations');
+        parent::configureFormFields($formMapper);
         $formMapper
-            ->add('name', 'text')
-            ->add('description', 'textarea')
-            ->add('ranks',
-                'sonata_type_collection',
-                array(
-                    'type_options' => array(
-                        'class' => 'NCBundle\Entity\Technique\Rank',
-                        'property' => 'name'
-                    )
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            );
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('name')
-            ->add('description')
-            ->add('ranks.name');
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper
-            ->addIdentifier('name', 'text', array(
-                'editable' => true
+            ->end()
+            ->tab('tab_ranks')
+            ->with('')
+            ->add('ranks', 'sonata_type_collection', array(), array(
+                'required' => false,
+                'edit' => 'inline',
+                'sortable' => 'level',
             ))
-            ->add('description', 'textarea', array(
-                'editable' => true
-            ))
-            ->add('ranks', null, array(
-                'associated_property' => 'name',
-            ));
+            ->end()
+            ->end();
     }
 }
