@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
+    "name": "nc/nunchaku-de-combat",
+    "license": "proprietary",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "The official nunchaku-de-combat.fr project",
     "autoload": {
         "psr-4": { "": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
@@ -19,8 +19,9 @@
         "symfony/monolog-bundle": "3.0.0",
         "symfony/swiftmailer-bundle": "~2.4",
         "friendsofphp/php-cs-fixer": "2.0.*",
-        "friendsofsymfony/user-bundle": "^1.3",
-        "sonata-project/news-bundle": "3.0.0"
+        "twig/twig": "1.33.1",
+        "sonata-project/formatter-bundle": "3.2.0",
+        "sonata-project/news-bundle": "3.1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
@@ -31,7 +32,8 @@
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "php app/console assets:install --symlink --relative",
+            "php app/console assetic:dump",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
@@ -39,7 +41,8 @@
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "php app/console assets:install --symlink --relative",
+            "php app/console assetic:dump",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
