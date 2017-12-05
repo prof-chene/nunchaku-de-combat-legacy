@@ -17,7 +17,7 @@ class Technique extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="TechniqueExecution", mappedBy="technique")
+     * @ORM\OneToMany(targetEntity="TechniqueExecution", mappedBy="technique", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $techniqueExecutions;
 

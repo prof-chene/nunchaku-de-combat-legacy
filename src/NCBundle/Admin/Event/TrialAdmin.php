@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
@@ -85,8 +86,7 @@ class TrialAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('name')
-            ->add('rules')
-            ->add('competition.title');
+            ->add('competition');
     }
 
     /**
@@ -96,9 +96,14 @@ class TrialAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('name')
-            ->add('rules')
-            ->add('competition', null, array(
-                'associated_property' => 'title',
-            ));
+            ->add('competition');
+    }
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->clear();
     }
 }

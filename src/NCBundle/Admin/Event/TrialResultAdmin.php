@@ -35,18 +35,18 @@ class TrialResultAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('trial', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Event\Trial',
+            ->add('trial', 'sonata_type_model_autocomplete', [
                 'property' => 'name',
                 'required' => true,
-            ))
-            ->add('participant', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Event\Participant',
-                'property' => function (Participant $participant) {
-                    return $participant->getFirstname() . ' ' . $participant->getLastname();
-                },
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+            ])
+            ->add('participant', 'sonata_type_model_autocomplete', [
+                'property' => ['lastname', 'firstname'],
                 'required' => true,
-            ))
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+            ])
             ->add('place');
     }
 
@@ -56,9 +56,21 @@ class TrialResultAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('trial.name')
-            ->add('participant.lastname')
-            ->add('participant.firstname')
+            ->add('trial.competition', 'doctrine_orm_model_autocomplete', [], null, [
+                'property' => 'title',
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+            ])
+            ->add('trial', 'doctrine_orm_model_autocomplete', [], null, [
+                'property' => 'name',
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+            ])
+            ->add('participant', 'doctrine_orm_model_autocomplete', [], null, [
+                'property' => ['lastname', 'firstname'],
+                'minimum_input_length' => 2,
+                'quiet_millis' => 500,
+            ])
             ->add('place');
     }
 
@@ -68,17 +80,9 @@ class TrialResultAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('participant', null, array(
-                'associated_property' => 'name',))
-            ->add('rules')
-            ->add('competition', null, array(
-                'associated_property' => 'name',
-            ))
-            ->add('trialResults', null, array(
-                'associated_property' => function (TrialResult $result) {
-                    return $result->getParticipant()->getLastname() . ' ' . $result->getParticipant()->getFirstname() .
-                    ' : ' . $result->getPlace();
-                },
-            ));
+            ->addIdentifier('trial.competition.title')
+            ->add('trial.name')
+            ->add('participant')
+            ->add('place');
     }
 }

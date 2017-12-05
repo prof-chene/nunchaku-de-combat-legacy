@@ -54,13 +54,18 @@ class Trial
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="trial")
+     * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="trial", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $trialResults;
 
     public function __construct()
     {
         $this->trialResults = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return '('.$this->getCompetition().') '.$this->getName();
     }
 
     /**

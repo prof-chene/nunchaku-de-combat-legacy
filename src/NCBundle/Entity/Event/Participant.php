@@ -98,7 +98,7 @@ class Participant
      */
     private $registrant;
     /**
-     * @var ArrayCollection
+     * @var AbstractEvent
      *
      * @ORM\ManyToOne(targetEntity="AbstractEvent", inversedBy="participants")
      */
@@ -106,13 +106,18 @@ class Participant
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="participant")
+     * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="participant", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $trialResults;
 
     public function __construct()
     {
         $this->trialResults = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return '('.$this->getEvent().') '.$this->getFirstname().' '.$this->getLastname();
     }
 
     /**

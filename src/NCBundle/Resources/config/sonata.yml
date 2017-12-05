@@ -21,7 +21,7 @@ services:
         class: NCBundle\Admin\Event\TrialResultAdmin
         arguments: [~, NCBundle\Entity\Event\TrialResult, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Results, group: Event, show_in_dashboard: false  }
+            - { name: sonata.admin, manager_type: orm, label: Competition Results, group: Event }
     admin.training_course:
         class: NCBundle\Admin\Event\TrainingCourseAdmin
         arguments: [~, NCBundle\Entity\Event\TrainingCourse, ~]

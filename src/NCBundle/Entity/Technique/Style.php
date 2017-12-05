@@ -17,7 +17,7 @@ class Style extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Rank", mappedBy="style")
+     * @ORM\OneToMany(targetEntity="Rank", mappedBy="style", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Orm\OrderBy({"level" = "ASC"})
      */
     private $ranks;

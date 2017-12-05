@@ -35,13 +35,13 @@ class Rank extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="RankRequirement", mappedBy="rank")
+     * @ORM\OneToMany(targetEntity="RankRequirement", mappedBy="rank", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $rankRequirements;
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="RankHolder", mappedBy="rank")
+     * @ORM\OneToMany(targetEntity="RankHolder", mappedBy="rank", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $holders;
 
