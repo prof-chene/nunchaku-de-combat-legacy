@@ -1,14 +1,14 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
+    "name": "nc/nunchaku-de-combat",
+    "license": "proprietary",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "The official nunchaku-de-combat.fr project",
     "autoload": {
         "psr-4": { "": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
-        "php": ">=5.6.0",
+        "php": "^7.1",
         "incenteev/composer-parameter-handler": "2.1.2",
         "doctrine/orm": "2.5.5",
         "doctrine/doctrine-bundle": "1.6.4",
