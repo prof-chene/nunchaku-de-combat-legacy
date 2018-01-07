@@ -8,6 +8,7 @@ use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Sonata\UserBundle\Entity\UserManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -45,7 +46,7 @@ class RegistrationHandler
     /**
      * RegistrationHandler constructor.
      * @param FormInterface $form
-     * @param Request $request
+     * @param RequestStack $requestStack
      * @param Session $session
      * @param UserManager $userManager
      * @param MailerInterface $mailer
@@ -53,14 +54,14 @@ class RegistrationHandler
      */
     public function __construct(
         FormInterface $form,
-        Request $request,
+        RequestStack $requestStack,
         Session $session,
         UserManager $userManager,
         MailerInterface $mailer,
         TokenGeneratorInterface $tokenGenerator
     ) {
         $this->form = $form;
-        $this->request = $request;
+        $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
         $this->userManager = $userManager;
         $this->mailer = $mailer;
@@ -77,7 +78,7 @@ class RegistrationHandler
         if ('POST' === $this->request->getMethod()) {
             $user = $this->createUser();
             $this->form->setData($user);
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
             if ($this->form->isValid()) {
                 $this->onSuccess($user, $confirmation);
 

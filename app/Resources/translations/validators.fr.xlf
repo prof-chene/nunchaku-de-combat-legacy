@@ -10,6 +10,10 @@
                 <source>slug.already_used</source>
                 <target>Cette url courte existe déjà</target>
             </trans-unit>
+            <trans-unit id="password_mismatch">
+                <source>password.mismatch</source>
+                <target>Les deux mots de passe ne sont pas identiques</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

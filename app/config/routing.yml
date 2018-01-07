@@ -35,16 +35,12 @@ application_sonata_user_register:
     prefix: /{_locale}/register
     requirements:
         _locale: '%locales%'
-sonata_user_profile:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /{_locale}/profile
     requirements:
         _locale: '%locales%'
-sonata_user_change_password:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
-    prefix: /{_locale}/profile
-    requirements:
-        _locale: '%locales%'
+
 # Media
 #gallery:
 #    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
