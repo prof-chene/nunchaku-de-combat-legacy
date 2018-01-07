@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class LoginType
+ * Class LogInType
  * @package Application\Sonata\Form
  */
 class LogInType extends AbstractType

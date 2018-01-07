@@ -1,8 +1,8 @@
 # Cache, session files and logs
-/var/
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
+/var/
 
 # Parameters
 /app/config/parameters.yml
