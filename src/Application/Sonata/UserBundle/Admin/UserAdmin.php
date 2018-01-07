@@ -7,9 +7,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 class UserAdmin extends \Sonata\UserBundle\Admin\Entity\UserAdmin
 {
     /**
-     * @param DatagridMapper $filterMapper
+     * {@inheritdoc}
      */
-    protected function configureDatagridFilters(DatagridMapper $filterMapper)
+    protected function configureDatagridFilters(DatagridMapper $filterMapper): void
     {
         parent::configureDatagridFilters($filterMapper);
         $filterMapper
