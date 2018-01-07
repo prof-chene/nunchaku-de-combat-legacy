@@ -76,17 +76,6 @@ class User extends BaseUser
      */
     protected $registrants;
 
-    /**
-     * @var Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Application\Sonata\UserBundle\Entity\Group")
-     * @ORM\JoinTable(name="user_role_group",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="role_group_id", referencedColumnName="id")}
-     * )
-     */
-    protected $groups;
-
     public function __construct()
     {
         parent::__construct();

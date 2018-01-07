@@ -14,6 +14,10 @@
                 <source>rank_level.already_exists</source>
                 <target>This rank level already exists for this martial arts style</target>
             </trans-unit>
+            <trans-unit id="password_mismatch">
+                <source>password.mismatch</source>
+                <target>The two passwords don't match</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

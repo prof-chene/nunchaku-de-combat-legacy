@@ -20,6 +20,12 @@ sonata_block:
             contexts:   [admin]
         sonata.user.block.menu:    # used to display the menu in profile pages
         sonata.user.block.account: # used to display menu option (login option)
+sonata_user:
+    table:
+        user_group: "user_role_group"
+    class:
+        user:  Application\Sonata\UserBundle\Entity\User
+        group: Application\Sonata\UserBundle\Entity\Group
 sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
@@ -42,6 +48,13 @@ sonata_news:
             emails:   [email@example.org, email2@example.org]
             from:     no-reply@sonata-project.org
             template: 'SonataNewsBundle:Mail:comment_notification.txt.twig'
+    table:
+        post_tag: "post_tag"
+    class:
+        post:       Application\Sonata\NewsBundle\Entity\Post
+        comment:    Application\Sonata\NewsBundle\Entity\Comment
+        media:      Application\Sonata\MediaBundle\Entity\Media
+        user:       Application\Sonata\UserBundle\Entity\User
 
 sonata_media:
     db_driver: doctrine_orm

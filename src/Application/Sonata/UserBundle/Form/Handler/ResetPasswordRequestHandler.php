@@ -9,6 +9,7 @@ use Sonata\UserBundle\Entity\UserManager;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -55,7 +56,7 @@ class ResetPasswordRequestHandler
      * ResetPasswordHandler constructor.
      *
      * @param FormInterface $form
-     * @param Request $request
+     * @param RequestStack $requestStack
      * @param Session $session
      * @param Translator $translator
      * @param UserManager $userManager
@@ -65,7 +66,7 @@ class ResetPasswordRequestHandler
      */
     public function __construct(
         FormInterface $form,
-        Request $request,
+        RequestStack $requestStack,
         Session $session,
         Translator $translator,
         UserManager $userManager,
@@ -74,7 +75,7 @@ class ResetPasswordRequestHandler
         $tokenTtl
     ) {
         $this->form = $form;
-        $this->request = $request;
+        $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
         $this->translator = $translator;
         $this->userManager = $userManager;
@@ -89,7 +90,7 @@ class ResetPasswordRequestHandler
     public function process()
     {
         if ('POST' === $this->request->getMethod()) {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
             if ($this->form->isValid()) {
                 $data = $this->form->getData();
                 $user = $this->userManager->findUserByUsernameOrEmail($data['username_email']);

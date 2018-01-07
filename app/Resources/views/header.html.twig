@@ -49,7 +49,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <li><a href="{{ path('sonata_admin_dashboard') }}">{{ 'menu.administration'|trans({}, 'navigation') }}</a></li>
                                 {% endif %}
-                                <li><a href="{{ path('sonata_user_profile_show') }}">{{ 'profile.show.link'|trans }}</a></li>
+                                <li><a href="{{ path('fos_user_profile_show') }}">{{ 'profile.show.link'|trans }}</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{{ path('application_sonata_user_log_out') }}">{{ 'log_out'|trans }}</a></li>
                             </ul>

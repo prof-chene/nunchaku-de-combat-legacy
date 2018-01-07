@@ -31,7 +31,7 @@ class RegistrationController extends Controller
             if ($confirmationEnabled) {
                 $response =  $this->redirect($this->generateUrl('application_sonata_user_registration_check_email'));
             } else {
-                $response = $this->redirect($this->generateUrl('sonata_user_profile_show'));
+                $response = $this->redirect($this->generateUrl('fos_user_profile_show'));
                 // Auto log-in
                 $this->get('fos_user.security.login_manager')->loginUser(
                     $this->getParameter('fos_user.firewall_name'),

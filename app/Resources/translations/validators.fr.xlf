@@ -14,6 +14,10 @@
                 <source>rank_level.already_exists</source>
                 <target>Ce niveau de grade existe déjà pour ce style d'arts martiaux</target>
             </trans-unit>
+            <trans-unit id="password_mismatch">
+                <source>password.mismatch</source>
+                <target>Les deux mots de passe ne sont pas identiques</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

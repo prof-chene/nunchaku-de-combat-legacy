@@ -14,26 +14,17 @@ services:
     application_sonata_user.registration.form:
         class: Symfony\Component\Form\Form
         factory: 'form.factory:create'
-        arguments: ['@application_sonata_user.registration.form.type']
+        arguments: ['Application\Sonata\UserBundle\Form\Type\RegistrationType']
     application_sonata_user.reset_password_request.form:
         class: Symfony\Component\Form\Form
         factory: 'form.factory:create'
-        arguments: ['@application_sonata_user.reset_password_request.form.type']
-    # FormTypes
-    application_sonata_user.registration.form.type:
-        class: Application\Sonata\UserBundle\Form\Type\RegistrationType
-        tags:
-            - { name: form.type, label: Registration, alias: application_sonata_user_registration_form_type }
-    application_sonata_user.reset_password_request.form.type:
-        class: Application\Sonata\UserBundle\Form\Type\ResetPasswordRequestType
-        tags:
-            - { name: form.type, label: ResetPassword, alias: application_sonata_user_reset_password_request_form_type }
+        arguments: ['Application\Sonata\UserBundle\Form\Type\ResetPasswordRequestType']
     # FormHandlers
     application_sonata_user.registration.form.handler:
         class: Application\Sonata\UserBundle\Form\Handler\RegistrationHandler
         arguments:
             - '@application_sonata_user.registration.form'
-            - '@request'
+            - '@request_stack'
             - '@session'
             - '@sonata.user.user_manager'
             - '@fos_user.mailer'
@@ -43,7 +34,7 @@ services:
         class: Application\Sonata\UserBundle\Form\Handler\ResetPasswordRequestHandler
         arguments:
             - '@application_sonata_user.reset_password_request.form'
-            - '@request'
+            - '@request_stack'
             - '@session'
             - '@translator.default'
             - '@sonata.user.user_manager'
