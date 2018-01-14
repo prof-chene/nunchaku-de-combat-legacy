@@ -1,6 +1,7 @@
 <?php
 
 namespace NCBundle\Admin\Event;
+
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
@@ -66,4 +67,5 @@ class CompetitionAdmin extends AbstractEventAdmin
             ->end()
             ->end();
     }
+
 }

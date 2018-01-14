@@ -28,11 +28,7 @@ class Tag extends BaseTag
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\AbstractContent", inversedBy="tags")
-     * @ORM\JoinTable(name="content_tagged",
-     *      joinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="content_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\AbstractContent", mappedBy="tags")
      */
     protected $contents;
 

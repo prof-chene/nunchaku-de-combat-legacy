@@ -44,8 +44,8 @@ class ParticipantAdmin extends AbstractAdmin
             ))
             ->add('gender', 'choice', array(
                 'choices' => array(
-                    'm' => 'male',
-                    'f' => 'female',
+                    'male' => 'm',
+                    'female' => 'f',
                 )
             ))
             ->add('address', 'textarea')
@@ -117,13 +117,5 @@ class ParticipantAdmin extends AbstractAdmin
             ->add('event', null, array(
                 'associated_property' => 'title',
             ));
-    }
-
-    /**
-     * @param RouteCollection $collection
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->clear();
     }
 }

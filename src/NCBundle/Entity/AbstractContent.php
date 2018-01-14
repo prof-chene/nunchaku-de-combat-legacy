@@ -75,7 +75,11 @@ abstract class AbstractContent
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Application\Sonata\ClassificationBundle\Entity\Tag", mappedBy="contents")
+     * @ORM\ManyToMany(targetEntity="Application\Sonata\ClassificationBundle\Entity\Tag", inversedBy="contents")
+     * @ORM\JoinTable(name="content_tagged",
+     *      joinColumns={@ORM\JoinColumn(name="content_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
      */
     protected $tags;
 

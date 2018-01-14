@@ -98,12 +98,4 @@ class TrialAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('competition');
     }
-
-    /**
-     * @param RouteCollection $collection
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->clear();
-    }
 }
