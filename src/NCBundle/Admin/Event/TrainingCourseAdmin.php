@@ -3,6 +3,7 @@
 namespace NCBundle\Admin\Event;
 
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
  * Class TrainingCourseAdmin
@@ -29,16 +30,10 @@ class TrainingCourseAdmin extends AbstractEventAdmin
         $formMapper
             ->tab('tab_schedule')
             ->with('')
-            ->add('exercises', 'sonata_type_native_collection', array(
+            ->add('exercises', ModelType::class, [
                 'required' => false,
-            ), array(
-                'edit' => 'inline',
-                'inline' => 'table',
-                'link_parameters' => array(
-                    'hide_context' => true,
-                )
-
-            ))
+                'multiple' => true,
+            ])
             ->end()
             ->end();
     }

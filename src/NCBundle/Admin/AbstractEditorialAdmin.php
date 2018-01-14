@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
@@ -80,13 +81,10 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
             ->with('group_status', array(
                 'class' => 'col-md-4',
             ))
-            ->add('tags', 'sonata_type_model_autocomplete', array(
-                'property' => 'name',
+            ->add('tags', ModelType::class, [
                 'multiple' => 'true',
                 'required' => false,
-                'minimum_input_length' => 2,
-                'quiet_millis' => 500,
-            ))
+            ])
             ->add('publicationDateStart', 'sonata_type_datetime_picker', array(
                 'datepicker_use_button' => false,
                 'dp_default_date' => new \DateTime(),

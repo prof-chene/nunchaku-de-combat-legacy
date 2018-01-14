@@ -6,7 +6,7 @@ use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
  * Class AbstractEventAdmin
@@ -89,13 +89,10 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
             ->with('group_status', array(
                 'class' => 'col-md-12',
             ))
-            ->add('tags', 'sonata_type_model_autocomplete', array(
-                'property' => 'name',
+            ->add('tags', ModelType::class, [
                 'multiple' => 'true',
                 'required' => false,
-                'minimum_input_length' => 2,
-                'quiet_millis' => 500,
-            ))
+            ])
             ->add('publicationDateStart', 'sonata_type_datetime_picker', array(
                 'datepicker_use_button' => false,
                 'dp_default_date' => new \DateTime(),
