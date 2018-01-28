@@ -73,7 +73,7 @@ services:
         class: NCBundle\Admin\Technique\RankRequirementAdmin
         arguments: [~, NCBundle\Entity\Technique\RankRequirement, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Rank requirements, group: Technique, show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: Rank requirements, group: Technique }
     admin.rank:
         class: NCBundle\Admin\Technique\RankAdmin
         arguments: [~, NCBundle\Entity\Technique\Rank, ~]

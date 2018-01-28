@@ -107,7 +107,7 @@ class User extends BaseUser
      */
     public function getRanks()
     {
-        return $this->rank;
+        return $this->ranks;
     }
 
     /**

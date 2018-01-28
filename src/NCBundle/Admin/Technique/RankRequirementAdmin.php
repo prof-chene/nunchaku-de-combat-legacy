@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 
 class RankRequirementAdmin extends AbstractAdmin
 {
@@ -22,35 +23,41 @@ class RankRequirementAdmin extends AbstractAdmin
      */
     protected $baseRoutePattern = 'rank/requirement';
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('exercise', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\Technique\Exercise',
+            ->add('rank')
+            ->add('exercise', ModelType::class, [
+                'class'    => 'NCBundle\Entity\Technique\Exercise',
                 'property' => 'title',
                 'required' => true,
-            ))
+            ])
             ->add('detail', 'textarea')
             ->add('points', 'integer');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('exercise.title')
-            ->add('rank.title')
+            ->add('rank')
+            ->add('exercise')
             ->add('detail');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('exercise', null, array(
-                'associated_property' => 'title',
-            ))
-            ->add('rank', null, array(
-                'associated_property' => 'title',
-            ))
+            ->addIdentifier('rank')
+            ->addIdentifier('exercise')
             ->add('detail', 'textarea');
     }
 }

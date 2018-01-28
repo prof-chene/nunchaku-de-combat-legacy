@@ -6,6 +6,7 @@ use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
  * Class ExerciseAdmin
@@ -73,13 +74,10 @@ class ExerciseAdmin extends AbstractEditorialAdmin
             ->end()
             ->tab('tab_supplies')
             ->with('')
-            ->add('supplies', 'sonata_type_model_autocomplete', array(
-                'property' => 'title',
+            ->add('supplies', ModelType::class, [
                 'multiple' => 'true',
                 'required' => false,
-                'minimum_input_length' => 2,
-                'quiet_millis' => 500,
-            ))
+            ])
             ->end()
             ->end();
     }
@@ -91,7 +89,8 @@ class ExerciseAdmin extends AbstractEditorialAdmin
     {
         parent::configureDatagridFilters($datagridMapper);
         $datagridMapper
-            ->add('techniqueExecutions');
+            ->add('techniqueExecutions')
+            ->add('supplies');
     }
 
     /**
@@ -101,6 +100,7 @@ class ExerciseAdmin extends AbstractEditorialAdmin
     {
         parent::configureListFields($listMapper);
         $listMapper
-            ->add('techniqueExecutions');
+            ->add('techniqueExecutions')
+            ->add('supplies');
     }
 }

@@ -46,10 +46,6 @@
                 <source>tab_supplies</source>
                 <target>Supplies</target>
             </trans-unit>
-            <trans-unit id="tab_syllabus">
-                <source>tab_syllabus</source>
-                <target>Syllabus</target>
-            </trans-unit>
             <trans-unit id="tab_exercises">
                 <source>tab_exercises</source>
                 <target>Exercises</target>
@@ -57,6 +53,10 @@
             <trans-unit id="tab_ranks">
                 <source>tab_ranks</source>
                 <target>Ranks</target>
+            </trans-unit>
+            <trans-unit id="tab_styles">
+                <source>tab_styles</source>
+                <target>Styles</target>
             </trans-unit>
         </body>
     </file>

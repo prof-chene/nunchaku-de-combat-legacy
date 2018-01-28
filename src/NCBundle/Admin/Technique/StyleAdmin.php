@@ -3,9 +3,8 @@
 namespace NCBundle\Admin\Technique;
 
 use NCBundle\Admin\AbstractEditorialAdmin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 
 /**
  * Class StyleAdmin
@@ -31,6 +30,7 @@ class StyleAdmin extends AbstractEditorialAdmin
         parent::prePersist($object);
         // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
         foreach($object->getRanks() as $rank) {
+            $rank->setContent($this->formatterPool->transform($rank->getContentFormatter(), $rank->getRawContent()));
             $rank->setStyle($object);
         }
     }
@@ -40,11 +40,10 @@ class StyleAdmin extends AbstractEditorialAdmin
      */
     public function preUpdate($object)
     {
-//        dump($object);
-//        exit;
         parent::preUpdate($object);
         // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
         foreach($object->getRanks() as $rank) {
+            $rank->setContent($this->formatterPool->transform($rank->getContentFormatter(), $rank->getRawContent()));
             if (!$this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->contains($rank)) {
                 $rank->setStyle($object);
             }
@@ -62,11 +61,10 @@ class StyleAdmin extends AbstractEditorialAdmin
             ->end()
             ->tab('tab_ranks')
             ->with('')
-            ->add('ranks', 'sonata_type_collection', array(), array(
-                'required' => false,
+            ->add('ranks', CollectionType::class, [], [
                 'edit' => 'inline',
                 'sortable' => 'level',
-            ))
+            ])
             ->end()
             ->end();
     }

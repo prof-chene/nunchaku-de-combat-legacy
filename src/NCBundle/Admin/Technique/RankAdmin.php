@@ -6,6 +6,8 @@ use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Class RankAdmin
@@ -28,14 +30,43 @@ class RankAdmin extends AbstractEditorialAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        parent::configureFormFields($formMapper);
+        $isHorizontal = $this->getConfigurationPool()->getOption('form_type') == 'horizontal';
         $formMapper
-            ->with('tab_syllabus')
-            ->add('level', 'hidden')
-            ->add('rankRequirements', 'sonata_type_collection', array(), array(
-                'required' => false,
-                'edit' => 'inline',
+            ->with('group_content', array(
+                'class' => 'col-md-8',
             ))
+            ->add('title')
+            ->add('thumbnail', 'sonata_media_type', array(
+                'context' => 'event',
+                'provider' => 'sonata.media.provider.image',
+                'required' => false,
+            ))
+            ->add('content', 'sonata_formatter_type', array(
+                'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
+                'format_field' => 'contentFormatter',
+                'source_field' => 'rawContent',
+                'source_field_options' => array(
+                    'horizontal_input_wrapper_class' => $isHorizontal ? 'col-lg-12' : '',
+                    'attr' => array('class' => $isHorizontal ? 'span10 col-sm-10 col-md-10' : '', 'rows' => 20),
+                ),
+                'ckeditor_context' => 'event',
+                'target_field' => 'content',
+                'listener' => true,
+            ))
+            ->end()
+            ->with('group_status', array(
+                'class' => 'col-md-4',
+            ))
+            ->add('tags', ModelType::class, [
+                'multiple' => 'true',
+                'required' => false,
+            ])
+            ->add('publicationDateStart', 'sonata_type_datetime_picker', array(
+                'datepicker_use_button' => false,
+                'dp_default_date' => new \DateTime(),
+            ))
+            ->add('enabled')
+            ->add('level', HiddenType::class)
             ->end();
     }
 
@@ -56,8 +87,6 @@ class RankAdmin extends AbstractEditorialAdmin
     {
         parent::configureListFields($listMapper);
         $listMapper
-            ->add('style', null, array(
-                'associated_property' => 'title',
-            ));
+            ->add('style', null, ['associated_property' => 'title',]);
     }
 }

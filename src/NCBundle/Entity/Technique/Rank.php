@@ -59,7 +59,7 @@ class Rank extends AbstractEditorial
     {
         $toString = (string)$this->getTitle();
         if (!empty($this->getStyle())) {
-            $toString .= " ".(string)$this->getStyle()->getTitle();
+            $toString .= " (".(string)$this->getStyle()->getTitle().")";
         }
 
         return $toString;
