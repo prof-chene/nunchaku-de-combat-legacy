@@ -15,11 +15,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 class TechniqueAdmin extends AbstractEditorialAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_technique';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'technique';
 }

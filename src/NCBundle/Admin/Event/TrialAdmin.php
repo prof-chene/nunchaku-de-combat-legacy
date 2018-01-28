@@ -16,7 +16,7 @@ use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 class TrialAdmin extends AbstractAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected  $translationDomain = 'admin';
     /**
@@ -24,11 +24,11 @@ class TrialAdmin extends AbstractAdmin
      */
     protected $formatterPool;
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_trial';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'trial';
 

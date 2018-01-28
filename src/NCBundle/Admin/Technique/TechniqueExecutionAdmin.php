@@ -15,15 +15,15 @@ use Sonata\AdminBundle\Form\FormMapper;
 class TechniqueExecutionAdmin extends AbstractAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected  $translationDomain = 'admin';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_technique_execution';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'technique/execution';
 

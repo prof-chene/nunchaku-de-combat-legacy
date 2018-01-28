@@ -18,6 +18,10 @@
                 <source>group_status</source>
                 <target>Status</target>
             </trans-unit>
+            <trans-unit id="group_questions">
+                <source>group_questions</source>
+                <target>Questions</target>
+            </trans-unit>
             <trans-unit id="tab_informations">
                 <source>tab_informations</source>
                 <target>Informations</target>

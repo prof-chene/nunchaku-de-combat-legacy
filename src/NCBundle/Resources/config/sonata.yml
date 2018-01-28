@@ -50,7 +50,7 @@ services:
         class: NCBundle\Admin\FAQ\QuestionAdmin
         arguments: [~, NCBundle\Entity\FAQ\Question, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Questions, group: FAQ }
+            - { name: sonata.admin, manager_type: orm, label: Questions, group: FAQ, show_in_dashboard: false }
 
     admin.technique:
         class: NCBundle\Admin\Technique\TechniqueAdmin

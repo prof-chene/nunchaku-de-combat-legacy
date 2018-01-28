@@ -15,11 +15,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 class RankAdmin extends AbstractEditorialAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_rank';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'rank';
 

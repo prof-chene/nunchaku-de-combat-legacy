@@ -6,6 +6,7 @@ use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 
 /**
  * Class FAQAdmin
@@ -15,54 +16,73 @@ use Sonata\AdminBundle\Form\FormMapper;
 class FAQAdmin extends AbstractEditorialAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_faq';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'faq';
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        parent::prePersist($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getQuestions() as $question) {
+            $question->setFaq($object);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+        parent::preUpdate($object);
+        // https://stackoverflow.com/questions/21420380/entitys-id-of-parent-is-not-saved-in-a-onetomany-relationship-in-sonataadmin#answer-21576616
+        foreach($object->getQuestions() as $question) {
+            if (!$this->getConfigurationPool()->getContainer()->get('doctrine.orm.entity_manager')->contains($question)) {
+                $question->setFaq($object);
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        parent::configureFormFields($formMapper);
         $formMapper
-            ->add('name', 'text')
-            ->add('questions',
-                'sonata_type_collection',
-                array(
-                    'type_options' => array(
-                        'data_class' => 'NCBundle\Entity\FAQ\Question',
-                    )
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            );
+            ->with('group_questions', [
+                'class' => 'col-md-12',
+            ])
+            ->add('questions', CollectionType::class, ['required' => true,], [
+                'edit' => 'inline',
+                'inline' => 'table',
+                'link_parameters' => ['hide_context' => true,]
+            ])
+            ->end();
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper
-            ->add('name')
-            ->add('questions.question');
+        parent::configureDatagridFilters($datagridMapper);
+        $datagridMapper->add('questions.question');
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper
-            ->addIdentifier('name')
-            ->add('questions', null, array(
-                'associated_property' => 'question',
-            ));
+        parent::configureListFields($listMapper);
+        $listMapper->add('questions', null, ['associated_property' => 'question',]);
     }
 }

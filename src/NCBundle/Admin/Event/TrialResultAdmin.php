@@ -17,20 +17,20 @@ use Sonata\AdminBundle\Form\FormMapper;
 class TrialResultAdmin extends AbstractAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected  $translationDomain = 'admin';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_trial_result';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'trialResult';
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -51,7 +51,7 @@ class TrialResultAdmin extends AbstractAdmin
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -75,7 +75,7 @@ class TrialResultAdmin extends AbstractAdmin
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {

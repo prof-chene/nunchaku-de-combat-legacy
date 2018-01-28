@@ -15,11 +15,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 class SupplyAdmin extends AbstractEditorialAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_supply';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'supply';
 }

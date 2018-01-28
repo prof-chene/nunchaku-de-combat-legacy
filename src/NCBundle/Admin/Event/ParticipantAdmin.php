@@ -16,11 +16,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 class ParticipantAdmin extends AbstractAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected  $translationDomain = 'admin';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_participant';
     /**

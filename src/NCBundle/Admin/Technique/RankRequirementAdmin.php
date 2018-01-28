@@ -10,15 +10,15 @@ use Sonata\AdminBundle\Form\FormMapper;
 class RankRequirementAdmin extends AbstractAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected  $translationDomain = 'admin';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_rank_requirement';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'rank/requirement';
 

@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class QuestionAdmin
@@ -15,41 +16,31 @@ use Sonata\AdminBundle\Form\FormMapper;
 class QuestionAdmin extends AbstractAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected  $translationDomain = 'admin';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_question';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'question';
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('question', 'textarea')
-            ->add('answer', 'textarea')
-            ->add('position')
-            ->add('category', 'sonata_type_model', array(
-                'class' => 'Application\Sonata\ClassificationBundle\Entity\Category',
-                'property' => 'name',
-                'required' => false,
-            ))
-            ->add('faq', 'sonata_type_model', array(
-                'class' => 'NCBundle\Entity\FAQ\FAQ',
-                'property' => 'name',
-                'required' => false,
-            ));
+            ->add('question', TextareaType::class)
+            ->add('answer', TextareaType::class)
+            ->add('position');
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -57,12 +48,11 @@ class QuestionAdmin extends AbstractAdmin
             ->add('question')
             ->add('answer')
             ->add('position')
-            ->add('category.name')
-            ->add('faq.name');
+            ->add('faq.title');
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -76,11 +66,8 @@ class QuestionAdmin extends AbstractAdmin
             ->add('position', null, array(
                 'editable' => true
             ))
-            ->add('category', null, array(
-                'associated_property' => 'name',
-            ))
             ->add('faq', null, array(
-                'associated_property' => 'name',
+                'associated_property' => 'title',
             ));
     }
 }

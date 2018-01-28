@@ -13,16 +13,16 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 class TrainingCourseAdmin extends AbstractEventAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_training_course';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'trainingCourse';
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {

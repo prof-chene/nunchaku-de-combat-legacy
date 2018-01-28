@@ -17,7 +17,7 @@ use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 abstract class AbstractEditorialAdmin extends AbstractAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $translationDomain = 'admin';
     /**

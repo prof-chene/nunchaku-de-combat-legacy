@@ -10,11 +10,11 @@ namespace NCBundle\Admin\Event;
 class ShowAdmin extends AbstractEventAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_show';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'show';
 }

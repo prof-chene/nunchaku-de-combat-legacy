@@ -12,11 +12,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 class CompetitionAdmin extends AbstractEventAdmin
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRouteName = 'admin_competition';
     /**
-     * @var string
+     * {@inheritdoc}
      */
     protected $baseRoutePattern = 'competition';
 
