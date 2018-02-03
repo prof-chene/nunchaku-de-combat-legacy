@@ -8,9 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Class AbstractEditorial
  *
  * @package NCBundle\Entity
- *
- * @ORM\Table(name="editorial")
- * @ORM\Entity
  */
 abstract class AbstractEditorial extends AbstractContent
 {
