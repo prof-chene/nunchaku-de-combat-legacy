@@ -60,7 +60,7 @@ class User extends BaseUser
     /**
      * @var Rank
      *
-     * @ORM\OneToMany(targetEntity="NCBundle\Entity\Technique\RankHolder", mappedBy="holder")
+     * @ORM\OneToMany(targetEntity="NCBundle\Entity\Technique\RankHolder", mappedBy="holder", cascade={"persist", "remove"})
      */
     protected $ranks;
     /**

@@ -22,6 +22,10 @@
                 <source>group_questions</source>
                 <target>Questions</target>
             </trans-unit>
+            <trans-unit id="group_ranks">
+                <source>group_ranks</source>
+                <target>Grades</target>
+            </trans-unit>
             <trans-unit id="tab_informations">
                 <source>tab_informations</source>
                 <target>Informations</target>
@@ -56,7 +60,7 @@
             </trans-unit>
             <trans-unit id="tab_styles">
                 <source>tab_styles</source>
-                <target>Styles</target>
+                <target>Style</target>
             </trans-unit>
         </body>
     </file>
