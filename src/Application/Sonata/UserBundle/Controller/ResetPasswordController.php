@@ -80,18 +80,15 @@ class ResetPasswordController extends Controller
 
             return $this->redirect($this->generateUrl('application_sonata_user_reset_password_request'));
         }
-        // Reset already asked during the last "token_ttl" hours
+        // Token expired
         if (!$user->isPasswordRequestNonExpired($this->getParameter('fos_user.resetting.token_ttl'))) {
             $this->addFlash('danger', 'reset_password.expired_link');
 
             return $this->redirect($this->generateUrl('application_sonata_user_reset_password_request'));
         }
 
-        $form = $this->container->get('fos_user.resetting.form')->add('submit', 'submit', array(
-            'label' => 'reset_password.request'
-        ));
-        // Form success
-        if ($this->get('fos_user.resetting.form.handler')->process($user)) {
+        $form = $this->get('application_sonata_user.reset_password.form');
+        if ($this->get('application_sonata_user.reset_password.form.handler')->process($user)) {
             $this->addFlash('success', 'reset_password.success');
 
             return $this->authenticateUser($user);

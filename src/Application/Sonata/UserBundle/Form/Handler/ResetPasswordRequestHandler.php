@@ -22,35 +22,35 @@ class ResetPasswordRequestHandler
     /**
      * @var FormInterface
      */
-    protected $form;
+    private $form;
     /**
      * @var Request
      */
-    protected $request;
+    private $request;
     /**
      * @var Session
      */
-    protected $session;
+    private $session;
     /**
      * @var Translator
      */
-    protected $translator;
+    private $translator;
     /**
      * @var UserManager
      */
-    protected $userManager;
+    private $userManager;
     /**
      * @var MailerInterface
      */
-    protected $mailer;
+    private $mailer;
     /**
      * @var TokenGeneratorInterface
      */
-    protected $tokenGenerator;
+    private $tokenGenerator;
     /**
      * @var string
      */
-    protected $tokenTtl;
+    private $tokenTtl;
 
     /**
      * ResetPasswordHandler constructor.
@@ -99,10 +99,11 @@ class ResetPasswordRequestHandler
 
                     return false;
                 }
+                // Password reset already requested in the last %tokenTtl%
                 if ($user->isPasswordRequestNonExpired($this->tokenTtl)) {
                     $this->session->getFlashBag()->add('danger', $this->translator->trans(
                         'reset_password.already_requested',
-                        array('%hours%' => $this->tokenTtl/3600)
+                        ['%hours%' => $this->tokenTtl/3600]
                     ));
 
                     return false;
@@ -119,7 +120,7 @@ class ResetPasswordRequestHandler
     /**
      * @param UserInterface $user
      */
-    protected function onSuccess(UserInterface $user)
+    private function onSuccess(UserInterface $user)
     {
         if (is_null($user->getConfirmationToken())) {
             $user->setConfirmationToken($this->tokenGenerator->generateToken());
@@ -128,13 +129,5 @@ class ResetPasswordRequestHandler
         $this->session->set('reset_password/email', $user->getEmail());
         $user->setPasswordRequestedAt(new \DateTime());
         $this->userManager->save($user);
-    }
-
-    /**
-     * @return UserInterface
-     */
-    protected function createUser()
-    {
-        return $this->userManager->createUser();
     }
 }

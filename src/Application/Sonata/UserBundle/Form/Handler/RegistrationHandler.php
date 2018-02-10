@@ -21,27 +21,27 @@ class RegistrationHandler
     /**
      * @var FormInterface
      */
-    protected $form;
+    private $form;
     /**
      * @var Request
      */
-    protected $request;
+    private $request;
     /**
      * @var Session
      */
-    protected $session;
+    private $session;
     /**
      * @var UserManager
      */
-    protected $userManager;
+    private $userManager;
     /**
      * @var MailerInterface
      */
-    protected $mailer;
+    private $mailer;
     /**
      * @var TokenGeneratorInterface
      */
-    protected $tokenGenerator;
+    private $tokenGenerator;
 
     /**
      * RegistrationHandler constructor.
@@ -90,9 +90,10 @@ class RegistrationHandler
     }
 
     /**
-     * @param boolean $confirmation
+     * @param UserInterface $user
+     * @param boolean       $confirmation
      */
-    protected function onSuccess(UserInterface $user, $confirmation)
+    private function onSuccess(UserInterface $user, $confirmation)
     {
         if ($confirmation) {
             $user->setEnabled(false);
@@ -111,7 +112,7 @@ class RegistrationHandler
     /**
      * @return UserInterface
      */
-    protected function createUser()
+    private function createUser()
     {
         $user = $this->userManager->createUser()->setLocale($this->request->getLocale());
 

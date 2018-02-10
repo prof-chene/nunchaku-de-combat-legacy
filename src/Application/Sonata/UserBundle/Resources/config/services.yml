@@ -19,6 +19,10 @@ services:
         class: Symfony\Component\Form\Form
         factory: 'form.factory:create'
         arguments: ['Application\Sonata\UserBundle\Form\Type\ResetPasswordRequestType']
+    application_sonata_user.reset_password.form:
+        class: Symfony\Component\Form\Form
+        factory: 'form.factory:create'
+        arguments: ['Application\Sonata\UserBundle\Form\Type\ResetPasswordType']
     # FormHandlers
     application_sonata_user.registration.form.handler:
         class: Application\Sonata\UserBundle\Form\Handler\RegistrationHandler
@@ -41,6 +45,13 @@ services:
             - '@fos_user.mailer'
             - '@fos_user.util.token_generator'
             - '%fos_user.resetting.token_ttl%'
+        scope: request
+    application_sonata_user.reset_password.form.handler:
+        class: Application\Sonata\UserBundle\Form\Handler\ResetPasswordHandler
+        arguments:
+            - '@application_sonata_user.reset_password.form'
+            - '@request_stack'
+            - '@sonata.user.user_manager'
         scope: request
     # Validators
     application_sonata_user.user_exists_validator:
