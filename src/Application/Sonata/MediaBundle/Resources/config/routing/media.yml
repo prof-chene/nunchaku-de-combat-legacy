@@ -1,0 +1,9 @@
+application_sonata_media_view:
+    path: /media/{id}/{format}
+    defaults: { _controller: SonataMediaBundle:Media:view, format: reference }
+application_sonata_media_download:
+    path: /media/{id}/{format}/download
+    defaults: { _controller: SonataMediaBundle:Media:download, format: reference }
+application_sonata_gallery:
+    path: /gallery
+    defaults: { _controller: SonataMediaBundle:Gallery:index }

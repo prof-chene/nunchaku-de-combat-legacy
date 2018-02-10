@@ -97,6 +97,10 @@
                 <source>h1.application_sonata_user_reset_password_reset</source>
                 <target>Réinitialiser votre mot de passe</target>
             </trans-unit>
+            <trans-unit id="h1_application_sonata_gallery">
+                <source>h1.application_sonata_gallery</source>
+                <target>Galleries photo/vidéo</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

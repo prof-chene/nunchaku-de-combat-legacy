@@ -42,14 +42,9 @@ fos_user_profile:
         _locale: '%locales%'
 
 # Media
-sonata_gallery:
-    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
-    prefix: /{_locale}/media/gallery
-    requirements:
-        _locale: '%locales%'
-sonata_media:
-    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
-    prefix: /{_locale}/media
+application_sonata_media:
+    resource: '@ApplicationSonataMediaBundle/Resources/config/routing/media.yml'
+    prefix: /{_locale}
     requirements:
         _locale: '%locales%'
 sonata_news:

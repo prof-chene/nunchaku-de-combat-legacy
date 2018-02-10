@@ -1,0 +1,31 @@
+<div id="{{ carousel.id }}" class="carousel slide">
+    {% if carousel.indicators is defined and carousel.indicators %}
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for item in carousel.items %}
+                {% if loop.first or loop.index is divisible by(carousel.items_per_slide + 1) %}
+                    <li data-target="#{{ carousel.id }}" data-slide-to="{{ loop.index0 / (carousel.items_per_slide) }}" {% if loop.first %}class="active"{% endif %}></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    {% endif %}
+    <div class="carousel-inner">
+        {% for item in carousel.items %}
+            {% if loop.first or loop.index is divisible by(carousel.items_per_slide + 1) %}
+                <div class="item{% if loop.first %} active{% endif %}">
+                    <div class="row">
+            {% endif %}
+                    <div class="col-sm-{{ (12 / carousel.items_per_slide)|round(0, 'floor') }}">
+                        {{ item }}
+                    </div>
+            {% if loop.index is divisible by(carousel.items_per_slide) or loop.last %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% if carousel.controls is not defined or carousel.controls %}
+        <a class="left carousel-control" href="#{{ carousel.id }}" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#{{ carousel.id }}" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    {% endif %}
+</div>

@@ -1,0 +1,23 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    {% include '::flash_messages.html.twig' %}
+    {% for gallery in galleries %}
+        <h2>{{ gallery.name }}</h2>
+        {% set medias = [] %}
+        {% for galleryHasMedia in gallery.galleryHasMedias %}
+            {% set media %}
+                <a href="{{ url('application_sonata_media_view', {'id': galleryHasMedia.media|sonata_urlsafeid }) }}" target="_blank">
+                    {% thumbnail galleryHasMedia.media, 'carousel' with {'class': 'img-responsive img-rounded center-block'} %}
+                </a>
+            {% endset %}
+            {% set medias = medias|merge([media]) %}
+        {% endfor %}
+        {% set carousel = {
+            'id': 'gallery' ~ gallery.id,
+            'items': medias,
+            'items_per_slide': 4
+        } %}
+        {% include '::carousel.html.twig' with carousel %}
+    {% endfor %}
+{% endblock %}

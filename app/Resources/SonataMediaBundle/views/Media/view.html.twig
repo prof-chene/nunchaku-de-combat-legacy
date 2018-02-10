@@ -1,0 +1,16 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    {% include '::flash_messages.html.twig' %}
+    {% if 'image' in media.contentType %}
+        <a href="{{ url('application_sonata_media_download', { 'id' : media|sonata_urlsafeid , 'format': format}) }}">
+            {% media media, format with {'class': 'img-responsive center-block'} %}
+        </a>
+    {% elseif 'video' in media.contentType %}
+        <div class="embed-responsive embed-responsive-16by9">
+            {% media media, format %}
+        </div>
+    {% else %}
+        {% media media, format %}
+    {% endif %}
+{% endblock %}
