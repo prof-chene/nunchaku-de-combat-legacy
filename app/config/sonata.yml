@@ -61,6 +61,9 @@ sonata_media:
     default_context: news
     contexts:
         content:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -70,6 +73,9 @@ sonata_media:
                 big:      { width: 500 , quality: 90}
                 carousel: { height: 150 , quality: 90}
         news:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -79,6 +85,9 @@ sonata_media:
                 big:      { width: 500 , quality: 90}
                 carousel: { height: 150 , quality: 90}
         event:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -88,6 +97,9 @@ sonata_media:
                 big:      { width: 500 , quality: 90}
                 carousel: { height: 150 , quality: 90}
         technique:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
