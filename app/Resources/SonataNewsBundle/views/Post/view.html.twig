@@ -1,0 +1,53 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    {% include '::flash_messages.html.twig' %}
+    <article>
+        <header>
+            <h1>{{ post.title }}</h1>
+            {# TODO TAGS #}
+            <ul>
+                <li>{{ 'by' }} {{ post.author }}</li>
+                <li>{{ 'published_on' }} {{ post.publicationDateStart|format_datetime }}</li>
+                <li>{{ 'updated_on' }} {{ post.updatedAt|format_datetime }}</li>
+            </ul>
+            {% media post.image, 'reference' with {'class': 'img-responsive center-block'} %}
+        </header>
+        <p class="abstract">
+            {{ post.abstract }}
+        </p>
+        <p class="post">
+            {{ post.content|raw }}
+        </p>
+    </article>
+{# TODO MESSAGE COMMENTS #}
+    {#{{ render(controller('SonataNewsBundle:Post:comments', {'postId': post.id})) }}#}
+    {#{% if post.iscommentable %}#}
+        {#{{ render(controller('SonataNewsBundle:Post:addCommentForm', {#}
+            {#'postId': post.id,#}
+            {#'form': form#}
+        {#})) }}#}
+    {#{% else %}#}
+    {#{% endif %}#}
+{% endblock %}
+
+
+
+
+{#<div class="sonata-blog-post-information">#}
+    {#<div class="sonata-blog-post-tag-container">#}
+        {#<div class="sonata-blog-post-tag-title">#}
+            {#{% if post.tags|length > 1 %}#}
+                {#<i class="icon-tags"></i>#}
+            {#{% else %}#}
+                {#<i class="icon-tag"></i>#}
+            {#{% endif %}#}
+            {#{{ 'published_under'|transchoice(post.tags|length, {}, 'SonataNewsBundle') }}#}
+        {#</div>#}
+        {#<div class="sonata-blog-post-tag-list">#}
+            {#{% for tag in post.tags %}#}
+                {#<a href="{{ url('sonata_news_tag', { 'tag': tag.slug } ) }}">{{ tag.name }}</a>#}
+            {#{% endfor %}#}
+        {#</div>#}
+    {#</div>#}
+{#</div>#}

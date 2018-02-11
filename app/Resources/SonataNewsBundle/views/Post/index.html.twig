@@ -1,0 +1,46 @@
+{% extends '::layout.html.twig' %}
+
+{# TODO #}
+{% set page_number = (pager.lastPage < 5) ? pager.lastPage : 5 %}
+{% set page %}
+
+{% block content %}
+    {% include '::flash_messages.html.twig' %}
+    {% for post in pager.getResults() %}
+        <article>
+            <div class="col-sm-3">
+                {% thumbnail post.image, 'small' with {'class': 'img-responsive center-block'} %}
+            </div>
+            <div class="col-sm-9">
+                <h1>
+                    <a href="{{ url('application_sonata_news_view', { 'permalink': sonata_news_permalink(post) }) }}">{{ post.title }}</a>
+                </h1>
+                <p class="abstract">
+                    {{ post.abstract }}
+                </p>
+            </div>
+        </article>
+    {% else %}
+        <h1>{{ 'no_post_yet'|trans }}</h1>
+    {% endfor %}
+    <nav aria-label="Posts navigation">
+        <ul class="pagination">
+            <li class="page-item{% if pager.page == 1 %} disabled{% endif %}">
+                <a class="page-link" href="{{ url('application_sonata_news') }}" aria-label="First page">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">First page</span>
+                </a>
+            </li>
+            {% if  %}
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="{{ url('application_sonata_news') }}" aria-label="Last page">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

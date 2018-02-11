@@ -104,6 +104,10 @@
                 <source>log_out</source>
                 <target>Déconnexion</target>
             </trans-unit>
+            <trans-unit id="no_post_yet">
+                <source>no_post_yet</source>
+                <target>Aucun article pour le moment</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

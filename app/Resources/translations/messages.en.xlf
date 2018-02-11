@@ -104,6 +104,10 @@
                 <source>log_out</source>
                 <target>Log out</target>
             </trans-unit>
+            <trans-unit id="no_post_yet">
+                <source>no_post_yet</source>
+                <target>No post yet</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

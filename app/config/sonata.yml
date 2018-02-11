@@ -38,15 +38,15 @@ sonata_admin:
     options:
         form_type: ~
 sonata_news:
-    title:        News
-    link:         https://sonata-project.org
-    description:  Cool bundles on top of Symfony2
-    salt:         'secureToken'
+    title:        Nunchaku de Combat
+    link:         https://nunchaku-de-combat.com
+    description:  https://nunchaku-de-combat.com
+    salt:         'XMzY5bfxm8'
     permalink_generator: sonata.news.permalink.date
     comment:
         notification:
-            emails:   [email@example.org, email2@example.org]
-            from:     no-reply@sonata-project.org
+            emails:   [nunchaku.de.combat@gmail.com]
+            from:     nunchaku.de.combat@gmail.com
             template: 'SonataNewsBundle:Mail:comment_notification.txt.twig'
     table:
         post_tag: "post_tag"

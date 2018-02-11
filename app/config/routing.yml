@@ -43,12 +43,12 @@ fos_user_profile:
 
 # Media
 application_sonata_media:
-    resource: '@ApplicationSonataMediaBundle/Resources/config/routing/media.yml'
+    resource: '@ApplicationSonataMediaBundle/Resources/config/routing.yml'
     prefix: /{_locale}
     requirements:
         _locale: '%locales%'
-sonata_news:
-    resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
+application_sonata_news:
+    resource: '@ApplicationSonataNewsBundle/Resources/config/routing.yml'
     prefix: /{_locale}/news
     requirements:
         _locale: '%locales%'

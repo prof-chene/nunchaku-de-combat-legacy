@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class Builder
+ *
  * @package NCBundle\Menu
  */
 class Builder implements ContainerAwareInterface
@@ -17,27 +18,27 @@ class Builder implements ContainerAwareInterface
     /**
      * @param FactoryInterface $factory
      * @param array $options
+     *
      * @return \Knp\Menu\ItemInterface
      */
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        $menu = $factory->createItem('root', array(
-            'childrenAttributes'    => array(
-                'class'             => 'nav navbar-nav',
-            ),
-        ));
+        $menu = $factory->createItem(
+            'root',
+            ['childrenAttributes' => ['class' => 'nav navbar-nav']]
+        );
 
-        $menu->addChild('menu.official_curriculum', array('route' => 'homepage'))
+        $menu->addChild('menu.official_curriculum', ['route' => 'homepage'])
              ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.training', array('route' => 'homepage'))
+        $menu->addChild('menu.training', ['route' => 'homepage'])
              ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.events', array('route' => 'homepage'))
+        $menu->addChild('menu.events', ['route' => 'homepage'])
              ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.blog', array('route' => 'homepage'))
+        $menu->addChild('menu.blog', ['route' => 'application_sonata_news'])
              ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.faq', array('route' => 'homepage'))
+        $menu->addChild('menu.faq', ['route' => 'homepage'])
              ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.media_library', array('route' => 'homepage'))
+        $menu->addChild('menu.media_library', ['route' => 'application_sonata_gallery'])
              ->setExtra('translation_domain', 'navigation');
 
         return $menu;
