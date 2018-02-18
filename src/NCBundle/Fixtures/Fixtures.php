@@ -6,7 +6,12 @@ use Application\Sonata\ClassificationBundle\Entity\Context;
 use Application\Sonata\ClassificationBundle\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use NCBundle\Entity\Technique\Exercise;
+use NCBundle\Entity\Technique\Rank;
+use NCBundle\Entity\Technique\RankHolder;
 use NCBundle\Entity\Technique\Style;
+use NCBundle\Entity\Technique\Technique;
+use NCBundle\Entity\Technique\TechniqueExecution;
 use Sonata\UserBundle\Entity\UserManager;
 
 class Fixtures extends Fixture
@@ -84,8 +89,50 @@ class Fixtures extends Fixture
             $entityManager->persist($this->tags[$i]);
         }
 
+
+        // TODO Supplies
+        // Supplies
+
+        // Techniques
+        for ($i = 1; $i <= 500; $i++) {
+            $technique = new Technique();
+            $technique->setTitle('Technique '.$i);
+            $technique->setPublicationDateStart(new \DateTime());
+            $technique->setCreatedAt(new \DateTime());
+            $technique->setUpdatedAt(new \DateTime());
+            $technique->setEnabled(true);
+            $content = $this->generateText();
+            $technique->setContentFormatter('richhtml');
+            $technique->setRawContent($content);
+            $technique->setContent($content);
+            $this->addRandomTags($technique);
+
+            // Exercises
+            for ($j = 1; $j <= mt_rand(0, 4); $j++) {
+                $exercise = new Exercise();
+                $exercise->setTitle('Exercise '.$i.'-'.$j);
+                $exercise->setPublicationDateStart(new \DateTime());
+                $exercise->setCreatedAt(new \DateTime());
+                $exercise->setUpdatedAt(new \DateTime());
+                $exercise->setEnabled(true);
+                $content = $this->generateText();
+                $exercise->setContentFormatter('richhtml');
+                $exercise->setRawContent($content);
+                $exercise->setContent($content);
+                $this->addRandomTags($exercise);
+                
+                // TODO Supplies
+
+                $techniqueExecution = new TechniqueExecution();
+                $techniqueExecution->setDetail($this->generateText());
+
+                $technique->addTechniqueExecution($techniqueExecution);
+                $exercise->addTechniqueExecution($techniqueExecution);
+            }
+        }
+
         // Styles
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 15; $i++) {
             $style = new Style();
             $style->setTitle('Style '.$i);
             $style->setPublicationDateStart(new \DateTime());
@@ -96,8 +143,38 @@ class Fixtures extends Fixture
             $style->setContentFormatter('richhtml');
             $style->setRawContent($content);
             $style->setContent($content);
-
             $this->addRandomTags($style);
+
+            // Ranks
+            for ($j = 1; $j <= mt_rand(1, 20); $j++) {
+                $rank = new Rank();
+                $rank->setTitle('Rank '.$i.'-'.$j);
+                $rank->setPublicationDateStart(new \DateTime());
+                $rank->setCreatedAt(new \DateTime());
+                $rank->setUpdatedAt(new \DateTime());
+                $rank->setEnabled(true);
+                $content = $this->generateText();
+                $rank->setContentFormatter('richhtml');
+                $rank->setRawContent($content);
+                $rank->setContent($content);
+                $this->addRandomTags($rank);
+
+                $rank->setLevel($j);
+                $style->addRank($rank);
+
+                // RankHolders
+                for ($k = 1; $k <= mt_rand(1, 10); $k++) {
+                    $rankHolder = new RankHolder();
+                    $rankHolder->setHolder($user[array_rand($user)]);
+                    $rankHolder->setPromotedAt($this->generateDate());
+                    $rankHolder->setJury('Jury '.$i.'-'.$j.'-'.$k);
+                    $rank->addHolder($rankHolder);
+                }
+
+                // TODO TechniqueExecutions
+            }
+
+            $entityManager->persist($style);
         }
 
     }
