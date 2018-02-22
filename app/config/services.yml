@@ -1,2 +1,11 @@
 imports:
     - { resource: sonata.yml }
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+    NCBundle\:
+        resource: '../../src/NCBundle/*'
