@@ -186,12 +186,12 @@ class Exercise extends AbstractEditorial
      */
     public function addTrainingCourse(TrainingCourse $trainingCourse)
     {
-        if (!$trainingCourse->getExercises()->contains($this)) {
-            $trainingCourse->addExercise($this);
-        }
-
         if (!$this->trainingCourses->contains($trainingCourse)) {
             $this->trainingCourses->add($trainingCourse);
+        }
+
+        if (!$trainingCourse->getExercises()->contains($this)) {
+            $trainingCourse->addExercise($this);
         }
 
         return $this;

@@ -6,6 +6,12 @@ use Application\Sonata\ClassificationBundle\Entity\Context;
 use Application\Sonata\ClassificationBundle\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use NCBundle\Entity\Event\Competition;
+use NCBundle\Entity\Event\Participant;
+use NCBundle\Entity\Event\Show;
+use NCBundle\Entity\Event\TrainingCourse;
+use NCBundle\Entity\Event\Trial;
+use NCBundle\Entity\Event\TrialResult;
 use NCBundle\Entity\FAQ\FAQ;
 use NCBundle\Entity\FAQ\Question;
 use NCBundle\Entity\Technique\Exercise;
@@ -125,6 +131,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $users[$i]->setGender($this->genders[array_rand($this->genders)]);
                 $users[$i]->setLocale($locales[array_rand($locales)]);
                 $users[$i]->setDateOfBirth($this->generateDate());
+                $users[$i]->setPhone($this->generatePhoneNumber());
 
                 $userManager->save($users[$i], false);
             }
@@ -232,42 +239,40 @@ class Fixtures extends Fixture implements ContainerAwareInterface
 
             $manager->flush();
 
-            foreach ($styles as $style) {
-                foreach ($style->getRanks() as $rank) {
-                    // RankHolders
-                    $randomUsers = $users;
-                    for ($k = 1; $k <= mt_rand(1, 10); $k++) {
-                        $rankHolders[$i.'-'.$j.'-'.$k] = new RankHolder();
-                        $rankHolders[$i.'-'.$j.'-'.$k]->setPromotedAt($this->generateDate());
-                        $rankHolders[$i.'-'.$j.'-'.$k]->setJury('Jury '.$i.'-'.$j.'-'.$k);
+            foreach ($ranks as $key => $rank) {
+                // RankHolders
+                $randomUsers = $users;
+                for ($k = 1; $k <= mt_rand(1, 10); $k++) {
+                    $rankHolders[$key.'-'.$k] = new RankHolder();
+                    $rankHolders[$key.'-'.$k]->setPromotedAt($this->generateDate());
+                    $rankHolders[$key.'-'.$k]->setJury('Jury '.$key.'-'.$k);
 
-                        $randomUser = $randomUsers[array_rand($randomUsers)];
-                        $randomUser->addRank($rankHolders[$i.'-'.$j.'-'.$k]);
-                        unset($randomUsers[array_search($randomUser, $randomUsers)]);
+                    $randomUser = $randomUsers[array_rand($randomUsers)];
+                    $randomUser->addRank($rankHolders[$key.'-'.$k]);
+                    unset($randomUsers[array_search($randomUser, $randomUsers)]);
 
-                        $rank->addHolder($rankHolders[$i.'-'.$j.'-'.$k]);
-                    }
+                    $rank->addHolder($rankHolders[$key.'-'.$k]);
+                }
 
-                    $randomExercises = $exercises;
-                    // RankRequirements
-                    for ($k = 1; $k <= mt_rand(2, 10); $k++) {
-                        $rankRequirements[$i.'-'.$j.'-'.$k] = new RankRequirement();
-                        $rankRequirements[$i.'-'.$j.'-'.$k]->setPoints(mt_rand(5,30));
-                        $rankRequirements[$i.'-'.$j.'-'.$k]->setDetail('Detail '.$i.'-'.$j.'-'.$k);
+                $randomExercises = $exercises;
+                // RankRequirements
+                for ($k = 1; $k <= mt_rand(2, 10); $k++) {
+                    $rankRequirements[$key.'-'.$k] = new RankRequirement();
+                    $rankRequirements[$key.'-'.$k]->setPoints(mt_rand(5,30));
+                    $rankRequirements[$key.'-'.$k]->setDetail('Detail '.$key.'-'.$k);
 
-                        $randomExercise = $randomExercises[array_rand($randomExercises)];
-                        $randomExercise->addRankRequirement($rankRequirements[$i.'-'.$j.'-'.$k]);
-                        unset($randomExercises[array_search($randomExercise, $randomExercises)]);
+                    $randomExercise = $randomExercises[array_rand($randomExercises)];
+                    $randomExercise->addRankRequirement($rankRequirements[$key.'-'.$k]);
+                    unset($randomExercises[array_search($randomExercise, $randomExercises)]);
 
-                        $rank->addRankRequirement($rankRequirements[$i.'-'.$j.'-'.$k]);
-                    }
+                    $rank->addRankRequirement($rankRequirements[$key.'-'.$k]);
                 }
             }
 
             // FAQs
             for ($i = $loop + 1; $i <= $loop + 1; $i++) {
                 $faqs[$i] = new FAQ();
-                $faqs[$i]->setTitle('Style '.$i);
+                $faqs[$i]->setTitle('Faq '.$i);
                 $faqs[$i]->setPublicationDateStart(new \DateTime());
                 $faqs[$i]->setCreatedAt(new \DateTime());
                 $faqs[$i]->setUpdatedAt(new \DateTime());
@@ -291,6 +296,177 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $manager->persist($faqs[$i]);
             }
 
+            // Shows
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $shows[$i] = new Show();
+                $shows[$i]->setTitle('Show '.$i);
+                $shows[$i]->setPublicationDateStart(new \DateTime());
+                $shows[$i]->setCreatedAt(new \DateTime());
+                $shows[$i]->setUpdatedAt(new \DateTime());
+                $shows[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $shows[$i]->setContentFormatter('richhtml');
+                $shows[$i]->setRawContent($content);
+                $shows[$i]->setContent($content);
+                $this->addRandomTags($shows[$i]);
+
+                $shows[$i]->setStartDate(new \DateTime());
+                $shows[$i]->setEndDate(new \DateTime());
+                $shows[$i]->setAddress('Show address '.$i);
+
+                // Participants
+                $randomUsers = $users;
+                for ($j = 1; $j <= mt_rand(2, 12); $j++) {
+                    $participants[$i.'-'.$j] = new Participant();
+                    $participants[$i.'-'.$j]->setFirstname('Firstname show '.$i.'-'.$j);
+                    $participants[$i.'-'.$j]->setLastname('Lastname show '.$i.'-'.$j);
+                    $participants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $participants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $participants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
+                    $participants[$i.'-'.$j]->setAddress('Participant show address '.$i.'-'.$j);
+
+                    $randomUser = $randomUsers[array_rand($randomUsers)];
+                    $randomUser2 = $randomUsers[array_rand($randomUsers)];
+                    $participants[$i.'-'.$j]->setUser($randomUser);
+                    $participants[$i.'-'.$j]->setRegistrant($randomUser2);
+                    unset($randomUsers[array_search($randomUser, $randomUsers)]);
+                    unset($randomUsers[array_search($randomUser2, $randomUsers)]);
+
+                    $participants[$i.'-'.$j]->setHost((bool)mt_rand(0, 1));
+
+                    $shows[$i]->addParticipant($participants[$i.'-'.$j]);
+                }
+
+                $manager->persist($shows[$i]);
+            }
+
+            // TrainingCourses
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $trainingCourses[$i] = new TrainingCourse();
+                $trainingCourses[$i]->setTitle('Training course '.$i);
+                $trainingCourses[$i]->setPublicationDateStart(new \DateTime());
+                $trainingCourses[$i]->setCreatedAt(new \DateTime());
+                $trainingCourses[$i]->setUpdatedAt(new \DateTime());
+                $trainingCourses[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $trainingCourses[$i]->setContentFormatter('richhtml');
+                $trainingCourses[$i]->setRawContent($content);
+                $trainingCourses[$i]->setContent($content);
+                $this->addRandomTags($trainingCourses[$i]);
+
+                $trainingCourses[$i]->setStartDate(new \DateTime());
+                $trainingCourses[$i]->setEndDate(new \DateTime());
+                $trainingCourses[$i]->setAddress('Training course address '.$i);
+
+                // Participants
+                $randomUsers = $users;
+                for ($j = 1; $j <= mt_rand(2, 12); $j++) {
+                    $participants[$i.'-'.$j] = new Participant();
+                    $participants[$i.'-'.$j]->setFirstname('Firstname training course '.$i.'-'.$j);
+                    $participants[$i.'-'.$j]->setLastname('Lastname training course '.$i.'-'.$j);
+                    $participants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $participants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $participants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
+                    $participants[$i.'-'.$j]->setAddress('Participant training course address '.$i.'-'.$j);
+
+                    $randomUser = $randomUsers[array_rand($randomUsers)];
+                    $randomUser2 = $randomUsers[array_rand($randomUsers)];
+                    $participants[$i.'-'.$j]->setUser($randomUser);
+                    $participants[$i.'-'.$j]->setRegistrant($randomUser2);
+                    unset($randomUsers[array_search($randomUser, $randomUsers)]);
+                    unset($randomUsers[array_search($randomUser2, $randomUsers)]);
+
+                    $participants[$i.'-'.$j]->setTrainer((bool)mt_rand(0, 1));
+
+                    $trainingCourses[$i]->addParticipant($participants[$i.'-'.$j]);
+                }
+
+                // Exercises
+                for ($k = 1; $k <= mt_rand(0, 10); $k++) {
+                    $trainingCourses[$i]->addExercise($exercises[array_rand($exercises)]);
+                }
+
+                $manager->persist($trainingCourses[$i]);
+            }
+
+            // Competitions
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $competitions[$i] = new Competition();
+                $competitions[$i]->setTitle('Competition '.$i);
+                $competitions[$i]->setPublicationDateStart(new \DateTime());
+                $competitions[$i]->setCreatedAt(new \DateTime());
+                $competitions[$i]->setUpdatedAt(new \DateTime());
+                $competitions[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $competitions[$i]->setContentFormatter('richhtml');
+                $competitions[$i]->setRawContent($content);
+                $competitions[$i]->setContent($content);
+                $this->addRandomTags($competitions[$i]);
+
+                $competitions[$i]->setStartDate(new \DateTime());
+                $competitions[$i]->setEndDate(new \DateTime());
+                $competitions[$i]->setAddress('Competition address '.$i);
+
+                // Participants
+                $randomUsers = $users;
+                for ($j = 1; $j <= mt_rand(2, 12); $j++) {
+                    $participants[$i.'-'.$j] = new Participant();
+                    $participants[$i.'-'.$j]->setFirstname('Firstname competition '.$i.'-'.$j);
+                    $participants[$i.'-'.$j]->setLastname('Lastname competition '.$i.'-'.$j);
+                    $participants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $participants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $participants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
+                    $participants[$i.'-'.$j]->setAddress('Participant competition address '.$i.'-'.$j);
+
+                    $randomUser = $randomUsers[array_rand($randomUsers)];
+                    $randomUser2 = $randomUsers[array_rand($randomUsers)];
+                    $participants[$i.'-'.$j]->setUser($randomUser);
+                    $participants[$i.'-'.$j]->setRegistrant($randomUser2);
+                    unset($randomUsers[array_search($randomUser, $randomUsers)]);
+                    unset($randomUsers[array_search($randomUser2, $randomUsers)]);
+
+                    $participants[$i.'-'.$j]->setReferee((bool)mt_rand(0, 1));
+
+                    $competitions[$i]->addParticipant($participants[$i.'-'.$j]);
+                }
+
+                // Trials
+                for ($j = 1; $j <= mt_rand(1, 10); $j++) {
+                    $trials[$i.'-'.$j] = new Trial();
+                    $trials[$i.'-'.$j]->setName('Trial '.$i.'-'.$j);
+                    $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                    $trials[$i.'-'.$j]->setRulesFormatter('richhtml');
+                    $trials[$i.'-'.$j]->setRawRules($content);
+                    $trials[$i.'-'.$j]->setRules($content);
+
+                    $competitions[$i]->addTrial($trials[$i.'-'.$j]);
+                }
+
+                $manager->persist($competitions[$i]);
+            }
+
+            $manager->flush();
+
+            // TrialResults
+            foreach ($trials as $key => $trial) {
+                $randomParticipants = $trial->getCompetition()->getParticipants()->toArray();
+                $countParticipants = mt_rand(2, count($randomParticipants));
+                $trialDone = (bool)mt_rand(0, 1);
+                for ($k = 1; $k <= $countParticipants; $k++) {
+                    $trialResults[$key.'-'.$k] = new TrialResult();
+                    if (!$trialDone) {
+                        $trialResults[$key.'-'.$k]->setPlace(null);
+                    } else {
+                        $trialResults[$key.'-'.$k]->setPlace($k);
+                    }
+                    $trial->addTrialResult($trialResults[$key.'-'.$k]);
+
+                    $randomParticipant = $randomParticipants[array_rand($randomParticipants)];
+                    $randomParticipant->addTrialResult($trialResults[$key.'-'.$k]);
+                    unset($randomParticipants[array_search($randomParticipant, $randomParticipants)]);
+                }
+            }
+
             $manager->flush();
 
             // Clear memory, the next loop iteration will start
@@ -306,6 +482,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             unset($rankRequirements);
             unset($faqs);
             unset($questions);
+            unset($participants);
+            unset($shows);
+            unset($trainingCourses);
+            unset($competitions);
+            unset($trials);
+            unset($trialResults);
         }
     }
 
@@ -376,6 +558,17 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $dateTime->setTimestamp($timeStamp);
 
         return $dateTime;
+    }
+
+    /**
+     * @param string $countryCode
+     * @param int    $digitsNumber
+     *
+     * @return string
+     */
+    private function generatePhoneNumber($countryCode = '+33', $digitsNumber = 9)
+    {
+        return $countryCode.mt_rand(pow(10, $digitsNumber-1), pow(10, $digitsNumber)-1);
     }
 
     /**

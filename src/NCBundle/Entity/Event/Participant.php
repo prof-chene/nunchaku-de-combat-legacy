@@ -389,6 +389,8 @@ class Participant
      */
     public function addTrialResult(TrialResult $trialResult)
     {
+        $trialResult->setParticipant($this);
+
         if (!$this->trialResults->contains($trialResult)) {
             $this->trialResults->add($trialResult);
         }

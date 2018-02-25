@@ -29,7 +29,7 @@ class TrialResult
     /**
      * @var int
      *
-     * @ORM\Column(name="place", type="integer", length=5)
+     * @ORM\Column(name="place", type="integer", length=5, nullable=true)
      */
     private $place;
 
