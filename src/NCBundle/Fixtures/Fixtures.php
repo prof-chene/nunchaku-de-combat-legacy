@@ -76,7 +76,14 @@ class Fixtures extends Fixture implements ContainerAwareInterface
      */
     public function load(ObjectManager $manager)
     {
+        // Create upload dirs if they don't exist
+        if (!is_readable($this->container->get('kernel')->getRootDir() . '/../web/media')) {
+            mkdir($this->container->get('kernel')->getRootDir() . '/../web/media');
+        }
         $this->uploadPath = $this->container->get('kernel')->getRootDir() . '/../web/uploads/fixtures';
+        if (!is_readable($this->container->get('kernel')->getRootDir() . '/../web/uploads')) {
+            mkdir($this->container->get('kernel')->getRootDir() . '/../web/uploads');
+        }
         if (!is_readable($this->uploadPath)) {
             mkdir($this->uploadPath);
         }

@@ -5,11 +5,9 @@ root:
         _controller: FrameworkBundle:Redirect:redirect
         route: homepage
         permanent: false
-
 # NCBundle
 nunchaku_de_combat:
     resource: "@NCBundle/Resources/config/routing.yml"
-
 # Admin
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
@@ -40,13 +38,13 @@ fos_user_profile:
     prefix: /{_locale}/profile
     requirements:
         _locale: '%locales%'
-
 # Media
 application_sonata_media:
     resource: '@ApplicationSonataMediaBundle/Resources/config/routing.yml'
     prefix: /{_locale}
     requirements:
         _locale: '%locales%'
+# News
 application_sonata_news:
     resource: '@ApplicationSonataNewsBundle/Resources/config/routing.yml'
     prefix: /{_locale}/news

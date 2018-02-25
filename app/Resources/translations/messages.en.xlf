@@ -2,6 +2,19 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <!-- Generic -->
+            <trans-unit id="by">
+                <source>by</source>
+                <target>by</target>
+            </trans-unit>
+            <trans-unit id="published_on">
+                <source>published_on</source>
+                <target>published on</target>
+            </trans-unit>
+            <trans-unit id="updated_on">
+                <source>updated_on</source>
+                <target>updated on</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>

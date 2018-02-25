@@ -5,11 +5,15 @@
     <article>
         <header>
             <h1>{{ post.title }}</h1>
-            {# TODO TAGS #}
-            <ul>
-                <li>{{ 'by' }} {{ post.author }}</li>
-                <li>{{ 'published_on' }} {{ post.publicationDateStart|format_datetime }}</li>
-                <li>{{ 'updated_on' }} {{ post.updatedAt|format_datetime }}</li>
+            <ul class="article-tags">
+                {% for tag in post.tags if tag.enabled %}
+                    <li>{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+            <ul class="article-publication-details">
+                <li>{{ 'by'|trans|capitalize }} {{ post.author }}</li>
+                <li>{{ 'published_on'|trans|capitalize }} {{ post.publicationDateStart|format_datetime }}</li>
+                <li>{{ 'updated_on'|trans|capitalize }} {{ post.updatedAt|format_datetime }}</li>
             </ul>
             {% media post.image, 'reference' with {'class': 'img-responsive center-block'} %}
         </header>

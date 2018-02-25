@@ -25,29 +25,29 @@
                 </p>
             </div>
         </article>
-        <div class="col-sm-3"></div>
-        <nav aria-label="Posts navigation" class="col-sm-9">
-            <ul class="pagination">
-                <li class="page-item{% if pager.page == 1 %} disabled{% endif %}">
-                    <a class="page-link" href="{% if pager.page == 1 %}#{% else %}{{ url('application_sonata_news') }}{% endif %}" aria-label="First page">
-                        <span aria-hidden="true"><i class="glyphicon glyphicon-backward"></i></span>
-                        <span class="sr-only">First page</span>
-                    </a>
-                </li>
-                {% for page in first_page..last_page %}
-                    <li class="page-item{% if pager.page == page %} active{% endif %}">
-                        <a class="page-link" href="{% if pager.page == page %}#{% elseif pager.page == 1 %}{{ url('application_sonata_news') }}{% else %}{{ url('application_sonata_news', {'page': page}) }}{% endif %}">{{ page }}</a>
-                    </li>
-                {% endfor %}
-                <li class="page-item{% if pager.page == pager.lastPage %} disabled{% endif %}">
-                    <a class="page-link" href="{% if pager.page == pager.lastPage %}#{% else %}{{ url('application_sonata_news', {'page': pager.lastPage}) }}{% endif %}" aria-label="Last page">
-                        <span aria-hidden="true"><i class="glyphicon glyphicon-forward"></i></span>
-                        <span class="sr-only">Last page</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     {% else %}
         <h1>{{ 'no_post_yet'|trans }}</h1>
     {% endfor %}
+    <div class="col-sm-3"></div>
+    <nav aria-label="Posts navigation" class="col-sm-9">
+        <ul class="pagination">
+            <li class="page-item{% if pager.page == 1 %} disabled{% endif %}">
+                <a class="page-link" href="{% if pager.page == 1 %}#{% else %}{{ url('application_sonata_news') }}{% endif %}" aria-label="First page">
+                    <span aria-hidden="true"><i class="glyphicon glyphicon-backward"></i></span>
+                    <span class="sr-only">First page</span>
+                </a>
+            </li>
+            {% for page in first_page..last_page %}
+                <li class="page-item{% if pager.page == page %} active{% endif %}">
+                    <a class="page-link" href="{% if pager.page == page %}#{% elseif page == 1 %}{{ url('application_sonata_news') }}{% else %}{{ url('application_sonata_news', {'page': page}) }}{% endif %}">{{ page }}</a>
+                </li>
+            {% endfor %}
+            <li class="page-item{% if pager.page == pager.lastPage %} disabled{% endif %}">
+                <a class="page-link" href="{% if pager.page == pager.lastPage %}#{% else %}{{ url('application_sonata_news', {'page': pager.lastPage}) }}{% endif %}" aria-label="Last page">
+                    <span aria-hidden="true"><i class="glyphicon glyphicon-forward"></i></span>
+                    <span class="sr-only">Last page</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 {% endblock %}
