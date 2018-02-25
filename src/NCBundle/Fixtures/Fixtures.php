@@ -2,8 +2,11 @@
 
 namespace NCBundle\Fixtures;
 
+use Application\Sonata\ClassificationBundle\Entity\Category;
 use Application\Sonata\ClassificationBundle\Entity\Context;
 use Application\Sonata\ClassificationBundle\Entity\Tag;
+use Application\Sonata\MediaBundle\Entity\Gallery;
+use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use NCBundle\Entity\Event\Competition;
@@ -22,16 +25,22 @@ use NCBundle\Entity\Technique\Style;
 use NCBundle\Entity\Technique\Supply;
 use NCBundle\Entity\Technique\Technique;
 use NCBundle\Entity\Technique\TechniqueExecution;
+use Sonata\MediaBundle\Entity\MediaManager;
 use Sonata\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\File\File;
 
 class Fixtures extends Fixture implements ContainerAwareInterface
 {
     /**
-     * @var
+     * @var ContainerInterface
      */
     private $container;
+    /**
+     * @var string
+     */
+    private $uploadPath;
     /**
      * @var array
      */
@@ -40,6 +49,10 @@ class Fixtures extends Fixture implements ContainerAwareInterface
      * @var array
      */
     private $genders;
+    /**
+     * @var Context[]
+     */
+    private $contexts;
     /**
      * @var Tag[]
      */
@@ -57,19 +70,29 @@ class Fixtures extends Fixture implements ContainerAwareInterface
 
     /**
      * @param ObjectManager $manager
+     *
+     * @throws \Exception
      */
     public function load(ObjectManager $manager)
     {
+        $this->uploadPath = $this->container->get('kernel')->getRootDir() . '/../web/uploads/fixtures';
+        if (!is_readable($this->uploadPath)) {
+            mkdir($this->uploadPath);
+        }
         // Random texts
         for ($i = 1; $i <= 50; $i++) {
             $this->randomTexts[] = $this->generateText();
         }
-
-        // Superadmin
         /**
          * @var UserManager
          */
         $userManager = $this->container->get('sonata.user.orm.user_manager');
+        /**
+         * @var MediaManager
+         */
+        $mediaManager = $this->container->get('sonata.media.manager.media');
+
+        // Superadmin
         $superadmin = $userManager->create();
         $superadmin->setUsername('superadmin');
         $superadmin->setEmail('superadmin@test.com');
@@ -91,7 +114,15 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             $contexts[$contextName]->setCreatedAt(new \DateTime());
             $contexts[$contextName]->setUpdatedAt(new \DateTime());
 
+            // Categories
+            $categories[$contextName] = new Category();
+            $categories[$contextName]->setContext($contexts[$contextName]);
+            $categories[$contextName]->setName(ucfirst($contextName));
+            $categories[$contextName]->setEnabled(true);
+            $categories[$contextName]->setPosition(0);
+
             $manager->persist($contexts[$contextName]);
+            $manager->persist($categories[$contextName]);
         }
 
         // Tags
@@ -106,16 +137,17 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             $manager->persist($tags[$i]);
         }
 
+        // We will flush and clear regularly to avoid memory leak
         $manager->flush();
 
-        // We will flush and clear regularly to avoid memory leak
         unset($contexts);
         unset($tags);
 
         for ($loop = 0; $loop <= 19; $loop++) {
             printf('===============================');
             printf('Loop '.($loop+1));
-            // Tags are flushed from entityManager, we have to fetch them every time
+            // Tags and contexts are flushed from entityManager, we have to fetch them every time
+            $this->contexts = $manager->getRepository(Context::class)->findAll();
             $this->tags = $manager->getRepository(Tag::class)->findAll();
 
             // Users
@@ -467,6 +499,44 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 }
             }
 
+            // Galleries
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $context = $this->contexts[array_rand($this->contexts)]->getId();
+                $galleries[$i] = new Gallery();
+                $galleries[$i]->setName('Gallery '.$i);
+                $galleries[$i]->setContext($context);
+                $galleries[$i]->setCreatedAt(new \DateTime());
+                $galleries[$i]->setUpdatedAt(new \DateTime());
+                $galleries[$i]->setEnabled(true);
+
+                $providers = $this->container->get('sonata.media.pool')->getProvidersByContext($context);
+
+                // Medias
+                for ($j = 1; $j <= mt_rand(2, 20); $j++) {
+                    $medias[$i.'-'.$j] = $mediaManager->create();
+                    $medias[$i.'-'.$j]->setContext($context);
+                    $medias[$i.'-'.$j]->setCreatedAt(new \DateTime());
+                    $medias[$i.'-'.$j]->setUpdatedAt(new \DateTime());
+                    $medias[$i.'-'.$j]->setEnabled(true);
+
+                    $provider = $providers[array_rand($providers)];
+                    $medias[$i.'-'.$j]->setProviderName($provider->getName());
+                    $medias[$i.'-'.$j]->setBinaryContent($this->generateMediaContent($provider->getName(), $i.'-'.$j));
+
+                    // GalleryHasMedias
+                    $galleryHasMedias[$i.'-'.$j] = new GalleryHasMedia();
+                    $galleryHasMedias[$i.'-'.$j]->setEnabled(true);
+                    $galleryHasMedias[$i.'-'.$j]->setPosition($j);
+                    $galleryHasMedias[$i.'-'.$j]->setCreatedAt(new \DateTime());
+                    $galleryHasMedias[$i.'-'.$j]->setUpdatedAt(new \DateTime());
+                    $galleryHasMedias[$i.'-'.$j]->setMedia($medias[$i.'-'.$j]);
+
+                    $galleries[$i]->addGalleryHasMedias($galleryHasMedias[$i.'-'.$j]);
+                }
+
+                $manager->persist($galleries[$i]);
+            }
+
             $manager->flush();
 
             // Clear memory, the next loop iteration will start
@@ -546,6 +616,76 @@ class Fixtures extends Fixture implements ContainerAwareInterface
     }
 
     /**
+     * @param string $file
+     * @param int    $minWidth
+     * @param int    $maxWidth
+     * @param int    $minHeight
+     * @param int    $maxHeight
+     *
+     * @return File
+     */
+    private function generateImage($file, $minWidth = 50, $maxWidth = 1024, $minHeight = 50, $maxHeight = 1024)
+    {
+        $fileName = $this->uploadPath.'/'.$file.'.jpg';
+        if (!file_exists($fileName)) {
+            $width = mt_rand((int) $minWidth, (int) $maxWidth);
+            $height = mt_rand((int) $minHeight, (int) $maxHeight);
+            $url = 'https://picsum.photos/'.$width.'/'.$height.'?random';
+            $image = file_get_contents($url);
+            file_put_contents($fileName, $image);
+        }
+
+        return new File($fileName);
+    }
+
+    /**
+     * TODO use API to fetch random videos
+     *
+     * @return File
+     */
+    private function generateYoutubeVideo()
+    {
+        $randomUrls = [
+            'https://www.youtube.com/watch?v=rSTrjlRPyBU',
+            'https://www.youtube.com/watch?v=QtplRk6BdyA',
+            'https://www.youtube.com/watch?v=iHIBt4L9NAI',
+            'https://www.youtube.com/watch?v=qDY-DF4Lpdg',
+            'https://www.youtube.com/watch?v=hTqZe7STKFk',
+            'https://www.youtube.com/watch?v=M5X_Ijxm2bw',
+            'https://www.youtube.com/watch?v=NLl-AErqAc8',
+            'https://www.youtube.com/watch?v=e4jXoLRTa58',
+            'https://www.youtube.com/watch?v=chx8lIk9nNI',
+            'https://www.youtube.com/watch?v=SZLXgoxXRLI',
+        ];
+
+//        return new File(file_get_contents($randomUrls[array_rand($randomUrls)]));
+        return $randomUrls[array_rand($randomUrls)];
+    }
+
+    /**
+     * TODO use API to fetch random videos
+     *
+     * @return File
+     */
+    private function generateDailymotionVideo()
+    {
+        $randomUrls = [
+            'xqk18h',
+            'x382l5l',
+            'x15xsu6',
+            'xhruu7',
+            'xhruu7',
+            'xsbjen',
+            'x116sy9',
+            'xh71ch',
+            'x28v3e',
+        ];
+
+//        return new File(file_get_contents($randomUrls[array_rand($randomUrls)]));
+        return $randomUrls[array_rand($randomUrls)];
+    }
+
+    /**
      * @param int  $minTimeStamp
      * @param null|int $maxTimeStamp
      *
@@ -569,6 +709,31 @@ class Fixtures extends Fixture implements ContainerAwareInterface
     private function generatePhoneNumber($countryCode = '+33', $digitsNumber = 9)
     {
         return $countryCode.mt_rand(pow(10, $digitsNumber-1), pow(10, $digitsNumber)-1);
+    }
+
+    /**
+     * @param string $providerName
+     *
+     * @return File|null
+     */
+    private function generateMediaContent($providerName = 'sonata.media.provider.image', $uniqueId = null)
+    {
+        switch ($providerName) {
+            case 'sonata.media.provider.image':
+
+                return $this->generateImage($uniqueId);
+                break;
+            case 'sonata.media.provider.youtube':
+
+                return $this->generateYoutubeVideo();
+                break;
+            case 'sonata.media.provider.dailymotion':
+
+                return $this->generateDailymotionVideo();
+                break;
+        }
+
+        return null;
     }
 
     /**
