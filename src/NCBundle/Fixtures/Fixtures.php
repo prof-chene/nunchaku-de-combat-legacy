@@ -7,6 +7,7 @@ use Application\Sonata\ClassificationBundle\Entity\Context;
 use Application\Sonata\ClassificationBundle\Entity\Tag;
 use Application\Sonata\MediaBundle\Entity\Gallery;
 use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
+use Application\Sonata\NewsBundle\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use NCBundle\Entity\Event\Competition;
@@ -95,6 +96,8 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         // Superadmin
         $superadmin = $userManager->create();
         $superadmin->setUsername('superadmin');
+        $superadmin->setFirstname('Firstname superadmin');
+        $superadmin->setLastname('Lastname superadmin');
         $superadmin->setEmail('superadmin@test.com');
         $superadmin->setPlainPassword('superadmin');
         $superadmin->setEnabled(true);
@@ -349,24 +352,24 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 // Participants
                 $randomUsers = $users;
                 for ($j = 1; $j <= mt_rand(2, 12); $j++) {
-                    $participants[$i.'-'.$j] = new Participant();
-                    $participants[$i.'-'.$j]->setFirstname('Firstname show '.$i.'-'.$j);
-                    $participants[$i.'-'.$j]->setLastname('Lastname show '.$i.'-'.$j);
-                    $participants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
-                    $participants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $participants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
-                    $participants[$i.'-'.$j]->setAddress('Participant show address '.$i.'-'.$j);
+                    $showParticipants[$i.'-'.$j] = new Participant();
+                    $showParticipants[$i.'-'.$j]->setFirstname('Firstname show '.$i.'-'.$j);
+                    $showParticipants[$i.'-'.$j]->setLastname('Lastname show '.$i.'-'.$j);
+                    $showParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $showParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $showParticipants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
+                    $showParticipants[$i.'-'.$j]->setAddress('Participant show address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
                     $randomUser2 = $randomUsers[array_rand($randomUsers)];
-                    $participants[$i.'-'.$j]->setUser($randomUser);
-                    $participants[$i.'-'.$j]->setRegistrant($randomUser2);
+                    $showParticipants[$i.'-'.$j]->setUser($randomUser);
+                    $showParticipants[$i.'-'.$j]->setRegistrant($randomUser2);
                     unset($randomUsers[array_search($randomUser, $randomUsers)]);
                     unset($randomUsers[array_search($randomUser2, $randomUsers)]);
 
-                    $participants[$i.'-'.$j]->setHost((bool)mt_rand(0, 1));
+                    $showParticipants[$i.'-'.$j]->setHost((bool)mt_rand(0, 1));
 
-                    $shows[$i]->addParticipant($participants[$i.'-'.$j]);
+                    $shows[$i]->addParticipant($showParticipants[$i.'-'.$j]);
                 }
 
                 $manager->persist($shows[$i]);
@@ -393,24 +396,24 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 // Participants
                 $randomUsers = $users;
                 for ($j = 1; $j <= mt_rand(2, 12); $j++) {
-                    $participants[$i.'-'.$j] = new Participant();
-                    $participants[$i.'-'.$j]->setFirstname('Firstname training course '.$i.'-'.$j);
-                    $participants[$i.'-'.$j]->setLastname('Lastname training course '.$i.'-'.$j);
-                    $participants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
-                    $participants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $participants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
-                    $participants[$i.'-'.$j]->setAddress('Participant training course address '.$i.'-'.$j);
+                    $trainingCourseParticipants[$i.'-'.$j] = new Participant();
+                    $trainingCourseParticipants[$i.'-'.$j]->setFirstname('Firstname training course '.$i.'-'.$j);
+                    $trainingCourseParticipants[$i.'-'.$j]->setLastname('Lastname training course '.$i.'-'.$j);
+                    $trainingCourseParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $trainingCourseParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $trainingCourseParticipants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
+                    $trainingCourseParticipants[$i.'-'.$j]->setAddress('Participant training course address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
                     $randomUser2 = $randomUsers[array_rand($randomUsers)];
-                    $participants[$i.'-'.$j]->setUser($randomUser);
-                    $participants[$i.'-'.$j]->setRegistrant($randomUser2);
+                    $trainingCourseParticipants[$i.'-'.$j]->setUser($randomUser);
+                    $trainingCourseParticipants[$i.'-'.$j]->setRegistrant($randomUser2);
                     unset($randomUsers[array_search($randomUser, $randomUsers)]);
                     unset($randomUsers[array_search($randomUser2, $randomUsers)]);
 
-                    $participants[$i.'-'.$j]->setTrainer((bool)mt_rand(0, 1));
+                    $trainingCourseParticipants[$i.'-'.$j]->setTrainer((bool)mt_rand(0, 1));
 
-                    $trainingCourses[$i]->addParticipant($participants[$i.'-'.$j]);
+                    $trainingCourses[$i]->addParticipant($trainingCourseParticipants[$i.'-'.$j]);
                 }
 
                 // Exercises
@@ -442,24 +445,24 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 // Participants
                 $randomUsers = $users;
                 for ($j = 1; $j <= mt_rand(2, 12); $j++) {
-                    $participants[$i.'-'.$j] = new Participant();
-                    $participants[$i.'-'.$j]->setFirstname('Firstname competition '.$i.'-'.$j);
-                    $participants[$i.'-'.$j]->setLastname('Lastname competition '.$i.'-'.$j);
-                    $participants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
-                    $participants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $participants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
-                    $participants[$i.'-'.$j]->setAddress('Participant competition address '.$i.'-'.$j);
+                    $competitionParticipants[$i.'-'.$j] = new Participant();
+                    $competitionParticipants[$i.'-'.$j]->setFirstname('Firstname competition '.$i.'-'.$j);
+                    $competitionParticipants[$i.'-'.$j]->setLastname('Lastname competition '.$i.'-'.$j);
+                    $competitionParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $competitionParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $competitionParticipants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
+                    $competitionParticipants[$i.'-'.$j]->setAddress('Participant competition address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
                     $randomUser2 = $randomUsers[array_rand($randomUsers)];
-                    $participants[$i.'-'.$j]->setUser($randomUser);
-                    $participants[$i.'-'.$j]->setRegistrant($randomUser2);
+                    $competitionParticipants[$i.'-'.$j]->setUser($randomUser);
+                    $competitionParticipants[$i.'-'.$j]->setRegistrant($randomUser2);
                     unset($randomUsers[array_search($randomUser, $randomUsers)]);
                     unset($randomUsers[array_search($randomUser2, $randomUsers)]);
 
-                    $participants[$i.'-'.$j]->setReferee((bool)mt_rand(0, 1));
+                    $competitionParticipants[$i.'-'.$j]->setReferee((bool)mt_rand(0, 1));
 
-                    $competitions[$i]->addParticipant($participants[$i.'-'.$j]);
+                    $competitions[$i]->addParticipant($competitionParticipants[$i.'-'.$j]);
                 }
 
                 // Trials
@@ -521,7 +524,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
 
                     $provider = $providers[array_rand($providers)];
                     $medias[$i.'-'.$j]->setProviderName($provider->getName());
-                    $medias[$i.'-'.$j]->setBinaryContent($this->generateMediaContent($provider->getName(), $i.'-'.$j));
+                    $medias[$i.'-'.$j]->setBinaryContent($this->generateMediaContent($provider->getName(), 'Media-'.$i.'-'.$j));
 
                     // GalleryHasMedias
                     $galleryHasMedias[$i.'-'.$j] = new GalleryHasMedia();
@@ -535,6 +538,37 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 }
 
                 $manager->persist($galleries[$i]);
+            }
+
+            // Posts
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $posts[$i] = new Post();
+                $posts[$i]->setTitle('Post '.$i);
+                $posts[$i]->setPublicationDateStart(new \DateTime());
+                $posts[$i]->setCreatedAt(new \DateTime());
+                $posts[$i]->setUpdatedAt(new \DateTime());
+                $posts[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $posts[$i]->setContentFormatter('richhtml');
+                $posts[$i]->setRawContent($content);
+                $posts[$i]->setContent($content);
+                $this->addRandomTags($posts[$i]);
+
+                $posts[$i]->setAbstract('Abstract '.$i);
+                $posts[$i]->setAuthor($users[array_rand($users)]);
+                $posts[$i]->setCommentsEnabled(true);
+                $posts[$i]->setCommentsDefaultStatus(1);
+
+                $images[$i] = $mediaManager->create();
+                $images[$i]->setContext('news');
+                $images[$i]->setCreatedAt(new \DateTime());
+                $images[$i]->setUpdatedAt(new \DateTime());
+                $images[$i]->setEnabled(true);
+                $images[$i]->setProviderName('sonata.media.provider.image');
+                $images[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Post-'.$i));
+                $posts[$i]->setImage($images[$i]);
+
+                $manager->persist($posts[$i]);
             }
 
             $manager->flush();
@@ -552,12 +586,19 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             unset($rankRequirements);
             unset($faqs);
             unset($questions);
-            unset($participants);
             unset($shows);
+            unset($showParticipants);
             unset($trainingCourses);
+            unset($trainingCourseParticipants);
             unset($competitions);
+            unset($competitionParticipants);
             unset($trials);
             unset($trialResults);
+            unset($galleries);
+            unset($medias);
+            unset($galleryHasMedias);
+            unset($posts);
+            unset($images);
         }
     }
 
@@ -716,12 +757,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
      *
      * @return File|null
      */
-    private function generateMediaContent($providerName = 'sonata.media.provider.image', $uniqueId = null)
+    private function generateMediaContent($providerName = 'sonata.media.provider.image', $file = null)
     {
         switch ($providerName) {
             case 'sonata.media.provider.image':
 
-                return $this->generateImage($uniqueId);
+                return $this->generateImage($file);
                 break;
             case 'sonata.media.provider.youtube':
 

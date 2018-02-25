@@ -2,6 +2,7 @@
 
 namespace Application\Sonata\NewsBundle\Entity;
 
+use Application\Sonata\ClassificationBundle\Entity\Tag;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\NewsBundle\Entity\BasePost as BasePost;
 
@@ -32,5 +33,19 @@ class Post extends BasePost
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param Tag $tag
+     *
+     * @return $this
+     */
+    public function addTag(Tag $tag)
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
     }
 }
