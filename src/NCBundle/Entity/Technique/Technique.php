@@ -54,6 +54,8 @@ class Technique extends AbstractEditorial
      */
     public function addTechniqueExecution(TechniqueExecution $techniqueExecution)
     {
+        $techniqueExecution->setTechnique($this);
+
         if (!$this->techniqueExecutions->contains($techniqueExecution)) {
             $this->techniqueExecutions->add($techniqueExecution);
         }

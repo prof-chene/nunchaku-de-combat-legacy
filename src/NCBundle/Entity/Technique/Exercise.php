@@ -148,10 +148,12 @@ class Exercise extends AbstractEditorial
      */
     public function addSupply(Supply $supply)
     {
-        $supply->setExercises($this);
-
         if (!$this->supplies->contains($supply)) {
             $this->supplies->add($supply);
+        }
+
+        if (!$supply->getExercises()->contains($this)) {
+            $supply->addExercise($this);
         }
 
         return $this;

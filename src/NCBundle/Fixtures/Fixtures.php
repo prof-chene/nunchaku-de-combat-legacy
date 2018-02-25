@@ -27,9 +27,13 @@ class Fixtures extends Fixture implements ContainerAwareInterface
      */
     private $container;
     /**
-     * @var Context[]
+     * @var array
      */
-    private $contexts;
+    private $randomTexts;
+    /**
+     * @var array
+     */
+    private $genders;
     /**
      * @var Tag[]
      */
@@ -50,7 +54,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
      */
     public function load(ObjectManager $manager)
     {
-        // Users
+        // Random texts
+        for ($i = 1; $i <= 50; $i++) {
+            $this->randomTexts[] = $this->generateText();
+        }
+
+        // Superadmin
         /**
          * @var UserManager
          */
@@ -61,193 +70,243 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $superadmin->setPlainPassword('superadmin');
         $superadmin->setEnabled(true);
         $superadmin->addRole('ROLE_SUPER_ADMIN');
-
         $userManager->save($superadmin, false);
 
-        $genders = $superadmin->getGenderList();
-        $locales = ['fr', 'en'];
-        for ($i = 1; $i <= 50; $i++) {
-            $users[$i] = $userManager->create();
-            $users[$i]->setUsername('user'.$i);
-            $users[$i]->setEmail('user'.$i.'@test.com');
-            $users[$i]->setPlainPassword('user'.$i);
-            $users[$i]->setEnabled(true);
-            $users[$i]->setFirstname('Firstname '.$i);
-            $users[$i]->setLastname('Lastname '.$i);
-            $users[$i]->setGender($genders[array_rand($genders)]);
-            $users[$i]->setLocale($locales[array_rand($locales)]);
-            $users[$i]->setDateOfBirth($this->generateDate());
-
-            $userManager->save($users[$i], false);
-        }
+        // Genders
+        $this->genders = $superadmin->getGenderList();
 
         // Contexts
-        $contexts = ['content', 'event', 'news', 'technique'];
-        foreach ($contexts as $contextName) {
-            $this->contexts[$contextName] = new Context();
-            $this->contexts[$contextName]->setId(strtolower($contextName));
-            $this->contexts[$contextName]->setName(ucfirst($contextName));
-            $this->contexts[$contextName]->setEnabled(true);
-            $this->contexts[$contextName]->setCreatedAt(new \DateTime());
-            $this->contexts[$contextName]->setUpdatedAt(new \DateTime());
+        $contextNames = ['content', 'event', 'news', 'technique'];
+        foreach ($contextNames as $contextName) {
+            $contexts[$contextName] = new Context();
+            $contexts[$contextName]->setId(strtolower($contextName));
+            $contexts[$contextName]->setName(ucfirst($contextName));
+            $contexts[$contextName]->setEnabled(true);
+            $contexts[$contextName]->setCreatedAt(new \DateTime());
+            $contexts[$contextName]->setUpdatedAt(new \DateTime());
 
-            $manager->persist($this->contexts[$contextName]);
+            $manager->persist($contexts[$contextName]);
         }
 
         // Tags
-        for ($i = 1; $i <= 250; $i++) {
-            $this->tags[$i] = new Tag();
-            $this->tags[$i]->setName('Tag '.$i);
-            $this->tags[$i]->setCreatedAt(new \DateTime());
-            $this->tags[$i]->setUpdatedAt(new \DateTime());
-            $this->tags[$i]->setEnabled(true);
-            $this->tags[$i]->setContext($this->contexts[array_rand($this->contexts)]);
+        for ($i = 1; $i <= 20; $i++) {
+            $tags[$i] = new Tag();
+            $tags[$i]->setName('Tag '.$i);
+            $tags[$i]->setCreatedAt(new \DateTime());
+            $tags[$i]->setUpdatedAt(new \DateTime());
+            $tags[$i]->setEnabled(true);
+            $tags[$i]->setContext($contexts[array_rand($contexts)]);
 
-            $manager->persist($this->tags[$i]);
-        }
-
-        // Supplies
-        for ($i = 1; $i <= 500; $i++) {
-            $supplies[$i] = new Supply();
-            $supplies[$i]->setTitle('Supply '.$i);
-            $supplies[$i]->setPublicationDateStart(new \DateTime());
-            $supplies[$i]->setCreatedAt(new \DateTime());
-            $supplies[$i]->setUpdatedAt(new \DateTime());
-            $supplies[$i]->setEnabled(true);
-            $content = $this->generateText();
-            $supplies[$i]->setContentFormatter('richhtml');
-            $supplies[$i]->setRawContent($content);
-            $supplies[$i]->setContent($content);
-            $this->addRandomTags($supplies[$i]);
-
-            $manager->persist($supplies[$i]);
-        }
-
-        // Techniques
-        for ($i = 1; $i <= 500; $i++) {
-            $techniques[$i] = new Technique();
-            $techniques[$i]->setTitle('Technique '.$i);
-            $techniques[$i]->setPublicationDateStart(new \DateTime());
-            $techniques[$i]->setCreatedAt(new \DateTime());
-            $techniques[$i]->setUpdatedAt(new \DateTime());
-            $techniques[$i]->setEnabled(true);
-            $content = $this->generateText();
-            $techniques[$i]->setContentFormatter('richhtml');
-            $techniques[$i]->setRawContent($content);
-            $techniques[$i]->setContent($content);
-            $this->addRandomTags($techniques[$i]);
-
-            // Exercises
-            for ($j = 1; $j <= mt_rand(0, 4); $j++) {
-                $exercises[$i.'-'.$j] = new Exercise();
-                $exercises[$i.'-'.$j]->setTitle('Exercise '.$i.'-'.$j);
-                $exercises[$i.'-'.$j]->setPublicationDateStart(new \DateTime());
-                $exercises[$i.'-'.$j]->setCreatedAt(new \DateTime());
-                $exercises[$i.'-'.$j]->setUpdatedAt(new \DateTime());
-                $exercises[$i.'-'.$j]->setEnabled(true);
-                $content = $this->generateText();
-                $exercises[$i.'-'.$j]->setContentFormatter('richhtml');
-                $exercises[$i.'-'.$j]->setRawContent($content);
-                $exercises[$i.'-'.$j]->setContent($content);
-                $this->addRandomTags($exercises[$i.'-'.$j]);
-
-                for ($k = 1; $k <= mt_rand(0, 2); $k++) {
-                    $exercises[$i.'-'.$j]->addSupply($supplies[array_rand($supplies)]);
-                }
-
-                // TechniqueExecutions
-                $techniqueExecutions[$i.'-'.$j.'-'.$k] = new TechniqueExecution();
-                $techniqueExecutions[$i.'-'.$j.'-'.$k]->setDetail($this->generateText());
-
-                $techniques[$i]->addTechniqueExecution($techniqueExecutions[$i.'-'.$j.'-'.$k]);
-                $exercises[$i.'-'.$j]->addTechniqueExecution($techniqueExecutions[$i.'-'.$j.'-'.$k]);
-            }
-        }
-
-        // Styles
-        for ($i = 1; $i <= 15; $i++) {
-            $styles[$i] = new Style();
-            $styles[$i]->setTitle('Style '.$i);
-            $styles[$i]->setPublicationDateStart(new \DateTime());
-            $styles[$i]->setCreatedAt(new \DateTime());
-            $styles[$i]->setUpdatedAt(new \DateTime());
-            $styles[$i]->setEnabled(true);
-            $content = $this->generateText();
-            $styles[$i]->setContentFormatter('richhtml');
-            $styles[$i]->setRawContent($content);
-            $styles[$i]->setContent($content);
-            $this->addRandomTags($styles[$i]);
-
-            // Ranks
-            for ($j = 1; $j <= mt_rand(1, 20); $j++) {
-                $ranks[$i.'-'.$j] = new Rank();
-                $ranks[$i.'-'.$j]->setTitle('Rank '.$i.'-'.$j);
-                $ranks[$i.'-'.$j]->setPublicationDateStart(new \DateTime());
-                $ranks[$i.'-'.$j]->setCreatedAt(new \DateTime());
-                $ranks[$i.'-'.$j]->setUpdatedAt(new \DateTime());
-                $ranks[$i.'-'.$j]->setEnabled(true);
-                $content = $this->generateText();
-                $ranks[$i.'-'.$j]->setContentFormatter('richhtml');
-                $ranks[$i.'-'.$j]->setRawContent($content);
-                $ranks[$i.'-'.$j]->setContent($content);
-                $this->addRandomTags($ranks[$i.'-'.$j]);
-
-                $ranks[$i.'-'.$j]->setLevel($j);
-                $styles[$i]->addRank($ranks[$i.'-'.$j]);
-
-                // RankHolders
-                for ($k = 1; $k <= mt_rand(1, 10); $k++) {
-                    $rankHolders[$i.'-'.$j.'-'.$k] = new RankHolder();
-                    $rankHolders[$i.'-'.$j.'-'.$k]->setHolder($users[array_rand($users)]);
-                    $rankHolders[$i.'-'.$j.'-'.$k]->setPromotedAt($this->generateDate());
-                    $rankHolders[$i.'-'.$j.'-'.$k]->setJury('Jury '.$i.'-'.$j.'-'.$k);
-                    $ranks[$i.'-'.$j]->addHolder($rankHolders[$i.'-'.$j.'-'.$k]);
-                }
-
-                $manager->persist($ranks[$i.'-'.$j]);
-
-                // RankRequirements
-                for ($k = 1; $k <= mt_rand(2, 10); $k++) {
-                    $rankRequirements[$i.'-'.$j.'-'.$k] = new RankRequirement();
-                    $rankRequirements[$i.'-'.$j.'-'.$k]->setExercise($exercises[array_rand($exercises)]);
-                    $rankRequirements[$i.'-'.$j.'-'.$k]->setPoints(mt_rand(5,30));
-                    $rankRequirements[$i.'-'.$j.'-'.$k]->setDetail('Detail '.$i.'-'.$j.'-'.$k);
-
-                    $ranks[$i.'-'.$j]->addRankRequirement($rankRequirements[$i.'-'.$j.'-'.$k]);
-                }
-            }
-
-            $manager->persist($styles[$i]);
-        }
-
-        // FAQs
-        for ($i = 1; $i <= 10; $i++) {
-            $faqs[$i] = new FAQ();
-            $faqs[$i]->setTitle('Style '.$i);
-            $faqs[$i]->setPublicationDateStart(new \DateTime());
-            $faqs[$i]->setCreatedAt(new \DateTime());
-            $faqs[$i]->setUpdatedAt(new \DateTime());
-            $faqs[$i]->setEnabled(true);
-            $content = $this->generateText();
-            $faqs[$i]->setContentFormatter('richhtml');
-            $faqs[$i]->setRawContent($content);
-            $faqs[$i]->setContent($content);
-            $this->addRandomTags($faqs[$i]);
-
-            // Questions
-            for ($j = 1; $j <= mt_rand(2, 15); $j++) {
-                $questions[$i.'-'.$j] = new Question();
-                $questions[$i.'-'.$j]->setQuestion('Question '.$i.'-'.$j);
-                $questions[$i.'-'.$j]->setAnswer('Answer '.$i.'-'.$j);
-                $questions[$i.'-'.$j]->setPosition($j);
-
-                $faqs[$i]->addQuestion($questions[$i.'-'.$j]);
-            }
-
-            $manager->persist($faqs[$i]);
+            $manager->persist($tags[$i]);
         }
 
         $manager->flush();
+
+        // We will flush and clear regularly to avoid memory leak
+        unset($contexts);
+        unset($tags);
+
+        for ($loop = 0; $loop <= 19; $loop++) {
+            printf('===============================');
+            printf('Loop '.($loop+1));
+            // Tags are flushed from entityManager, we have to fetch them every time
+            $this->tags = $manager->getRepository(Tag::class)->findAll();
+
+            // Users
+            $locales = ['fr', 'en'];
+            for ($i = ($loop * 20) + 1; $i <= ($loop * 20) + 20; $i++) {
+                $users[$i] = $userManager->create();
+                $users[$i]->setUsername('user'.$i);
+                $users[$i]->setEmail('user'.$i.'@test.com');
+                $users[$i]->setPlainPassword('user'.$i);
+                $users[$i]->setEnabled(true);
+                $users[$i]->setFirstname('Firstname '.$i);
+                $users[$i]->setLastname('Lastname '.$i);
+                $users[$i]->setGender($this->genders[array_rand($this->genders)]);
+                $users[$i]->setLocale($locales[array_rand($locales)]);
+                $users[$i]->setDateOfBirth($this->generateDate());
+
+                $userManager->save($users[$i], false);
+            }
+
+            // Supplies
+            for ($i = ($loop * 2) + 1; $i <= ($loop * 2) + 2; $i++) {
+                $supplies[$i] = new Supply();
+                $supplies[$i]->setTitle('Supply '.$i);
+                $supplies[$i]->setPublicationDateStart(new \DateTime());
+                $supplies[$i]->setCreatedAt(new \DateTime());
+                $supplies[$i]->setUpdatedAt(new \DateTime());
+                $supplies[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $supplies[$i]->setContentFormatter('richhtml');
+                $supplies[$i]->setRawContent($content);
+                $supplies[$i]->setContent($content);
+                $this->addRandomTags($supplies[$i]);
+
+                $manager->persist($supplies[$i]);
+            }
+
+            // Techniques
+            for ($i = ($loop * 10) + 1; $i <= ($loop * 10) + 10; $i++) {
+                $techniques[$i] = new Technique();
+                $techniques[$i]->setTitle('Technique '.$i);
+                $techniques[$i]->setPublicationDateStart(new \DateTime());
+                $techniques[$i]->setCreatedAt(new \DateTime());
+                $techniques[$i]->setUpdatedAt(new \DateTime());
+                $techniques[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $techniques[$i]->setContentFormatter('richhtml');
+                $techniques[$i]->setRawContent($content);
+                $techniques[$i]->setContent($content);
+                $this->addRandomTags($techniques[$i]);
+
+                // Exercises
+                for ($j = 1; $j <= mt_rand(1, 4); $j++) {
+                    $exercises[$i.'-'.$j] = new Exercise();
+                    $exercises[$i.'-'.$j]->setTitle('Exercise '.$i.'-'.$j);
+                    $exercises[$i.'-'.$j]->setPublicationDateStart(new \DateTime());
+                    $exercises[$i.'-'.$j]->setCreatedAt(new \DateTime());
+                    $exercises[$i.'-'.$j]->setUpdatedAt(new \DateTime());
+                    $exercises[$i.'-'.$j]->setEnabled(true);
+                    $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                    $exercises[$i.'-'.$j]->setContentFormatter('richhtml');
+                    $exercises[$i.'-'.$j]->setRawContent($content);
+                    $exercises[$i.'-'.$j]->setContent($content);
+                    $this->addRandomTags($exercises[$i.'-'.$j]);
+
+                    for ($k = 1; $k <= mt_rand(0, 2); $k++) {
+                        $exercises[$i.'-'.$j]->addSupply($supplies[array_rand($supplies)]);
+                    }
+
+                    $manager->persist($exercises[$i.'-'.$j]);
+                }
+
+                $manager->persist($techniques[$i]);
+            }
+
+            $manager->flush();
+
+            // TechniqueExecutions
+            foreach ($exercises as $key => $exercise) {
+                $techniqueExecutions[$key] = new TechniqueExecution();
+                $techniqueExecutions[$key]->setDetail('Detail '.$key);
+
+                $techniques[explode('-', $key)[0]]->addTechniqueExecution($techniqueExecutions[$key]);
+                $exercise->addTechniqueExecution($techniqueExecutions[$key]);
+            }
+
+            // Styles
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $styles[$i] = new Style();
+                $styles[$i]->setTitle('Style '.$i);
+                $styles[$i]->setPublicationDateStart(new \DateTime());
+                $styles[$i]->setCreatedAt(new \DateTime());
+                $styles[$i]->setUpdatedAt(new \DateTime());
+                $styles[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $styles[$i]->setContentFormatter('richhtml');
+                $styles[$i]->setRawContent($content);
+                $styles[$i]->setContent($content);
+                $this->addRandomTags($styles[$i]);
+
+                $manager->persist($styles[$i]);
+
+                // Ranks
+                for ($j = 1; $j <= mt_rand(1, 20); $j++) {
+                    $ranks[$i . '-' . $j] = new Rank();
+                    $ranks[$i . '-' . $j]->setTitle('Rank ' . $i . '-' . $j);
+                    $ranks[$i . '-' . $j]->setPublicationDateStart(new \DateTime());
+                    $ranks[$i . '-' . $j]->setCreatedAt(new \DateTime());
+                    $ranks[$i . '-' . $j]->setUpdatedAt(new \DateTime());
+                    $ranks[$i . '-' . $j]->setEnabled(true);
+                    $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                    $ranks[$i . '-' . $j]->setContentFormatter('richhtml');
+                    $ranks[$i . '-' . $j]->setRawContent($content);
+                    $ranks[$i . '-' . $j]->setContent($content);
+                    $this->addRandomTags($ranks[$i . '-' . $j]);
+
+                    $ranks[$i . '-' . $j]->setLevel($j);
+                    $styles[$i]->addRank($ranks[$i . '-' . $j]);
+                }
+            }
+
+            $manager->flush();
+
+            foreach ($styles as $style) {
+                foreach ($style->getRanks() as $rank) {
+                    // RankHolders
+                    $randomUsers = $users;
+                    for ($k = 1; $k <= mt_rand(1, 10); $k++) {
+                        $rankHolders[$i.'-'.$j.'-'.$k] = new RankHolder();
+                        $rankHolders[$i.'-'.$j.'-'.$k]->setPromotedAt($this->generateDate());
+                        $rankHolders[$i.'-'.$j.'-'.$k]->setJury('Jury '.$i.'-'.$j.'-'.$k);
+
+                        $randomUser = $randomUsers[array_rand($randomUsers)];
+                        $randomUser->addRank($rankHolders[$i.'-'.$j.'-'.$k]);
+                        unset($randomUsers[array_search($randomUser, $randomUsers)]);
+
+                        $rank->addHolder($rankHolders[$i.'-'.$j.'-'.$k]);
+                    }
+
+                    $randomExercises = $exercises;
+                    // RankRequirements
+                    for ($k = 1; $k <= mt_rand(2, 10); $k++) {
+                        $rankRequirements[$i.'-'.$j.'-'.$k] = new RankRequirement();
+                        $rankRequirements[$i.'-'.$j.'-'.$k]->setPoints(mt_rand(5,30));
+                        $rankRequirements[$i.'-'.$j.'-'.$k]->setDetail('Detail '.$i.'-'.$j.'-'.$k);
+
+                        $randomExercise = $randomExercises[array_rand($randomExercises)];
+                        $randomExercise->addRankRequirement($rankRequirements[$i.'-'.$j.'-'.$k]);
+                        unset($randomExercises[array_search($randomExercise, $randomExercises)]);
+
+                        $rank->addRankRequirement($rankRequirements[$i.'-'.$j.'-'.$k]);
+                    }
+                }
+            }
+
+            // FAQs
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $faqs[$i] = new FAQ();
+                $faqs[$i]->setTitle('Style '.$i);
+                $faqs[$i]->setPublicationDateStart(new \DateTime());
+                $faqs[$i]->setCreatedAt(new \DateTime());
+                $faqs[$i]->setUpdatedAt(new \DateTime());
+                $faqs[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $faqs[$i]->setContentFormatter('richhtml');
+                $faqs[$i]->setRawContent($content);
+                $faqs[$i]->setContent($content);
+                $this->addRandomTags($faqs[$i]);
+
+                // Questions
+                for ($j = 1; $j <= mt_rand(2, 15); $j++) {
+                    $questions[$i.'-'.$j] = new Question();
+                    $questions[$i.'-'.$j]->setQuestion('Question '.$i.'-'.$j);
+                    $questions[$i.'-'.$j]->setAnswer('Answer '.$i.'-'.$j);
+                    $questions[$i.'-'.$j]->setPosition($j);
+
+                    $faqs[$i]->addQuestion($questions[$i.'-'.$j]);
+                }
+
+                $manager->persist($faqs[$i]);
+            }
+
+            $manager->flush();
+
+            // Clear memory, the next loop iteration will start
+            $manager->clear();
+            unset($users);
+            unset($supplies);
+            unset($techniques);
+            unset($exercises);
+            unset($techniqueExecutions);
+            unset($styles);
+            unset($ranks);
+            unset($rankHolders);
+            unset($rankRequirements);
+            unset($faqs);
+            unset($questions);
+        }
     }
 
     /**

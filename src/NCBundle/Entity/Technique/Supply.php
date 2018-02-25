@@ -58,6 +58,10 @@ class Supply extends AbstractEditorial
             $this->exercises->add($exercise);
         }
 
+        if (!$exercise->getSupplies()->contains($this)) {
+            $exercise->addSupply($this);
+        }
+
         return $this;
     }
 }

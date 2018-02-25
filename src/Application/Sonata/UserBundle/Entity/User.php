@@ -129,6 +129,8 @@ class User extends BaseUser
      */
     public function addRank(RankHolder $rank)
     {
+        $rank->setHolder($this);
+
         if (!$this->ranks->contains($rank)) {
             $this->ranks->add($rank);
         }
@@ -163,6 +165,8 @@ class User extends BaseUser
      */
     public function addParticipant(Participant $participant)
     {
+        $participant->setUser($this);
+
         if (!$this->participants->contains($participant)) {
             $this->participants->add($participant);
         }
