@@ -7,6 +7,12 @@ application_sonata_news_view:
     requirements:
         _format: html|rss
         permalink: .+?
+sonata_news_view:
+    path: /{permalink}.{_format}
+    defaults: { _controller: ApplicationSonataNewsBundle:Post:view, _format: html }
+    requirements:
+        _format: html|rss
+        permalink: .+?
 application_sonata_news_add_comment:
     path: /add-comment/{id}
     defaults: { _controller: ApplicationSonataNewsBundle:Post:addComment }
