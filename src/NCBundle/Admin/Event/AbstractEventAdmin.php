@@ -55,7 +55,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                 'class' => 'col-md-8',
             ))
             ->add('title')
-            ->add('thumbnail', 'sonata_media_type', array(
+            ->add('image', 'sonata_media_type', array(
                 'context' => 'event',
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,

@@ -27,7 +27,7 @@ class Media extends BaseMedia
     /**
      * @var AbstractContent
      *
-     * @ORM\OneToMany(targetEntity="NCBundle\Entity\AbstractContent", mappedBy="thumbnail", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="NCBundle\Entity\AbstractContent", mappedBy="image", cascade={"persist"})
      */
     protected $contents;
 

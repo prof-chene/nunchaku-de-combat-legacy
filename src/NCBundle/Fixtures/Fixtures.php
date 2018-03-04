@@ -3,6 +3,7 @@
 namespace NCBundle\Fixtures;
 
 use Application\Sonata\ClassificationBundle\Entity\Category;
+use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Application\Sonata\ClassificationBundle\Entity\Context;
 use Application\Sonata\ClassificationBundle\Entity\Tag;
 use Application\Sonata\MediaBundle\Entity\Gallery;
@@ -77,16 +78,17 @@ class Fixtures extends Fixture implements ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         // Create upload dirs if they don't exist
-        if (!is_readable($this->container->get('kernel')->getRootDir() . '/../web/media')) {
-            mkdir($this->container->get('kernel')->getRootDir() . '/../web/media');
-        }
-        $this->uploadPath = $this->container->get('kernel')->getRootDir() . '/../web/uploads/fixtures';
         if (!is_readable($this->container->get('kernel')->getRootDir() . '/../web/uploads')) {
             mkdir($this->container->get('kernel')->getRootDir() . '/../web/uploads');
         }
+        if (!is_readable($this->container->get('kernel')->getRootDir() . '/../web/uploads/media')) {
+            mkdir($this->container->get('kernel')->getRootDir() . '/../web/uploads/media');
+        }
+        $this->uploadPath = $this->container->get('kernel')->getRootDir() . '/../web/uploads/fixtures';
         if (!is_readable($this->uploadPath)) {
             mkdir($this->uploadPath);
         }
+
         // Random texts
         for ($i = 1; $i <= 50; $i++) {
             $this->randomTexts[] = $this->generateText();
@@ -115,7 +117,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $this->genders = $superadmin->getGenderList();
 
         // Contexts
-        $contextNames = ['content', 'event', 'news', 'technique'];
+        $contextNames = ['blog', 'event', 'exercise', 'technique'];
         foreach ($contextNames as $contextName) {
             $contexts[$contextName] = new Context();
             $contexts[$contextName]->setId(strtolower($contextName));
@@ -150,14 +152,16 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         // We will flush and clear regularly to avoid memory leak
         $manager->flush();
 
-        unset($contexts);
         unset($tags);
 
         for ($loop = 0; $loop <= 19; $loop++) {
             printf('===============================');
             printf('Loop '.($loop+1));
             // Tags and contexts are flushed from entityManager, we have to fetch them every time
-            $this->contexts = $manager->getRepository(Context::class)->findAll();
+            $contexts = $manager->getRepository(Context::class)->findAll();
+            foreach ($contexts as $context) {
+                $this->contexts[$context->getId()] = $context;
+            }
             $this->tags = $manager->getRepository(Tag::class)->findAll();
 
             // Users
@@ -186,7 +190,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $supplies[$i]->setCreatedAt(new \DateTime());
                 $supplies[$i]->setUpdatedAt(new \DateTime());
                 $supplies[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $supplies[$i]->setContentFormatter('richhtml');
                 $supplies[$i]->setRawContent($content);
                 $supplies[$i]->setContent($content);
@@ -194,6 +198,46 @@ class Fixtures extends Fixture implements ContainerAwareInterface
 
                 $manager->persist($supplies[$i]);
             }
+
+            // Collection Technique
+            $techniqueCollection = new Collection();
+            $techniqueCollection->setEnabled(true);
+            $techniqueCollection->setContext($this->contexts['technique']);
+            $techniqueCollection->setName('Collection Technique '.($loop + 1));
+            $techniqueCollection->setCreatedAt(new \DateTime());
+            $techniqueCollection->setUpdatedAt(new \DateTime());
+            $techniqueCollection->setDescription('Description Technique '.($loop + 1));
+
+            $techniqueCollectionMedia = $mediaManager->create();
+            $techniqueCollectionMedia->setContext('technique');
+            $techniqueCollectionMedia->setCreatedAt(new \DateTime());
+            $techniqueCollectionMedia->setUpdatedAt(new \DateTime());
+            $techniqueCollectionMedia->setEnabled(true);
+            $techniqueCollectionMedia->setProviderName('sonata.media.provider.image');
+            $techniqueCollectionMedia->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'TechniqueCollection-'.($loop + 1)));
+            $techniqueCollection->setMedia($techniqueCollectionMedia);
+
+            $manager->persist($techniqueCollection);
+
+            // Collection Exercise
+            $exerciseCollection = new Collection();
+            $exerciseCollection->setEnabled(true);
+            $exerciseCollection->setContext($this->contexts['exercise']);
+            $exerciseCollection->setName('Collection Exercise '.($loop + 1));
+            $exerciseCollection->setCreatedAt(new \DateTime());
+            $exerciseCollection->setUpdatedAt(new \DateTime());
+            $exerciseCollection->setDescription('Description Exercise '.($loop + 1));
+
+            $exerciseCollectionMedia = $mediaManager->create();
+            $exerciseCollectionMedia->setContext('exercise');
+            $exerciseCollectionMedia->setCreatedAt(new \DateTime());
+            $exerciseCollectionMedia->setUpdatedAt(new \DateTime());
+            $exerciseCollectionMedia->setEnabled(true);
+            $exerciseCollectionMedia->setProviderName('sonata.media.provider.image');
+            $exerciseCollectionMedia->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'ExerciseCollection-'.($loop + 1)));
+            $exerciseCollection->setMedia($exerciseCollectionMedia);
+
+            $manager->persist($exerciseCollection);
 
             // Techniques
             for ($i = ($loop * 10) + 1; $i <= ($loop * 10) + 10; $i++) {
@@ -203,11 +247,22 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $techniques[$i]->setCreatedAt(new \DateTime());
                 $techniques[$i]->setUpdatedAt(new \DateTime());
                 $techniques[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $techniques[$i]->setContentFormatter('richhtml');
                 $techniques[$i]->setRawContent($content);
                 $techniques[$i]->setContent($content);
                 $this->addRandomTags($techniques[$i]);
+
+                $techniques[$i]->setCollection($techniqueCollection);
+
+                $techniqueImages[$i] = $mediaManager->create();
+                $techniqueImages[$i]->setContext('technique');
+                $techniqueImages[$i]->setCreatedAt(new \DateTime());
+                $techniqueImages[$i]->setUpdatedAt(new \DateTime());
+                $techniqueImages[$i]->setEnabled(true);
+                $techniqueImages[$i]->setProviderName('sonata.media.provider.image');
+                $techniqueImages[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Technique-'.$i));
+                $techniques[$i]->setImage($techniqueImages[$i]);
 
                 // Exercises
                 for ($j = 1; $j <= mt_rand(1, 4); $j++) {
@@ -226,6 +281,17 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     for ($k = 1; $k <= mt_rand(0, 2); $k++) {
                         $exercises[$i.'-'.$j]->addSupply($supplies[array_rand($supplies)]);
                     }
+
+                    $exercises[$i.'-'.$j]->setCollection($exerciseCollection);
+
+                    $exerciseImages[$i.'-'.$j] = $mediaManager->create();
+                    $exerciseImages[$i.'-'.$j]->setContext('exercise');
+                    $exerciseImages[$i.'-'.$j]->setCreatedAt(new \DateTime());
+                    $exerciseImages[$i.'-'.$j]->setUpdatedAt(new \DateTime());
+                    $exerciseImages[$i.'-'.$j]->setEnabled(true);
+                    $exerciseImages[$i.'-'.$j]->setProviderName('sonata.media.provider.image');
+                    $exerciseImages[$i.'-'.$j]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Exercise-'.$i.'-'.$j));
+                    $exercises[$i.'-'.$j]->setImage($exerciseImages[$i.'-'.$j]);
 
                     $manager->persist($exercises[$i.'-'.$j]);
                 }
@@ -356,6 +422,15 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $shows[$i]->setEndDate(new \DateTime());
                 $shows[$i]->setAddress('Show address '.$i);
 
+                $showImages[$i] = $mediaManager->create();
+                $showImages[$i]->setContext('event');
+                $showImages[$i]->setCreatedAt(new \DateTime());
+                $showImages[$i]->setUpdatedAt(new \DateTime());
+                $showImages[$i]->setEnabled(true);
+                $showImages[$i]->setProviderName('sonata.media.provider.image');
+                $showImages[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Show-'.$i));
+                $shows[$i]->setImage($showImages[$i]);
+
                 // Participants
                 $randomUsers = $users;
                 for ($j = 1; $j <= mt_rand(2, 12); $j++) {
@@ -399,6 +474,15 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $trainingCourses[$i]->setStartDate(new \DateTime());
                 $trainingCourses[$i]->setEndDate(new \DateTime());
                 $trainingCourses[$i]->setAddress('Training course address '.$i);
+
+                $trainingCourseImages[$i] = $mediaManager->create();
+                $trainingCourseImages[$i]->setContext('event');
+                $trainingCourseImages[$i]->setCreatedAt(new \DateTime());
+                $trainingCourseImages[$i]->setUpdatedAt(new \DateTime());
+                $trainingCourseImages[$i]->setEnabled(true);
+                $trainingCourseImages[$i]->setProviderName('sonata.media.provider.image');
+                $trainingCourseImages[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'TrainingCourse-'.$i));
+                $trainingCourses[$i]->setImage($trainingCourseImages[$i]);
 
                 // Participants
                 $randomUsers = $users;
@@ -448,6 +532,15 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $competitions[$i]->setStartDate(new \DateTime());
                 $competitions[$i]->setEndDate(new \DateTime());
                 $competitions[$i]->setAddress('Competition address '.$i);
+
+                $competitionImages[$i] = $mediaManager->create();
+                $competitionImages[$i]->setContext('event');
+                $competitionImages[$i]->setCreatedAt(new \DateTime());
+                $competitionImages[$i]->setUpdatedAt(new \DateTime());
+                $competitionImages[$i]->setEnabled(true);
+                $competitionImages[$i]->setProviderName('sonata.media.provider.image');
+                $competitionImages[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Competition-'.$i));
+                $competitions[$i]->setImage($competitionImages[$i]);
 
                 // Participants
                 $randomUsers = $users;
@@ -547,6 +640,26 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $manager->persist($galleries[$i]);
             }
 
+            // Collection Blog
+            $blogCollection = new Collection();
+            $blogCollection->setEnabled(true);
+            $blogCollection->setContext($this->contexts['blog']);
+            $blogCollection->setName('Collection Blog '.($loop + 1));
+            $blogCollection->setCreatedAt(new \DateTime());
+            $blogCollection->setUpdatedAt(new \DateTime());
+            $blogCollection->setDescription('Description Blog '.($loop + 1));
+
+            $blogCollectionMedia = $mediaManager->create();
+            $blogCollectionMedia->setContext('blog');
+            $blogCollectionMedia->setCreatedAt(new \DateTime());
+            $blogCollectionMedia->setUpdatedAt(new \DateTime());
+            $blogCollectionMedia->setEnabled(true);
+            $blogCollectionMedia->setProviderName('sonata.media.provider.image');
+            $blogCollectionMedia->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'BlogCollection-'.($loop + 1)));
+            $blogCollection->setMedia($blogCollectionMedia);
+
+            $manager->persist($blogCollection);
+
             // Posts
             for ($i = $loop + 1; $i <= $loop + 1; $i++) {
                 $posts[$i] = new Post();
@@ -566,14 +679,16 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $posts[$i]->setCommentsEnabled(true);
                 $posts[$i]->setCommentsDefaultStatus(1);
 
-                $images[$i] = $mediaManager->create();
-                $images[$i]->setContext('news');
-                $images[$i]->setCreatedAt(new \DateTime());
-                $images[$i]->setUpdatedAt(new \DateTime());
-                $images[$i]->setEnabled(true);
-                $images[$i]->setProviderName('sonata.media.provider.image');
-                $images[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Post-'.$i));
-                $posts[$i]->setImage($images[$i]);
+                $posts[$i]->setCollection($blogCollection);
+
+                $blogImages[$i] = $mediaManager->create();
+                $blogImages[$i]->setContext('blog');
+                $blogImages[$i]->setCreatedAt(new \DateTime());
+                $blogImages[$i]->setUpdatedAt(new \DateTime());
+                $blogImages[$i]->setEnabled(true);
+                $blogImages[$i]->setProviderName('sonata.media.provider.image');
+                $blogImages[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Post-'.$i));
+                $posts[$i]->setImage($blogImages[$i]);
 
                 $manager->persist($posts[$i]);
             }
@@ -605,7 +720,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             unset($medias);
             unset($galleryHasMedias);
             unset($posts);
-            unset($images);
+            unset($blogImages);
+            unset($showImages);
+            unset($trainingCourseImages);
+            unset($competitionImages);
+            unset($exerciseImages);
+            unset($techniqueImages);
         }
     }
 

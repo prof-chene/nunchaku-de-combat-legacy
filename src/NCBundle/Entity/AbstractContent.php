@@ -69,7 +69,7 @@ abstract class AbstractContent
      *
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", inversedBy="contents", cascade={"persist"})
      */
-    protected $thumbnail;
+    protected $image;
     /**
      * @var ArrayCollection
      *
@@ -199,19 +199,19 @@ abstract class AbstractContent
     /**
      * @return ArrayCollection
      */
-    public function getThumbnail()
+    public function getImage()
     {
-        return $this->thumbnail;
+        return $this->image;
     }
 
     /**
-     * @param ArrayCollection $thumbnail
+     * @param ArrayCollection $image
      *
      * @return $this
      */
-    public function setThumbnail($thumbnail)
+    public function setImage($image)
     {
-        $this->thumbnail = $thumbnail;
+        $this->image = $image;
 
         return $this;
     }
