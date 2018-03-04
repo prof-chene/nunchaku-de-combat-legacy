@@ -2,6 +2,7 @@
 
 namespace NCBundle\Entity\Technique;
 
+use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
@@ -15,6 +16,12 @@ use NCBundle\Entity\AbstractEditorial;
 class Technique extends AbstractEditorial
 {
     /**
+     * @var Collection
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Collection")
+     */
+    private $collection;
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="TechniqueExecution", mappedBy="technique", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -25,6 +32,26 @@ class Technique extends AbstractEditorial
     {
         parent::__construct();
         $this->techniqueExecutions = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
+     * @param Collection $collection
+     *
+     * @return $this
+     */
+    public function setCollection($collection)
+    {
+        $this->collection = $collection;
+
+        return $this;
     }
 
     /**

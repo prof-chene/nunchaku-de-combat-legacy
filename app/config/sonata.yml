@@ -58,21 +58,9 @@ sonata_news:
 
 sonata_media:
     db_driver: doctrine_orm
-    default_context: news
+    default_context: blog
     contexts:
-        content:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small:    { width: 150 , quality: 95}
-                big:      { width: 500 , quality: 90}
-                carousel: { height: 150 , quality: 90}
-        news:
+        blog:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http
@@ -85,6 +73,18 @@ sonata_media:
                 big:      { width: 500 , quality: 90}
                 carousel: { height: 150 , quality: 90}
         event:
+            download:
+                strategy: sonata.media.security.public_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+            formats:
+                small:    { width: 150 , quality: 95}
+                big:      { width: 500 , quality: 90}
+                carousel: { height: 150 , quality: 90}
+        exercise:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http

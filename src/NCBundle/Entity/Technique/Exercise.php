@@ -2,6 +2,7 @@
 
 namespace NCBundle\Entity\Technique;
 
+use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
@@ -15,6 +16,12 @@ use NCBundle\Entity\Event\TrainingCourse;
  */
 class Exercise extends AbstractEditorial
 {
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Collection")
+     */
+    private $collection;
     /**
      * @var ArrayCollection
      *
@@ -47,6 +54,26 @@ class Exercise extends AbstractEditorial
         $this->rankRequirements = new ArrayCollection();
         $this->supplies = new ArrayCollection();
         $this->trainingCourses = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
+     * @param Collection $collection
+     *
+     * @return $this
+     */
+    public function setCollection($collection)
+    {
+        $this->collection = $collection;
+
+        return $this;
     }
 
     /**
