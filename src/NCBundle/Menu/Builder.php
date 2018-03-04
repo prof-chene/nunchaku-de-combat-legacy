@@ -28,18 +28,65 @@ class Builder implements ContainerAwareInterface
             ['childrenAttributes' => ['class' => 'nav navbar-nav']]
         );
 
-        $menu->addChild('menu.official_curriculum', ['route' => 'homepage'])
-             ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.training', ['route' => 'homepage'])
-             ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.events', ['route' => 'homepage'])
-             ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.blog', ['route' => 'application_sonata_news'])
-             ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.faq', ['route' => 'homepage'])
-             ->setExtra('translation_domain', 'navigation');
-        $menu->addChild('menu.media_library', ['route' => 'application_sonata_gallery'])
-             ->setExtra('translation_domain', 'navigation');
+        // Curriculum
+        $menu->addChild('menu.curriculum',
+            [
+                'linkAttributes' => [
+                    'class'       => 'dropdown-toggle',
+                    'data-toggle' => 'dropdown',
+                ],
+                'childrenAttributes' => [
+                    'class'       => 'dropdown-menu',
+                ],
+            ]);
+        $menu['menu.curriculum']->addChild('menu.katas');
+        $menu['menu.curriculum']->addChild('menu.combinaisons');
+        $menu['menu.curriculum']->addChild('menu.maniements');
+        $menu['menu.curriculum']->addChild('menu.attaques');
+        $menu['menu.curriculum']->addChild('menu.balayages');
+        $menu['menu.curriculum']->addChild('menu.gardes');
+
+        // Training
+        $menu->addChild('menu.training',
+            [
+                'linkAttributes' => [
+                    'class'       => 'dropdown-toggle',
+                    'data-toggle' => 'dropdown',
+                ],
+                'childrenAttributes' => [
+                    'class'       => 'dropdown-menu',
+                ],
+            ]);
+        $menu['menu.training']->addChild('menu.supplies');
+        $menu['menu.training']->addChild('menu.exercises');
+        $menu['menu.training']->addChild('menu.clubs');
+
+        // Grading
+        $menu->addChild('menu.grading');
+
+        // Events
+        $menu->addChild('menu.events',
+            [
+                'linkAttributes' => [
+                    'class'       => 'dropdown-toggle',
+                    'data-toggle' => 'dropdown',
+                ],
+                'childrenAttributes' => [
+                    'class'       => 'dropdown-menu',
+                ],
+            ]);
+        $menu['menu.events']->addChild('menu.competitions');
+        $menu['menu.events']->addChild('menu.shows');
+        $menu['menu.events']->addChild('menu.training_courses');
+
+        // Blog
+        $menu->addChild('menu.blog', ['route' => 'application_sonata_news']);
+
+        // FAQ
+        $menu->addChild('menu.faq');
+
+        // MediaLibrary
+        $menu->addChild('menu.media_library', ['route' => 'application_sonata_gallery']);
 
         return $menu;
     }

@@ -8,17 +8,69 @@
                 <target>Toggle navigation</target>
             </trans-unit>
             <!-- Menu -->
-            <trans-unit id="menu_official_curriculum">
-                <source>menu.official_curriculum</source>
-                <target>Official Curriculum</target>
+            <trans-unit id="menu_curriculum">
+                <source>menu.curriculum</source>
+                <target>Technical curriculum</target>
+            </trans-unit>
+            <trans-unit id="menu_katas">
+                <source>menu.katas</source>
+                <target>Katas</target>
+            </trans-unit>
+            <trans-unit id="menu_combinaisons">
+                <source>menu.combinaisons</source>
+                <target>Combinaisons</target>
+            </trans-unit>
+            <trans-unit id="menu_maniements">
+                <source>menu.maniements</source>
+                <target>Maniements</target>
+            </trans-unit>
+            <trans-unit id="menu_attaques">
+                <source>menu.attaques</source>
+                <target>Attaques</target>
+            </trans-unit>
+            <trans-unit id="menu_balayages">
+                <source>menu.balayages</source>
+                <target>Balayages</target>
+            </trans-unit>
+            <trans-unit id="menu_gardes">
+                <source>menu.gardes</source>
+                <target>Gardes</target>
             </trans-unit>
             <trans-unit id="menu_training">
                 <source>menu.training</source>
                 <target>Training</target>
             </trans-unit>
+            <trans-unit id="menu_supplies">
+                <source>menu.supplies</source>
+                <target>Gear</target>
+            </trans-unit>
+            <trans-unit id="menu_exercises">
+                <source>menu.exercises</source>
+                <target>Exercises</target>
+            </trans-unit>
+            <trans-unit id="menu_clubs">
+                <source>menu.clubs</source>
+                <target>Find a club</target>
+            </trans-unit>
+            <trans-unit id="menu_grading">
+                <source>menu.grading</source>
+                <target>Grading</target>
+            </trans-unit>
             <trans-unit id="menu_events">
                 <source>menu.events</source>
                 <target>Events</target>
+            </trans-unit>
+            <trans-unit id="menu_competitions">
+                <source>menu.competitions</source>
+                <target>Competitions</target>
+            </trans-unit>
+            <trans-unit id="menu_shows">
+                <source>menu.shows</source>
+                <target>Shows</target>
+            </trans-unit>
+            <trans-unit id="menu_training_courses">
+                <source>menu.training_courses</source>
+                <target>Training courses</target>
             </trans-unit>
             <trans-unit id="menu_blog">
                 <source>menu.blog</source>
