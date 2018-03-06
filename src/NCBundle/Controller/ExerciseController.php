@@ -3,16 +3,16 @@
 namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
-use NCBundle\Entity\Technique\Technique;
+use NCBundle\Entity\Technique\Exercise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class TechniqueController
+ * Class ExerciseController
  * @package NCBundle\Controller
  */
-class TechniqueController extends Controller
+class ExerciseController extends Controller
 {
     /**
      * @Template
@@ -23,7 +23,7 @@ class TechniqueController extends Controller
     {
         $collections = $this->get('doctrine.orm.entity_manager')->getRepository(Collection::class)
             ->findBy(
-                ['context' => 'technique', 'enabled' => true,],
+                ['context' => 'exercise', 'enabled' => true,],
                 ['id' => 'ASC']
             );
 
@@ -39,14 +39,14 @@ class TechniqueController extends Controller
      */
     public function collectionViewAction($slug)
     {
-        $techniques = $this->get('doctrine.orm.entity_manager')->getRepository(Technique::class)
+        $exercises = $this->get('doctrine.orm.entity_manager')->getRepository(Exercise::class)
             ->findByCollectionSlug($slug);
 
-        if (empty($techniques)) {
+        if (empty($exercises)) {
             throw new NotFoundHttpException('No result found');
         }
 
-        return ['techniques' => $techniques,];
+        return ['exercises' => $exercises,];
     }
 
     /**
@@ -58,9 +58,9 @@ class TechniqueController extends Controller
      */
     public function viewAction($slug)
     {
-        $technique = $this->get('doctrine.orm.entity_manager')->getRepository(Technique::class)
+        $exercise = $this->get('doctrine.orm.entity_manager')->getRepository(Exercise::class)
             ->findOneBy(['slug' => $slug]);
 
-        return ['technique' => $technique,];
+        return ['exercise' => $exercise,];
     }
 }

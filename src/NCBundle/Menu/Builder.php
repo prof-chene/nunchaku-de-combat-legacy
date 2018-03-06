@@ -39,12 +39,38 @@ class Builder implements ContainerAwareInterface
                     'class'       => 'dropdown-menu',
                 ],
             ]);
-        $menu['menu.curriculum']->addChild('menu.katas');
-        $menu['menu.curriculum']->addChild('menu.combinaisons');
-        $menu['menu.curriculum']->addChild('menu.maniements');
-        $menu['menu.curriculum']->addChild('menu.attaques');
-        $menu['menu.curriculum']->addChild('menu.balayages');
-        $menu['menu.curriculum']->addChild('menu.gardes');
+        $menu['menu.curriculum']->addChild(
+            'menu.katas',
+            [
+                'route'           => 'exercise_collection_view',
+                'routeParameters' => ['slug' => 'katas'],
+            ]
+        );
+        $menu['menu.curriculum']->addChild('menu.combinaisons',
+            [
+                'route'           => 'exercise_collection_view',
+                'routeParameters' => ['slug' => 'combinaisons'],
+            ]);
+        $menu['menu.curriculum']->addChild('menu.maniements',
+            [
+                'route'           => 'technique_collection_view',
+                'routeParameters' => ['slug' => 'maniements'],
+            ]);
+        $menu['menu.curriculum']->addChild('menu.attaques',
+            [
+                'route'           => 'technique_collection_view',
+                'routeParameters' => ['slug' => 'attaques'],
+            ]);
+        $menu['menu.curriculum']->addChild('menu.balayages',
+            [
+                'route'           => 'technique_collection_view',
+                'routeParameters' => ['slug' => 'balayages'],
+            ]);
+        $menu['menu.curriculum']->addChild('menu.gardes',
+            [
+                'route'           => 'technique_collection_view',
+                'routeParameters' => ['slug' => 'gardes'],
+            ]);
 
         // Training
         $menu->addChild('menu.training',
@@ -58,7 +84,7 @@ class Builder implements ContainerAwareInterface
                 ],
             ]);
         $menu['menu.training']->addChild('menu.supplies');
-        $menu['menu.training']->addChild('menu.exercises');
+        $menu['menu.training']->addChild('menu.exercises', ['route' => 'exercise_home']);
         $menu['menu.training']->addChild('menu.clubs');
 
         // Grading

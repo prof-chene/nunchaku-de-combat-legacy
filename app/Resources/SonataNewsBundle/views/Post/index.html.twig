@@ -16,9 +16,14 @@
                 {% thumbnail post.image, 'small' with {'class': 'img-responsive center-block'} %}
             </div>
             <div class="col-sm-9">
-                <h1>
+                <h2>
                     <a href="{{ url('application_sonata_news_view', { 'permalink': sonata_news_permalink(post) }) }}">{{ post.title }}</a>
-                </h1>
+                </h2>
+                <ul>
+                    {% for tag in post.tags if tag.enabled %}
+                        <li class="label label-primary">{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
                 <p class="abstract">
                     {{ post.abstract }}
                 </p>

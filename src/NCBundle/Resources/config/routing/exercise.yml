@@ -1,0 +1,9 @@
+exercise_home:
+    path: /
+    defaults: { _controller: NCBundle:Exercise:index }
+exercise_collection_view:
+    path: /{slug}
+    defaults: { _controller: NCBundle:Exercise:collectionView }
+exercise_view:
+    path: /view/{slug}
+    defaults: { _controller: NCBundle:Exercise:view }

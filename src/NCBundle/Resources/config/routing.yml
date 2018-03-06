@@ -6,3 +6,9 @@ technique:
     prefix: /{_locale}/techniques
     requirements:
         _locale: '%locales%'
+
+exercise:
+    resource: "@NCBundle/Resources/config/routing/exercise.yml"
+    prefix: /{_locale}/exercises
+    requirements:
+        _locale: '%locales%'
