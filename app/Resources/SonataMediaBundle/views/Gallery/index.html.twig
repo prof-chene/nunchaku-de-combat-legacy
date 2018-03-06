@@ -1,7 +1,6 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    {% include '::flash_messages.html.twig' %}
     {% for gallery in galleries %}
         <h2>{{ gallery.name }}</h2>
         {% set medias = [] %}

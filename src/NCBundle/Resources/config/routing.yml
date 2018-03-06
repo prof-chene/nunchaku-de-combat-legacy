@@ -1,5 +1,8 @@
-homepage:
-    path: /{_locale}
-    defaults: { _controller: NCBundle:Home:index }
+home:
+    resource: "@NCBundle/Resources/config/routing/home.yml"
+
+technique:
+    resource: "@NCBundle/Resources/config/routing/technique.yml"
+    prefix: /{_locale}/techniques
     requirements:
         _locale: '%locales%'

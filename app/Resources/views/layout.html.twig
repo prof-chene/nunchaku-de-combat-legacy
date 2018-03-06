@@ -48,6 +48,7 @@
     </head>
     <body>
         {% include '::header.html.twig' %}
+        {{ include('::flash_messages.html.twig') }}
         <section class="container">
             {# If a translation exists for the current route, we display it as the main title #}
             {% if ('h1.'~app.request.attributes.get('_route'))|trans({}, 'navigation') != 'h1.'~app.request.attributes.get('_route') %}

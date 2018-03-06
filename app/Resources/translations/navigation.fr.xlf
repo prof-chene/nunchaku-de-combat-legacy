@@ -97,9 +97,9 @@
                 <target>Administration du site</target>
             </trans-unit>
             <!-- Titles -->
-            <trans-unit id="h1_official_curriculum">
-                <source>h1.official_curriculum</source>
-                <target>Programme officiel</target>
+            <trans-unit id="h1_curriculum">
+                <source>h1.curriculum</source>
+                <target>Programme technique</target>
             </trans-unit>
             <trans-unit id="h1_training">
                 <source>h1.training</source>
@@ -108,10 +108,6 @@
             <trans-unit id="h1_events">
                 <source>h1.events</source>
                 <target>Evènements</target>
-            </trans-unit>
-            <trans-unit id="h1_blog">
-                <source>h1.blog</source>
-                <target>Blog</target>
             </trans-unit>
             <trans-unit id="h1_faq">
                 <source>h1.faq</source>
