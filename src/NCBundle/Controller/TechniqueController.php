@@ -33,7 +33,7 @@ class TechniqueController extends Controller
     /**
      * @Template
      *
-     * @param $slug
+     * @param string $slug
      *
      * @return array
      */
@@ -52,14 +52,24 @@ class TechniqueController extends Controller
     /**
      * @Template
      *
-     * @param $slug
+     * @param string $slug
      *
      * @return array
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function viewAction($slug)
     {
         $technique = $this->get('doctrine.orm.entity_manager')->getRepository(Technique::class)
-            ->findOneBy(['slug' => $slug]);
+            ->createQueryBuilder('technique')
+            ->andWhere('technique.enabled = true')
+            ->andWhere('technique.publicationDateStart < CURRENT_TIMESTAMP()')
+            ->andWhere('technique.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()->getOneOrNullResult();
+
+        if (empty($technique)) {
+            throw new NotFoundHttpException('This technique does not exists');
+        }
 
         return ['technique' => $technique,];
     }

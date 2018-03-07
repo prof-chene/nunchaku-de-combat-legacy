@@ -88,7 +88,13 @@ class Builder implements ContainerAwareInterface
         $menu['menu.training']->addChild('menu.clubs');
 
         // Grading
-        $menu->addChild('menu.grading');
+        $menu->addChild(
+            'menu.grading',
+            [
+                'route'           => 'rank_view_style',
+                'routeParameters' => ['slug' => 'nunchaku-de-combat'],
+            ]
+        );
 
         // Events
         $menu->addChild('menu.events',

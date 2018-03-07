@@ -33,7 +33,7 @@ class ExerciseController extends Controller
     /**
      * @Template
      *
-     * @param $slug
+     * @param string $slug
      *
      * @return array
      */
@@ -52,14 +52,24 @@ class ExerciseController extends Controller
     /**
      * @Template
      *
-     * @param $slug
+     * @param string $slug
      *
      * @return array
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function viewAction($slug)
     {
         $exercise = $this->get('doctrine.orm.entity_manager')->getRepository(Exercise::class)
-            ->findOneBy(['slug' => $slug]);
+            ->createQueryBuilder('exercise')
+            ->andWhere('exercise.enabled = true')
+            ->andWhere('exercise.publicationDateStart < CURRENT_TIMESTAMP()')
+            ->andWhere('exercise.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()->getOneOrNullResult();
+
+        if (empty($exercise)) {
+            throw new NotFoundHttpException('This exercise does not exists');
+        }
 
         return ['exercise' => $exercise,];
     }

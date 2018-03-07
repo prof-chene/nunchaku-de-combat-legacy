@@ -15,6 +15,14 @@
                 <source>updated_on</source>
                 <target>updated on</target>
             </trans-unit>
+            <trans-unit id="presentation">
+                <source>presentation</source>
+                <target>presentation</target>
+            </trans-unit>
+            <trans-unit id="points">
+                <source>points</source>
+                <target>points</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>
@@ -120,6 +128,11 @@
             <trans-unit id="no_post_yet">
                 <source>no_post_yet</source>
                 <target>No post yet</target>
+            </trans-unit>
+            <!-- Martial arts -->
+            <trans-unit id="ranks">
+                <source>ranks</source>
+                <target>Grades</target>
             </trans-unit>
         </body>
     </file>

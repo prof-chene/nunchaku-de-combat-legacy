@@ -433,7 +433,8 @@ a.btn-primary {
     border-color: #5a0808;
 }
 
-li.label-primary {
+li.label-primary,
+a.label-primary {
     background-color: #761c19;
     border-color: #6b0909;
 }

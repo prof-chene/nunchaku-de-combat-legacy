@@ -9,25 +9,21 @@
             <p>
                 {{ technique.collection.description }}
             </p>
-            <ul class="list-group">
         {% endif %}
-                <li class="col-sm-12 list-group-item">
-                    <div class="col-sm-3">
-                        {% thumbnail technique.image, 'small' with {'class': 'img-responsive center-block'} %}
-                    </div>
-                    <div class="col-sm-9">
-                        <h2>
-                            <a href="{{ url('technique_view', {'slug': technique.slug }) }}">{{ technique.title }}</a>
-                        </h2>
-                        <ul>
-                            {% for tag in technique.tags if tag.enabled %}
-                                <li class="label label-primary">{{ tag.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </li>
-        {% if loop.last %}
-            </ul>
-        {% endif %}
+            <div class="col-sm-12 list-group-item">
+                <div class="col-sm-3">
+                    {% thumbnail technique.image, 'small' with {'class': 'img-responsive center-block'} %}
+                </div>
+                <div class="col-sm-9">
+                    <h2>
+                        <a href="{{ url('technique_view', {'slug': technique.slug }) }}">{{ technique.title }}</a>
+                    </h2>
+                    <ul>
+                        {% for tag in technique.tags if tag.enabled %}
+                            <li class="label label-primary">{{ tag.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
     {% endfor %}
 {% endblock %}

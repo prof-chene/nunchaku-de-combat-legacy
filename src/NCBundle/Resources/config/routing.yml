@@ -12,3 +12,9 @@ exercise:
     prefix: /{_locale}/exercises
     requirements:
         _locale: '%locales%'
+
+rank:
+    resource: "@NCBundle/Resources/config/routing/rank.yml"
+    prefix: /{_locale}/ranks
+    requirements:
+        _locale: '%locales%'
