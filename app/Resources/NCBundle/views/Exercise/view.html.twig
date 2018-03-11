@@ -4,7 +4,7 @@
     <article>
         <header>
             <h1>{{ exercise.title }}</h1>
-            <ul>
+            <ul class="list-unstyled">
                 {% for tag in exercise.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
@@ -12,6 +12,19 @@
             {% media exercise.image, 'reference' with {'class': 'img-responsive center-block'} %}
         </header>
         <p class="post">
+            {% if exercise.supplies|length > 0 %}
+                    <strong>{{ 'required_supplies'|trans|capitalize }} :</strong>
+                {% for supply in exercise.supplies %}
+                    <span class="label label-info">{{ supply.title }}</span>
+                {% endfor %}
+            {% endif %}
+            <hr />
+            <ul class="list-unstyled">
+                {% for techniqueExecution in exercise.techniqueExecutions %}
+                    <a href="{{ path('technique_view', {'slug': techniqueExecution.technique.slug}) }}">{{ techniqueExecution.technique.title }}</a> {{ techniqueExecution.detail }}
+                {% endfor %}
+            </ul>
+            <hr />
             {{ exercise.content|raw }}
         </p>
     </article>

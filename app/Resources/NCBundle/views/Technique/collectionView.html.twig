@@ -18,9 +18,14 @@
                     <h2>
                         <a href="{{ url('technique_view', {'slug': technique.slug }) }}">{{ technique.title }}</a>
                     </h2>
-                    <ul>
+                    <ul class="list-unstyled">
                         {% for tag in technique.tags if tag.enabled %}
                             <li class="label label-primary">{{ tag.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="list-unstyled">
+                        {% for techniqueExecution in technique.techniqueExecutions %}
+                            <li><a href="{{ path('exercise_view', {'slug': techniqueExecution.exercise.slug}) }}">{{ techniqueExecution.exercise.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

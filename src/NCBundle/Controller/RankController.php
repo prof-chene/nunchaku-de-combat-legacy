@@ -2,6 +2,7 @@
 
 namespace NCBundle\Controller;
 
+use Doctrine\ORM\Query\Expr\Join;
 use NCBundle\Entity\Technique\Rank;
 use NCBundle\Entity\Technique\Style;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -44,11 +45,13 @@ class RankController extends Controller
     {
         $style = $this->get('doctrine.orm.entity_manager')->getRepository(Style::class)
             ->createQueryBuilder('style')
-            ->leftJoin('style.ranks', 'ranks')
+            ->leftJoin(
+                'style.ranks',
+                'ranks',
+                Join::WITH,
+                'ranks.enabled = true and ranks.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('style.enabled = true')
             ->andWhere('style.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('ranks.enabled = true')
-            ->andWhere('ranks.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('style.slug = :slug')
             ->setParameter('slug', $slug)
             ->addOrderBy('ranks.level', 'ASC')

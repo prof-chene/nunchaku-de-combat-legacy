@@ -3,6 +3,7 @@
 namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
+use Doctrine\ORM\Query\Expr\Join;
 use NCBundle\Entity\Technique\Exercise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -61,6 +62,11 @@ class ExerciseController extends Controller
     {
         $exercise = $this->get('doctrine.orm.entity_manager')->getRepository(Exercise::class)
             ->createQueryBuilder('exercise')
+            ->leftJoin(
+                'exercise.supplies',
+                'supplies',
+                Join::WITH,
+                'supplies.enabled = true and supplies.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('exercise.enabled = true')
             ->andWhere('exercise.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('exercise.slug = :slug')

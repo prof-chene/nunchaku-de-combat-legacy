@@ -4,7 +4,7 @@
     <article>
         <header>
             <h1>{{ rank.style.title }}</h1>
-            <ul>
+            <ul class="list-unstyled">
                 {% for tag in rank.style.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
@@ -21,9 +21,11 @@
                     </div>
                     <div class="col-sm-9">
                         <h2><a href="{{ path('exercise_view', {'slug': rankRequirement.exercise.slug}) }}">{{ rankRequirement.exercise.title }}</a><span class="badge pull-right">{{ rankRequirement.points }} {{ 'points'|trans }}</span></h2>
-                        {% for tag in rankRequirement.exercise.tags if tag.enabled %}
-                            <li class="label label-primary">{{ tag.name }}</li>
-                        {% endfor %}
+                        <ul class="list-unstyled">
+                            {% for tag in rankRequirement.exercise.tags if tag.enabled %}
+                                <li class="label label-primary">{{ tag.name }}</li>
+                            {% endfor %}
+                        </ul>
                         <p>
                             {{ rankRequirement.exercise.content|raw }}<hr /><strong>{{ rankRequirement.detail }}</strong>
                         </p>

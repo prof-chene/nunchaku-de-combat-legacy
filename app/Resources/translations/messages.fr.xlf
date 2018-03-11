@@ -23,6 +23,10 @@
                 <source>points</source>
                 <target>points</target>
             </trans-unit>
+            <trans-unit id="required_supplies">
+                <source>required_supplies</source>
+                <target>matériel requis</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>

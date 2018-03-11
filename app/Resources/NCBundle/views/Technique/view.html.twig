@@ -4,7 +4,7 @@
     <article>
         <header>
             <h1>{{ technique.title }}</h1>
-            <ul class="tags">
+            <ul class="list-unstyled">
                 {% for tag in technique.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}

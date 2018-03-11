@@ -10,7 +10,7 @@
                 <h2>
                     <a href="{{ url('rank_view_style', {'slug': style.slug }) }}">{{ style.title }}</a>
                 </h2>
-                <ul>
+                <ul class="list-unstyled">
                     {% for tag in style.tags if tag.enabled %}
                         <li class="label label-primary">{{ tag.name }}</li>
                     {% endfor %}
