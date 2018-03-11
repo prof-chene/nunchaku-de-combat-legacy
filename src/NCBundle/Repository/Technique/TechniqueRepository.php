@@ -2,6 +2,7 @@
 
 namespace NCBundle\Repository\Technique;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -25,7 +26,7 @@ class TechniqueRepository extends EntityRepository
             ->andWhere('technique.enabled = true')
             ->andWhere('technique.publicationDateStart < CURRENT_TIMESTAMP()')
             ->setParameter('slug', $slug)
-            ->addOrderBy('technique.publicationDateStart', 'DESC')
+            ->addOrderBy('technique.publicationDateStart', Criteria::DESC)
             ->addOrderBy('technique.id');
 
         return $qb->getQuery()->getResult();

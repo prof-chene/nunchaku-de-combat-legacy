@@ -2,6 +2,7 @@
 
 namespace NCBundle\Repository\Technique;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -25,7 +26,7 @@ class ExerciseRepository extends EntityRepository
             ->andWhere('exercise.enabled = true')
             ->andWhere('exercise.publicationDateStart < CURRENT_TIMESTAMP()')
             ->setParameter('slug', $slug)
-            ->addOrderBy('exercise.publicationDateStart', 'DESC')
+            ->addOrderBy('exercise.publicationDateStart', Criteria::DESC)
             ->addOrderBy('exercise.id');
 
         return $qb->getQuery()->getResult();

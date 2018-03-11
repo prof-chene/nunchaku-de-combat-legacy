@@ -2,6 +2,7 @@
 
 namespace NCBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\Expr\Join;
 use NCBundle\Entity\Technique\Rank;
 use NCBundle\Entity\Technique\Style;
@@ -26,7 +27,7 @@ class RankController extends Controller
             ->createQueryBuilder('style')
             ->andWhere('style.enabled = true')
             ->andWhere('style.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->addOrderBy('style.publicationDateStart', 'DESC')
+            ->addOrderBy('style.publicationDateStart', Criteria::DESC)
             ->addOrderBy('style.id')
             ->getQuery()->getResult();
 
@@ -54,7 +55,7 @@ class RankController extends Controller
             ->andWhere('style.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('style.slug = :slug')
             ->setParameter('slug', $slug)
-            ->addOrderBy('ranks.level', 'ASC')
+            ->addOrderBy('ranks.level', Criteria::ASC)
             ->getQuery()->getOneOrNullResult();
 
         if (empty($style)) {

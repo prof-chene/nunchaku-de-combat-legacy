@@ -2,6 +2,7 @@
 
 namespace NCBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use NCBundle\Entity\Technique\Supply;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,7 +25,7 @@ class SupplyController extends Controller
             ->createQueryBuilder('supply')
             ->andWhere('supply.enabled = true')
             ->andWhere('supply.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->addOrderBy('supply.publicationDateStart', 'DESC')
+            ->addOrderBy('supply.publicationDateStart', Criteria::DESC)
             ->addOrderBy('supply.id')
             ->getQuery()->getResult();
 

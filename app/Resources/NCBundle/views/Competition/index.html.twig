@@ -1,0 +1,62 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#future-competitions" aria-controls="presentation" role="tab" data-toggle="tab">{{ 'future_competitions'|trans|capitalize }}</a></li>
+            <li role="presentation"><a href="#past-competitions" aria-controls="ranks" role="tab" data-toggle="tab">{{ 'past_competitions'|trans|capitalize }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="future-competitions">
+                {% for competition in futureCompetitions %}
+                    <div class="list-group-item col-sm-12">
+                        <div class="col-sm-3">
+                            <a href="{{ path('competition_view', {'slug': competition.slug}) }}">
+                                {% thumbnail competition.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>
+                                <a href="{{ path('competition_view', {'slug': competition.slug}) }}">{{ competition.title }}</a>
+                            </h2>
+                            <ul class="list-unstyled">
+                                {% for tag in competition.tags if tag.enabled %}
+                                    <li class="label label-primary">{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                {{ 'date_range'|trans({'%from%': competition.startDate|date('d/m/Y H:i', false), '%to%': competition.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                                <br />
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="past-competitions">
+                {% for competition in pastCompetitions %}
+                    <div class="list-group-item col-sm-12">
+                        <div class="col-sm-3">
+                            <a href="{{ path('competition_view', {'slug': competition.slug}) }}">
+                                {% thumbnail competition.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>
+                                <a href="{{ path('competition_view', {'slug': competition.slug}) }}">{{ competition.title }}</a>
+                            </h2>
+                            <ul class="list-unstyled">
+                                {% for tag in competition.tags if tag.enabled %}
+                                    <li class="label label-primary">{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                {{ 'date_range'|trans({'%from%': competition.startDate|date('d/m/Y H:i', false), '%to%': competition.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                                <br />
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}

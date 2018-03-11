@@ -97,26 +97,6 @@
                 <target>Site administration</target>
             </trans-unit>
             <!-- Titles -->
-            <trans-unit id="h1_curriculum">
-                <source>h1.curriculum</source>
-                <target>Technical curriculum</target>
-            </trans-unit>
-            <trans-unit id="h1_training">
-                <source>h1.training</source>
-                <target>Training</target>
-            </trans-unit>
-            <trans-unit id="h1_events">
-                <source>h1.events</source>
-                <target>Events</target>
-            </trans-unit>
-            <trans-unit id="h1_faq">
-                <source>h1.faq</source>
-                <target>FAQ</target>
-            </trans-unit>
-            <trans-unit id="h1_media_library">
-                <source>h1.media_library</source>
-                <target>Media library</target>
-            </trans-unit>
             <trans-unit id="h1_application_sonata_user_log_in">
                 <source>h1.application_sonata_user_log_in</source>
                 <target>Log in</target>

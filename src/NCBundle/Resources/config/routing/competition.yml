@@ -1,0 +1,6 @@
+competition_home:
+    path: /
+    defaults: { _controller: NCBundle:Competition:index }
+competition_view:
+    path: /view/{slug}
+    defaults: { _controller: NCBundle:Competition:view }

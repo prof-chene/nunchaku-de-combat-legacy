@@ -3,6 +3,7 @@
 namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\Expr\Join;
 use NCBundle\Entity\Technique\Exercise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,7 +26,7 @@ class ExerciseController extends Controller
         $collections = $this->get('doctrine.orm.entity_manager')->getRepository(Collection::class)
             ->findBy(
                 ['context' => 'exercise', 'enabled' => true,],
-                ['id' => 'ASC']
+                ['id' => Criteria::ASC]
             );
 
         return ['collections' => $collections];

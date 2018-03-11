@@ -24,3 +24,9 @@ supply:
     prefix: /{_locale}/supplies
     requirements:
         _locale: '%locales%'
+
+competition:
+    resource: "@NCBundle/Resources/config/routing/competition.yml"
+    prefix: /{_locale}/competitions
+    requirements:
+        _locale: '%locales%'

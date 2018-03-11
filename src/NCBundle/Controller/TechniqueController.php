@@ -3,6 +3,7 @@
 namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
+use Doctrine\Common\Collections\Criteria;
 use NCBundle\Entity\Technique\Technique;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,7 +25,7 @@ class TechniqueController extends Controller
         $collections = $this->get('doctrine.orm.entity_manager')->getRepository(Collection::class)
             ->findBy(
                 ['context' => 'technique', 'enabled' => true,],
-                ['id' => 'ASC']
+                ['id' => Criteria::ASC]
             );
 
         return ['collections' => $collections];

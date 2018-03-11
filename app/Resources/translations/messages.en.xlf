@@ -27,6 +27,10 @@
                 <source>required_supplies</source>
                 <target>required supplies</target>
             </trans-unit>
+            <trans-unit id="date_range">
+                <source>date_range</source>
+                <target>from %from% to %to%</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>
@@ -137,6 +141,14 @@
             <trans-unit id="ranks">
                 <source>ranks</source>
                 <target>Grades</target>
+            </trans-unit>
+            <trans-unit id="future_competitions">
+                <source>future_competitions</source>
+                <target>next competitions</target>
+            </trans-unit>
+            <trans-unit id="past_competitions">
+                <source>past_competitions</source>
+                <target>past competitions</target>
             </trans-unit>
         </body>
     </file>
