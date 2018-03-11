@@ -11,12 +11,16 @@
             </ul>
             {% media exercise.image, 'reference' with {'class': 'img-responsive center-block'} %}
         </header>
+        <hr />
         <p class="post">
             {% if exercise.supplies|length > 0 %}
-                    <strong>{{ 'required_supplies'|trans|capitalize }} :</strong>
-                {% for supply in exercise.supplies %}
-                    <span class="label label-info">{{ supply.title }}</span>
-                {% endfor %}
+                <strong>{{ 'required_supplies'|trans|capitalize }}</strong> :
+                    {% for supply in exercise.supplies %}
+                        <a href="{{ path('supply_view', {'slug': supply.slug }) }}">{{ supply.title }}</a>
+                        {% if not loop.last %}
+                            ,
+                        {% endif %}
+                    {% endfor %}
             {% endif %}
             <hr />
             <ul class="list-unstyled">

@@ -3,17 +3,17 @@
 {% block content %}
     <article>
         <header>
-            <h1>{{ technique.title }}</h1>
+            <h1>{{ supply.title }}</h1>
             <ul class="list-unstyled">
-                {% for tag in technique.tags if tag.enabled %}
+                {% for tag in supply.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% media technique.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            {% media supply.image, 'reference' with {'class': 'img-responsive center-block'} %}
         </header>
         <hr />
         <p class="post">
-            {{ technique.content|raw }}
+            {{ supply.content|raw }}
         </p>
     </article>
 {% endblock %}

@@ -18,3 +18,9 @@ rank:
     prefix: /{_locale}/ranks
     requirements:
         _locale: '%locales%'
+
+supply:
+    resource: "@NCBundle/Resources/config/routing/supply.yml"
+    prefix: /{_locale}/supplies
+    requirements:
+        _locale: '%locales%'

@@ -83,7 +83,7 @@ class Builder implements ContainerAwareInterface
                     'class'       => 'dropdown-menu',
                 ],
             ]);
-        $menu['menu.training']->addChild('menu.supplies');
+        $menu['menu.training']->addChild('menu.supplies', ['route' => 'supply_home']);
         $menu['menu.training']->addChild('menu.exercises', ['route' => 'exercise_home']);
         $menu['menu.training']->addChild('menu.clubs');
 

@@ -4,7 +4,9 @@
     {% for collection in collections %}
         <div class="col-sm-12 list-group-item">
             <div class="col-sm-3">
-                {% thumbnail collection.media, 'small' with {'class': 'img-responsive center-block'} %}
+                <a href="{{ url('technique_collection_view', {'slug': collection.slug }) }}">
+                    {% thumbnail collection.media, 'small' with {'class': 'img-responsive center-block'} %}
+                </a>
             </div>
             <div class="col-sm-9">
                 <h2>
