@@ -1,0 +1,68 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#future-shows" aria-controls="future-shows" role="tab" data-toggle="tab">{{ 'future_shows'|trans|capitalize }}</a></li>
+            <li role="presentation"><a href="#past-shows" aria-controls="past-shows" role="tab" data-toggle="tab">{{ 'past_shows'|trans|capitalize }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="future-shows">
+                {% for show in futureShows %}
+                    <div class="list-group-item col-sm-12">
+                        <div class="col-sm-3">
+                            <a href="{{ path('show_view', {'slug': show.slug}) }}">
+                                {% thumbnail show.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>
+                                <a href="{{ path('show_view', {'slug': show.slug}) }}">{{ show.title }}</a>
+                            </h2>
+                            <ul class="list-unstyled">
+                                {% for tag in show.tags if tag.enabled %}
+                                    <li class="label label-primary">{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                {{ 'date_range'|trans({'%from%': show.startDate|date('d/m/Y H:i', false), '%to%': show.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                            </p>
+                            <address>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ show.address }}">{{ show.address }}</a>
+                            </address>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="past-shows">
+                {% for show in pastShows %}
+                    <div class="list-group-item col-sm-12">
+                        <div class="col-sm-3">
+                            <a href="{{ path('show_view', {'slug': show.slug}) }}">
+                                {% thumbnail show.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>
+                                <a href="{{ path('show_view', {'slug': show.slug}) }}">{{ show.title }}</a>
+                            </h2>
+                            <ul class="list-unstyled">
+                                {% for tag in show.tags if tag.enabled %}
+                                    <li class="label label-primary">{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                {{ 'date_range'|trans({'%from%': show.startDate|date('d/m/Y H:i', false), '%to%': show.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                            </p>
+                            <address>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ show.address }}">{{ show.address }}</a>
+                            </address>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}

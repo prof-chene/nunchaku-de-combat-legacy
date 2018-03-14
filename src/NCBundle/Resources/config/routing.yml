@@ -36,3 +36,9 @@ training_course:
     prefix: /{_locale}/training-courses
     requirements:
         _locale: '%locales%'
+
+show:
+    resource: "@NCBundle/Resources/config/routing/show.yml"
+    prefix: /{_locale}/shows
+    requirements:
+        _locale: '%locales%'

@@ -108,7 +108,7 @@ class Builder implements ContainerAwareInterface
                 ],
             ]);
         $menu['menu.events']->addChild('menu.competitions', ['route' => 'competition_home']);
-        $menu['menu.events']->addChild('menu.shows');
+        $menu['menu.events']->addChild('menu.shows', ['route' => 'show_home']);
         $menu['menu.events']->addChild('menu.training_courses', ['route' => 'training_course_home']);
 
         // Blog

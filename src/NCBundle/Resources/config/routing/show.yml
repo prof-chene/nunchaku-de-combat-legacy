@@ -1,0 +1,6 @@
+show_home:
+    path: /
+    defaults: { _controller: NCBundle:Show:index }
+show_view:
+    path: /view/{slug}
+    defaults: { _controller: NCBundle:Show:view }
