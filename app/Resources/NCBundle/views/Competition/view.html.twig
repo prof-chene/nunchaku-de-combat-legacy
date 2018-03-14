@@ -1,0 +1,40 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>{{ competition.title }}</h1>
+            <ul class="list-unstyled">
+                {% for tag in competition.tags if tag.enabled %}
+                    <li class="label label-primary">{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+            {% media competition.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            <p>
+                <span class="glyphicon glyphicon-calendar"></span>
+                {{ 'date_range'|trans({'%from%': competition.startDate|date('d/m/Y H:i', false), '%to%': competition.endDate|date('d/m/Y H:i', false)})|capitalize }}
+            </p>
+            <address>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
+            </address>
+        </header>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="rules" class="active"><a href="#rules" aria-controls="rules" role="tab" data-toggle="tab">{{ 'rules'|trans|capitalize }}</a></li>
+            <li role="rules"><a href="#trials" aria-controls="trials" role="tab" data-toggle="tab">{{ 'trials'|trans|capitalize }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="rules">
+                {{ competition.content|raw }}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="trials">
+                {% for trial in competition.trials %}
+                    <div class="list-group-item">
+                        <h2>{{ trial.name }}</h2>
+                        <p>{{ trial.rules|raw }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+{% endblock %}

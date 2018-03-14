@@ -55,18 +55,18 @@ class CompetitionController extends Controller
      */
     public function viewAction($slug)
     {
-        $supply = $this->get('doctrine.orm.entity_manager')->getRepository(Supply::class)
-            ->createQueryBuilder('supply')
-            ->andWhere('supply.enabled = true')
-            ->andWhere('supply.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('supply.slug = :slug')
+        $supply = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
+            ->createQueryBuilder('competition')
+            ->andWhere('competition.enabled = true')
+            ->andWhere('competition.publicationDateStart < CURRENT_TIMESTAMP()')
+            ->andWhere('competition.slug = :slug')
             ->setParameter('slug', $slug)
             ->getQuery()->getOneOrNullResult();
 
         if (empty($supply)) {
-            throw new NotFoundHttpException('This supply does not exists');
+            throw new NotFoundHttpException('This competition does not exists');
         }
 
-        return ['supply' => $supply,];
+        return ['competition' => $supply,];
     }
 }

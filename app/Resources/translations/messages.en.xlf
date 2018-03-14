@@ -31,6 +31,10 @@
                 <source>date_range</source>
                 <target>from %from% to %to%</target>
             </trans-unit>
+            <trans-unit id="rules">
+                <source>rules</source>
+                <target>rules</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>
@@ -149,6 +153,10 @@
             <trans-unit id="past_competitions">
                 <source>past_competitions</source>
                 <target>past competitions</target>
+            </trans-unit>
+            <trans-unit id="trials">
+                <source>trials</source>
+                <target>trials</target>
             </trans-unit>
         </body>
     </file>
