@@ -35,6 +35,14 @@
                 <source>rules</source>
                 <target>rules</target>
             </trans-unit>
+            <trans-unit id="content">
+                <source>content</source>
+                <target>content</target>
+            </trans-unit>
+            <trans-unit id="exercises">
+                <source>exercises</source>
+                <target>exercises</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>
@@ -157,6 +165,14 @@
             <trans-unit id="trials">
                 <source>trials</source>
                 <target>trials</target>
+            </trans-unit>
+            <trans-unit id="future_training_courses">
+                <source>future_training_courses</source>
+                <target>next training courses</target>
+            </trans-unit>
+            <trans-unit id="past_training_courses">
+                <source>past_training_courses</source>
+                <target>past training courses</target>
             </trans-unit>
         </body>
     </file>

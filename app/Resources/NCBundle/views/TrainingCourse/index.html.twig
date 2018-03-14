@@ -1,0 +1,68 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#future-training-courses" aria-controls="future-training-courses" role="tab" data-toggle="tab">{{ 'future_training_courses'|trans|capitalize }}</a></li>
+            <li role="presentation"><a href="#past-training-courses" aria-controls="past-training-courses" role="tab" data-toggle="tab">{{ 'past_training_courses'|trans|capitalize }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="future-training-courses">
+                {% for trainingCourse in futureTrainingCourses %}
+                    <div class="list-group-item col-sm-12">
+                        <div class="col-sm-3">
+                            <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">
+                                {% thumbnail trainingCourse.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>
+                                <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">{{ trainingCourse.title }}</a>
+                            </h2>
+                            <ul class="list-unstyled">
+                                {% for tag in trainingCourse.tags if tag.enabled %}
+                                    <li class="label label-primary">{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                {{ 'date_range'|trans({'%from%': trainingCourse.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                            </p>
+                            <address>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.address }}">{{ trainingCourse.address }}</a>
+                            </address>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="past-training-courses">
+                {% for trainingCourse in pastTrainingCourses %}
+                    <div class="list-group-item col-sm-12">
+                        <div class="col-sm-3">
+                            <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">
+                                {% thumbnail trainingCourse.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>
+                                <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">{{ trainingCourse.title }}</a>
+                            </h2>
+                            <ul class="list-unstyled">
+                                {% for tag in trainingCourse.tags if tag.enabled %}
+                                    <li class="label label-primary">{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p>
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                {{ 'date_range'|trans({'%from%': trainingCourse.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                            </p>
+                            <address>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.address }}">{{ trainingCourse.address }}</a>
+                            </address>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}

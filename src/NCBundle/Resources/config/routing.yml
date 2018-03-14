@@ -30,3 +30,9 @@ competition:
     prefix: /{_locale}/competitions
     requirements:
         _locale: '%locales%'
+
+training_course:
+    resource: "@NCBundle/Resources/config/routing/trainingCourse.yml"
+    prefix: /{_locale}/training-courses
+    requirements:
+        _locale: '%locales%'

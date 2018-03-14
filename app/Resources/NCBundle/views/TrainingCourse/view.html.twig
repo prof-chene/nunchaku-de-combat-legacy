@@ -1,0 +1,58 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>{{ trainingCourse.title }}</h1>
+            <ul class="list-unstyled">
+                {% for tag in trainingCourse.tags if tag.enabled %}
+                    <li class="label label-primary">{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+            {% media trainingCourse.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            <p>
+                <span class="glyphicon glyphicon-calendar"></span>
+                {{ 'date_range'|trans({'%from%': trainingCourse.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.endDate|date('d/m/Y H:i', false)})|capitalize }}
+            </p>
+            <address>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.address }}">{{ trainingCourse.address }}</a>
+            </address>
+        </header>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#content" aria-controls="content" role="tab" data-toggle="tab">{{ 'content'|trans|capitalize }}</a></li>
+            <li role="presentation"><a href="#exercises" aria-controls="exercises" role="tab" data-toggle="tab">{{ 'exercises'|trans|capitalize }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="content">
+                {{ trainingCourse.content|raw }}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="exercises">
+                {% for exercise in trainingCourse.exercises %}
+                    <div class="col-sm-12 list-group-item">
+                        <div class="col-sm-3">
+                            <a href="{{ url('exercise_view', {'slug': exercise.slug }) }}">
+                                {% thumbnail exercise.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>
+                                <a href="{{ url('exercise_view', {'slug': exercise.slug }) }}">{{ exercise.title }}</a>
+                            </h2>
+                            <ul class="list-unstyled">
+                                {% for tag in exercise.tags if tag.enabled %}
+                                    <li class="label label-primary">{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="list-unstyled">
+                                {% for techniqueExecution in exercise.techniqueExecutions %}
+                                    <li><a href="{{ path('technique_view', {'slug': techniqueExecution.technique.slug}) }}">{{ techniqueExecution.technique.title }}</a> {{ techniqueExecution.detail }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+{% endblock %}
