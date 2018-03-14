@@ -114,12 +114,6 @@ class Builder implements ContainerAwareInterface
         // Blog
         $menu->addChild('menu.blog', ['route' => 'application_sonata_news']);
 
-        // FAQ
-        $menu->addChild('menu.faq');
-
-        // MediaLibrary
-        $menu->addChild('menu.media_library', ['route' => 'application_sonata_gallery']);
-
         return $menu;
     }
 }
