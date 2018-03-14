@@ -24,10 +24,13 @@
                                 {% endfor %}
                             </ul>
                             <p>
+                                <span class="glyphicon glyphicon-calendar"></span>
                                 {{ 'date_range'|trans({'%from%': competition.startDate|date('d/m/Y H:i', false), '%to%': competition.endDate|date('d/m/Y H:i', false)})|capitalize }}
-                                <br />
-                                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
                             </p>
+                            <address>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
+                            </address>
                         </div>
                     </div>
                 {% endfor %}
@@ -50,10 +53,13 @@
                                 {% endfor %}
                             </ul>
                             <p>
+                                <span class="glyphicon glyphicon-calendar"></span>
                                 {{ 'date_range'|trans({'%from%': competition.startDate|date('d/m/Y H:i', false), '%to%': competition.endDate|date('d/m/Y H:i', false)})|capitalize }}
-                                <br />
-                                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
                             </p>
+                            <address>
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
+                            </address>
                         </div>
                     </div>
                 {% endfor %}
