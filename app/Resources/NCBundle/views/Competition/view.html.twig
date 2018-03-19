@@ -3,7 +3,12 @@
 {% block content %}
     <article>
         <header>
-            <h1>{{ competition.title }}</h1>
+            <h1>
+                {{ competition.title }}
+                {% if not finished  %}
+                    <a href="{{ path('competition_sign_up', {'slug': competition.slug}) }}" class="btn btn-sm btn-success" role="button">{{ 'register_me'|trans }}</a>
+                {% endif %}
+            </h1>
             <ul class="list-unstyled">
                 {% for tag in competition.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>

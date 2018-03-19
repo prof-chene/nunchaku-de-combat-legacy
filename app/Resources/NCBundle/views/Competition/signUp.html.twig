@@ -1,0 +1,24 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>{{ competition.title }}</h1>
+            <ul class="list-unstyled">
+                {% for tag in competition.tags if tag.enabled %}
+                    <li class="label label-primary">{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+            {% media competition.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            <p>
+                <span class="glyphicon glyphicon-calendar"></span>
+                {{ 'date_range'|trans({'%from%': competition.startDate|date('d/m/Y H:i', false), '%to%': competition.endDate|date('d/m/Y H:i', false)})|capitalize }}
+            </p>
+            <address>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
+            </address>
+        </header>
+        {{ form(form) }}
+    </article>
+{% endblock %}

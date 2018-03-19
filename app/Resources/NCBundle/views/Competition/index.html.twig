@@ -17,6 +17,7 @@
                         <div class="col-sm-9">
                             <h2>
                                 <a href="{{ path('competition_view', {'slug': competition.slug}) }}">{{ competition.title }}</a>
+                                <a href="{{ path('competition_sign_up', {'slug': competition.slug}) }}" class="btn btn-sm btn-success" role="button">{{ 'register_me'|trans }}</a>
                             </h2>
                             <ul class="list-unstyled">
                                 {% for tag in competition.tags if tag.enabled %}
@@ -46,6 +47,7 @@
                         <div class="col-sm-9">
                             <h2>
                                 <a href="{{ path('competition_view', {'slug': competition.slug}) }}">{{ competition.title }}</a>
+                                <a href="{{ path('competition_sign_up', {'slug': competition.slug}) }}" class="btn btn-sm btn-success" role="button">{{ 'results'|trans }}</a>
                             </h2>
                             <ul class="list-unstyled">
                                 {% for tag in competition.tags if tag.enabled %}

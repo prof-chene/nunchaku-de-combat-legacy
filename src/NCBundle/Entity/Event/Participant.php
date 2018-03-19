@@ -42,23 +42,21 @@ class Participant
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="phone", type="string", length=100, nullable=true)
      */
     private $phone;
     /**
      * @var \DateTime
      *
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(name="date_of_birth", type="datetime")
+     * @ORM\Column(name="date_of_birth", type="datetime", nullable=true)
      */
     private $dateOfBirth;
     /**
      * @var string
      *
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(name="gender", type="string", length=1)
+     * @ORM\Column(name="gender", type="string", length=1, nullable=true)
      */
     private $gender;
     /**
@@ -99,6 +97,8 @@ class Participant
     private $registrant;
     /**
      * @var AbstractEvent
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\ManyToOne(targetEntity="AbstractEvent", inversedBy="participants")
      */

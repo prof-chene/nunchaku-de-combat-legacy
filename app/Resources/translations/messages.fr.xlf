@@ -43,6 +43,38 @@
                 <source>exercises</source>
                 <target>exercices</target>
             </trans-unit>
+            <trans-unit id="lastname">
+                <source>lastname</source>
+                <target>Nom de famille</target>
+            </trans-unit>
+            <trans-unit id="firstname">
+                <source>firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="phone">
+                <source>phone</source>
+                <target>Téléphone</target>
+            </trans-unit>
+            <trans-unit id="date_of_birth">
+                <source>date_of_birth</source>
+                <target>Date de naissance</target>
+            </trans-unit>
+            <trans-unit id="gender">
+                <source>gender</source>
+                <target>Sexe</target>
+            </trans-unit>
+            <trans-unit id="results">
+                <source>results</source>
+                <target>Résultats</target>
+            </trans-unit>
+            <trans-unit id="validate">
+                <source>validate</source>
+                <target>Valider</target>
+            </trans-unit>
+            <trans-unit id="register_someone">
+                <source>register_someone</source>
+                <target>J'inscris quelqu'un d'autre</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>
@@ -181,6 +213,22 @@
             <trans-unit id="past_shows">
                 <source>past_shows</source>
                 <target>démonstrations terminées</target>
+            </trans-unit>
+            <trans-unit id="able_to_referee">
+                <source>able_to_referee</source>
+                <target>Je souhaite participer à l'arbitrage (compter les points, superviseur, ou arbitre central)</target>
+            </trans-unit>
+            <trans-unit id="i_am_trainer">
+                <source>i_am_trainer</source>
+                <target>Je fais partie des entraîneurs</target>
+            </trans-unit>
+            <trans-unit id="i_am_host">
+                <source>i_am_host</source>
+                <target>Je fais partie des organisateurs</target>
+            </trans-unit>
+            <trans-unit id="pick_trials">
+                <source>pick_trials</source>
+                <target>Choisissez vos épreuves</target>
             </trans-unit>
         </body>
     </file>

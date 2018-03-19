@@ -43,6 +43,38 @@
                 <source>exercises</source>
                 <target>exercises</target>
             </trans-unit>
+            <trans-unit id="lastname">
+                <source>lastname</source>
+                <target>Lastname</target>
+            </trans-unit>
+            <trans-unit id="firstname">
+                <source>firstname</source>
+                <target>Firstname</target>
+            </trans-unit>
+            <trans-unit id="phone">
+                <source>phone</source>
+                <target>Phone number</target>
+            </trans-unit>
+            <trans-unit id="date_of_birth">
+                <source>date_of_birth</source>
+                <target>Date of birth</target>
+            </trans-unit>
+            <trans-unit id="gender">
+                <source>gender</source>
+                <target>Gender</target>
+            </trans-unit>
+            <trans-unit id="results">
+                <source>results</source>
+                <target>Results</target>
+            </trans-unit>
+            <trans-unit id="validate">
+                <source>validate</source>
+                <target>Validate</target>
+            </trans-unit>
+            <trans-unit id="register_someone">
+                <source>register_someone</source>
+                <target>Register someone else</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>
@@ -181,6 +213,22 @@
             <trans-unit id="past_shows">
                 <source>past_shows</source>
                 <target>past shows</target>
+            </trans-unit>
+            <trans-unit id="able_to_referee">
+                <source>able_to_referee</source>
+                <target>I'd like to help to referee (count points, supervisor, or central referee)</target>
+            </trans-unit>
+            <trans-unit id="i_am_trainer">
+                <source>i_am_trainer</source>
+                <target>I'm one of the trainers</target>
+            </trans-unit>
+            <trans-unit id="i_am_host">
+                <source>i_am_host</source>
+                <target>I'm part of the staff</target>
+            </trans-unit>
+            <trans-unit id="pick_trials">
+                <source>pick_trials</source>
+                <target>Pick your trials</target>
             </trans-unit>
         </body>
     </file>
