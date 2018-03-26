@@ -41,12 +41,6 @@ class ParticipantAdmin extends AbstractAdmin
                 'datepicker_use_button' => false,
                 'dp_max_date' => new \DateTime(),
             ))
-            ->add('gender', 'choice', array(
-                'choices' => array(
-                    'male' => 'm',
-                    'female' => 'f',
-                )
-            ))
             ->add('address', 'textarea')
             ->add('user', 'sonata_type_model_autocomplete', array(
                 'placeholder' => 'choose_user',
@@ -89,7 +83,6 @@ class ParticipantAdmin extends AbstractAdmin
             ->add('firstname')
             ->add('phone')
             ->add('dateOfBirth')
-            ->add('gender')
             ->add('address')
             ->add('user.lastname')
             ->add('user.firstname')
@@ -106,7 +99,6 @@ class ParticipantAdmin extends AbstractAdmin
             ->add('firstname')
             ->add('phone')
             ->add('dateOfBirth')
-            ->add('gender')
             ->add('address')
             ->add('user', null, array(
                 'associated_property' => function (User $user) {

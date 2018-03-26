@@ -9,10 +9,9 @@ use NCBundle\Entity\Event\Show;
 use NCBundle\Entity\Event\TrainingCourse;
 use NCBundle\Entity\Event\Trial;
 use NCBundle\Repository\Event\TrialRepository;
-use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
-use Sonata\UserBundle\Form\Type\UserGenderListType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -53,6 +52,7 @@ class ParticipantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        dump($options);exit;
         $builder
             ->add('lastname', null, [
                 'label'    => 'lastname',
@@ -78,7 +78,6 @@ class ParticipantType extends AbstractType
 
             if ($this->tokenStorage->getToken()->getUser() instanceof User) {
                 $user = $this->tokenStorage->getToken()->getUser();
-                $participant->setRegistrant($user);
                 $participant->setLastName($user->getLastName());
                 $participant->setFirstName($user->getFirstName());
                 $participant->setPhone($user->getPhone());
@@ -95,14 +94,6 @@ class ParticipantType extends AbstractType
             }
 
             if ($event instanceof Competition) {
-                if (!empty($user)) {
-                    $participant->setGender($user->getGender());
-                }
-                $form->add('gender', UserGenderListType::class, [
-                    'label'    => 'gender',
-                    'required' => true,
-                ]);
-
                 $trials = $this->trialRepository->findBy(['competition' => $event]);
                 $form->add('trials', EntityType::class, [
                     'label'        => 'pick_trials',

@@ -2,13 +2,11 @@
 
 namespace NCBundle\Controller;
 
-use Doctrine\Common\Collections\Criteria;
 use NCBundle\Entity\Event\Competition;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Form\Type\Event\ParticipantType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -24,27 +22,11 @@ class CompetitionController extends Controller
      */
     public function indexAction()
     {
-        $futureCompetitions = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createQueryBuilder('competition')
-            ->andWhere('competition.enabled = true')
-            ->andWhere('competition.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('competition.startDate > CURRENT_TIMESTAMP()')
-            ->addOrderBy('competition.startDate')
-            ->addOrderBy('competition.id')
-            ->getQuery()->getResult();
-
-        $pastCompetitions = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createQueryBuilder('competition')
-            ->andWhere('competition.enabled = true')
-            ->andWhere('competition.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('competition.startDate <= CURRENT_TIMESTAMP()')
-            ->addOrderBy('competition.startDate', Criteria::DESC)
-            ->addOrderBy('competition.id')
-            ->getQuery()->getResult();
+        $competitions = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
+            ->createRegistrationQueryBuilder($this->getUser())->getQuery()->getResult();
 
         return [
-            'futureCompetitions' => $futureCompetitions,
-            'pastCompetitions'   => $pastCompetitions,
+            'competitions' => $competitions,
         ];
     }
 
@@ -54,17 +36,11 @@ class CompetitionController extends Controller
      * @param string $slug
      *
      * @return array
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function viewAction($slug)
     {
         $competition = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createQueryBuilder('competition')
-            ->andWhere('competition.enabled = true')
-            ->andWhere('competition.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('competition.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
 
         if (empty($competition)) {
             throw new NotFoundHttpException('This competition does not exists');
@@ -72,45 +48,44 @@ class CompetitionController extends Controller
 
         return [
             'competition' => $competition,
-            'finished'    => $competition->getStartDate() <= new \DateTime(),
         ];
     }
 
     /**
      * @Template
      *
-     * @param Request $request
-     * @param $slug
+     * @param string  $slug
      *
      * @return array
-     * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function signUpAction(Request $request, $slug)
+    public function signUpAction($slug)
     {
         $competition = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createQueryBuilder('competition')
-            ->andWhere('competition.enabled = true')
-            ->andWhere('competition.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('competition.startDate > CURRENT_TIMESTAMP()')
-            ->andWhere('competition.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
 
         if (empty($competition)) {
-            throw new NotFoundHttpException('This competition does not exists or is already finished');
+            throw new NotFoundHttpException('This competition does not exists');
+        }
+        if ($competition['finished']) {
+            throw new NotFoundHttpException('Registrations are closed for this competition');
         }
 
         $participant = new Participant();
-        $participant->setEvent($competition);
+        $participant->setEvent($competition[0]);
 
         $form = $this->createForm(ParticipantType::class, $participant);
 
-        $this->get('nc.competition.sign_up.form.handler')->process($form);
+        if ($this->get('nc.competition.sign_up.form.handler')->process($form)) {
+            return $this->redirect($this->get('router')->generate('competition_view', ['slug' => $slug]));
+        }
 
         return [
-            'competition' => $competition,
+            'competition' => $competition[0],
             'form'        => $form->createView(),
         ];
     }

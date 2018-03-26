@@ -19,6 +19,20 @@
                 <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
             </address>
         </header>
-        {{ form(form) }}
+        {{ form_start(form) }}
+        {% if form.itsMe is defined %}
+            {{ form_row(form.itsMe) }}
+        {% endif %}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.dateOfBirth) }}
+        {% if form.trials is defined %}
+            {{ form_row(form.trials) }}
+        {% endif %}
+        {% if form.referee is defined %}
+            {{ form_row(form.referee) }}
+        {% endif %}
+        {{ form_end(form) }}
     </article>
 {% endblock %}

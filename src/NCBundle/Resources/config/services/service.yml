@@ -1,0 +1,7 @@
+services:
+    nc.mailer:
+        class: NCBundle\Service\Mailer
+        arguments:
+            - '@twig'
+            - '%nc_email%'
+            - '@swiftmailer.transport'

@@ -11,6 +11,7 @@ parameters:
     locale: fr
     locales: fr|en
     posts_number_per_page: 10
+    nc_email: nunchaku.de.combat@gmail.com
 
 framework:
     #esi:             ~

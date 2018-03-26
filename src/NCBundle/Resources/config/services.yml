@@ -1,10 +1,4 @@
 imports:
-    - { resource: sonata.yml }
-
-services:
-    nc.competition.sign_up.form.handler:
-        class: NCBundle\Form\Handler\Event\ParticipantHandler
-        arguments:
-            - '@request_stack'
-            - '@security.token_storage'
-            - '@doctrine.orm.entity_manager'
+    - { resource: services/admin.yml }
+    - { resource: services/formHandler.yml }
+    - { resource: services/service.yml }

@@ -56,12 +56,6 @@ class Participant
     /**
      * @var string
      *
-     * @ORM\Column(name="gender", type="string", length=1, nullable=true)
-     */
-    private $gender;
-    /**
-     * @var string
-     *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
@@ -206,26 +200,6 @@ class Participant
     public function setDateOfBirth($dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
-    /**
-     * @param string $gender
-     *
-     * @return $this
-     */
-    public function setGender($gender)
-    {
-        $this->gender = $gender;
 
         return $this;
     }

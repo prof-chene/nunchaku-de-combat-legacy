@@ -439,7 +439,6 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $showParticipants[$i.'-'.$j]->setLastname('Lastname show '.$i.'-'.$j);
                     $showParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
                     $showParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $showParticipants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
                     $showParticipants[$i.'-'.$j]->setAddress('Participant show address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
@@ -492,7 +491,6 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $trainingCourseParticipants[$i.'-'.$j]->setLastname('Lastname training course '.$i.'-'.$j);
                     $trainingCourseParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
                     $trainingCourseParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $trainingCourseParticipants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
                     $trainingCourseParticipants[$i.'-'.$j]->setAddress('Participant training course address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
@@ -550,7 +548,6 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $competitionParticipants[$i.'-'.$j]->setLastname('Lastname competition '.$i.'-'.$j);
                     $competitionParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
                     $competitionParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $competitionParticipants[$i.'-'.$j]->setGender($this->genders[array_rand($this->genders)]);
                     $competitionParticipants[$i.'-'.$j]->setAddress('Participant competition address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];

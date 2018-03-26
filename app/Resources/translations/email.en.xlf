@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="event.subscribed.header">
+                <source>event.subscribed.header</source>
+                <target>Registration %event_title%
+                    Hi %registrant_first_name%,
+
+                    Your registration has been confirmed. Here are the details :
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.event_title">
+                <source>event.subscribed.event_title</source>
+                <target>
+                    Event : %event_title%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.event_date">
+                <source>event.subscribed.event_date</source>
+                <target>
+                    Date : du %start_date% au %end_date%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.event_address">
+                <source>event.subscribed.event_address</source>
+                <target>
+                    Address : %address%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.last_name">
+                <source>event.subscribed.last_name</source>
+                <target>
+                    Last name : %last_name%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.first_name">
+                <source>event.subscribed.first_name</source>
+                <target>
+                    First name : %first_name%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.dateOfBirth">
+                <source>event.subscribed.dateOfBirth</source>
+                <target>
+                    Birth date : %dateOfBirth%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.phone">
+                <source>event.subscribed.phone</source>
+                <target>
+                    Phone : %phone%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.address">
+                <source>event.subscribed.address</source>
+                <target>
+                    Address : %address%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.host">
+                <source>event.subscribed.host</source>
+                <target>
+                    I'm part of the staff : %host%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.trainer">
+                <source>event.subscribed.trainer</source>
+                <target>
+                    I'm one of the trainers : %trainer%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.referee">
+                <source>event.subscribed.referee</source>
+                <target>
+                    I'd like to help to referee : %referee%
+                </target>
+            </trans-unit>
+            <trans-unit id="event.subscribed.trials">
+                <source>event.subscribed.trials</source>
+                <target>
+                    Trials : %trials%
+                </target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

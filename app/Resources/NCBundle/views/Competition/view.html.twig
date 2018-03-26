@@ -4,24 +4,33 @@
     <article>
         <header>
             <h1>
-                {{ competition.title }}
-                {% if not finished  %}
-                    <a href="{{ path('competition_sign_up', {'slug': competition.slug}) }}" class="btn btn-sm btn-success" role="button">{{ 'register_me'|trans }}</a>
-                {% endif %}
+                {{ competition.0.title }}
             </h1>
             <ul class="list-unstyled">
-                {% for tag in competition.tags if tag.enabled %}
+                {% for tag in competition.0.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% media competition.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            {% if not competition.finished %}
+                {% if competition.registered %}
+                    <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
+                {% endif %}
+                <a href="{{ path('competition_sign_up', {'slug': competition.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                    {% if competition.registered %}
+                        {{ 'register_someone'|trans }}
+                    {% else %}
+                        {{ 'register_me'|trans }}
+                    {% endif %}
+                </a>
+            {% endif %}
+            {% media competition.0.image, 'reference' with {'class': 'img-responsive center-block'} %}
             <p>
                 <span class="glyphicon glyphicon-calendar"></span>
-                {{ 'date_range'|trans({'%from%': competition.startDate|date('d/m/Y H:i', false), '%to%': competition.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                {{ 'date_range'|trans({'%from%': competition.0.startDate|date('d/m/Y H:i', false), '%to%': competition.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
             </p>
             <address>
                 <span class="glyphicon glyphicon-map-marker"></span>
-                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.address }}">{{ competition.address }}</a>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ competition.0.address }}">{{ competition.0.address }}</a>
             </address>
         </header>
         <ul class="nav nav-tabs" role="tablist">
@@ -30,10 +39,10 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="rules">
-                {{ competition.content|raw }}
+                {{ competition.0.content|raw }}
             </div>
             <div role="tabpanel" class="tab-pane" id="trials">
-                {% for trial in competition.trials %}
+                {% for trial in competition.0.trials %}
                     <div class="list-group-item">
                         <h2>{{ trial.name }}</h2>
                         <p>{{ trial.rules|raw }}</p>

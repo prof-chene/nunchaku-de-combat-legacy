@@ -3,6 +3,14 @@
     <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
         <body>
             <!-- Generic -->
+            <trans-unit id="yes">
+                <source>yes</source>
+                <target>oui</target>
+            </trans-unit>
+            <trans-unit id="no">
+                <source>no</source>
+                <target>non</target>
+            </trans-unit>
             <trans-unit id="by">
                 <source>by</source>
                 <target>par</target>
@@ -70,10 +78,6 @@
             <trans-unit id="validate">
                 <source>validate</source>
                 <target>Valider</target>
-            </trans-unit>
-            <trans-unit id="register_someone">
-                <source>register_someone</source>
-                <target>J'inscris quelqu'un d'autre</target>
             </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
@@ -167,6 +171,18 @@
             <trans-unit id="reset_password_success">
                 <source>reset_password.success</source>
                 <target>Votre mot de passe a été modifié avec succès</target>
+            </trans-unit>
+            <trans-unit id="register_someone">
+                <source>register_someone</source>
+                <target>J'inscris quelqu'un d'autre</target>
+            </trans-unit>
+            <trans-unit id="registration.success">
+                <source>registration.success</source>
+                <target>Votre inscription a bien été prise en compte</target>
+            </trans-unit>
+            <trans-unit id="already_registered">
+                <source>already_registered</source>
+                <target>déjà inscrit(e)</target>
             </trans-unit>
             <!-- User's profile -->
             <trans-unit id="profile_show_link">

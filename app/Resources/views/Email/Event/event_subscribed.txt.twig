@@ -1,0 +1,36 @@
+{% autoescape false %}
+{{ 'event.subscribed.header'|trans({'%event_title%' : event.title, '%registrant_first_name%' : registrant.firstName}, 'email')}}
+
+{{ 'event.subscribed.event_title'|trans({'%event_title%' : event.title}, 'email')}}
+{{ 'event.subscribed.event_date'|trans({'%start_date%' : event.startDate|date('d/m/Y H:i', false), '%end_date%' : event.endDate|date('d/m/Y H:i', false)}, 'email')}}
+{{ 'event.subscribed.event_address'|trans({'%address%' : event.address}, 'email')}}
+
+{{ 'event.subscribed.last_name'|trans({'%last_name%' : participant.lastName}, 'email')}}
+{{ 'event.subscribed.first_name'|trans({'%first_name%' : participant.firstName}, 'email')}}
+
+{% if participant.dateOfBirth is not empty %}
+    {{ 'event.subscribed.dateOfBirth'|trans({'%dateOfBirth%' : participant.dateOfBirth|date('d/m/Y', false)}, 'email')}}
+{% endif %}
+{% if participant.phone is not empty %}
+    {{ 'event.subscribed.phone'|trans({'%phone%' : participant.phone}, 'email')}}
+{% endif %}
+{% if participant.address is not empty %}
+    {{ 'event.subscribed.address'|trans({'%address%' : participant.address}, 'email')}}
+{% endif %}
+{% if participant.host is not empty %}
+    {% set bool = participant.host ? 'yes'|trans : 'no'|trans %}
+    {{ 'event.subscribed.host'|trans({'%host%' : bool}, 'email')}}
+{% endif %}
+{% if participant.trainer is not empty %}
+    {% set bool = participant.trainer ? 'yes'|trans : 'no'|trans %}
+    {{ 'event.subscribed.trainer'|trans({'%trainer%' : bool}, 'email')}}
+{% endif %}
+{% if participant.referee is not empty %}
+    {% set bool = participant.referee ? 'yes'|trans : 'no'|trans %}
+    {{ 'event.subscribed.referee'|trans({'%referee%' : bool}, 'email')}}
+{% endif %}
+{% if trials is not empty %}
+
+    {{ 'event.subscribed.trials'|trans({'%trials%' : trials|join(', ')}, 'email')}}
+{% endif %}
+{% endautoescape %}
