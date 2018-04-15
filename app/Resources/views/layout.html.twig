@@ -1,3 +1,4 @@
+{% set locale = app.request.locale %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,16 +27,26 @@
             'js/jquery/jquery.min.js'
             'js/jquery/*'
             'js/bootstrap/*'
+            'bundles/sonatacore/vendor/moment/min/moment.min.js'
             'bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
             'bundles/nc/js/*'
             output='assetic/nc.js'
         %}
             <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
+        {# localize moment #}
+        {% if locale[:2] != 'en' %}
+            <script src="{{ asset(
+                'bundles/sonatacore/vendor/moment/locale/' ~
+                locale|lower|replace({'_':'-'}) ~
+                '.js'
+            ) }}"></script>
+        {% endif %}
         {% block javascripts %}
         {% endblock %}
         {% stylesheets
             'css/bootstrap/*'
+            'bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css'
             'bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
             'bundles/nc/css/*'
             filter='cssrewrite'

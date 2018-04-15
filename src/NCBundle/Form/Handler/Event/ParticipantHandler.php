@@ -80,10 +80,9 @@ class ParticipantHandler
                 $participant = $form->getData();
                 if ($this->tokenStorage->getToken()->getUser() instanceof User) {
                     $participant->setRegistrant($this->tokenStorage->getToken()->getUser());
-                    if ($form->get('itsMe')->getData()) {
+                    if ($form->has('itsMe') && $form->get('itsMe')->getData()) {
                         $participant->setUser($this->tokenStorage->getToken()->getUser());
                     }
-                    $participant->setUser($this->tokenStorage->getToken()->getUser());
                 }
                 $this->entityManager->persist($participant);
                 $this->entityManager->flush($participant);
@@ -113,7 +112,7 @@ class ParticipantHandler
                     $this->mailer->sendFromTemplate(
                         ':Email/Event:event_subscribed.txt.twig',
                         $templateParams,
-                        $participant->getUser()->getEmail()
+                        $participant->getRegistrant()->getEmail()
                     );
                 }
 

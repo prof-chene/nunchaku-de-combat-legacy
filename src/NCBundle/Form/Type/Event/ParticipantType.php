@@ -9,6 +9,7 @@ use NCBundle\Entity\Event\Show;
 use NCBundle\Entity\Event\TrainingCourse;
 use NCBundle\Entity\Event\Trial;
 use NCBundle\Repository\Event\TrialRepository;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -52,7 +53,6 @@ class ParticipantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($options);exit;
         $builder
             ->add('lastname', null, [
                 'label'    => 'lastname',
@@ -66,17 +66,20 @@ class ParticipantType extends AbstractType
                 'label'    => 'phone',
                 'required' => true,
             ])
-            ->add('dateOfBirth', null, [
+            ->add('dateOfBirth', DatePickerType::class, [
                 'label'    => 'date_of_birth',
                 'required' => true,
+                'datepicker_use_button' => false,
+                'dp_max_date' => (new \DateTime())->format('c'),
             ]);
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $formEvent) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $formEvent) {
             $participant = $formEvent->getData();
             $event = $participant->getEvent();
             $form = $formEvent->getForm();
+            $options = $form->getConfig()->getOptions();
 
-            if ($this->tokenStorage->getToken()->getUser() instanceof User) {
+            if ($this->tokenStorage->getToken()->getUser() instanceof User && !$options['registered']) {
                 $user = $this->tokenStorage->getToken()->getUser();
                 $participant->setLastName($user->getLastName());
                 $participant->setFirstName($user->getFirstName());
@@ -89,7 +92,8 @@ class ParticipantType extends AbstractType
                         'register_me'      => true,
                         'register_someone' => false,
                     ],
-                    'mapped' => false,
+                    'mapped'   => false,
+                    'data'     => true,
                 ]);
             }
 
@@ -130,6 +134,7 @@ class ParticipantType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Participant::class,
+            'registered' => false,
         ]);
     }
 }

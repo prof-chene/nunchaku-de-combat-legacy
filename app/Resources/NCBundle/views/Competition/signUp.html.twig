@@ -21,7 +21,7 @@
         </header>
         {{ form_start(form) }}
         {% if form.itsMe is defined %}
-            {{ form_row(form.itsMe) }}
+            {{ form_widget(form.itsMe, {'label_attr': {'class': 'radio-inline'}}) }}
         {% endif %}
         {{ form_row(form.lastname) }}
         {{ form_row(form.firstname) }}

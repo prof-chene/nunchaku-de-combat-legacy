@@ -78,7 +78,7 @@ class CompetitionController extends Controller
         $participant = new Participant();
         $participant->setEvent($competition[0]);
 
-        $form = $this->createForm(ParticipantType::class, $participant);
+        $form = $this->createForm(ParticipantType::class, $participant, ['registered' => $competition['registered']]);
 
         if ($this->get('nc.competition.sign_up.form.handler')->process($form)) {
             return $this->redirect($this->get('router')->generate('competition_view', ['slug' => $slug]));
