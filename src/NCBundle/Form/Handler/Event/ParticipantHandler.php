@@ -86,7 +86,7 @@ class ParticipantHandler
                 }
                 $this->entityManager->persist($participant);
                 $this->entityManager->flush($participant);
-                if (!empty($form->get('trials')->getData())) {
+                if ($form->has('trials') && !empty($form->get('trials')->getData())) {
                     $trials = $form->get('trials')->getData();
                     foreach ($trials as $trial) {
                         $trialResult = new TrialResult();

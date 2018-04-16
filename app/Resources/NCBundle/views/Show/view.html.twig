@@ -3,23 +3,35 @@
 {% block content %}
     <article>
         <header>
-            <h1>{{ show.title }}</h1>
+            <h1>{{ show.0.title }}</h1>
             <ul class="list-unstyled">
-                {% for tag in show.tags if tag.enabled %}
+                {% for tag in show.0.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% media show.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            {% if not show.finished %}
+                {% if show.registered %}
+                    <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
+                {% endif %}
+                <a href="{{ path('show_sign_up', {'slug': show.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                    {% if show.registered %}
+                        {{ 'register_someone'|trans }}
+                    {% else %}
+                        {{ 'register_me'|trans }}
+                    {% endif %}
+                </a>
+            {% endif %}
+            {% media show.0.image, 'reference' with {'class': 'img-responsive center-block'} %}
             <p>
                 <span class="glyphicon glyphicon-calendar"></span>
-                {{ 'date_range'|trans({'%from%': show.startDate|date('d/m/Y H:i', false), '%to%': show.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                {{ 'date_range'|trans({'%from%': show.0.startDate|date('d/m/Y H:i', false), '%to%': show.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
             </p>
             <address>
                 <span class="glyphicon glyphicon-map-marker"></span>
-                <a href="https://www.google.com/maps/search/?api=1&query={{ show.address }}">{{ show.address }}</a>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ show.0.address }}">{{ show.0.address }}</a>
             </address>
         </header>
         <hr />
-        <p>{{ show.content|raw }}</p>
+        <p>{{ show.0.content|raw }}</p>
     </article>
 {% endblock %}

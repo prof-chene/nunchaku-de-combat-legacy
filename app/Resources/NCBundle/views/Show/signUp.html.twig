@@ -1,0 +1,35 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>{{ show.title }}</h1>
+            <ul class="list-unstyled">
+                {% for tag in show.tags if tag.enabled %}
+                    <li class="label label-primary">{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+            {% media show.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            <p>
+                <span class="glyphicon glyphicon-calendar"></span>
+                {{ 'date_range'|trans({'%from%': show.startDate|date('d/m/Y H:i', false), '%to%': show.endDate|date('d/m/Y H:i', false)})|capitalize }}
+            </p>
+            <address>
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ show.address }}">{{ show.address }}</a>
+            </address>
+        </header>
+        {{ form_start(form) }}
+        {% if form.itsMe is defined %}
+            {{ form_widget(form.itsMe, {'label_attr': {'class': 'radio-inline'}}) }}
+        {% endif %}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.dateOfBirth) }}
+        {% if form.trainer is defined %}
+            {{ form_row(form.trainer) }}
+        {% endif %}
+        {{ form_end(form) }}
+    </article>
+{% endblock %}

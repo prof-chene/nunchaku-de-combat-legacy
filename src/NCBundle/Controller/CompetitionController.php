@@ -46,17 +46,15 @@ class CompetitionController extends Controller
             throw new NotFoundHttpException('This competition does not exists');
         }
 
-        return [
-            'competition' => $competition,
-        ];
+        return ['competition' => $competition,];
     }
 
     /**
      * @Template
      *
-     * @param string  $slug
+     * @param string$slug
      *
-     * @return array
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Twig_Error_Loader
@@ -80,7 +78,7 @@ class CompetitionController extends Controller
 
         $form = $this->createForm(ParticipantType::class, $participant, ['registered' => $competition['registered']]);
 
-        if ($this->get('nc.competition.sign_up.form.handler')->process($form)) {
+        if ($this->get('nc.form.participant.handler')->process($form)) {
             return $this->redirect($this->get('router')->generate('competition_view', ['slug' => $slug]));
         }
 

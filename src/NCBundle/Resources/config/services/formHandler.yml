@@ -1,5 +1,5 @@
 services:
-    nc.competition.sign_up.form.handler:
+    nc.form.participant.handler:
         class: NCBundle\Form\Handler\Event\ParticipantHandler
         arguments:
             - '@request_stack'

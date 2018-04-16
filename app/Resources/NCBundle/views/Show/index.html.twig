@@ -7,58 +7,68 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="future-shows">
-                {% for show in futureShows %}
+                {% for show in shows if not show.finished %}
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
-                            <a href="{{ path('show_view', {'slug': show.slug}) }}">
-                                {% thumbnail show.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            <a href="{{ path('show_view', {'slug': show.0.slug}) }}">
+                                {% thumbnail show.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <h2>
-                                <a href="{{ path('show_view', {'slug': show.slug}) }}">{{ show.title }}</a>
+                                <a href="{{ path('show_view', {'slug': show.0.slug}) }}">{{ show.0.title }}</a>
                             </h2>
                             <ul class="list-unstyled">
-                                {% for tag in show.tags if tag.enabled %}
+                                {% for tag in show.0.tags if tag.enabled %}
                                     <li class="label label-primary">{{ tag.name }}</li>
                                 {% endfor %}
                             </ul>
+                            {% if show.registered %}
+                                <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
+                            {% endif %}
+                            <a href="{{ path('show_sign_up', {'slug': show.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                                {% if show.registered %}
+                                    {{ 'register_someone'|trans }}
+                                {% else %}
+                                    {{ 'register_me'|trans }}
+                                {% endif %}
+                            </a>
                             <p>
                                 <span class="glyphicon glyphicon-calendar"></span>
-                                {{ 'date_range'|trans({'%from%': show.startDate|date('d/m/Y H:i', false), '%to%': show.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                                {{ 'date_range'|trans({'%from%': show.0.startDate|date('d/m/Y H:i', false), '%to%': show.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
                             </p>
                             <address>
                                 <span class="glyphicon glyphicon-map-marker"></span>
-                                <a href="https://www.google.com/maps/search/?api=1&query={{ show.address }}">{{ show.address }}</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ show.0.address }}">{{ show.0.address }}</a>
                             </address>
                         </div>
                     </div>
                 {% endfor %}
             </div>
             <div role="tabpanel" class="tab-pane" id="past-shows">
-                {% for show in pastShows %}
+                {% for show in shows if show.finished %}
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
-                            <a href="{{ path('show_view', {'slug': show.slug}) }}">
-                                {% thumbnail show.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            <a href="{{ path('show_view', {'slug': show.0.slug}) }}">
+                                {% thumbnail show.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <h2>
-                                <a href="{{ path('show_view', {'slug': show.slug}) }}">{{ show.title }}</a>
+                                <a href="{{ path('show_view', {'slug': show.0.slug}) }}">{{ show.0.title }}</a>
                             </h2>
                             <ul class="list-unstyled">
-                                {% for tag in show.tags if tag.enabled %}
+                                {% for tag in show.0.tags if tag.enabled %}
                                     <li class="label label-primary">{{ tag.name }}</li>
                                 {% endfor %}
                             </ul>
                             <p>
                                 <span class="glyphicon glyphicon-calendar"></span>
-                                {{ 'date_range'|trans({'%from%': show.startDate|date('d/m/Y H:i', false), '%to%': show.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                                {{ 'date_range'|trans({'%from%': show.0.startDate|date('d/m/Y H:i', false), '%to%': show.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
                             </p>
                             <address>
                                 <span class="glyphicon glyphicon-map-marker"></span>
-                                <a href="https://www.google.com/maps/search/?api=1&query={{ show.address }}">{{ show.address }}</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ show.0.address }}">{{ show.0.address }}</a>
                             </address>
                         </div>
                     </div>
