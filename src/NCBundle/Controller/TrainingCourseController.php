@@ -2,14 +2,15 @@
 
 namespace NCBundle\Controller;
 
-use Doctrine\Common\Collections\Criteria;
+use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\TrainingCourse;
+use NCBundle\Form\Type\Event\ParticipantType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class TrainingCourseController
+ * Class ShowController
  * @package NCBundle\Controller
  */
 class TrainingCourseController extends Controller
@@ -21,27 +22,11 @@ class TrainingCourseController extends Controller
      */
     public function indexAction()
     {
-        $futureTrainingCourses = $this->get('doctrine.orm.entity_manager')->getRepository(TrainingCourse::class)
-            ->createQueryBuilder('trainingCourse')
-            ->andWhere('trainingCourse.enabled = true')
-            ->andWhere('trainingCourse.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('trainingCourse.startDate > CURRENT_TIMESTAMP()')
-            ->addOrderBy('trainingCourse.startDate')
-            ->addOrderBy('trainingCourse.id')
-            ->getQuery()->getResult();
-
-        $pastTrainingCourses = $this->get('doctrine.orm.entity_manager')->getRepository(TrainingCourse::class)
-            ->createQueryBuilder('trainingCourse')
-            ->andWhere('trainingCourse.enabled = true')
-            ->andWhere('trainingCourse.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('trainingCourse.startDate <= CURRENT_TIMESTAMP()')
-            ->addOrderBy('trainingCourse.startDate', Criteria::DESC)
-            ->addOrderBy('trainingCourse.id')
-            ->getQuery()->getResult();
+        $trainingCourses = $this->get('doctrine.orm.entity_manager')->getRepository(TrainingCourse::class)
+            ->createRegistrationQueryBuilder($this->getUser())->getQuery()->getResult();
 
         return [
-            'futureTrainingCourses' => $futureTrainingCourses,
-            'pastTrainingCourses'   => $pastTrainingCourses,
+            'trainingCourses' => $trainingCourses,
         ];
     }
 
@@ -56,17 +41,52 @@ class TrainingCourseController extends Controller
     public function viewAction($slug)
     {
         $trainingCourse = $this->get('doctrine.orm.entity_manager')->getRepository(TrainingCourse::class)
-            ->createQueryBuilder('trainingCourse')
-            ->andWhere('trainingCourse.enabled = true')
-            ->andWhere('trainingCourse.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->andWhere('trainingCourse.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
 
         if (empty($trainingCourse)) {
-            throw new NotFoundHttpException('This training course does not exists');
+            throw new NotFoundHttpException('This trainingCourse does not exists');
         }
 
         return ['trainingCourse' => $trainingCourse,];
+    }
+
+    /**
+     * @Template
+     *
+     * @param string $slug
+     *
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function signUpAction($slug)
+    {
+        $trainingCourse = $this->get('doctrine.orm.entity_manager')->getRepository(TrainingCourse::class)
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
+
+        if (empty($trainingCourse)) {
+            throw new NotFoundHttpException('This trainingCourse does not exists');
+        }
+        if ($trainingCourse['finished']) {
+            throw new NotFoundHttpException('Registrations are closed for this trainingCourse');
+        }
+
+        $participant = new Participant();
+        $participant->setEvent($trainingCourse[0]);
+
+        $form = $this->createForm(ParticipantType::class, $participant, ['registered' => $trainingCourse['registered']]);
+
+        if ($this->get('nc.form.participant.handler')->process($form)) {
+            return $this->redirect($this->get('router')->generate('training_course_view', ['slug' => $slug]));
+        }
+
+        return [
+            'trainingCourse' => $trainingCourse[0],
+            'form' => $form->createView(),
+        ];
     }
 }

@@ -3,20 +3,32 @@
 {% block content %}
     <article>
         <header>
-            <h1>{{ trainingCourse.title }}</h1>
+            <h1>{{ trainingCourse.0.title }}</h1>
             <ul class="list-unstyled">
-                {% for tag in trainingCourse.tags if tag.enabled %}
+                {% for tag in trainingCourse.0.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% media trainingCourse.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            {% if not trainingCourse.finished %}
+                {% if trainingCourse.registered %}
+                    <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
+                {% endif %}
+                <a href="{{ path('training_course_sign_up', {'slug': trainingCourse.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                    {% if trainingCourse.registered %}
+                        {{ 'register_someone'|trans }}
+                    {% else %}
+                        {{ 'register_me'|trans }}
+                    {% endif %}
+                </a>
+            {% endif %}
+            {% media trainingCourse.0.image, 'reference' with {'class': 'img-responsive center-block'} %}
             <p>
                 <span class="glyphicon glyphicon-calendar"></span>
-                {{ 'date_range'|trans({'%from%': trainingCourse.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                {{ 'date_range'|trans({'%from%': trainingCourse.0.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
             </p>
             <address>
                 <span class="glyphicon glyphicon-map-marker"></span>
-                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.address }}">{{ trainingCourse.address }}</a>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.0.address }}">{{ trainingCourse.0.address }}</a>
             </address>
         </header>
         <ul class="nav nav-tabs" role="tablist">
@@ -25,10 +37,10 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="content">
-                {{ trainingCourse.content|raw }}
+                {{ trainingCourse.0.content|raw }}
             </div>
             <div role="tabpanel" class="tab-pane" id="exercises">
-                {% for exercise in trainingCourse.exercises %}
+                {% for exercise in trainingCourse.0.exercises %}
                     <div class="col-sm-12 list-group-item">
                         <div class="col-sm-3">
                             <a href="{{ url('exercise_view', {'slug': exercise.slug }) }}">

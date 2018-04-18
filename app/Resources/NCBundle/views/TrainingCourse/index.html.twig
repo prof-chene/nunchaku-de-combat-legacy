@@ -7,58 +7,68 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="future-training-courses">
-                {% for trainingCourse in futureTrainingCourses %}
+                {% for trainingCourse in trainingCourses if not trainingCourse.finished %}
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
-                            <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">
-                                {% thumbnail trainingCourse.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">
+                                {% thumbnail trainingCourse.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <h2>
-                                <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">{{ trainingCourse.title }}</a>
+                                <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
                             </h2>
                             <ul class="list-unstyled">
-                                {% for tag in trainingCourse.tags if tag.enabled %}
+                                {% for tag in trainingCourse.0.tags if tag.enabled %}
                                     <li class="label label-primary">{{ tag.name }}</li>
                                 {% endfor %}
                             </ul>
+                            {% if trainingCourse.registered %}
+                                <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
+                            {% endif %}
+                            <a href="{{ path('training_course_sign_up', {'slug': trainingCourse.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                                {% if trainingCourse.registered %}
+                                    {{ 'register_someone'|trans }}
+                                {% else %}
+                                    {{ 'register_me'|trans }}
+                                {% endif %}
+                            </a>
                             <p>
                                 <span class="glyphicon glyphicon-calendar"></span>
-                                {{ 'date_range'|trans({'%from%': trainingCourse.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                                {{ 'date_range'|trans({'%from%': trainingCourse.0.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
                             </p>
                             <address>
                                 <span class="glyphicon glyphicon-map-marker"></span>
-                                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.address }}">{{ trainingCourse.address }}</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.0.address }}">{{ trainingCourse.0.address }}</a>
                             </address>
                         </div>
                     </div>
                 {% endfor %}
             </div>
             <div role="tabpanel" class="tab-pane" id="past-training-courses">
-                {% for trainingCourse in pastTrainingCourses %}
+                {% for trainingCourse in trainingCourses if trainingCourse.finished %}
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
-                            <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">
-                                {% thumbnail trainingCourse.image, 'small' with {'class': 'img-responsive center-block'} %}
+                            <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">
+                                {% thumbnail trainingCourse.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                             </a>
                         </div>
                         <div class="col-sm-9">
                             <h2>
-                                <a href="{{ path('training_course_view', {'slug': trainingCourse.slug}) }}">{{ trainingCourse.title }}</a>
+                                <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
                             </h2>
                             <ul class="list-unstyled">
-                                {% for tag in trainingCourse.tags if tag.enabled %}
+                                {% for tag in trainingCourse.0.tags if tag.enabled %}
                                     <li class="label label-primary">{{ tag.name }}</li>
                                 {% endfor %}
                             </ul>
                             <p>
                                 <span class="glyphicon glyphicon-calendar"></span>
-                                {{ 'date_range'|trans({'%from%': trainingCourse.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.endDate|date('d/m/Y H:i', false)})|capitalize }}
+                                {{ 'date_range'|trans({'%from%': trainingCourse.0.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
                             </p>
                             <address>
                                 <span class="glyphicon glyphicon-map-marker"></span>
-                                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.address }}">{{ trainingCourse.address }}</a>
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ trainingCourse.0.address }}">{{ trainingCourse.0.address }}</a>
                             </address>
                         </div>
                     </div>

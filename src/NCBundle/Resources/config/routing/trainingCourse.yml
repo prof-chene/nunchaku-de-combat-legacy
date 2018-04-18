@@ -4,3 +4,6 @@ training_course_home:
 training_course_view:
     path: /view/{slug}
     defaults: { _controller: NCBundle:TrainingCourse:view }
+training_course_sign_up:
+    path: /sign-up/{slug}
+    defaults: { _controller: NCBundle:TrainingCourse:signUp }
