@@ -1,6 +1,6 @@
 <?php
 
-namespace NCBundle\Admin\FAQ;
+namespace NCBundle\Admin\Information;
 
 use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -11,7 +11,7 @@ use Sonata\CoreBundle\Form\Type\CollectionType;
 /**
  * Class FAQAdmin
  *
- * @package NCBundle\Admin\FAQ
+ * @package NCBundle\Admin\Information
  */
 class FAQAdmin extends AbstractEditorialAdmin
 {

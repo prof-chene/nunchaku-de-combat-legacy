@@ -1,12 +1,12 @@
 <?php
 
-namespace NCBundle\Repository\FAQ;
+namespace NCBundle\Repository\Information;
 
 use Doctrine\ORM\EntityRepository;
 
 /**
  * Class QuestionRepository
- * @package NCBundle\Repository\FAQ
+ * @package NCBundle\Repository\Information
  */
 class QuestionRepository extends EntityRepository
 {

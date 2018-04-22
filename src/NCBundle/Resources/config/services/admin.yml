@@ -41,16 +41,16 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Participants, group: Event, show_in_dashboard: false  }
 # FAQ
     admin.faq:
-        class: NCBundle\Admin\FAQ\FAQAdmin
-        arguments: [~, NCBundle\Entity\FAQ\FAQ, ~]
+        class: NCBundle\Admin\Information\FAQAdmin
+        arguments: [~, NCBundle\Entity\Information\FAQ, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: FAQs, group: FAQ }
+            - { name: sonata.admin, manager_type: orm, label: FAQs, group: Information }
         parent: admin.abstract_editorial
     admin.question:
-        class: NCBundle\Admin\FAQ\QuestionAdmin
-        arguments: [~, NCBundle\Entity\FAQ\Question, ~]
+        class: NCBundle\Admin\Information\QuestionAdmin
+        arguments: [~, NCBundle\Entity\Information\Question, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Questions, group: FAQ, show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: Questions, group: Information, show_in_dashboard: false }
 # Technique
     admin.technique:
         class: NCBundle\Admin\Technique\TechniqueAdmin

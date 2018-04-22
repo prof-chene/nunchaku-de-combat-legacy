@@ -1,6 +1,6 @@
 <?php
 
-namespace NCBundle\Admin\FAQ;
+namespace NCBundle\Admin\Information;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 /**
  * Class QuestionAdmin
  *
- * @package NCBundle\Admin\FAQ
+ * @package NCBundle\Admin\Information
  */
 class QuestionAdmin extends AbstractAdmin
 {

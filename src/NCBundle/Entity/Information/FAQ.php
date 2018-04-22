@@ -1,6 +1,6 @@
 <?php
 
-namespace NCBundle\Entity\FAQ;
+namespace NCBundle\Entity\Information;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +10,7 @@ use NCBundle\Entity\AbstractEditorial;
  * FAQ
  *
  * @ORM\Table(name="faq")
- * @ORM\Entity(repositoryClass="NCBundle\Repository\FAQ\FAQRepository")
+ * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\FAQRepository")
  */
 class FAQ extends AbstractEditorial
 {

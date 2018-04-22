@@ -1,6 +1,6 @@
 <?php
 
-namespace NCBundle\Entity\FAQ;
+namespace NCBundle\Entity\Information;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Question
  *
  * @ORM\Table(name="question")
- * @ORM\Entity(repositoryClass="NCBundle\Repository\FAQ\QuestionRepository")
+ * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\QuestionRepository")
  */
 class Question
 {
