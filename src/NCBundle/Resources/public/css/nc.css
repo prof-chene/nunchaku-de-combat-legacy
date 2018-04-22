@@ -31,9 +31,11 @@ nav.navbar-default .navbar-brand {
 }
 
 /* Menu */
-nav.navbar-default .navbar-collapse .navbar-nav > li.current,
-nav.navbar-default .navbar-collapse .navbar-nav > li:hover,
-nav.navbar-default .navbar-collapse .navbar-nav > li:focus {
+nav.navbar-default .navbar-collapse .navbar-nav li.current,
+nav.navbar-default .navbar-collapse .navbar-nav li.current_ancestor,
+nav.navbar-default .navbar-collapse .navbar-nav li:active,
+nav.navbar-default .navbar-collapse .navbar-nav li:hover,
+nav.navbar-default .navbar-collapse .navbar-nav li:focus {
     background: #761c19;
 }
 
