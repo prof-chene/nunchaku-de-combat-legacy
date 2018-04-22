@@ -55,6 +55,7 @@ class Trial
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="trial", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"place" = "ASC"})
      */
     private $trialResults;
 

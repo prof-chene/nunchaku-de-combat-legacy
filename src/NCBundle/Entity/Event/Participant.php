@@ -111,7 +111,7 @@ class Participant
 
     public function __toString()
     {
-        return '('.$this->getEvent().') '.$this->getFirstname().' '.$this->getLastname();
+        return '('.$this->getEvent().') '.$this->getFullName();
     }
 
     /**
@@ -370,5 +370,13 @@ class Participant
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstname().' '.$this->getLastname();
     }
 }

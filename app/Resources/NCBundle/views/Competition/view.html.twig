@@ -36,6 +36,9 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#rules" aria-controls="rules" role="tab" data-toggle="tab">{{ 'rules'|trans|capitalize }}</a></li>
             <li role="presentation"><a href="#trials" aria-controls="trials" role="tab" data-toggle="tab">{{ 'trials'|trans|capitalize }}</a></li>
+            {% if competition.finished %}
+                <li role="presentation"><a href="#results" aria-controls="results" role="tab" data-toggle="tab">{{ 'results'|trans|capitalize }}</a></li>
+            {% endif %}
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="rules">
@@ -49,6 +52,20 @@
                     </div>
                 {% endfor %}
             </div>
+            {% if competition.finished %}
+                <div role="tabpanel" class="tab-pane" id="results">
+                    {% for trial in competition.0.trials %}
+                        <div class="list-group-item">
+                            <h2>{{ trial.name }}</h2>
+                            <ol>
+                                {% for trialResult in trial.trialResults if trialResult.place is not null %}
+                                    <li>{{ trialResult.participant.getFullName() }}</li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </article>
 {% endblock %}
