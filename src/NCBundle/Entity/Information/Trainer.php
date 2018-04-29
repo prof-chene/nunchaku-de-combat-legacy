@@ -41,7 +41,7 @@ class Trainer
     /**
      * @var string
      *
-     * @ORM\Column(name="cv", type="string", length=255, nullable=true)
+     * @ORM\Column(name="cv", type="text", nullable=true)
      */
     private $cv;
     /**

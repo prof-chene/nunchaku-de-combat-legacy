@@ -60,7 +60,7 @@ class Club extends AbstractContent
      *
      * @Assert\Valid()
      *
-     * @ORM\OneToMany(targetEntity="Trainer", mappedBy="club")
+     * @ORM\OneToMany(targetEntity="Trainer", mappedBy="club", cascade={"persist", "remove"})
      */
     private $trainers;
     /**
@@ -68,7 +68,7 @@ class Club extends AbstractContent
      *
      * @Assert\Valid()
      *
-     * @ORM\OneToMany(targetEntity="SocialMediaAccount", mappedBy="club")
+     * @ORM\OneToMany(targetEntity="SocialMediaAccount", mappedBy="club", cascade={"persist", "remove"})
      */
     private $socialMediaAccounts;
     /**
@@ -76,7 +76,7 @@ class Club extends AbstractContent
      *
      * @Assert\Valid()
      *
-     * @ORM\OneToMany(targetEntity="ScheduledLesson", mappedBy="club")
+     * @ORM\OneToMany(targetEntity="ScheduledLesson", mappedBy="club", cascade={"persist", "remove"})
      */
     private $scheduledLessons;
     /**
@@ -84,7 +84,7 @@ class Club extends AbstractContent
      *
      * @Assert\Valid()
      *
-     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Technique\Style", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Technique\Style", orphanRemoval=true)
      */
     private $styles;
 
@@ -116,6 +116,7 @@ class Club extends AbstractContent
     public function setName($name)
     {
         $this->name = $name;
+        $this->setSlug($name);
 
         return $this;
     }
@@ -241,6 +242,22 @@ class Club extends AbstractContent
     }
 
     /**
+     * @param Trainer $trainer
+     *
+     * @return $this
+     */
+    public function addTrainer(Trainer $trainer)
+    {
+        $trainer->setClub($this);
+
+        if (!$this->trainers->contains($trainer)) {
+            $this->trainers->add($trainer);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getSocialMediaAccounts(): ArrayCollection
@@ -261,6 +278,22 @@ class Club extends AbstractContent
     }
 
     /**
+     * @param SocialMediaAccount $socialMediaAccount
+     *
+     * @return $this
+     */
+    public function addSocialMediaAccount(SocialMediaAccount $socialMediaAccount)
+    {
+        $socialMediaAccount->setClub($this);
+
+        if (!$this->socialMediaAccounts->contains($socialMediaAccount)) {
+            $this->socialMediaAccounts->add($socialMediaAccount);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getScheduledLessons(): ArrayCollection
@@ -276,6 +309,22 @@ class Club extends AbstractContent
     public function setScheduledLessons($scheduledLessons)
     {
         $this->scheduledLessons = $scheduledLessons;
+
+        return $this;
+    }
+
+    /**
+     * @param ScheduledLesson $scheduledLesson
+     *
+     * @return $this
+     */
+    public function addScheduledLesson(ScheduledLesson $scheduledLesson)
+    {
+        $scheduledLesson->setClub($this);
+
+        if (!$this->scheduledLessons->contains($scheduledLesson)) {
+            $this->scheduledLessons->add($scheduledLesson);
+        }
 
         return $this;
     }

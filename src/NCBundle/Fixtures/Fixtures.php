@@ -17,8 +17,12 @@ use NCBundle\Entity\Event\Show;
 use NCBundle\Entity\Event\TrainingCourse;
 use NCBundle\Entity\Event\Trial;
 use NCBundle\Entity\Event\TrialResult;
+use NCBundle\Entity\Information\Club;
 use NCBundle\Entity\Information\FAQ;
 use NCBundle\Entity\Information\Question;
+use NCBundle\Entity\Information\ScheduledLesson;
+use NCBundle\Entity\Information\SocialMediaAccount;
+use NCBundle\Entity\Information\Trainer;
 use NCBundle\Entity\Technique\Exercise;
 use NCBundle\Entity\Technique\Rank;
 use NCBundle\Entity\Technique\RankHolder;
@@ -96,7 +100,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         /**
          * @var UserManager
          */
-        $userManager = $this->container->get('sonata.user.orm.user_manager');
+        $userManager = $this->container->get('sonata.user.manager.user');
         /**
          * @var MediaManager
          */
@@ -117,7 +121,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $this->genders = $superadmin->getGenderList();
 
         // Contexts
-        $contextNames = ['blog', 'event', 'exercise', 'technique'];
+        $contextNames = ['blog', 'club', 'event', 'exercise', 'technique'];
         foreach ($contextNames as $contextName) {
             $contexts[$contextName] = new Context();
             $contexts[$contextName]->setId(strtolower($contextName));
@@ -153,6 +157,9 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $manager->flush();
 
         unset($tags);
+
+        $socialMedias = ['facebook', 'google', 'instagram', 'pinterest', 'reddit', 'soundcloud', 'tumblr', 'twitter'];
+        $dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
         for ($loop = 0; $loop <= 19; $loop++) {
             printf('===============================');
@@ -272,7 +279,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $exercises[$i.'-'.$j]->setCreatedAt(new \DateTime());
                     $exercises[$i.'-'.$j]->setUpdatedAt(new \DateTime());
                     $exercises[$i.'-'.$j]->setEnabled(true);
-                    $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                    $content = $this->randomTexts[array_rand($this->randomTexts)];
                     $exercises[$i.'-'.$j]->setContentFormatter('richhtml');
                     $exercises[$i.'-'.$j]->setRawContent($content);
                     $exercises[$i.'-'.$j]->setContent($content);
@@ -318,7 +325,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $styles[$i]->setCreatedAt(new \DateTime());
                 $styles[$i]->setUpdatedAt(new \DateTime());
                 $styles[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $styles[$i]->setContentFormatter('richhtml');
                 $styles[$i]->setRawContent($content);
                 $styles[$i]->setContent($content);
@@ -334,7 +341,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $ranks[$i . '-' . $j]->setCreatedAt(new \DateTime());
                     $ranks[$i . '-' . $j]->setUpdatedAt(new \DateTime());
                     $ranks[$i . '-' . $j]->setEnabled(true);
-                    $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                    $content = $this->randomTexts[array_rand($this->randomTexts)];
                     $ranks[$i . '-' . $j]->setContentFormatter('richhtml');
                     $ranks[$i . '-' . $j]->setRawContent($content);
                     $ranks[$i . '-' . $j]->setContent($content);
@@ -385,7 +392,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $faqs[$i]->setCreatedAt(new \DateTime());
                 $faqs[$i]->setUpdatedAt(new \DateTime());
                 $faqs[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $faqs[$i]->setContentFormatter('richhtml');
                 $faqs[$i]->setRawContent($content);
                 $faqs[$i]->setContent($content);
@@ -412,14 +419,15 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $shows[$i]->setCreatedAt(new \DateTime());
                 $shows[$i]->setUpdatedAt(new \DateTime());
                 $shows[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $shows[$i]->setContentFormatter('richhtml');
                 $shows[$i]->setRawContent($content);
                 $shows[$i]->setContent($content);
                 $this->addRandomTags($shows[$i]);
 
-                $shows[$i]->setStartDate(new \DateTime());
-                $shows[$i]->setEndDate(new \DateTime());
+                $randomDateTime[$i] = (new \DateTime())->add(date_interval_create_from_date_string(mt_rand(0, 1).' year'));
+                $shows[$i]->setStartDate($randomDateTime[$i]);
+                $shows[$i]->setEndDate($randomDateTime[$i]);
                 $shows[$i]->setAddress('Show address '.$i);
 
                 $showImages[$i] = $mediaManager->create();
@@ -435,11 +443,6 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $randomUsers = $users;
                 for ($j = 1; $j <= mt_rand(2, 12); $j++) {
                     $showParticipants[$i.'-'.$j] = new Participant();
-                    $showParticipants[$i.'-'.$j]->setFirstname('Firstname show '.$i.'-'.$j);
-                    $showParticipants[$i.'-'.$j]->setLastname('Lastname show '.$i.'-'.$j);
-                    $showParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
-                    $showParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $showParticipants[$i.'-'.$j]->setAddress('Participant show address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
                     $randomUser2 = $randomUsers[array_rand($randomUsers)];
@@ -447,6 +450,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $showParticipants[$i.'-'.$j]->setRegistrant($randomUser2);
                     unset($randomUsers[array_search($randomUser, $randomUsers)]);
                     unset($randomUsers[array_search($randomUser2, $randomUsers)]);
+
+                    $showParticipants[$i.'-'.$j]->setFirstname($showParticipants[$i.'-'.$j]->getUser()->getFirstname());
+                    $showParticipants[$i.'-'.$j]->setLastname($showParticipants[$i.'-'.$j]->getUser()->getLastname());
+                    $showParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $showParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $showParticipants[$i.'-'.$j]->setAddress('Participant show address '.$i.'-'.$j);
 
                     $showParticipants[$i.'-'.$j]->setHost((bool)mt_rand(0, 1));
 
@@ -464,14 +473,15 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $trainingCourses[$i]->setCreatedAt(new \DateTime());
                 $trainingCourses[$i]->setUpdatedAt(new \DateTime());
                 $trainingCourses[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $trainingCourses[$i]->setContentFormatter('richhtml');
                 $trainingCourses[$i]->setRawContent($content);
                 $trainingCourses[$i]->setContent($content);
                 $this->addRandomTags($trainingCourses[$i]);
 
-                $trainingCourses[$i]->setStartDate(new \DateTime());
-                $trainingCourses[$i]->setEndDate(new \DateTime());
+                $randomDateTime[$i] = (new \DateTime())->add(date_interval_create_from_date_string(mt_rand(0, 1).' year'));
+                $trainingCourses[$i]->setStartDate($randomDateTime[$i]);
+                $trainingCourses[$i]->setEndDate($randomDateTime[$i]);
                 $trainingCourses[$i]->setAddress('Training course address '.$i);
 
                 $trainingCourseImages[$i] = $mediaManager->create();
@@ -487,11 +497,6 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $randomUsers = $users;
                 for ($j = 1; $j <= mt_rand(2, 12); $j++) {
                     $trainingCourseParticipants[$i.'-'.$j] = new Participant();
-                    $trainingCourseParticipants[$i.'-'.$j]->setFirstname('Firstname training course '.$i.'-'.$j);
-                    $trainingCourseParticipants[$i.'-'.$j]->setLastname('Lastname training course '.$i.'-'.$j);
-                    $trainingCourseParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
-                    $trainingCourseParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $trainingCourseParticipants[$i.'-'.$j]->setAddress('Participant training course address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
                     $randomUser2 = $randomUsers[array_rand($randomUsers)];
@@ -499,6 +504,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $trainingCourseParticipants[$i.'-'.$j]->setRegistrant($randomUser2);
                     unset($randomUsers[array_search($randomUser, $randomUsers)]);
                     unset($randomUsers[array_search($randomUser2, $randomUsers)]);
+
+                    $trainingCourseParticipants[$i.'-'.$j]->setFirstname($trainingCourseParticipants[$i.'-'.$j]->getUser()->getFirstname());
+                    $trainingCourseParticipants[$i.'-'.$j]->setLastname($trainingCourseParticipants[$i.'-'.$j]->getUser()->getLastname());
+                    $trainingCourseParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $trainingCourseParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $trainingCourseParticipants[$i.'-'.$j]->setAddress('Participant training course address '.$i.'-'.$j);
 
                     $trainingCourseParticipants[$i.'-'.$j]->setTrainer((bool)mt_rand(0, 1));
 
@@ -521,14 +532,15 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $competitions[$i]->setCreatedAt(new \DateTime());
                 $competitions[$i]->setUpdatedAt(new \DateTime());
                 $competitions[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $competitions[$i]->setContentFormatter('richhtml');
                 $competitions[$i]->setRawContent($content);
                 $competitions[$i]->setContent($content);
                 $this->addRandomTags($competitions[$i]);
 
-                $competitions[$i]->setStartDate(new \DateTime());
-                $competitions[$i]->setEndDate(new \DateTime());
+                $randomDateTime[$i] = (new \DateTime())->add(date_interval_create_from_date_string(mt_rand(0, 1).' year'));
+                $competitions[$i]->setStartDate($randomDateTime[$i]);
+                $competitions[$i]->setEndDate($randomDateTime[$i]);
                 $competitions[$i]->setAddress('Competition address '.$i);
 
                 $competitionImages[$i] = $mediaManager->create();
@@ -544,11 +556,6 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $randomUsers = $users;
                 for ($j = 1; $j <= mt_rand(2, 12); $j++) {
                     $competitionParticipants[$i.'-'.$j] = new Participant();
-                    $competitionParticipants[$i.'-'.$j]->setFirstname('Firstname competition '.$i.'-'.$j);
-                    $competitionParticipants[$i.'-'.$j]->setLastname('Lastname competition '.$i.'-'.$j);
-                    $competitionParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
-                    $competitionParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
-                    $competitionParticipants[$i.'-'.$j]->setAddress('Participant competition address '.$i.'-'.$j);
 
                     $randomUser = $randomUsers[array_rand($randomUsers)];
                     $randomUser2 = $randomUsers[array_rand($randomUsers)];
@@ -556,6 +563,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $competitionParticipants[$i.'-'.$j]->setRegistrant($randomUser2);
                     unset($randomUsers[array_search($randomUser, $randomUsers)]);
                     unset($randomUsers[array_search($randomUser2, $randomUsers)]);
+
+                    $competitionParticipants[$i.'-'.$j]->setFirstname($competitionParticipants[$i.'-'.$j]->getUser()->getFirstname());
+                    $competitionParticipants[$i.'-'.$j]->setLastname($competitionParticipants[$i.'-'.$j]->getUser()->getLastname());
+                    $competitionParticipants[$i.'-'.$j]->setPhone($this->generatePhoneNumber());
+                    $competitionParticipants[$i.'-'.$j]->setDateOfBirth($this->generateDate());
+                    $competitionParticipants[$i.'-'.$j]->setAddress('Participant competition address '.$i.'-'.$j);
 
                     $competitionParticipants[$i.'-'.$j]->setReferee((bool)mt_rand(0, 1));
 
@@ -566,7 +579,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 for ($j = 1; $j <= mt_rand(1, 10); $j++) {
                     $trials[$i.'-'.$j] = new Trial();
                     $trials[$i.'-'.$j]->setName('Trial '.$i.'-'.$j);
-                    $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                    $content = $this->randomTexts[array_rand($this->randomTexts)];
                     $trials[$i.'-'.$j]->setRulesFormatter('richhtml');
                     $trials[$i.'-'.$j]->setRawRules($content);
                     $trials[$i.'-'.$j]->setRules($content);
@@ -665,7 +678,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $posts[$i]->setCreatedAt(new \DateTime());
                 $posts[$i]->setUpdatedAt(new \DateTime());
                 $posts[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];;
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
                 $posts[$i]->setContentFormatter('richhtml');
                 $posts[$i]->setRawContent($content);
                 $posts[$i]->setContent($content);
@@ -688,6 +701,68 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $posts[$i]->setImage($blogImages[$i]);
 
                 $manager->persist($posts[$i]);
+            }
+
+            // Clubs
+            for ($i = $loop + 1; $i <= $loop + 1; $i++) {
+                $clubs[$i] = new Club();
+                $clubs[$i]->setName('Club '.$i);
+                $clubs[$i]->setPublicationDateStart(new \DateTime());
+                $clubs[$i]->setCreatedAt(new \DateTime());
+                $clubs[$i]->setUpdatedAt(new \DateTime());
+                $clubs[$i]->setEnabled(true);
+
+                $clubImages[$i] = $mediaManager->create();
+                $clubImages[$i]->setContext('club');
+                $clubImages[$i]->setCreatedAt(new \DateTime());
+                $clubImages[$i]->setUpdatedAt(new \DateTime());
+                $clubImages[$i]->setEnabled(true);
+                $clubImages[$i]->setProviderName('sonata.media.provider.image');
+                $clubImages[$i]->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'Club-'.$i));
+                $clubs[$i]->setImage($clubImages[$i]);
+
+                $clubs[$i]->setPhone($this->generatePhoneNumber());
+                $clubs[$i]->setAddress('Club address '.$i);
+                $clubs[$i]->setWebsiteUrl('https://www.url-club'.$i.'.com');
+                $clubs[$i]->setStyles($styles);
+
+                // Trainers
+                $randomUsers = $users;
+                for ($j = 1; $j <= mt_rand(1, 5); $j++) {
+                    $trainers[$i.'-'.$j] = new Trainer();
+                    $randomUser = $randomUsers[array_rand($randomUsers)];
+                    $trainers[$i.'-'.$j]->setUser($randomUser);
+                    unset($randomUsers[array_search($randomUser, $randomUsers)]);
+
+                    $trainers[$i.'-'.$j]->setFirstname($trainers[$i.'-'.$j]->getUser()->getFirstname());
+                    $trainers[$i.'-'.$j]->setLastname($trainers[$i.'-'.$j]->getUser()->getLastname());
+                    $trainers[$i.'-'.$j]->setCv($this->randomTexts[array_rand($this->randomTexts)]);
+
+                    $clubs[$i]->addTrainer($trainers[$i.'-'.$j]);
+                }
+
+                // SocialMediaAccounts
+                for ($j = 1; $j <= mt_rand(0, 10); $j++) {
+                    $socialMediaAccounts[$i.'-'.$j] = new SocialMediaAccount();
+                    $socialMediaAccounts[$i.'-'.$j]->setSocialMedia($socialMedias[array_rand($socialMedias)]);
+                    $socialMediaAccounts[$i.'-'.$j]->setUrl('https://www.url-social-media-account'.$i.'-'.$j.'com');
+
+                    $clubs[$i]->addSocialMediaAccount($socialMediaAccounts[$i.'-'.$j]);
+                }
+
+                // ScheduledLessons
+                for ($j = 1; $j <= mt_rand(1, 5); $j++) {
+                    $scheduledLessons[$i.'-'.$j] = new ScheduledLesson();
+                    $scheduledLessons[$i.'-'.$j]->setDayOfTheWeek($dayNames[array_rand($dayNames)]);
+                    $randomStartTime = new \DateTime(mt_rand(8, 19).':00');
+                    $randomeEndTime = $randomStartTime->modify('+ '.mt_rand(1, 3).' hours');
+                    $scheduledLessons[$i.'-'.$j]->setStartTime($randomStartTime);
+                    $scheduledLessons[$i.'-'.$j]->setEndTime($randomeEndTime);
+
+                    $clubs[$i]->addScheduledLesson($scheduledLessons[$i.'-'.$j]);
+                }
+
+                $manager->persist($clubs[$i]);
             }
 
             $manager->flush();
@@ -717,12 +792,17 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             unset($medias);
             unset($galleryHasMedias);
             unset($posts);
+            unset($clubs);
+            unset($trainers);
+            unset($socialMediaAccounts);
+            unset($scheduledLessons);
             unset($blogImages);
             unset($showImages);
             unset($trainingCourseImages);
             unset($competitionImages);
             unset($exerciseImages);
             unset($techniqueImages);
+            unset($clubImages);
         }
     }
 
@@ -877,7 +957,8 @@ class Fixtures extends Fixture implements ContainerAwareInterface
     }
 
     /**
-     * @param string $providerName
+     * @param string      $providerName
+     * @param string|null $file
      *
      * @return File|null
      */
