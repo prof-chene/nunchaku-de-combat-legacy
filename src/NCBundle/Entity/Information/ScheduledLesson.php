@@ -22,12 +22,15 @@ class ScheduledLesson
      */
     private $id;
     /**
-     * @var string
+     * @var int
      *
      * @Assert\NotBlank()
-     * @Assert\Choice({"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"})
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 7,
+     * )
      *
-     * @ORM\Column(name="day_of_the_week", type="string", length=9)
+     * @ORM\Column(name="day_of_the_week", type="integer", length=1)
      */
     private $dayOfTheWeek;
     /**

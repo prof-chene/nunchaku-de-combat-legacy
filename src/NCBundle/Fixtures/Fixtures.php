@@ -159,7 +159,6 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         unset($tags);
 
         $socialMedias = ['facebook', 'google', 'instagram', 'pinterest', 'reddit', 'soundcloud', 'tumblr', 'twitter'];
-        $dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
         for ($loop = 0; $loop <= 19; $loop++) {
             printf('===============================');
@@ -754,7 +753,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 // ScheduledLessons
                 for ($j = 1; $j <= mt_rand(1, 5); $j++) {
                     $scheduledLessons[$i.'-'.$j] = new ScheduledLesson();
-                    $scheduledLessons[$i.'-'.$j]->setDayOfTheWeek($dayNames[array_rand($dayNames)]);
+                    $scheduledLessons[$i.'-'.$j]->setDayOfTheWeek(mt_rand(1, 7));
                     $randomStartTime = new \DateTime(mt_rand(8, 19).':00');
                     $randomeEndTime = (clone $randomStartTime)->modify('+ '.mt_rand(1, 3).' hours');
                     $scheduledLessons[$i.'-'.$j]->setStartTime($randomStartTime);

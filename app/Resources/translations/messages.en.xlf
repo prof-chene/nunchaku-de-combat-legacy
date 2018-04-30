@@ -11,6 +11,34 @@
                 <source>no</source>
                 <target>no</target>
             </trans-unit>
+            <trans-unit id="day1">
+                <source>day1</source>
+                <target>monday</target>
+            </trans-unit>
+            <trans-unit id="day2">
+                <source>day2</source>
+                <target>tuesday</target>
+            </trans-unit>
+            <trans-unit id="day3">
+                <source>day3</source>
+                <target>wednesday</target>
+            </trans-unit>
+            <trans-unit id="day4">
+                <source>day4</source>
+                <target>thursday</target>
+            </trans-unit>
+            <trans-unit id="day5">
+                <source>day5</source>
+                <target>friday</target>
+            </trans-unit>
+            <trans-unit id="day6">
+                <source>day6</source>
+                <target>saturday</target>
+            </trans-unit>
+            <trans-unit id="day7">
+                <source>day7</source>
+                <target>sunday</target>
+            </trans-unit>
             <trans-unit id="by">
                 <source>by</source>
                 <target>by</target>
@@ -37,6 +65,10 @@
             </trans-unit>
             <trans-unit id="date_range">
                 <source>date_range</source>
+                <target>from %from% to %to%</target>
+            </trans-unit>
+            <trans-unit id="time_range">
+                <source>time_range</source>
                 <target>from %from% to %to%</target>
             </trans-unit>
             <trans-unit id="rules">
@@ -78,6 +110,14 @@
             <trans-unit id="validate">
                 <source>validate</source>
                 <target>Validate</target>
+            </trans-unit>
+            <trans-unit id="schedule">
+                <source>schedule</source>
+                <target>horaires</target>
+            </trans-unit>
+            <trans-unit id="see_cv">
+                <source>see_cv</source>
+                <target>see CV</target>
             </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">

@@ -37,10 +37,10 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 {{ 'date_range'|trans({'%from%': competition.0.startDate|date('d/m/Y H:i', false), '%to%': competition.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
                             </p>
-                            <address>
+                            <p>
                                 <span class="glyphicon glyphicon-map-marker"></span>
                                 <a href="https://www.google.com/maps/search/?api=1&query={{ competition.0.address }}">{{ competition.0.address }}</a>
-                            </address>
+                            </p>
                         </div>
                     </div>
                 {% endfor %}
@@ -66,10 +66,10 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 {{ 'date_range'|trans({'%from%': competition.0.startDate|date('d/m/Y H:i', false), '%to%': competition.0.endDate|date('d/m/Y H:i', false)})|capitalize }}
                             </p>
-                            <address>
+                            <p>
                                 <span class="glyphicon glyphicon-map-marker"></span>
                                 <a href="https://www.google.com/maps/search/?api=1&query={{ competition.0.address }}">{{ competition.0.address }}</a>
-                            </address>
+                            </p>
                         </div>
                     </div>
                 {% endfor %}

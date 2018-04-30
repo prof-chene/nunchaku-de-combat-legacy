@@ -3,6 +3,7 @@
 namespace NCBundle\Entity\Information;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use NCBundle\Entity\AbstractContent;
@@ -64,23 +65,25 @@ class Club extends AbstractContent
      */
     private $trainers;
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * @Assert\Valid()
      *
      * @ORM\OneToMany(targetEntity="SocialMediaAccount", mappedBy="club", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"socialMedia" = "ASC"})
      */
     private $socialMediaAccounts;
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * @Assert\Valid()
      *
      * @ORM\OneToMany(targetEntity="ScheduledLesson", mappedBy="club", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"dayOfTheWeek" = "ASC", "startTime" = "ASC"})
      */
     private $scheduledLessons;
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * @Assert\Valid()
      *
@@ -230,7 +233,7 @@ class Club extends AbstractContent
     }
 
     /**
-     * @param ArrayCollection $trainers
+     * @param Collection $trainers
      *
      * @return $this
      */
@@ -258,15 +261,15 @@ class Club extends AbstractContent
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getSocialMediaAccounts(): ArrayCollection
+    public function getSocialMediaAccounts(): Collection
     {
         return $this->socialMediaAccounts;
     }
 
     /**
-     * @param ArrayCollection $socialMediaAccounts
+     * @param Collection $socialMediaAccounts
      *
      * @return $this
      */
@@ -294,15 +297,15 @@ class Club extends AbstractContent
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getScheduledLessons(): ArrayCollection
+    public function getScheduledLessons(): Collection
     {
         return $this->scheduledLessons;
     }
 
     /**
-     * @param ArrayCollection $scheduledLessons
+     * @param Collection $scheduledLessons
      *
      * @return $this
      */
@@ -330,15 +333,15 @@ class Club extends AbstractContent
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getStyles(): ArrayCollection
+    public function getStyles(): Collection
     {
         return $this->styles;
     }
 
     /**
-     * @param ArrayCollection $styles
+     * @param Collection $styles
      *
      * @return $this
      */

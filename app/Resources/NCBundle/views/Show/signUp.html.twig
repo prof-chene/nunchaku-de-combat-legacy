@@ -14,10 +14,10 @@
                 <span class="glyphicon glyphicon-calendar"></span>
                 {{ 'date_range'|trans({'%from%': show.startDate|date('d/m/Y H:i', false), '%to%': show.endDate|date('d/m/Y H:i', false)})|capitalize }}
             </p>
-            <address>
+            <p>
                 <span class="glyphicon glyphicon-map-marker"></span>
                 <a href="https://www.google.com/maps/search/?api=1&query={{ show.address }}">{{ show.address }}</a>
-            </address>
+            </p>
         </header>
         {{ form_start(form) }}
         {% if form.itsMe is defined %}

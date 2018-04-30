@@ -1,0 +1,72 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    {% for club in clubs %}
+        <div class="col-sm-12 list-group-item">
+            <div class="col-sm-3">
+                <a href="{{ club.websiteUrl }}">
+                    {% thumbnail club.image, 'small' with {'class': 'img-responsive center-block'} %}
+                </a>
+            </div>
+            <div class="col-sm-9">
+                <h2>
+                    {{ club.name }}
+                </h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <a href="https://www.google.com/maps/search/?api=1&query={{ club.address }}">{{ club.address }}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-earphone"></span>
+                        {{ club.phone }}
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-globe"></span>
+                        <a href="{{ club.websiteUrl }}">{{ club.websiteUrl }}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-calendar" style="vertical-align: top;"></span>
+                        <ul class="list-unstyled" style="display: inline-block;">
+                            {% for scheduledLesson in club.scheduledLessons %}
+                                <li>{{ ('day' ~ scheduledLesson.dayOfTheWeek)|trans|capitalize }} {{ 'time_range'|trans({'%from%': scheduledLesson.startTime|format_time(null, null, null, constant('IntlDateFormatter::SHORT')), '%to%': scheduledLesson.endTime|format_time(null, null, null, constant('IntlDateFormatter::SHORT'))}) }} {{ scheduledLesson.details }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-list" style="vertical-align: top;"></span>
+                        <ul class="list-unstyled" style="display: inline-block;">
+                            {% for style in club.styles %}
+                                <li><a href="{{ path('rank_view_style', {'slug': style.slug }) }}">{{ style.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="list-group-item">
+                        <ul class="list-unstyled" style="display: inline-block;">
+                            {% for trainer in club.trainers %}
+                                <li>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    {{ trainer.firstName }} {{ trainer.lastName }}
+                                    <button class="btn btn-default btn-xs" data-toggle="collapse" data-target="#trainer-{{ trainer.id }}">
+                                        {{ 'see_cv'|trans|capitalize }}
+                                    </button>
+                                    <div id="trainer-{{ trainer.id }}" class="collapse">{{ trainer.cv|raw }}</div>
+                                </li>
+                                {% if not loop.last %}
+                                    <hr />
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    {% for socialMediaAccount in club.socialMediaAccounts %}
+                        <a class="btn btn-social-icon btn-{{ socialMediaAccount.socialMedia }}" href="{{ socialMediaAccount.url }}">
+                            <span class="fab fa-{{ socialMediaAccount.socialMedia }}"></span>
+                        </a>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

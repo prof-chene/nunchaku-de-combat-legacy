@@ -42,3 +42,9 @@ show:
     prefix: /{_locale}/shows
     requirements:
         _locale: '%locales%'
+
+club:
+    resource: "@NCBundle/Resources/config/routing/club.yml"
+    prefix: /{_locale}/clubs
+    requirements:
+        _locale: '%locales%'
