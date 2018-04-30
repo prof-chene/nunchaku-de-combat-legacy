@@ -711,6 +711,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $clubs[$i]->setCreatedAt(new \DateTime());
                 $clubs[$i]->setUpdatedAt(new \DateTime());
                 $clubs[$i]->setEnabled(true);
+                $this->addRandomTags($clubs[$i]);
 
                 $clubImages[$i] = $mediaManager->create();
                 $clubImages[$i]->setContext('club');
@@ -755,9 +756,10 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $scheduledLessons[$i.'-'.$j] = new ScheduledLesson();
                     $scheduledLessons[$i.'-'.$j]->setDayOfTheWeek($dayNames[array_rand($dayNames)]);
                     $randomStartTime = new \DateTime(mt_rand(8, 19).':00');
-                    $randomeEndTime = $randomStartTime->modify('+ '.mt_rand(1, 3).' hours');
+                    $randomeEndTime = (clone $randomStartTime)->modify('+ '.mt_rand(1, 3).' hours');
                     $scheduledLessons[$i.'-'.$j]->setStartTime($randomStartTime);
                     $scheduledLessons[$i.'-'.$j]->setEndTime($randomeEndTime);
+                    $scheduledLessons[$i.'-'.$j]->setDetails('Details '.$i.'-'.$j);
 
                     $clubs[$i]->addScheduledLesson($scheduledLessons[$i.'-'.$j]);
                 }

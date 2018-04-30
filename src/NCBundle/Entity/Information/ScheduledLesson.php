@@ -49,6 +49,12 @@ class ScheduledLesson
      */
     private $endTime;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="details", type="string", length=100)
+     */
+    private $details;
+    /**
      * @var Club
      *
      * @Assert\NotBlank()
@@ -121,6 +127,26 @@ class ScheduledLesson
     public function setEndTime($endTime)
     {
         $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDetails(): string
+    {
+        return $this->details;
+    }
+
+    /**
+     * @param string $details
+     *
+     * @return $this
+     */
+    public function setDetails($details)
+    {
+        $this->details = $details;
 
         return $this;
     }
