@@ -39,7 +39,7 @@ services:
         arguments: [~, NCBundle\Entity\Event\Participant, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Participants, group: Event, show_in_dashboard: false  }
-# FAQ
+# Information
     admin.faq:
         class: NCBundle\Admin\Information\FAQAdmin
         arguments: [~, NCBundle\Entity\Information\FAQ, ~]
@@ -51,6 +51,26 @@ services:
         arguments: [~, NCBundle\Entity\Information\Question, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Questions, group: Information, show_in_dashboard: false }
+    admin.club:
+        class: NCBundle\Admin\Information\ClubAdmin
+        arguments: [~, NCBundle\Entity\Information\Club, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Clubs, group: Information }
+    admin.scheduled_lesson:
+        class: NCBundle\Admin\Information\ScheduledLessonAdmin
+        arguments: [~, NCBundle\Entity\Information\ScheduledLesson, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Scheduled lessons, group: Information, show_in_dashboard: false }
+    admin.trainer:
+        class: NCBundle\Admin\Information\TrainerAdmin
+        arguments: [~, NCBundle\Entity\Information\Trainer, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Trainers, group: Information, show_in_dashboard: false }
+    admin.social_media_account:
+        class: NCBundle\Admin\Information\SocialMediaAccountAdmin
+        arguments: [~, NCBundle\Entity\Information\SocialMediaAccount, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Social media accounts, group: Information, show_in_dashboard: false }
 # Technique
     admin.technique:
         class: NCBundle\Admin\Technique\TechniqueAdmin

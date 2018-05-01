@@ -3,6 +3,7 @@
 namespace NCBundle\Entity\Information;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Question
@@ -42,6 +43,7 @@ class Question
      * @var FAQ
      *
      * @ORM\ManyToOne(targetEntity="FAQ", inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $faq;
 

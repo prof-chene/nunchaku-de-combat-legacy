@@ -106,7 +106,7 @@ class Club extends AbstractContent
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -127,7 +127,7 @@ class Club extends AbstractContent
     /**
      * @return string
      */
-    public function getAddress(): string
+    public function getAddress()
     {
         return $this->address;
     }
@@ -147,7 +147,7 @@ class Club extends AbstractContent
     /**
      * @return string
      */
-    public function getPhone(): string
+    public function getPhone()
     {
         return $this->phone;
     }
@@ -167,7 +167,7 @@ class Club extends AbstractContent
     /**
      * @return string
      */
-    public function getLatitude(): string
+    public function getLatitude()
     {
         return $this->latitude;
     }
@@ -187,7 +187,7 @@ class Club extends AbstractContent
     /**
      * @return string
      */
-    public function getLongitude(): string
+    public function getLongitude()
     {
         return $this->longitude;
     }
@@ -207,7 +207,7 @@ class Club extends AbstractContent
     /**
      * @return string
      */
-    public function getWebsiteUrl(): string
+    public function getWebsiteUrl()
     {
         return $this->websiteUrl;
     }
@@ -263,7 +263,7 @@ class Club extends AbstractContent
     /**
      * @return Collection
      */
-    public function getSocialMediaAccounts(): Collection
+    public function getSocialMediaAccounts()
     {
         return $this->socialMediaAccounts;
     }
@@ -299,7 +299,7 @@ class Club extends AbstractContent
     /**
      * @return Collection
      */
-    public function getScheduledLessons(): Collection
+    public function getScheduledLessons()
     {
         return $this->scheduledLessons;
     }
@@ -335,7 +335,7 @@ class Club extends AbstractContent
     /**
      * @return Collection
      */
-    public function getStyles(): Collection
+    public function getStyles()
     {
         return $this->styles;
     }

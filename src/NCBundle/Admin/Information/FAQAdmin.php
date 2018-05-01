@@ -61,9 +61,10 @@ class FAQAdmin extends AbstractEditorialAdmin
                 'class' => 'col-md-12',
             ])
             ->add('questions', CollectionType::class, ['required' => true,], [
-                'edit' => 'inline',
-                'inline' => 'table',
-                'link_parameters' => ['hide_context' => true,]
+                'edit'            => 'inline',
+                'inline'          => 'table',
+                'link_parameters' => ['hide_context' => true,],
+                'sortable'        => 'position',
             ])
             ->end();
     }

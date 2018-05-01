@@ -62,6 +62,14 @@
                 <source>tab_styles</source>
                 <target>Style</target>
             </trans-unit>
+            <trans-unit id="tab_trainers">
+                <source>tab_trainers</source>
+                <target>Trainers</target>
+            </trans-unit>
+            <trans-unit id="tab_social_networks">
+                <source>tab_social_networks</source>
+                <target>Social networks</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

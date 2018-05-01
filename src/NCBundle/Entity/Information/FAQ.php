@@ -18,6 +18,7 @@ class FAQ extends AbstractEditorial
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Question", mappedBy="faq", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $questions;
 
@@ -54,6 +55,8 @@ class FAQ extends AbstractEditorial
      */
     public function addQuestion(Question $question)
     {
+        $question->setFaq($this);
+
         if (!$this->questions->contains($question)) {
             $this->questions->add($question);
         }

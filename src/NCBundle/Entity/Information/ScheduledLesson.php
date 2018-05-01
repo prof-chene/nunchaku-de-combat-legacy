@@ -54,22 +54,21 @@ class ScheduledLesson
     /**
      * @var string
      *
-     * @ORM\Column(name="details", type="string", length=100)
+     * @ORM\Column(name="details", type="string", length=100, nullable=true)
      */
     private $details;
     /**
      * @var Club
      *
-     * @Assert\NotBlank()
-     *
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="scheduledLessons")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $club;
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -77,7 +76,7 @@ class ScheduledLesson
     /**
      * @return string
      */
-    public function getDayOfTheWeek(): string
+    public function getDayOfTheWeek()
     {
         return $this->dayOfTheWeek;
     }
@@ -97,7 +96,7 @@ class ScheduledLesson
     /**
      * @return \DateTime
      */
-    public function getStartTime(): \DateTime
+    public function getStartTime()
     {
         return $this->startTime;
     }
@@ -117,7 +116,7 @@ class ScheduledLesson
     /**
      * @return \DateTime
      */
-    public function getEndTime(): \DateTime
+    public function getEndTime()
     {
         return $this->endTime;
     }
@@ -137,7 +136,7 @@ class ScheduledLesson
     /**
      * @return string
      */
-    public function getDetails(): string
+    public function getDetails()
     {
         return $this->details;
     }
@@ -157,7 +156,7 @@ class ScheduledLesson
     /**
      * @return Club
      */
-    public function getClub(): Club
+    public function getClub()
     {
         return $this->club;
     }

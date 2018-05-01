@@ -54,13 +54,14 @@ class Trainer
      * @var Club
      *
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="trainers")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $club;
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -68,7 +69,7 @@ class Trainer
     /**
      * @return string
      */
-    public function getFirstname(): string
+    public function getFirstname()
     {
         return $this->firstname;
     }
@@ -88,7 +89,7 @@ class Trainer
     /**
      * @return string
      */
-    public function getLastname(): string
+    public function getLastname()
     {
         return $this->lastname;
     }
@@ -108,7 +109,7 @@ class Trainer
     /**
      * @return string
      */
-    public function getCv(): string
+    public function getCv()
     {
         return $this->cv;
     }
@@ -128,7 +129,7 @@ class Trainer
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser()
     {
         return $this->user;
     }
@@ -148,7 +149,7 @@ class Trainer
     /**
      * @return Club
      */
-    public function getClub(): Club
+    public function getClub()
     {
         return $this->club;
     }

@@ -48,7 +48,7 @@ class SocialMediaAccount
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -56,7 +56,7 @@ class SocialMediaAccount
     /**
      * @return string
      */
-    public function getSocialMedia(): string
+    public function getSocialMedia()
     {
         return $this->socialMedia;
     }
@@ -76,7 +76,7 @@ class SocialMediaAccount
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getUrl()
     {
         return $this->url;
     }
@@ -96,7 +96,7 @@ class SocialMediaAccount
     /**
      * @return Club
      */
-    public function getClub(): Club
+    public function getClub()
     {
         return $this->club;
     }
