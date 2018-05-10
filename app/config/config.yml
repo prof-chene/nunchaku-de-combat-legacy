@@ -12,6 +12,7 @@ parameters:
     locales: fr|en
     posts_number_per_page: 10
     nc_email: nunchaku.de.combat@gmail.com
+    google_maps_key: AIzaSyC8tGK1rEKc-kHdLgxc66DwiuQT3GR0vqk
 
 framework:
     #esi:             ~
@@ -48,6 +49,7 @@ twig:
         - 'SonataFormatterBundle:Form:formatter.html.twig'
     globals:
         locales: '%locales%'
+        google_maps_key: '%google_maps_key%'
 
 # Doctrine Configuration
 doctrine:

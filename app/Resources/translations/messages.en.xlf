@@ -119,6 +119,10 @@
                 <source>see_cv</source>
                 <target>see CV</target>
             </trans-unit>
+            <trans-unit id="more_infos">
+                <source>more_infos</source>
+                <target>more infos</target>
+            </trans-unit>
             <!-- Registration and login -->
             <trans-unit id="username">
                 <source>username</source>

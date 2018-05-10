@@ -723,6 +723,8 @@ class Fixtures extends Fixture implements ContainerAwareInterface
 
                 $clubs[$i]->setPhone($this->generatePhoneNumber());
                 $clubs[$i]->setAddress('Club address '.$i);
+                $clubs[$i]->setLatitude(mt_rand(43, 49));
+                $clubs[$i]->setLongitude(mt_rand(-1, 6));
                 $clubs[$i]->setWebsiteUrl('https://www.url-club'.$i.'.com');
                 $clubs[$i]->setStyles($styles);
 

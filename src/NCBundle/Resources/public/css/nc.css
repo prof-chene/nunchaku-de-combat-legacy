@@ -159,6 +159,13 @@ nav.navbar-default .navbar-toggle:focus .icon-bar {
     }
 }
 
+/* ========
+   Maps
+   ======== */
+.map {
+    height: 70vh;
+    margin-bottom: 10px;
+}
 
 /* ========
    ??

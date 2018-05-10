@@ -86,6 +86,8 @@ class ClubAdmin extends AbstractAdmin
                 'required' => false,
             ])
             ->add('address')
+            ->add('latitude')
+            ->add('longitude')
             ->add('phone')
             ->add('websiteUrl')
             ->end()

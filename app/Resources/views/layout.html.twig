@@ -29,8 +29,7 @@
             'js/bootstrap/*'
             'bundles/sonatacore/vendor/moment/min/moment.min.js'
             'bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
-            'bundles/nc/js/*'
-            output='assetic/nc.js'
+            output='assetic/vendor.js'
         %}
             <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
@@ -43,6 +42,12 @@
             ) }}"></script>
         {% endif %}
         {% block javascripts %}
+            {% javascripts
+                'bundles/nc/js/*'
+                output='assetic/nc.js'
+            %}
+                <script src="{{ asset_url }}" type="text/javascript"></script>
+            {% endjavascripts %}
         {% endblock %}
         {% stylesheets
             'css/bootstrap/core/*'

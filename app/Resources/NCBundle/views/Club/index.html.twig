@@ -1,8 +1,38 @@
 {% extends '::layout.html.twig' %}
 
+{% block javascripts %}
+    <script src="http://maps.google.com/maps/api/js?key={{ google_maps_key }}" type="text/javascript"></script>
+    {% javascripts
+        'bundles/nc/js/*'
+        output='assetic/nc.js'
+    %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        jQuery(function($) {
+            $(document).ready( function() {
+                var locations = [
+                    {% for club in clubs if (club.latitude is not empty and club.longitude is not empty) %}
+                        [
+                            '<strong>{{ club.name }}</strong><br/>' +
+                            '<a href="https://www.google.com/maps/search/?api=1&query={{ club.address }}">{{ club.address }}</a><br/>' +
+                            '{{ club.phone }}<br/>' +
+                            '<a href="#club{{ club.id }}" class="btn btn-default btn-xs">{{ "more_infos"|trans|capitalize }}</a>',
+                            {{ club.latitude }},
+                            {{ club.longitude }}
+                        ],
+                    {% endfor %}
+                ];
+                initMap(document.getElementById('map'), locations)
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
+    <div id="map" class="col-sm-12 map"></div>
     {% for club in clubs %}
-        <div class="col-sm-12 list-group-item">
+        <div id="club{{ club.id }}" class="col-sm-12 list-group-item">
             <div class="col-sm-3">
                 <a href="{{ club.websiteUrl }}">
                     {% thumbnail club.image, 'small' with {'class': 'img-responsive center-block'} %}
@@ -50,11 +80,13 @@
                                     <button class="btn btn-default btn-xs" data-toggle="collapse" data-target="#trainer-{{ trainer.id }}">
                                         {{ 'see_cv'|trans|capitalize }}
                                     </button>
-                                    <div id="trainer-{{ trainer.id }}" class="collapse">{{ trainer.cv|raw }}</div>
+                                    <div id="trainer-{{ trainer.id }}" class="collapse">
+                                        {{ trainer.cv|raw }}
+                                        {% if not loop.last %}
+                                            <hr />
+                                        {% endif %}
+                                    </div>
                                 </li>
-                                {% if not loop.last %}
-                                    <hr />
-                                {% endif %}
                             {% endfor %}
                         </ul>
                     </li>
