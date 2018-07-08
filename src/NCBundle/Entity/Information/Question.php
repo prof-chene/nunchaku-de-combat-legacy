@@ -3,7 +3,8 @@
 namespace NCBundle\Entity\Information;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Question
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="question")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\QuestionRepository")
  */
-class Question
+class Question implements Translatable
 {
     /**
      * @var int
@@ -24,11 +25,15 @@ class Question
     /**
      * @var string
      *
+     * @Gedmo\Translatable
+     *
      * @ORM\Column(name="question", type="string", length=255)
      */
     private $question;
     /**
      * @var string
+     *
+     * @Gedmo\Translatable
      *
      * @ORM\Column(name="answer", type="string", length=255)
      */
@@ -39,6 +44,12 @@ class Question
      * @ORM\Column(name="position", type="integer", length=5)
      */
     private $position;
+    /**
+     * @var locale
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
     /**
      * @var FAQ
      *
@@ -111,6 +122,18 @@ class Question
     public function setPosition($position)
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
 
         return $this;
     }

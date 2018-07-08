@@ -22,6 +22,19 @@ class CompetitionController extends Controller
      */
     public function indexAction()
     {
+        $competition = new Competition();
+        $competition
+            ->setTranslatableLocale('fr')
+            ->setTitle("Translation test")
+            ->setEnabled(true)
+            ->setContent("Translation test content")
+            ->setRawContent("Translation test content")
+            ->setContentFormatter('richhtml')
+            ->setPublicationDateStart(new \DateTime())
+            ;
+        $this->get('doctrine.orm.entity_manager')->persist($competition);
+        $this->get('doctrine.orm.entity_manager')->flush();
+        exit;
         $competitions = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
             ->createRegistrationQueryBuilder($this->getUser())->getQuery()->getResult();
 

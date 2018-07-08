@@ -4,6 +4,8 @@ namespace NCBundle\Entity\Information;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class ScheduledLesson
@@ -11,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="scheduled_lesson")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\ScheduledLessonRepository")
  */
-class ScheduledLesson
+class ScheduledLesson implements Translatable
 {
     /**
      * @var int
@@ -54,9 +56,17 @@ class ScheduledLesson
     /**
      * @var string
      *
+     * @Gedmo\Translatable
+     *
      * @ORM\Column(name="details", type="string", length=100, nullable=true)
      */
     private $details;
+    /**
+     * @var locale
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
     /**
      * @var Club
      *
@@ -149,6 +159,18 @@ class ScheduledLesson
     public function setDetails($details)
     {
         $this->details = $details;
+
+        return $this;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
 
         return $this;
     }

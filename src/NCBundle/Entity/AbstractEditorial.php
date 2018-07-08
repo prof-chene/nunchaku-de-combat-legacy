@@ -3,6 +3,7 @@
 namespace NCBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class AbstractEditorial
@@ -14,17 +15,23 @@ abstract class AbstractEditorial extends AbstractContent
     /**
      * @var string
      *
+     * @Gedmo\Translatable
+     *
      * @ORM\Column(name="title", type="string", length=100)
      */
     protected $title;
     /**
      * @var string
      *
+     * @Gedmo\Translatable
+     *
      * @ORM\Column(name="content", type="text")
      */
     protected $content;
     /**
      * @var string
+     *
+     * @Gedmo\Translatable
      *
      * @ORM\Column(name="raw_content", type="text")
      */

@@ -9,6 +9,12 @@ doctrine:
                     ApplicationSonataNewsBundle: ~
                     SonataNewsBundle: ~
                     SonataMediaBundle: ~
+                    gedmo_translatable:
+                        type: annotation
+                        prefix: Gedmo\Translatable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                        alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+                        is_bundle: false
     dbal:
         types:
             json: Sonata\Doctrine\Types\JsonType
@@ -37,6 +43,9 @@ sonata_admin:
         user_block: ::Admin/user_block.html.twig
     options:
         form_type: ~
+    assets:
+        extra_stylesheets:
+            - bundles/sonatatranslation/css/sonata-translation.css
 sonata_news:
     title:        Nunchaku de Combat
     link:         https://nunchaku-de-combat.com
@@ -55,7 +64,6 @@ sonata_news:
         comment:    Application\Sonata\NewsBundle\Entity\Comment
         media:      Application\Sonata\MediaBundle\Entity\Media
         user:       Application\Sonata\UserBundle\Entity\User
-
 sonata_media:
     db_driver: doctrine_orm
     default_context: blog
@@ -156,7 +164,16 @@ sonata_formatter:
 #        twig:
 #            service: sonata.formatter.text.twigengine
 #            extensions: [] # Twig formatter cannot have extensions
-
 sonata_intl:
     timezone:
         default: Europe/Paris
+sonata_translation:
+    locales: [en, fr]
+    default_locale: fr
+    # here enable the types you need
+    gedmo:
+        enabled: true
+    knplabs:
+        enabled: false
+    phpcr:
+        enabled: false

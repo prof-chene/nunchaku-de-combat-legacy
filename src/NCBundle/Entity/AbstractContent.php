@@ -7,6 +7,8 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class AbstractContent
@@ -24,7 +26,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="slug.already_used"
  * )
  */
-abstract class AbstractContent
+abstract class AbstractContent implements Translatable
 {
     /**
      * @var int
@@ -36,6 +38,8 @@ abstract class AbstractContent
     protected $id;
     /**
      * @var string
+     *
+     * @Gedmo\Translatable
      *
      * @ORM\Column(name="slug", type="string", length=50)
      */
@@ -64,6 +68,12 @@ abstract class AbstractContent
      * @ORM\Column(name="publication_date_start", type="datetime")
      */
     protected $publicationDateStart;
+    /**
+     * @var locale
+     *
+     * @Gedmo\Locale
+     */
+    protected $locale;
     /**
      * @var ArrayCollection
      *
@@ -192,6 +202,18 @@ abstract class AbstractContent
     public function setPublicationDateStart($publicationDateStart)
     {
         $this->publicationDateStart = $publicationDateStart;
+
+        return $this;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
 
         return $this;
     }

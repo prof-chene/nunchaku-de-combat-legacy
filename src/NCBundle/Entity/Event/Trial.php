@@ -4,6 +4,8 @@ namespace NCBundle\Entity\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Trial
@@ -11,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="trial")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\TrialRepository")
  */
-class Trial
+class Trial implements Translatable
 {
     /**
      * @var int
@@ -30,11 +32,15 @@ class Trial
     /**
      * @var string
      *
+     * @Gedmo\Translatable
+     *
      * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
     /**
      * @var string
+     *
+     * @Gedmo\Translatable
      *
      * @ORM\Column(name="rules", type="text")
      */
@@ -42,6 +48,7 @@ class Trial
     /**
      * @var string
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="raw_rules", type="text")
      */
     protected $rawRules;
@@ -51,6 +58,12 @@ class Trial
      * @ORM\Column(name="rules_formatter", type="string", length=50)
      */
     protected $rulesFormatter;
+    /**
+     * @var locale
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
     /**
      * @var ArrayCollection
      *
@@ -175,6 +188,18 @@ class Trial
     public function setRulesFormatter($rulesFormatter)
     {
         $this->rulesFormatter = $rulesFormatter;
+
+        return $this;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
 
         return $this;
     }

@@ -5,6 +5,8 @@ namespace NCBundle\Entity\Information;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Model\User;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Trainer
@@ -12,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="trainer")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\TrainerRepository")
  */
-class Trainer
+class Trainer implements Translatable
 {
     /**
      * @var int
@@ -41,9 +43,17 @@ class Trainer
     /**
      * @var string
      *
+     * @Gedmo\Translatable
+     *
      * @ORM\Column(name="cv", type="text", nullable=true)
      */
     private $cv;
+    /**
+     * @var locale
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
     /**
      * @var User
      *
@@ -122,6 +132,18 @@ class Trainer
     public function setCv($cv)
     {
         $this->cv = $cv;
+
+        return $this;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
 
         return $this;
     }

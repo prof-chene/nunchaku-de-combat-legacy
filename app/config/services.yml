@@ -1,5 +1,6 @@
 imports:
-    - { resource: sonata.yml }
+    - { resource: "@ApplicationSonataUserBundle/Resources/config/services.yml" }
+    - { resource: "@NCBundle/Resources/config/services.yml" }
 
 services:
     # default configuration for services in *this* file
