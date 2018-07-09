@@ -2,12 +2,14 @@
 
 namespace NCBundle\Controller;
 
+use Doctrine\ORM\Query;
 use NCBundle\Entity\Event\Competition;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Form\Type\Event\ParticipantType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Gedmo\Translatable\TranslatableListener;
 
 /**
  * Class CompetitionController
@@ -22,21 +24,11 @@ class CompetitionController extends Controller
      */
     public function indexAction()
     {
-        $competition = new Competition();
-        $competition
-            ->setTranslatableLocale('fr')
-            ->setTitle("Translation test")
-            ->setEnabled(true)
-            ->setContent("Translation test content")
-            ->setRawContent("Translation test content")
-            ->setContentFormatter('richhtml')
-            ->setPublicationDateStart(new \DateTime())
-            ;
-        $this->get('doctrine.orm.entity_manager')->persist($competition);
-        $this->get('doctrine.orm.entity_manager')->flush();
-        exit;
         $competitions = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createRegistrationQueryBuilder($this->getUser())->getQuery()->getResult();
+            ->createRegistrationQueryBuilder($this->getUser())->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
+            ->getResult();
 
         return [
             'competitions' => $competitions,
@@ -53,7 +45,10 @@ class CompetitionController extends Controller
     public function viewAction($slug)
     {
         $competition = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
+            ->getOneOrNullResult();
 
         if (empty($competition)) {
             throw new NotFoundHttpException('This competition does not exists');
@@ -77,7 +72,10 @@ class CompetitionController extends Controller
     public function signUpAction($slug)
     {
         $competition = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
+            ->getOneOrNullResult();
 
         if (empty($competition)) {
             throw new NotFoundHttpException('This competition does not exists');

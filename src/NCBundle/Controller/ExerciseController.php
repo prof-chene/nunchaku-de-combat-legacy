@@ -4,7 +4,9 @@ namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
+use Gedmo\Translatable\TranslatableListener;
 use NCBundle\Entity\Technique\Exercise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,10 +26,16 @@ class ExerciseController extends Controller
     public function indexAction()
     {
         $collections = $this->get('doctrine.orm.entity_manager')->getRepository(Collection::class)
-            ->findBy(
-                ['context' => 'exercise', 'enabled' => true,],
-                ['id' => Criteria::ASC]
-            );
+            ->createQueryBuilder('collection')
+            ->andWhere('collection.context = :context')
+            ->setParameter('context', 'exercise')
+            ->andWhere('collection.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->addOrderBy('collection.id', Criteria::ASC)
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
+            ->getResult();
 
         return ['collections' => $collections];
     }
@@ -72,7 +80,10 @@ class ExerciseController extends Controller
             ->andWhere('exercise.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('exercise.slug = :slug')
             ->setParameter('slug', $slug)
-            ->getQuery()->getOneOrNullResult();
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
+            ->getOneOrNullResult();
 
         if (empty($exercise)) {
             throw new NotFoundHttpException('This exercise does not exists');
