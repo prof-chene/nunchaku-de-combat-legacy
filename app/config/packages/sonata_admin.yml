@@ -1,0 +1,11 @@
+parameters:
+    sonata.user.admin.user.class: Application\Sonata\UserBundle\Admin\UserAdmin
+    sonata.classification.admin.collection.class: Application\Sonata\ClassificationBundle\Admin\CollectionAdmin
+    sonata.media.admin.gallery.class: Application\Sonata\MediaBundle\Admin\GalleryAdmin
+    sonata.media.admin.media.class: Application\Sonata\MediaBundle\Admin\MediaAdmin
+    sonata.news.admin.post.class: Application\Sonata\NewsBundle\Admin\PostAdmin
+
+sonata_admin:
+    assets:
+        extra_stylesheets:
+            - bundles/sonatatranslation/css/sonata-translation.css

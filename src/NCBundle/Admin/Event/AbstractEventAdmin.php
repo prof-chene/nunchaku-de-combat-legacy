@@ -120,6 +120,8 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $datagridMapper
+            ->add('id');
         parent::configureDatagridFilters($datagridMapper);
         $datagridMapper
             ->add('startDate', 'doctrine_orm_datetime_range', array('field_type'=>'sonata_type_datetime_range_picker',))
@@ -131,6 +133,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        $listMapper->addIdentifier('id');
         parent::configureListFields($listMapper);
         $listMapper
             ->add('startDate')

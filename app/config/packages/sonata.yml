@@ -1,6 +1,3 @@
-parameters:
-    sonata.user.admin.user.class: Application\Sonata\UserBundle\Admin\UserAdmin
-
 doctrine:
     orm:
         entity_managers:
@@ -66,9 +63,9 @@ sonata_news:
         user:       Application\Sonata\UserBundle\Entity\User
 sonata_media:
     db_driver: doctrine_orm
-    default_context: blog
+    default_context: news
     contexts:
-        blog:
+        news:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http

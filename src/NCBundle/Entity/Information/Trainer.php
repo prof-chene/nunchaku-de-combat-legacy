@@ -49,7 +49,7 @@ class Trainer implements Translatable
      */
     private $cv;
     /**
-     * @var locale
+     * @var string
      *
      * @Gedmo\Locale
      */

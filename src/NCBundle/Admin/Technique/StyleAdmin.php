@@ -3,6 +3,8 @@
 namespace NCBundle\Admin\Technique;
 
 use NCBundle\Admin\AbstractEditorialAdmin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\CoreBundle\Form\Type\CollectionType;
 
@@ -67,5 +69,23 @@ class StyleAdmin extends AbstractEditorialAdmin
             ])
             ->end()
             ->end();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper->add('id');
+        parent::configureDatagridFilters($datagridMapper);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper->addIdentifier('id');
+        parent::configureListFields($listMapper);
     }
 }

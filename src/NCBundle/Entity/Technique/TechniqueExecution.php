@@ -31,7 +31,7 @@ class TechniqueExecution implements Translatable
      */
     private $detail;
     /**
-     * @var locale
+     * @var string
      *
      * @Gedmo\Locale
      */

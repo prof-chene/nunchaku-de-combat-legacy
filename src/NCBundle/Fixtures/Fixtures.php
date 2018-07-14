@@ -121,7 +121,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $this->genders = $superadmin->getGenderList();
 
         // Contexts
-        $contextNames = ['blog', 'club', 'event', 'exercise', 'technique'];
+        $contextNames = ['news', 'club', 'event', 'exercise', 'technique'];
         foreach ($contextNames as $contextName) {
             $contexts[$contextName] = new Context();
             $contexts[$contextName]->setId(strtolower($contextName));
@@ -652,7 +652,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             // Collection Blog
             $blogCollection = new Collection();
             $blogCollection->setEnabled(true);
-            $blogCollection->setContext($this->contexts['blog']);
+            $blogCollection->setContext($this->contexts['news']);
             $blogCollection->setName('Collection Blog '.($loop + 1));
             $blogCollection->setCreatedAt(new \DateTime());
             $blogCollection->setUpdatedAt(new \DateTime());
@@ -691,7 +691,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $posts[$i]->setCollection($blogCollection);
 
                 $blogImages[$i] = $mediaManager->create();
-                $blogImages[$i]->setContext('blog');
+                $blogImages[$i]->setContext('news');
                 $blogImages[$i]->setCreatedAt(new \DateTime());
                 $blogImages[$i]->setUpdatedAt(new \DateTime());
                 $blogImages[$i]->setEnabled(true);

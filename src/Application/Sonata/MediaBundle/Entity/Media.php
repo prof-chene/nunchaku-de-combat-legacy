@@ -3,8 +3,10 @@
 namespace Application\Sonata\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 use NCBundle\Entity\AbstractContent;
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Media
@@ -14,7 +16,7 @@ use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
  * @ORM\Table(name="media")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
-class Media extends BaseMedia
+class Media extends BaseMedia implements Translatable
 {
     /**
      * @var int $id
@@ -25,7 +27,19 @@ class Media extends BaseMedia
      */
     protected $id;
     /**
-     * @var AbstractContent
+     * {@inheritdoc}
+     *
+     * @Gedmo\Translatable
+     */
+    protected $name;
+    /**
+     * {@inheritdoc}
+     *
+     * @Gedmo\Translatable
+     */
+    protected $description;
+    /**
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="NCBundle\Entity\AbstractContent", mappedBy="image", cascade={"persist"})
      */
@@ -42,21 +56,37 @@ class Media extends BaseMedia
     }
 
     /**
-     * @return AbstractContent
+     * @return ArrayCollection
      */
-    public function getContent()
+    public function getContents()
     {
-        return $this->content;
+        return $this->contents;
+    }
+
+    /**
+     * @param ArrayCollection $contents
+     *
+     * @return $this
+     */
+    public function setContents($contents)
+    {
+        $this->contents = $contents;
+
+        return $this;
     }
 
     /**
      * @param AbstractContent $content
      *
-     * @return Media
+     * @return $this
      */
-    public function setContent($content)
+    public function addContent(AbstractContent $content)
     {
-        $this->content = $content;
+        $content->setImage($this);
+
+        if (!$this->contents->contains($content)) {
+            $this->contents->add($content);
+        }
 
         return $this;
     }

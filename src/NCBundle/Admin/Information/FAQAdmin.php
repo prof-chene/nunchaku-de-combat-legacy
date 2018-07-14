@@ -74,6 +74,7 @@ class FAQAdmin extends AbstractEditorialAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $datagridMapper->add('id');
         parent::configureDatagridFilters($datagridMapper);
         $datagridMapper->add('questions.question');
     }
@@ -83,6 +84,7 @@ class FAQAdmin extends AbstractEditorialAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        $listMapper->addIdentifier('id');
         parent::configureListFields($listMapper);
         $listMapper->add('questions', null, ['associated_property' => 'question',]);
     }

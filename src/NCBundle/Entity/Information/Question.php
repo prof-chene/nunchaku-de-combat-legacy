@@ -45,7 +45,7 @@ class Question implements Translatable
      */
     private $position;
     /**
-     * @var locale
+     * @var string
      *
      * @Gedmo\Locale
      */

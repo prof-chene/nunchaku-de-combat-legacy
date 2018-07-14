@@ -121,7 +121,7 @@ ivory_ck_editor:
                 provider: sonata.media.provider.image
                 context: content
             uiColor: "#3c8dbc"
-        blog:
+        news:
             # default toolbar plus Format button
             toolbar:
             - [Bold, Italic, Underline, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, -, NumberedList, BulletedList, -, Outdent, Indent, -, Blockquote, -, Image, Link, Unlink, Table]
@@ -138,7 +138,7 @@ ivory_ck_editor:
             filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
-                context: blog
+                context: news
             uiColor: "#3c8dbc"
         event:
             # default toolbar plus Format button

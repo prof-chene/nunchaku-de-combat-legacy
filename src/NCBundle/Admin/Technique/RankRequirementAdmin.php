@@ -45,6 +45,7 @@ class RankRequirementAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('id')
             ->add('rank')
             ->add('exercise')
             ->add('detail');
@@ -56,6 +57,7 @@ class RankRequirementAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('id')
             ->addIdentifier('rank')
             ->addIdentifier('exercise')
             ->add('detail', 'textarea');

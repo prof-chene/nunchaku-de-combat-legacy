@@ -3,7 +3,9 @@
 namespace Application\Sonata\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 use Sonata\MediaBundle\Entity\BaseGallery as BaseGallery;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Gallery
@@ -13,7 +15,7 @@ use Sonata\MediaBundle\Entity\BaseGallery as BaseGallery;
  * @ORM\Table(name="gallery")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
-class Gallery extends BaseGallery
+class Gallery extends BaseGallery implements Translatable
 {
     /**
      * @var int $id
@@ -23,6 +25,12 @@ class Gallery extends BaseGallery
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * {@inheritdoc}
+     *
+     * @Gedmo\Translatable
+     */
+    protected $name;
 
     /**
      * Get id

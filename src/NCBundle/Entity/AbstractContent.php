@@ -63,13 +63,13 @@ abstract class AbstractContent implements Translatable
      */
     protected $updatedAt;
     /**
-     * @var
+     * @var \DateTime
      *
      * @ORM\Column(name="publication_date_start", type="datetime")
      */
     protected $publicationDateStart;
     /**
-     * @var locale
+     * @var string
      *
      * @Gedmo\Locale
      */

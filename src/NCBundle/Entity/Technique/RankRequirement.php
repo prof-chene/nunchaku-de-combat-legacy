@@ -37,7 +37,7 @@ class RankRequirement implements Translatable
      */
     private $points;
     /**
-     * @var locale
+     * @var string
      *
      * @Gedmo\Locale
      */

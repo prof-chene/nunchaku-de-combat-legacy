@@ -56,6 +56,7 @@ class TrialResultAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('trial.id')
             ->add('trial.competition', 'doctrine_orm_model_autocomplete', [], null, [
                 'property' => 'title',
                 'minimum_input_length' => 2,
@@ -80,6 +81,7 @@ class TrialResultAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('trial.id')
             ->addIdentifier('trial.competition.title')
             ->add('trial.name')
             ->add('participant')

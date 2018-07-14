@@ -62,7 +62,7 @@ class ScheduledLesson implements Translatable
      */
     private $details;
     /**
-     * @var locale
+     * @var string
      *
      * @Gedmo\Locale
      */

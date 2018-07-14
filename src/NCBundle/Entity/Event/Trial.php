@@ -59,7 +59,7 @@ class Trial implements Translatable
      */
     protected $rulesFormatter;
     /**
-     * @var locale
+     * @var string
      *
      * @Gedmo\Locale
      */

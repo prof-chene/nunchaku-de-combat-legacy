@@ -87,6 +87,7 @@ class ExerciseAdmin extends AbstractEditorialAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $datagridMapper->add('id');
         parent::configureDatagridFilters($datagridMapper);
         $datagridMapper
             ->add('techniqueExecutions')
@@ -98,6 +99,7 @@ class ExerciseAdmin extends AbstractEditorialAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        $listMapper->addIdentifier('id');
         parent::configureListFields($listMapper);
         $listMapper
             ->add('techniqueExecutions')

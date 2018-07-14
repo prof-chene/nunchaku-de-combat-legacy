@@ -3,7 +3,9 @@
 namespace Application\Sonata\ClassificationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 use Sonata\ClassificationBundle\Entity\BaseCollection as BaseCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Collection
@@ -13,7 +15,7 @@ use Sonata\ClassificationBundle\Entity\BaseCollection as BaseCollection;
  * @ORM\Table(name="collection")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
-class Collection extends BaseCollection
+class Collection extends BaseCollection implements Translatable
 {
     /**
      * @var int
@@ -23,6 +25,18 @@ class Collection extends BaseCollection
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    /**
+     * {@inheritdoc}
+     *
+     * @Gedmo\Translatable
+     */
+    protected $name;
+    /**
+     * {@inheritdoc}
+     *
+     * @Gedmo\Translatable
+     */
+    protected $slug;
 
     /**
      * Get id

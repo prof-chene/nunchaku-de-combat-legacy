@@ -1,6 +1,10 @@
 application_sonata_media_view:
     path: /media/{id}/{format}
     defaults: { _controller: SonataMediaBundle:Media:view, format: reference }
+# Override vendor route because it is used in AdminBundle template
+sonata_media_download:
+    path: /media/{id}/{format}/download
+    defaults: { _controller: SonataMediaBundle:Media:download, format: reference }
 application_sonata_media_download:
     path: /media/{id}/{format}/download
     defaults: { _controller: SonataMediaBundle:Media:download, format: reference }
