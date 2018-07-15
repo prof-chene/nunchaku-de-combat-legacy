@@ -4,6 +4,7 @@ namespace NCBundle\Repository\Technique;
 
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * Class TechniqueRepository
@@ -29,6 +30,8 @@ class TechniqueRepository extends EntityRepository
             ->addOrderBy('technique.publicationDateStart', Criteria::DESC)
             ->addOrderBy('technique.id');
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getResult();
     }
 }

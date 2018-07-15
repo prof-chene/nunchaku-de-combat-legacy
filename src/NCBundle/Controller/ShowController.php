@@ -2,6 +2,7 @@
 
 namespace NCBundle\Controller;
 
+use Doctrine\ORM\Query;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\Show;
 use NCBundle\Form\Type\Event\ParticipantType;
@@ -41,7 +42,10 @@ class ShowController extends Controller
     public function viewAction($slug)
     {
         $show = $this->get('doctrine.orm.entity_manager')->getRepository(Show::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($show)) {
             throw new NotFoundHttpException('This show does not exists');
@@ -66,7 +70,10 @@ class ShowController extends Controller
     public function signUpAction($slug)
     {
         $show = $this->get('doctrine.orm.entity_manager')->getRepository(Show::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($show)) {
             throw new NotFoundHttpException('This show does not exists');

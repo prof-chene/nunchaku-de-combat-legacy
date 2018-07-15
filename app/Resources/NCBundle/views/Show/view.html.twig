@@ -9,7 +9,7 @@
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% if not show.finished %}
+            {% if not show.finished and show.0.slug is not empty %}
                 {% if show.registered %}
                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
                 {% endif %}

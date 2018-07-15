@@ -21,7 +21,12 @@
                         {% thumbnail rankRequirement.exercise.image, 'small' with {'class': 'img-responsive center-block'} %}
                     </div>
                     <div class="col-sm-9">
-                        <h2><a href="{{ path('exercise_view', {'slug': rankRequirement.exercise.slug}) }}">{{ rankRequirement.exercise.title }}</a><span class="badge pull-right">{{ rankRequirement.points }} {{ 'points'|trans }}</span></h2>
+                        {% if rankRequirement.exercise.slug is not empty and rankRequirement.exercise.title is not empty %}
+                            <h2>
+                                <a href="{{ path('exercise_view', {'slug': rankRequirement.exercise.slug}) }}">{{ rankRequirement.exercise.title }}</a>
+                                <span class="badge pull-right">{{ rankRequirement.points }} {{ 'points'|trans }}</span>
+                            </h2>
+                        {% endif %}
                         <ul class="list-unstyled">
                             {% for tag in rankRequirement.exercise.tags if tag.enabled %}
                                 <li class="label label-primary">{{ tag.name }}</li>

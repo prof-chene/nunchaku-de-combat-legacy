@@ -2,6 +2,7 @@
 
 namespace NCBundle\Controller;
 
+use Doctrine\ORM\Query;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\TrainingCourse;
 use NCBundle\Form\Type\Event\ParticipantType;
@@ -41,7 +42,10 @@ class TrainingCourseController extends Controller
     public function viewAction($slug)
     {
         $trainingCourse = $this->get('doctrine.orm.entity_manager')->getRepository(TrainingCourse::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($trainingCourse)) {
             throw new NotFoundHttpException('This trainingCourse does not exists');
@@ -66,7 +70,10 @@ class TrainingCourseController extends Controller
     public function signUpAction($slug)
     {
         $trainingCourse = $this->get('doctrine.orm.entity_manager')->getRepository(TrainingCourse::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()->getOneOrNullResult();
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($trainingCourse)) {
             throw new NotFoundHttpException('This trainingCourse does not exists');

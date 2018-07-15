@@ -3,6 +3,7 @@
 namespace NCBundle\Controller;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Query;
 use NCBundle\Entity\Technique\Supply;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -48,7 +49,9 @@ class SupplyController extends Controller
             ->andWhere('supply.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('supply.slug = :slug')
             ->setParameter('slug', $slug)
-            ->getQuery()->getOneOrNullResult();
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($supply)) {
             throw new NotFoundHttpException('This supply does not exists');

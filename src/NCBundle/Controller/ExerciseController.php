@@ -6,7 +6,6 @@ use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
-use Gedmo\Translatable\TranslatableListener;
 use NCBundle\Entity\Technique\Exercise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -31,10 +30,11 @@ class ExerciseController extends Controller
             ->setParameter('context', 'exercise')
             ->andWhere('collection.enabled = :enabled')
             ->setParameter('enabled', true)
+            ->join(Exercise::class, 'exercise', Join::WITH, 'exercise.collection = collection')
+            ->andWhere('exercise.enabled = true')
+            ->andWhere('exercise.publicationDateStart < CURRENT_TIMESTAMP()')
             ->addOrderBy('collection.id', Criteria::ASC)
             ->getQuery()
-            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
             ->getResult();
 
         return ['collections' => $collections];
@@ -82,7 +82,6 @@ class ExerciseController extends Controller
             ->setParameter('slug', $slug)
             ->getQuery()
             ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
             ->getOneOrNullResult();
 
         if (empty($exercise)) {

@@ -11,7 +11,7 @@
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% if not competition.finished %}
+            {% if not competition.finished and competition.0.slug is not empty %}
                 {% if competition.registered %}
                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
                 {% endif %}

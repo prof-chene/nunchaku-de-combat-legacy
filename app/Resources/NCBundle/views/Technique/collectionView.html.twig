@@ -12,21 +12,27 @@
         {% endif %}
             <div class="col-sm-12 list-group-item">
                 <div class="col-sm-3">
-                    <a href="{{ url('technique_view', {'slug': technique.slug }) }}">
+                    {% if technique.slug is not empty %}
+                        <a href="{{ url('technique_view', {'slug': technique.slug }) }}">
+                            {% thumbnail technique.image, 'small' with {'class': 'img-responsive center-block'} %}
+                        </a>
+                    {% else %}
                         {% thumbnail technique.image, 'small' with {'class': 'img-responsive center-block'} %}
-                    </a>
+                    {% endif %}
                 </div>
                 <div class="col-sm-9">
-                    <h2>
-                        <a href="{{ url('technique_view', {'slug': technique.slug }) }}">{{ technique.title }}</a>
-                    </h2>
+                    {% if technique.slug is not empty and technique.title is not empty %}
+                        <h2>
+                            <a href="{{ url('technique_view', {'slug': technique.slug }) }}">{{ technique.title }}</a>
+                        </h2>
+                    {% endif %}
                     <ul class="list-unstyled">
                         {% for tag in technique.tags if tag.enabled %}
                             <li class="label label-primary">{{ tag.name }}</li>
                         {% endfor %}
                     </ul>
                     <ul class="list-unstyled">
-                        {% for techniqueExecution in technique.techniqueExecutions %}
+                        {% for techniqueExecution in technique.techniqueExecutions if techniqueExecution.exercise.slug is not empty and techniqueExecution.exercise.title is not empty %}
                             <li><a href="{{ path('exercise_view', {'slug': techniqueExecution.exercise.slug}) }}">{{ techniqueExecution.exercise.title }}</a></li>
                         {% endfor %}
                     </ul>

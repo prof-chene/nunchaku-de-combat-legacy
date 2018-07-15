@@ -3,6 +3,7 @@
 namespace NCBundle\Controller;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
 use NCBundle\Entity\Technique\Rank;
 use NCBundle\Entity\Technique\Style;
@@ -56,7 +57,9 @@ class RankController extends Controller
             ->andWhere('style.slug = :slug')
             ->setParameter('slug', $slug)
             ->addOrderBy('ranks.level', Criteria::ASC)
-            ->getQuery()->getOneOrNullResult();
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($style)) {
             throw new NotFoundHttpException('This style does not exists');
@@ -87,7 +90,9 @@ class RankController extends Controller
             ->andWhere('rank.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('rank.slug = :rankSlug')
             ->setParameter('rankSlug', $rankSlug)
-            ->getQuery()->getOneOrNullResult();
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($rank)) {
             throw new NotFoundHttpException('This rank does not exists');

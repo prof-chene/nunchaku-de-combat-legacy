@@ -15,7 +15,7 @@
         <p class="post">
             {% if exercise.supplies|length > 0 %}
                 <strong>{{ 'required_supplies'|trans|capitalize }}</strong> :
-                    {% for supply in exercise.supplies %}
+                    {% for supply in exercise.supplies if supply.slug is not empty and supply.title is not empty %}
                         <a href="{{ path('supply_view', {'slug': supply.slug }) }}">{{ supply.title }}</a>
                         {% if not loop.last %}
                             ,
@@ -24,7 +24,7 @@
             {% endif %}
             <hr />
             <ul class="list-unstyled">
-                {% for techniqueExecution in exercise.techniqueExecutions %}
+                {% for techniqueExecution in exercise.techniqueExecutions if techniqueExecution.technique.slug is not empty and techniqueExecution.technique.title is not empty %}
                     <a href="{{ path('technique_view', {'slug': techniqueExecution.technique.slug}) }}">{{ techniqueExecution.technique.title }}</a> {{ techniqueExecution.detail }}
                 {% endfor %}
             </ul>

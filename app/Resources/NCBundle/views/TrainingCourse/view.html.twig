@@ -9,7 +9,7 @@
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% if not trainingCourse.finished %}
+            {% if not trainingCourse.finished and trainingCourse.0.slug is not empty %}
                 {% if trainingCourse.registered %}
                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
                 {% endif %}
@@ -43,21 +43,27 @@
                 {% for exercise in trainingCourse.0.exercises %}
                     <div class="col-sm-12 list-group-item">
                         <div class="col-sm-3">
-                            <a href="{{ url('exercise_view', {'slug': exercise.slug }) }}">
+                            {% if exercise.slug is not empty %}
+                                <a href="{{ url('exercise_view', {'slug': exercise.slug }) }}">
+                                    {% thumbnail exercise.image, 'small' with {'class': 'img-responsive center-block'} %}
+                                </a>
+                            {% else %}
                                 {% thumbnail exercise.image, 'small' with {'class': 'img-responsive center-block'} %}
-                            </a>
+                            {% endif %}
                         </div>
                         <div class="col-sm-9">
-                            <h2>
-                                <a href="{{ url('exercise_view', {'slug': exercise.slug }) }}">{{ exercise.title }}</a>
-                            </h2>
+                            {% if exercise.slug is not empty and exercise.title is not empty %}
+                                <h2>
+                                    <a href="{{ url('exercise_view', {'slug': exercise.slug }) }}">{{ exercise.title }}</a>
+                                </h2>
+                            {% endif %}
                             <ul class="list-unstyled">
                                 {% for tag in exercise.tags if tag.enabled %}
                                     <li class="label label-primary">{{ tag.name }}</li>
                                 {% endfor %}
                             </ul>
                             <ul class="list-unstyled">
-                                {% for techniqueExecution in exercise.techniqueExecutions %}
+                                {% for techniqueExecution in exercise.techniqueExecutions if techniqueExecution.technique.slug is not empty and techniqueExecution.technique.title is not empty %}
                                     <li><a href="{{ path('technique_view', {'slug': techniqueExecution.technique.slug}) }}">{{ techniqueExecution.technique.title }}</a> {{ techniqueExecution.detail }}</li>
                                 {% endfor %}
                             </ul>

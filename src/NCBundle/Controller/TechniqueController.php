@@ -4,6 +4,7 @@ namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Query;
 use NCBundle\Entity\Technique\Technique;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -66,7 +67,9 @@ class TechniqueController extends Controller
             ->andWhere('technique.publicationDateStart < CURRENT_TIMESTAMP()')
             ->andWhere('technique.slug = :slug')
             ->setParameter('slug', $slug)
-            ->getQuery()->getOneOrNullResult();
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->getOneOrNullResult();
 
         if (empty($technique)) {
             throw new NotFoundHttpException('This technique does not exists');

@@ -5,7 +5,6 @@ namespace NCBundle\Repository\Technique;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
-use Gedmo\Translatable\TranslatableListener;
 
 /**
  * Class ExerciseRepository
@@ -33,7 +32,6 @@ class ExerciseRepository extends EntityRepository
 
         return $qb->getQuery()
             ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
             ->getResult();
     }
 }

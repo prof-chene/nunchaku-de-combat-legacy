@@ -9,7 +9,6 @@ use NCBundle\Form\Type\Event\ParticipantType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Gedmo\Translatable\TranslatableListener;
 
 /**
  * Class CompetitionController
@@ -26,8 +25,6 @@ class CompetitionController extends Controller
     {
         $competitions = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
             ->createRegistrationQueryBuilder($this->getUser())->getQuery()
-            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
             ->getResult();
 
         return [
@@ -45,9 +42,9 @@ class CompetitionController extends Controller
     public function viewAction($slug)
     {
         $competition = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)
+            ->getQuery()
             ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
             ->getOneOrNullResult();
 
         if (empty($competition)) {
@@ -72,9 +69,9 @@ class CompetitionController extends Controller
     public function signUpAction($slug)
     {
         $competition = $this->get('doctrine.orm.entity_manager')->getRepository(Competition::class)
-            ->createRegistrationQueryBuilder($this->getUser(), $slug)->getQuery()
+            ->createRegistrationQueryBuilder($this->getUser(), $slug)
+            ->getQuery()
             ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->setHint(TranslatableListener::HINT_INNER_JOIN, true)
             ->getOneOrNullResult();
 
         if (empty($competition)) {
