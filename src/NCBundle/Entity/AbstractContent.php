@@ -9,22 +9,23 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AbstractContent
- *
- * @package NCBundle\Entity
- *
- * @ORM\Table(name="content")
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="content_type", type="string")
  *
  * @UniqueEntity(
  *     fields={"slug"},
  *     message="slug.already_used"
  * )
+ *
+ * @ORM\Table(name="content", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="unique_slug", columns={"slug", "content_type"})
+ * })
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="content_type", type="string")
  */
 abstract class AbstractContent implements Translatable
 {
@@ -41,11 +42,15 @@ abstract class AbstractContent implements Translatable
      *
      * @Gedmo\Translatable
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="slug", type="string", length=50)
      */
     protected $slug;
     /**
      * @var bool
+     *
+     * @Assert\NotNull()
      *
      * @ORM\Column(name="enabled", type="boolean")
      */
@@ -53,17 +58,23 @@ abstract class AbstractContent implements Translatable
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     protected $createdAt;
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
     /**
      * @var \DateTime
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="publication_date_start", type="datetime")
      */

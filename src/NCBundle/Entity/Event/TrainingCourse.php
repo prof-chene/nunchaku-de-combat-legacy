@@ -18,7 +18,6 @@ class TrainingCourse extends AbstractEvent
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Technique\Exercise", inversedBy="trainingCourses")
-     * @ORM\JoinTable(name="training_course_exercise")}
      * )
      */
     private $exercises;

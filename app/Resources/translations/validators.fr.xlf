@@ -18,6 +18,14 @@
                 <source>password.mismatch</source>
                 <target>Les deux mots de passe ne sont pas identiques</target>
             </trans-unit>
+            <trans-unit id="trial_result_competition_mismatch">
+                <source>trial_result.competition.mismatch</source>
+                <target>Le participant et l'épreuve doivent être liés à la même compétition</target>
+            </trans-unit>
+            <trans-unit id="place_unique">
+                <source>place.unique</source>
+                <target>Il ne peut y avoir plusieurs fois la même place pour une même épreuve</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

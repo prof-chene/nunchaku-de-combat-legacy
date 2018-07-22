@@ -42,8 +42,6 @@ class Participant
     /**
      * @var string
      *
-     * @Assert\NotBlank()
-     *
      * @ORM\Column(name="phone", type="string", length=100, nullable=true)
      */
     private $phone;
@@ -95,6 +93,7 @@ class Participant
      * @Assert\NotBlank()
      *
      * @ORM\ManyToOne(targetEntity="AbstractEvent", inversedBy="participants")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $event;
     /**

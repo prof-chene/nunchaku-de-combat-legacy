@@ -10,13 +10,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Rank
  *
- * @ORM\Table(name="rank")
- * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankRepository")
- *
  * @UniqueEntity(
  *     fields={"level", "style"},
  *     message="rank_level.already_exists"
  * )
+ *
+ * @ORM\Table(name="rank", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="unique_level_style", columns={"level", "style_id"})
+ * })
+ * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankRepository")
  */
 class Rank extends AbstractEditorial
 {

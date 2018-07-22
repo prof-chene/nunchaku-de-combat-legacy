@@ -4,6 +4,7 @@ namespace NCBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AbstractEditorial
@@ -17,6 +18,8 @@ abstract class AbstractEditorial extends AbstractContent
      *
      * @Gedmo\Translatable
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="title", type="string", length=100)
      */
     protected $title;
@@ -24,6 +27,8 @@ abstract class AbstractEditorial extends AbstractContent
      * @var string
      *
      * @Gedmo\Translatable
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="content", type="text")
      */
@@ -33,11 +38,15 @@ abstract class AbstractEditorial extends AbstractContent
      *
      * @Gedmo\Translatable
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="raw_content", type="text")
      */
     protected $rawContent;
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="content_formatter", type="string", length=50)
      */

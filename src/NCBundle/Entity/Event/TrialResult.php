@@ -3,11 +3,21 @@
 namespace NCBundle\Entity\Event;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * TrialResult
  *
- * @ORM\Table(name="trial_result")
+ * @UniqueEntity(
+ *     fields={"trial", "place"},
+ *     message="place.unique"
+ * )
+ *
+ * @ORM\Table(name="trial_result", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="unique_trial_place", columns={"trial_id", "place"})
+ * })
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\TrialResultRepository")
  */
 class TrialResult
@@ -91,5 +101,17 @@ class TrialResult
         $this->place = $place;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if ($this->getParticipant()->getEvent() != $this->getTrial()->getCompetition()) {
+            $context->buildViolation('trial_result.competition.mismatch')->addViolation();
+        }
     }
 }

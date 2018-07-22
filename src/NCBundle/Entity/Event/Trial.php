@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trial
@@ -26,13 +27,18 @@ class Trial implements Translatable
     /**
      * @var Competition
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\ManyToOne(targetEntity="Competition", inversedBy="trials")
+     * @ORM\JoinColumn(nullable=false))
      */
     private $competition;
     /**
      * @var string
      *
      * @Gedmo\Translatable
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="name", type="string", length=100)
      */
@@ -42,6 +48,8 @@ class Trial implements Translatable
      *
      * @Gedmo\Translatable
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="rules", type="text")
      */
     private $rules;
@@ -49,11 +57,16 @@ class Trial implements Translatable
      * @var string
      *
      * @Gedmo\Translatable
+     *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="raw_rules", type="text")
      */
     protected $rawRules;
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="rules_formatter", type="string", length=50)
      */
@@ -66,6 +79,8 @@ class Trial implements Translatable
     private $locale;
     /**
      * @var ArrayCollection
+     *
+     * @Assert\Valid()
      *
      * @ORM\OneToMany(targetEntity="TrialResult", mappedBy="trial", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"place" = "ASC"})
