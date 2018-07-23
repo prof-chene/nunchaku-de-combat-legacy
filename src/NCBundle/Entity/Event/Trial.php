@@ -39,6 +39,7 @@ class Trial implements Translatable
      * @Gedmo\Translatable
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="name", type="string", length=100)
      */
@@ -67,6 +68,7 @@ class Trial implements Translatable
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=50)
      *
      * @ORM\Column(name="rules_formatter", type="string", length=50)
      */

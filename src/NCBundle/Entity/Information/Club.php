@@ -20,6 +20,7 @@ class Club extends AbstractContent
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="name", type="string", length=100)
      */
@@ -28,6 +29,7 @@ class Club extends AbstractContent
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      *
      * @ORM\Column(name="address", type="string", length=255)
      */
@@ -35,11 +37,15 @@ class Club extends AbstractContent
     /**
      * @var string
      *
+     * @Assert\Length(max=100)
+     *
      * @ORM\Column(name="phone", type="string", length=100, nullable=true)
      */
     private $phone;
     /**
      * @var string
+     *
+     * @Assert\Length(max=255)
      *
      * @ORM\Column(name="latitude", type="decimal", precision=11, scale=8, nullable=true)
      */
@@ -52,6 +58,8 @@ class Club extends AbstractContent
     private $longitude;
     /**
      * @var string
+     *
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="website_url", type="string", length=100, nullable=true)
      */

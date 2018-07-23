@@ -4,6 +4,7 @@ namespace NCBundle\Entity\Technique;
 
 use Application\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Rank
@@ -16,12 +17,16 @@ class RankHolder
     /**
      * @var Rank
      *
+     * @Assert\Valid()
+     *
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Rank", inversedBy="holders")
      */
     private $rank;
     /**
      * @var User
+     *
+     * @Assert\Valid()
      *
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="ranks")
@@ -30,11 +35,16 @@ class RankHolder
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
+     * @Assert\DateTime()
+     *
      * @ORM\Column(name="promoted_at", type="datetime")
      */
     private $promotedAt;
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="jury", type="text")
      */

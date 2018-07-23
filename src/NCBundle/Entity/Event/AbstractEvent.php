@@ -20,11 +20,15 @@ abstract class AbstractEvent extends AbstractEditorial
     /**
      * @var \DateTime
      *
+     * @Assert\DateTime()
+     *
      * @ORM\Column(name="start_date", type="datetime", nullable=true)
      */
     private $startDate;
     /**
      * @var \DateTime
+     *
+     * @Assert\DateTime()
      *
      * @ORM\Column(name="end_date", type="datetime", nullable=true)
      */
@@ -32,7 +36,9 @@ abstract class AbstractEvent extends AbstractEditorial
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=500, nullable=true)
+     * @Assert\Length(max=255)
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
     /**

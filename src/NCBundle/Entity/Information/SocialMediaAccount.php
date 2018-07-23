@@ -34,12 +34,15 @@ class SocialMediaAccount
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      *
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
     /**
      * @var Club
+     *
+     * @Assert\Valid()
      *
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="socialMediaAccounts")
      */

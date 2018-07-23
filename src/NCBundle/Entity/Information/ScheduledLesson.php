@@ -27,10 +27,7 @@ class ScheduledLesson implements Translatable
      * @var int
      *
      * @Assert\NotBlank()
-     * @Assert\Range(
-     *     min = 1,
-     *     max = 7,
-     * )
+     * @Assert\Range(min = 1, max = 7)
      *
      * @ORM\Column(name="day_of_the_week", type="integer", length=1)
      */
@@ -57,6 +54,8 @@ class ScheduledLesson implements Translatable
      * @var string
      *
      * @Gedmo\Translatable
+     *
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="details", type="string", length=100, nullable=true)
      */

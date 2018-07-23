@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Rank
@@ -25,11 +26,15 @@ class Rank extends AbstractEditorial
     /**
      * @var int
      *
+     * @Assert\Range(max=99999)
+     *
      * @ORM\Column(name="level", type="integer", length=5, nullable=true)
      */
     private $level;
     /**
      * @var Style
+     *
+     * @Assert\Valid()
      *
      * @ORM\ManyToOne(targetEntity="Style", inversedBy="ranks")
      */
@@ -37,11 +42,15 @@ class Rank extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
+     * @Assert\Valid()
+     *
      * @ORM\OneToMany(targetEntity="RankRequirement", mappedBy="rank", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $rankRequirements;
     /**
      * @var ArrayCollection
+     *
+     * @Assert\Valid()
      *
      * @ORM\OneToMany(targetEntity="RankHolder", mappedBy="rank", cascade={"persist", "remove"}, orphanRemoval=true)
      */

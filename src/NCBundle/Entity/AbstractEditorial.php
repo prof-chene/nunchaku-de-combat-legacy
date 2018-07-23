@@ -19,6 +19,7 @@ abstract class AbstractEditorial extends AbstractContent
      * @Gedmo\Translatable
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="title", type="string", length=100)
      */
@@ -47,6 +48,7 @@ abstract class AbstractEditorial extends AbstractContent
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=50)
      *
      * @ORM\Column(name="content_formatter", type="string", length=50)
      */

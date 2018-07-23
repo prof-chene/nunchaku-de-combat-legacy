@@ -27,6 +27,7 @@ class Participant
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="firstname", type="string", length=100)
      */
@@ -35,6 +36,7 @@ class Participant
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="lastname", type="string", length=100)
      */
@@ -48,11 +50,15 @@ class Participant
     /**
      * @var \DateTime
      *
+     * @Assert\DateTime()
+     *
      * @ORM\Column(name="date_of_birth", type="datetime", nullable=true)
      */
     private $dateOfBirth;
     /**
      * @var string
+     *
+     * @Assert\Length(max=255)
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */

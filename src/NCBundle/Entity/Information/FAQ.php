@@ -5,6 +5,7 @@ namespace NCBundle\Entity\Information;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * FAQ
@@ -16,6 +17,8 @@ class FAQ extends AbstractEditorial
 {
     /**
      * @var ArrayCollection
+     *
+     * @Assert\Valid()
      *
      * @ORM\OneToMany(targetEntity="Question", mappedBy="faq", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})

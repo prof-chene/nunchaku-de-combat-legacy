@@ -28,6 +28,7 @@ class Trainer implements Translatable
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="firstname", type="string", length=100)
      */
@@ -36,6 +37,7 @@ class Trainer implements Translatable
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=100)
      *
      * @ORM\Column(name="lastname", type="string", length=100)
      */
@@ -57,11 +59,15 @@ class Trainer implements Translatable
     /**
      * @var User
      *
+     * @Assert\Valid()
+     *
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      */
     private $user;
     /**
      * @var Club
+     *
+     * @Assert\Valid()
      *
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="trainers")
      * @ORM\JoinColumn(nullable=false)

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
 use NCBundle\Entity\Event\TrainingCourse;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Exercise
@@ -19,11 +20,15 @@ class Exercise extends AbstractEditorial
     /**
      * @var Collection
      *
+     * @Assert\Valid()
+     *
      * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Collection")
      */
     private $collection;
     /**
      * @var ArrayCollection
+     *
+     * @Assert\Valid()
      *
      * @ORM\OneToMany(targetEntity="TechniqueExecution", mappedBy="exercise", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -31,17 +36,23 @@ class Exercise extends AbstractEditorial
     /**
      * @var ArrayCollection
      *
+     * @Assert\Valid()
+     *
      * @ORM\OneToMany(targetEntity="RankRequirement", mappedBy="exercise")
      */
     private $rankRequirements;
     /**
      * @var ArrayCollection
      *
+     * @Assert\Valid()
+     *
      * @ORM\ManyToMany(targetEntity="Supply", inversedBy="exercises")
      */
     private $supplies;
     /**
      * @var ArrayCollection
+     *
+     * @Assert\Valid()
      *
      * @ORM\ManyToMany(targetEntity="NCBundle\Entity\Event\TrainingCourse", mappedBy="exercises")
      */

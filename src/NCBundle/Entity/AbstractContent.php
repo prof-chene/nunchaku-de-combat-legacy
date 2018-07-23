@@ -43,6 +43,7 @@ abstract class AbstractContent implements Translatable
      * @Gedmo\Translatable
      *
      * @Assert\NotBlank()
+     * @Assert\Length(max=50)
      *
      * @ORM\Column(name="slug", type="string", length=50)
      */
@@ -59,6 +60,7 @@ abstract class AbstractContent implements Translatable
      * @var \DateTime
      *
      * @Assert\NotBlank()
+     * @Assert\DateTime()
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -67,6 +69,7 @@ abstract class AbstractContent implements Translatable
      * @var \DateTime
      *
      * @Assert\NotBlank()
+     * @Assert\DateTime()
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */

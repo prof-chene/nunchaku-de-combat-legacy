@@ -5,6 +5,7 @@ namespace NCBundle\Entity\Information;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Question
@@ -27,6 +28,8 @@ class Question implements Translatable
      *
      * @Gedmo\Translatable
      *
+     * @Assert\Length(max=255)
+     *
      * @ORM\Column(name="question", type="string", length=255)
      */
     private $question;
@@ -35,11 +38,15 @@ class Question implements Translatable
      *
      * @Gedmo\Translatable
      *
+     * @Assert\Length(max=255)
+     *
      * @ORM\Column(name="answer", type="string", length=255)
      */
     private $answer;
     /**
      * @var int
+     *
+     * @Assert\Range(min=1, max=99999)
      *
      * @ORM\Column(name="position", type="integer", length=5)
      */
@@ -52,6 +59,8 @@ class Question implements Translatable
     private $locale;
     /**
      * @var FAQ
+     *
+     * @Assert\Valid()
      *
      * @ORM\ManyToOne(targetEntity="FAQ", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)

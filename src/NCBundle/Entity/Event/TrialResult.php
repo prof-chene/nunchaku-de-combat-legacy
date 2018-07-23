@@ -39,6 +39,8 @@ class TrialResult
     /**
      * @var int
      *
+     * @Assert\Range(max=99999)
+     *
      * @ORM\Column(name="place", type="integer", length=5, nullable=true)
      */
     private $place;
