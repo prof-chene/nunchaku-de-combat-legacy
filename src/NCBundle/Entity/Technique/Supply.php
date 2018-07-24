@@ -5,6 +5,7 @@ namespace NCBundle\Entity\Technique;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Supply
@@ -16,6 +17,8 @@ class Supply extends AbstractEditorial
 {
     /**
      * @var ArrayCollection
+     *
+     * @Assert\Valid()
      *
      * @ORM\ManyToMany(targetEntity="Exercise", mappedBy="supplies")
      */

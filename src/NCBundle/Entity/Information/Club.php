@@ -45,8 +45,6 @@ class Club extends AbstractContent
     /**
      * @var string
      *
-     * @Assert\Length(max=255)
-     *
      * @ORM\Column(name="latitude", type="decimal", precision=11, scale=8, nullable=true)
      */
     private $latitude;

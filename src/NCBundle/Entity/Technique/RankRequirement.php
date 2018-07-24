@@ -5,6 +5,7 @@ namespace NCBundle\Entity\Technique;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * RankRequirement
@@ -27,11 +28,15 @@ class RankRequirement implements Translatable
      *
      * @Gedmo\Translatable
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="detail", type="string", length=1500)
      */
     private $detail;
     /**
      * @var int
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="points", type="integer", length=5)
      */
@@ -45,13 +50,21 @@ class RankRequirement implements Translatable
     /**
      * @var Exercise
      *
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     *
      * @ORM\ManyToOne(targetEntity="Exercise", inversedBy="rankRequirements")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $exercise;
     /**
      * @var Rank
      *
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     *
      * @ORM\ManyToOne(targetEntity="Rank", inversedBy="rankRequirements")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $rank;
 

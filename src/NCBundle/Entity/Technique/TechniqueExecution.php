@@ -5,6 +5,7 @@ namespace NCBundle\Entity\Technique;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TechniqueExecution
@@ -27,6 +28,8 @@ class TechniqueExecution implements Translatable
      *
      * @Gedmo\Translatable
      *
+     * @Assert\Length(max=500)
+     *
      * @ORM\Column(name="detail", type="string", length=500, nullable=true)
      */
     private $detail;
@@ -39,11 +42,17 @@ class TechniqueExecution implements Translatable
     /**
      * @var Technique
      *
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     *
      * @ORM\ManyToOne(targetEntity="Technique", inversedBy="techniqueExecutions")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $technique;
     /**
      * @var Exercise
+     *
+     * @Assert\Valid()
      *
      * @ORM\ManyToOne(targetEntity="Exercise", inversedBy="techniqueExecutions")
      */
