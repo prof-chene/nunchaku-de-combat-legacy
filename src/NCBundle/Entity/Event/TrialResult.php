@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @UniqueEntity(
  *     fields={"trial", "place"},
+ *     errorPath="place",
  *     message="place.unique"
  * )
  *
