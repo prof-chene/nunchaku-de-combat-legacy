@@ -13,7 +13,7 @@
                 {% if trainingCourse.registered %}
                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
                 {% endif %}
-                <a href="{{ path('training_course_sign_up', {'slug': trainingCourse.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                <a href="{{ url('training_course_sign_up', {'slug': trainingCourse.0.slug}) }}" class="btn btn-sm btn-success" role="button">
                     {% if trainingCourse.registered %}
                         {{ 'register_someone'|trans }}
                     {% else %}
@@ -64,7 +64,7 @@
                             </ul>
                             <ul class="list-unstyled">
                                 {% for techniqueExecution in exercise.techniqueExecutions if techniqueExecution.technique.slug is not empty and techniqueExecution.technique.title is not empty %}
-                                    <li><a href="{{ path('technique_view', {'slug': techniqueExecution.technique.slug}) }}">{{ techniqueExecution.technique.title }}</a> {{ techniqueExecution.detail }}</li>
+                                    <li><a href="{{ url('technique_view', {'slug': techniqueExecution.technique.slug}) }}">{{ techniqueExecution.technique.title }}</a> {{ techniqueExecution.detail }}</li>
                                 {% endfor %}
                             </ul>
                         </div>

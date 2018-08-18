@@ -11,7 +11,7 @@
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
                             {% if trainingCourse.0.slug is not empty %}
-                                <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">
+                                <a href="{{ url('training_course_view', {'slug': trainingCourse.0.slug}) }}">
                                     {% thumbnail trainingCourse.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                                 </a>
                             {% else %}
@@ -21,7 +21,7 @@
                         <div class="col-sm-9">
                             {% if trainingCourse.0.slug is not empty and trainingCourse.0.title is not empty %}
                                 <h2>
-                                    <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
+                                    <a href="{{ url('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
                                 </h2>
                             {% endif %}
                             <ul class="list-unstyled">
@@ -33,7 +33,7 @@
                                 {% if trainingCourse.registered %}
                                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
                                 {% endif %}
-                                <a href="{{ path('training_course_sign_up', {'slug': trainingCourse.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                                <a href="{{ url('training_course_sign_up', {'slug': trainingCourse.0.slug}) }}" class="btn btn-sm btn-success" role="button">
                                     {% if trainingCourse.registered %}
                                         {{ 'register_someone'|trans }}
                                     {% else %}
@@ -58,7 +58,7 @@
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
                             {% if trainingCourse.0.slug is not empty %}
-                                <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">
+                                <a href="{{ url('training_course_view', {'slug': trainingCourse.0.slug}) }}">
                                     {% thumbnail trainingCourse.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                                 </a>
                             {% else %}
@@ -68,7 +68,7 @@
                         <div class="col-sm-9">
                             {% if trainingCourse.0.slug is not empty and trainingCourse.0.title is not empty %}
                                 <h2>
-                                    <a href="{{ path('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
+                                    <a href="{{ url('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
                                 </h2>
                             {% endif %}
                             <ul class="list-unstyled">

@@ -67,7 +67,7 @@
                         <span class="glyphicon glyphicon-list" style="vertical-align: top;"></span>
                         <ul class="list-unstyled" style="display: inline-block;">
                             {% for style in club.styles if style.slug is not empty and style.title is not empty %}
-                                <li><a href="{{ path('rank_view_style', {'slug': style.slug }) }}">{{ style.title }}</a></li>
+                                <li><a href="{{ url('rank_view_style', {'slug': style.slug }) }}">{{ style.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>

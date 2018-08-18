@@ -33,7 +33,7 @@
                     </ul>
                     <ul class="list-unstyled">
                         {% for techniqueExecution in technique.techniqueExecutions if techniqueExecution.exercise.slug is not empty and techniqueExecution.exercise.title is not empty %}
-                            <li><a href="{{ path('exercise_view', {'slug': techniqueExecution.exercise.slug}) }}">{{ techniqueExecution.exercise.title }}</a></li>
+                            <li><a href="{{ url('exercise_view', {'slug': techniqueExecution.exercise.slug}) }}">{{ techniqueExecution.exercise.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

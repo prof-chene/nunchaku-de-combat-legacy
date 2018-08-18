@@ -44,32 +44,38 @@ class Builder implements ContainerAwareInterface
             [
                 'route'           => 'exercise_collection_view',
                 'routeParameters' => ['slug' => 'katas'],
+                'routeAbsolute'   => true,
             ]
         );
         $menu['menu.curriculum']->addChild('menu.combinaisons',
             [
                 'route'           => 'exercise_collection_view',
                 'routeParameters' => ['slug' => 'combinaisons'],
+                'routeAbsolute'   => true,
             ]);
         $menu['menu.curriculum']->addChild('menu.maniements',
             [
                 'route'           => 'technique_collection_view',
                 'routeParameters' => ['slug' => 'maniements'],
+                'routeAbsolute'   => true,
             ]);
         $menu['menu.curriculum']->addChild('menu.attaques',
             [
                 'route'           => 'technique_collection_view',
                 'routeParameters' => ['slug' => 'attaques'],
+                'routeAbsolute'   => true,
             ]);
         $menu['menu.curriculum']->addChild('menu.balayages',
             [
                 'route'           => 'technique_collection_view',
                 'routeParameters' => ['slug' => 'balayages'],
+                'routeAbsolute'   => true,
             ]);
         $menu['menu.curriculum']->addChild('menu.gardes',
             [
                 'route'           => 'technique_collection_view',
                 'routeParameters' => ['slug' => 'gardes'],
+                'routeAbsolute'   => true,
             ]);
 
         // Training
@@ -83,9 +89,9 @@ class Builder implements ContainerAwareInterface
                     'class'       => 'dropdown-menu',
                 ],
             ]);
-        $menu['menu.training']->addChild('menu.supplies', ['route' => 'supply_home']);
-        $menu['menu.training']->addChild('menu.exercises', ['route' => 'exercise_home']);
-        $menu['menu.training']->addChild('menu.clubs', ['route' => 'club_home']);
+        $menu['menu.training']->addChild('menu.supplies', ['route' => 'supply_home', 'routeAbsolute' => true,]);
+        $menu['menu.training']->addChild('menu.exercises', ['route' => 'exercise_home', 'routeAbsolute' => true,]);
+        $menu['menu.training']->addChild('menu.clubs', ['route' => 'club_home', 'routeAbsolute' => true,]);
 
         // Grading
         $menu->addChild(
@@ -93,6 +99,7 @@ class Builder implements ContainerAwareInterface
             [
                 'route'           => 'rank_view_style',
                 'routeParameters' => ['slug' => 'nunchaku-de-combat'],
+                'routeAbsolute'   => true,
             ]
         );
 
@@ -107,12 +114,12 @@ class Builder implements ContainerAwareInterface
                     'class'       => 'dropdown-menu',
                 ],
             ]);
-        $menu['menu.events']->addChild('menu.competitions', ['route' => 'competition_home']);
-        $menu['menu.events']->addChild('menu.shows', ['route' => 'show_home']);
-        $menu['menu.events']->addChild('menu.training_courses', ['route' => 'training_course_home']);
+        $menu['menu.events']->addChild('menu.competitions', ['route' => 'competition_home', 'routeAbsolute' => true,]);
+        $menu['menu.events']->addChild('menu.shows', ['route' => 'show_home', 'routeAbsolute' => true,]);
+        $menu['menu.events']->addChild('menu.training_courses', ['route' => 'training_course_home', 'routeAbsolute' => true,]);
 
         // Blog
-        $menu->addChild('menu.blog', ['route' => 'application_sonata_news']);
+        $menu->addChild('menu.blog', ['route' => 'application_sonata_news', 'routeAbsolute' => true,]);
 
         return $menu;
     }

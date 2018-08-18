@@ -11,7 +11,7 @@
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
                             {% if competition.0.slug is not empty %}
-                                <a href="{{ path('competition_view', {'slug': competition.0.slug}) }}">
+                                <a href="{{ url('competition_view', {'slug': competition.0.slug}) }}">
                                     {% thumbnail competition.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                                 </a>
                             {% else %}
@@ -21,7 +21,7 @@
                         <div class="col-sm-9">
                             {% if competition.0.slug is not empty and competition.0.title is not empty %}
                                 <h2>
-                                    <a href="{{ path('competition_view', {'slug': competition.0.slug}) }}">{{ competition.0.title }}</a>
+                                    <a href="{{ url('competition_view', {'slug': competition.0.slug}) }}">{{ competition.0.title }}</a>
                                 </h2>
                             {% endif %}
                             <ul class="list-unstyled">
@@ -33,7 +33,7 @@
                                 {% if competition.registered %}
                                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
                                 {% endif %}
-                                <a href="{{ path('competition_sign_up', {'slug': competition.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                                <a href="{{ url('competition_sign_up', {'slug': competition.0.slug}) }}" class="btn btn-sm btn-success" role="button">
                                     {% if competition.registered %}
                                         {{ 'register_someone'|trans }}
                                     {% else %}
@@ -58,7 +58,7 @@
                     <div class="list-group-item col-sm-12">
                         <div class="col-sm-3">
                             {% if competition.0.slug is not empty %}
-                                <a href="{{ path('competition_view', {'slug': competition.0.slug}) }}">
+                                <a href="{{ url('competition_view', {'slug': competition.0.slug}) }}">
                                     {% thumbnail competition.0.image, 'small' with {'class': 'img-responsive center-block'} %}
                                 </a>
                             {% else %}
@@ -68,7 +68,7 @@
                         <div class="col-sm-9">
                             {% if competition.0.slug is not empty and competition.0.title is not empty %}
                                 <h2>
-                                    <a href="{{ path('competition_view', {'slug': competition.0.slug}) }}">{{ competition.0.title }}</a>
+                                    <a href="{{ url('competition_view', {'slug': competition.0.slug}) }}">{{ competition.0.title }}</a>
                                 </h2>
                             {% endif %}
                             <ul class="list-unstyled">

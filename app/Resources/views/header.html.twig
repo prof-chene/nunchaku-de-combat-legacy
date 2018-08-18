@@ -22,7 +22,7 @@
                                 {% if app.request.locale == locale %}
                                     {% set route = '#' %}
                                 {% else %}
-                                    {% set route = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ '_locale': locale })) %}
+                                    {% set route = url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ '_locale': locale })) %}
                                 {% endif %}
                                 <li>
                                     <a href="{{ route }}">
@@ -44,14 +44,14 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdown-profile">
                             {% if app.user %}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <li><a href="{{ path('sonata_admin_dashboard') }}">{{ 'menu.administration'|trans({}, 'navigation') }}</a></li>
+                                    <li><a href="{{ url('sonata_admin_dashboard') }}">{{ 'menu.administration'|trans({}, 'navigation') }}</a></li>
                                 {% endif %}
-                                <li><a href="{{ path('fos_user_profile_show') }}">{{ 'profile.show.link'|trans }}</a></li>
+                                <li><a href="{{ url('fos_user_profile_show') }}">{{ 'profile.show.link'|trans }}</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="{{ path('application_sonata_user_log_out') }}">{{ 'log_out'|trans }}</a></li>
+                                <li><a href="{{ url('application_sonata_user_log_out') }}">{{ 'log_out'|trans }}</a></li>
                             {% else %}
                                 <li>
-                                    <a href="{{ path('application_sonata_user_log_in') }}">
+                                    <a href="{{ url('application_sonata_user_log_in') }}">
                                         {{ 'menu.log_in'|trans({}, 'navigation') }}
                                     </a>
                                 </li>

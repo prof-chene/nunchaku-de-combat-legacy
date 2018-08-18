@@ -15,7 +15,7 @@
                 {% if competition.registered %}
                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
                 {% endif %}
-                <a href="{{ path('competition_sign_up', {'slug': competition.0.slug}) }}" class="btn btn-sm btn-success" role="button">
+                <a href="{{ url('competition_sign_up', {'slug': competition.0.slug}) }}" class="btn btn-sm btn-success" role="button">
                     {% if competition.registered %}
                         {{ 'register_someone'|trans }}
                     {% else %}

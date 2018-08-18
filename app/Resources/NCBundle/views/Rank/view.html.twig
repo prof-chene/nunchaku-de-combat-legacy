@@ -23,7 +23,7 @@
                     <div class="col-sm-9">
                         {% if rankRequirement.exercise.slug is not empty and rankRequirement.exercise.title is not empty %}
                             <h2>
-                                <a href="{{ path('exercise_view', {'slug': rankRequirement.exercise.slug}) }}">{{ rankRequirement.exercise.title }}</a>
+                                <a href="{{ url('exercise_view', {'slug': rankRequirement.exercise.slug}) }}">{{ rankRequirement.exercise.title }}</a>
                                 <span class="badge pull-right">{{ rankRequirement.points }} {{ 'points'|trans }}</span>
                             </h2>
                         {% endif %}
