@@ -1,4 +1,2 @@
 imports:
-    - { resource: services/admin.yml }
-    - { resource: services/formHandler.yml }
-    - { resource: services/service.yml }
+    - { resource: services/* }

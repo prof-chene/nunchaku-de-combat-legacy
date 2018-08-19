@@ -31,7 +31,7 @@ security:
                 remember_me: true
             logout:
                 path: application_sonata_user_log_out
-                target: homepage
+                success_handler: nc.event.authentication.listener
             anonymous: true
 
     # WE USE [a-z]+ FOR THE LOCALE

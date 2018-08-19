@@ -1,0 +1,5 @@
+services:
+    nc.event.authentication.listener:
+        class: NCBundle\Event\AuthenticationListener
+        arguments:
+            - '@router'

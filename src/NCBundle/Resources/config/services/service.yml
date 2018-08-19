@@ -1,5 +1,5 @@
 services:
-    nc.mailer:
+    nc.service.mailer:
         class: NCBundle\Service\Mailer
         arguments:
             - '@twig'

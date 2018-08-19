@@ -5,5 +5,5 @@ services:
             - '@request_stack'
             - '@security.token_storage'
             - '@doctrine.orm.entity_manager'
-            - '@nc.mailer'
+            - '@nc.service.mailer'
             - '@session'
