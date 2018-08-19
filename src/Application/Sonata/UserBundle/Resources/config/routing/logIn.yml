@@ -1,11 +1,11 @@
 application_sonata_user_log_in:
-    path: /{_locale}/login
+    path: /{_locale}/login/
     defaults: { _controller: ApplicationSonataUserBundle:LogIn:logIn }
     requirements:
         _locale: '%locales%'
 application_sonata_user_log_in_check:
-    path: /login_check
+    path: /login_check/
     defaults: { _controller: ApplicationSonataUserBundle:LogIn:logInCheck }
 application_sonata_user_log_out:
-    path: /logout
+    path: /logout/
     defaults: { _controller: ApplicationSonataUserBundle:LogIn:logOut }

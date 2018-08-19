@@ -1,5 +1,8 @@
 homepage:
-    path: /{_locale}
+    path: /
+    defaults: { _controller: NCBundle:Home:index }
+homepage_localized:
+    path: /{_locale}/
     defaults: { _controller: NCBundle:Home:index }
     requirements:
         _locale: '%locales%'

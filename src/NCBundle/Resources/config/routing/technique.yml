@@ -2,8 +2,8 @@ technique_home:
     path: /
     defaults: { _controller: NCBundle:Technique:index }
 technique_collection_view:
-    path: /{slug}
+    path: /{slug}/
     defaults: { _controller: NCBundle:Technique:collectionView }
 technique_view:
-    path: /view/{slug}
+    path: /view/{slug}/
     defaults: { _controller: NCBundle:Technique:view }

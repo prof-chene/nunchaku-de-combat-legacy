@@ -2,30 +2,30 @@ application_sonata_news:
     path: /
     defaults: { _controller: ApplicationSonataNewsBundle:Post:index }
 application_sonata_news_view:
-    path: /{permalink}.{_format}
+    path: /{permalink}.{_format}/
     defaults: { _controller: ApplicationSonataNewsBundle:Post:view, _format: html }
     requirements:
         _format: html|rss
         permalink: .+?
 sonata_news_view:
-    path: /{permalink}.{_format}
+    path: /{permalink}.{_format}/
     defaults: { _controller: ApplicationSonataNewsBundle:Post:view, _format: html }
     requirements:
         _format: html|rss
         permalink: .+?
 application_sonata_news_add_comment:
-    path: /add-comment/{id}
+    path: /add-comment/{id}/
     defaults: { _controller: ApplicationSonataNewsBundle:Post:addComment }
 application_sonata_news_tag:
-    path: /tag/{tag}.{_format}
+    path: /tag/{tag}.{_format}/
     defaults: { _controller: ApplicationSonataNewsBundle:Post:tag, _format: html }
     requirements:
         _format: html|rss
 application_sonata_news_archive:
-    path: /archive.{_format}
+    path: /archive.{_format}/
     defaults: { _controller: ApplicationSonataNewsBundle:Post:archive, _format: html }
     requirements:
         _format: html|rss
 application_sonata_news_comment_moderation:
-    path: /comment/moderation/{commentId}/{hash}/{status}
+    path: /comment/moderation/{commentId}/{hash}/{status}/
     defaults: { _controller: ApplicationSonataNewsBundle:Post:commentModeration }

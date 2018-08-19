@@ -2,5 +2,5 @@ supply_home:
     path: /
     defaults: { _controller: NCBundle:Supply:index }
 supply_view:
-    path: /view/{slug}
+    path: /view/{slug}/
     defaults: { _controller: NCBundle:Supply:view }

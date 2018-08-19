@@ -2,8 +2,8 @@ competition_home:
     path: /
     defaults: { _controller: NCBundle:Competition:index }
 competition_view:
-    path: /view/{slug}
+    path: /view/{slug}/
     defaults: { _controller: NCBundle:Competition:view }
 competition_sign_up:
-    path: /sign-up/{slug}
+    path: /sign-up/{slug}/
     defaults: { _controller: NCBundle:Competition:signUp }

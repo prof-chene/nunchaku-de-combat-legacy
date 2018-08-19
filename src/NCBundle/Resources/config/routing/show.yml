@@ -2,8 +2,8 @@ show_home:
     path: /
     defaults: { _controller: NCBundle:Show:index }
 show_view:
-    path: /view/{slug}
+    path: /view/{slug}/
     defaults: { _controller: NCBundle:Show:view }
 show_sign_up:
-    path: /sign-up/{slug}
+    path: /sign-up/{slug}/
     defaults: { _controller: NCBundle:Show:signUp }

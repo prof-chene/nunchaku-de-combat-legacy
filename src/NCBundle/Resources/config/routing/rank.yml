@@ -2,8 +2,8 @@ rank_home:
     path: /
     defaults: { _controller: NCBundle:Rank:index }
 rank_view_style:
-    path: /view/{slug}
+    path: /view/{slug}/
     defaults: { _controller: NCBundle:Rank:viewStyle }
 rank_view:
-    path: /view/{styleSlug}/{rankSlug}
+    path: /view/{styleSlug}/{rankSlug}/
     defaults: { _controller: NCBundle:Rank:view }
