@@ -20,22 +20,22 @@ class LogInType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', array(
+            ->add('username', 'text', [
                 'label'     => 'username',
                 'required'  => true,
-            ))
-            ->add('password', 'password', array(
+            ])
+            ->add('password', 'password', [
                 'label'     => 'password',
                 'required'  => true,
-            ))
-            ->add('remember_me', 'checkbox', array(
+            ])
+            ->add('remember_me', 'checkbox', [
                 'value'     => 'on',
                 'label'     => 'remember_me',
                 'required'  => false,
-            ))
-            ->add('submit', 'submit', array(
+            ])
+            ->add('submit', 'submit', [
                 'label'     => 'log_in'
-            ))
+            ])
         ;
     }
 
@@ -44,9 +44,9 @@ class LogInType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => User::class,
             'intention' => 'login',
-        ));
+        ]);
     }
 }

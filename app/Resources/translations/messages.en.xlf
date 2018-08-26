@@ -128,6 +128,10 @@
                 <source>username</source>
                 <target>Username</target>
             </trans-unit>
+            <trans-unit id="username_tooltip">
+                <source>username.tooltip</source>
+                <target>Must start with a letter, 3 char minimum, must contain only letters and special chars - and _</target>
+            </trans-unit>
             <trans-unit id="email">
                 <source>email</source>
                 <target>Email</target>

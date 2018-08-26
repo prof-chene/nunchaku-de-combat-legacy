@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
- * @package Application\Sonata\UserBundle\Entity
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
@@ -46,17 +45,35 @@ class User extends BaseUser
      */
     protected $id;
     /**
-     * @var string
+     * @inheritdoc
      *
      * @Assert\Email
      */
     protected $email;
     /**
-     * @var string
+     * @inheritdoc
      *
      * @Assert\Email
      */
     protected $emailCanonical;
+    /**
+     * @inheritdoc
+     *
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z]([-A-Za-z_]){2,179}$/",
+     *     message="username.pattern"
+     * )
+     */
+    protected $username;
+    /**
+     * @inheritdoc
+     *
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z]([-A-Za-z_]){2,179}$/",
+     *     message="username.pattern"
+     * )
+     */
+    protected $usernameCanonical;
     /**
      * @var Rank
      *

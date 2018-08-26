@@ -4,13 +4,13 @@ namespace Application\Sonata\UserBundle\Form\Type;
 
 use Application\Sonata\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class RegistrationType
- *
- * @package Sonata\UserBundle\Form\Type
  */
 class RegistrationType extends AbstractType
 {
@@ -20,25 +20,35 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', array(
-                'label' => 'username',
-            ))
-            ->add('email', 'email', array(
+            ->add('username', null, [
+                'label'      => 'username',
+                'label_attr' => [
+                    'data-toggle'    => 'tooltip',
+                    'data-placement' => 'right auto',
+                    'title'          => 'username.tooltip',
+                ]
+            ])
+            ->add('email', EmailType::class, [
                 'label' => 'email',
-            ))
-            ->add('plainPassword', 'repeated', array(
+            ])
+            ->add('plainPassword', RepeatedType::class, array(
                 'type' => 'password',
                 'invalid_message' => 'password.mismatch',
                 'first_options' => array(
                     'label' => 'password',
+                    'label_attr' => [
+                        'data-toggle'    => 'tooltip',
+                        'data-placement' => 'right auto',
+                        'title'          => 'password.tooltip',
+                    ]
                 ),
                 'second_options' => array(
                     'label' => 'password_confirmation',
                 ),
             ))
-            ->add('submit', 'submit', array(
+            ->add('submit', 'submit', [
                 'label' => 'registration.submit',
-            ))
+            ])
         ;
     }
 
@@ -47,8 +57,8 @@ class RegistrationType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => User::class,
-        ));
+        ]);
     }
 }

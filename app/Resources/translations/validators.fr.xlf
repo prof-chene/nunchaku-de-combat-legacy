@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="username_pattern">
+                <source>username.pattern</source>
+                <target>Le nom d'utilisateur doit commencer par une lettre, 3 caractères minimum, ne peut contenir que des lettres et les caractères spéciaux - et _</target>
+            </trans-unit>
             <trans-unit id="username_email_not_found">
                 <source>username_email.not_found</source>
                 <target>Nom d'utilisateur ou email inexistant</target>
