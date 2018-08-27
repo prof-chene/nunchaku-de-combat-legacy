@@ -10,8 +10,6 @@ use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 
 /**
  * Class RankHolderAdmin
- *
- * @package NCBundle\Admin\Technique
  */
 class RankHolderAdmin extends AbstractAdmin
 {

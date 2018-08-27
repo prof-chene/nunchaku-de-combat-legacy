@@ -4,8 +4,6 @@ namespace NCBundle\Admin\Event;
 
 /**
  * Class ShowAdmin
- *
- * @package NCBundle\Admin\Event
  */
 class ShowAdmin extends AbstractEventAdmin
 {

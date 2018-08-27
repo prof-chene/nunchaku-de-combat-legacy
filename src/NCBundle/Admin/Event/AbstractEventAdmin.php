@@ -10,8 +10,6 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
  * Class AbstractEventAdmin
- *
- * @package NCBundle\Admin\Event
  */
 abstract class AbstractEventAdmin extends AbstractEditorialAdmin
 {

@@ -9,8 +9,6 @@ use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
 /**
  * Class AuthenticationListener
- *
- * @package NCBundle\Event
  */
 class AuthenticationListener implements LogoutSuccessHandlerInterface
 {

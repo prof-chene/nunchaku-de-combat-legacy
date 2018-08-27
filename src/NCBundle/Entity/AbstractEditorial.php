@@ -8,8 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AbstractEditorial
- *
- * @package NCBundle\Entity
  */
 abstract class AbstractEditorial extends AbstractContent
 {

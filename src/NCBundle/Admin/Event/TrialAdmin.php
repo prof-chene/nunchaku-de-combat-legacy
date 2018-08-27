@@ -10,8 +10,6 @@ use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
  * Class TrialAdmin
- *
- * @package NCBundle\Admin\Event
  */
 class TrialAdmin extends AbstractAdmin
 {

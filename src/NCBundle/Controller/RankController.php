@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class RankController
- * @package NCBundle\Controller
  */
 class RankController extends Controller
 {

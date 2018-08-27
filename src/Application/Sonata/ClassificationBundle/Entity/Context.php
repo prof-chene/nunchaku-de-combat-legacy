@@ -9,8 +9,6 @@ use Sonata\ClassificationBundle\Entity\BaseContext as BaseContext;
 /**
  * Class Context
  *
- * @package Application\Sonata\ClassificationBundle\Entity
- *
  * @ORM\Table(name="context")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */

@@ -6,8 +6,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class CompetitionAdmin
- *
- * @package NCBundle\Admin\Event
  */
 class CompetitionAdmin extends AbstractEventAdmin
 {

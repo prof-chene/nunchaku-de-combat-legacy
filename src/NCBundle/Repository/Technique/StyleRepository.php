@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityRepository;
 
 /**
  * Class StyleRepository
- * @package NCBundle\Repository\Technique
  */
 class StyleRepository extends EntityRepository
 {

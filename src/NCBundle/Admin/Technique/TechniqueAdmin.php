@@ -8,8 +8,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
  * Class TechniqueAdmin
- *
- * @package NCBundle\Admin\Technique
  */
 class TechniqueAdmin extends AbstractEditorialAdmin
 {

@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityRepository;
 
 /**
  * Class ParticipantRepository
- * @package NCBundle\Repository\Event
  */
 class ParticipantRepository extends EntityRepository
 {

@@ -8,8 +8,6 @@ use Sonata\ClassificationBundle\Entity\BaseCategory;
 /**
  * Class Category
  *
- * @package Application\Sonata\ClassificationBundle\Entity
- *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */

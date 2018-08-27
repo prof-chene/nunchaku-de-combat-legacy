@@ -9,8 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class ResetPasswordController
- *
- * @package Application\Sonata\UserBundle\Controller
  */
 class ResetPasswordController extends Controller
 {

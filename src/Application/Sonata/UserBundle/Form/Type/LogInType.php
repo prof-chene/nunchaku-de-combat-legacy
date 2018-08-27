@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class LogInType
- * @package Application\Sonata\Form
  */
 class LogInType extends AbstractType
 {

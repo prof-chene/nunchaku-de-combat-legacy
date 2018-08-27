@@ -8,7 +8,6 @@ use NCBundle\Entity\Event\Trial;
 
 /**
  * Class TrialRepository
- * @package NCBundle\Repository\Event
  */
 class TrialRepository extends ServiceEntityRepository
 {

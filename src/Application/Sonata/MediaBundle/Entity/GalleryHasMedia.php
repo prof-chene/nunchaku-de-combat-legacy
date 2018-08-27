@@ -8,8 +8,6 @@ use Sonata\MediaBundle\Entity\BaseGalleryHasMedia as BaseGalleryHasMedia;
 /**
  * Class GalleryHasMedia
  *
- * @package Application\Sonata\MediaBundle\Entity
- *
  * @ORM\Table(name="media_gallery")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */

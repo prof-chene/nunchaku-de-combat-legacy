@@ -10,8 +10,6 @@ use Sonata\ClassificationBundle\Entity\BaseTag as BaseTag;
 /**
  * Class Tag
  *
- * @package Application\Sonata\ClassificationBundle\Entity
- *
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */

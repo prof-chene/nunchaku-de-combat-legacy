@@ -8,8 +8,6 @@ use \Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class PostController
- *
- * @package Application\Sonata\NewsBundle\Controller
  */
 class PostController extends BaseController
 {

@@ -9,8 +9,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class TechniqueExecutionAdmin
- *
- * @package NCBundle\Admin\Technique
  */
 class TechniqueExecutionAdmin extends AbstractAdmin
 {

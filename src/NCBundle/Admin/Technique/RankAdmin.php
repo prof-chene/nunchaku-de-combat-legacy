@@ -11,8 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Class RankAdmin
- *
- * @package NCBundle\Admin\Technique
  */
 class RankAdmin extends AbstractEditorialAdmin
 {

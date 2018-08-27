@@ -8,7 +8,6 @@ use Doctrine\ORM\Query;
 
 /**
  * Class ExerciseRepository
- * @package NCBundle\Repository\Technique
  */
 class ExerciseRepository extends EntityRepository
 {

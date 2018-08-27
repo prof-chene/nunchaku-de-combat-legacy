@@ -7,8 +7,6 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
  * Class TrainingCourseAdmin
- *
- * @package NCBundle\Admin\Event
  */
 class TrainingCourseAdmin extends AbstractEventAdmin
 {

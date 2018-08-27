@@ -8,7 +8,6 @@ use Sonata\UserBundle\Model\User;
 
 /**
  * Class ShowRepository
- * @package NCBundle\Repository\Event
  */
 class ShowRepository extends EntityRepository
 {

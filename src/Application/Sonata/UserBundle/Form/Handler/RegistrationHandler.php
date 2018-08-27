@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class RegistrationHandler
- *
- * @package Application\Sonata\UserBundle\Form\Handler
  */
 class RegistrationHandler
 {

@@ -7,8 +7,6 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Class UserExists
  *
- * @package Application\Sonata\UserBundle\Validator\Constraints
- *
  * @Annotation
  */
 class UserExists extends Constraint

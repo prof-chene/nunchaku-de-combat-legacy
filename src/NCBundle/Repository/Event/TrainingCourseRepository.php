@@ -7,7 +7,6 @@ use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * Class TrainingCourseRepository
- * @package NCBundle\Repository\Event
  */
 class TrainingCourseRepository extends EntityRepository
 {

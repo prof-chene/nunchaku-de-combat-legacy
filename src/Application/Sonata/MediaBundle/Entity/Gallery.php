@@ -10,8 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Gallery
  *
- * @package Application\Sonata\MediaBundle\Entity
- *
  * @ORM\Table(name="gallery")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */

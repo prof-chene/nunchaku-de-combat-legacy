@@ -11,8 +11,6 @@ use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
  * Class AbstractEditorialAdmin
- *
- * @package NCBundle\Admin
  */
 abstract class AbstractEditorialAdmin extends AbstractAdmin
 {

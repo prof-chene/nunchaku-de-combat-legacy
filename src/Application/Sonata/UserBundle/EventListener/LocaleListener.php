@@ -7,7 +7,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class LocaleListener
- * @package Application\Sonata\UserBundle\EventListener
  */
 class LocaleListener implements EventSubscriberInterface
 {

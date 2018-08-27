@@ -12,7 +12,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class ShowController
- * @package NCBundle\Controller
  */
 class ShowController extends Controller
 {

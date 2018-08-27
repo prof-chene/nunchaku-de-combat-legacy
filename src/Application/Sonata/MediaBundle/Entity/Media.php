@@ -11,8 +11,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Media
  *
- * @package Application\Sonata\MediaBundle\Entity
- *
  * @ORM\Table(name="media")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */

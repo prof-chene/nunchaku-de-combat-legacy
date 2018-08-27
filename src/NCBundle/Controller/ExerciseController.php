@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class ExerciseController
- * @package NCBundle\Controller
  */
 class ExerciseController extends Controller
 {

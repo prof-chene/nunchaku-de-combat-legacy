@@ -9,8 +9,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Class UserExistsValidator
- *
- * @package Application\Sonata\UserBundle\Validator\Constraints
  */
 class UserExistsValidator extends ConstraintValidator
 {

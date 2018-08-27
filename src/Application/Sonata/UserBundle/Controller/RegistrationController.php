@@ -9,8 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class RegistrationController
- *
- * @package Application\Sonata\UserBundle\Controller
  */
 class RegistrationController extends Controller
 {

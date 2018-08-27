@@ -10,8 +10,6 @@ use NCBundle\Entity\AbstractEditorial;
 /**
  * Class AbstractEvent
  *
- * @package NCBundle\Entity\Event
- *
  * @ORM\Table(name="event")
  * @ORM\Entity
  */

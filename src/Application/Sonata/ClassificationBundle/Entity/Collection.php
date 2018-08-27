@@ -10,8 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Collection
  *
- * @package Application\Sonata\ClassificationBundle\Entity
- *
  * @ORM\Table(name="collection")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */

@@ -10,7 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class LogInController
- * @package Application\Sonata\UserBundle\Controller
  */
 class LogInController extends Controller
 {

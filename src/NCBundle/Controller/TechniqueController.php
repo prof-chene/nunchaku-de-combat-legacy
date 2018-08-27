@@ -12,7 +12,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class TechniqueController
- * @package NCBundle\Controller
  */
 class TechniqueController extends Controller
 {

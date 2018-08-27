@@ -11,8 +11,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Post
  *
- * @package Application\Sonata\NewsBundle\Entity
- *
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="Application\Sonata\NewsBundle\Repository\PostRepository")
  */

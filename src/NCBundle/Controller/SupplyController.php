@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class SupplyController
- * @package NCBundle\Controller
  */
 class SupplyController extends Controller
 {

@@ -8,7 +8,6 @@ use Sonata\UserBundle\Model\User;
 
 /**
  * Class CompetitionRepository
- * @package NCBundle\Repository\Event
  */
 class CompetitionRepository extends EntityRepository
 {

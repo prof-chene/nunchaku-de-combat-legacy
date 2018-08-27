@@ -10,8 +10,6 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
  * Class ExerciseAdmin
- *
- * @package NCBundle\Admin\Technique
  */
 class ExerciseAdmin extends AbstractEditorialAdmin
 {

@@ -12,7 +12,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class CompetitionController
- * @package NCBundle\Controller
  */
 class CompetitionController extends Controller
 {

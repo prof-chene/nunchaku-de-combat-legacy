@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class ResetPasswordHandler
- *
- * @package Application\Sonata\UserBundle\Form\Handler
  */
 class ResetPasswordHandler
 {

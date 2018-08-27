@@ -7,8 +7,6 @@ use Sonata\UserBundle\Model\UserInterface;
 
 /**
  * Class Controller
- *
- * @package Application\Sonata\UserBundle\Controller
  */
 class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 {

@@ -8,8 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class ResetPasswordRequestType
- *
- * @package Application\Sonata\UserBundle\Form\Type
  */
 class ResetPasswordRequestType extends AbstractType
 {

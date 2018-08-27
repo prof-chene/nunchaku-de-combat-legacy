@@ -13,8 +13,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 /**
  * Class ParticipantType
- *
- * @package NCBundle\Form\Event
  */
 class ParticipantHandler
 {

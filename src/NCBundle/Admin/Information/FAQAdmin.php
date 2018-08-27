@@ -10,8 +10,6 @@ use Sonata\CoreBundle\Form\Type\CollectionType;
 
 /**
  * Class FAQAdmin
- *
- * @package NCBundle\Admin\Information
  */
 class FAQAdmin extends AbstractEditorialAdmin
 {

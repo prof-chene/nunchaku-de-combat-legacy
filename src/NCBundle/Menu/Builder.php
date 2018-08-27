@@ -8,8 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class Builder
- *
- * @package NCBundle\Menu
  */
 class Builder implements ContainerAwareInterface
 {

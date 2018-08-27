@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class HomeController
- * @package NCBundle\Controller
  */
 class HomeController extends Controller
 {

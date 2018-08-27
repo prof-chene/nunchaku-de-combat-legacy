@@ -11,8 +11,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class TrialResultAdmin
- *
- * @package NCBundle\Admin\Event
  */
 class TrialResultAdmin extends AbstractAdmin
 {

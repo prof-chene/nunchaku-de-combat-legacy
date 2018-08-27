@@ -10,8 +10,6 @@ use Sonata\CoreBundle\Form\Type\CollectionType;
 
 /**
  * Class StyleAdmin
- *
- * @package NCBundle\Admin\Technique
  */
 class StyleAdmin extends AbstractEditorialAdmin
 {

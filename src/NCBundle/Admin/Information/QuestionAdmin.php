@@ -11,8 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class QuestionAdmin
- *
- * @package NCBundle\Admin\Information
  */
 class QuestionAdmin extends AbstractAdmin
 {
