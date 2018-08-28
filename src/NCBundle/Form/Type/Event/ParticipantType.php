@@ -52,23 +52,22 @@ class ParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname', null, [
-                'label'    => 'lastname',
-                'required' => true,
-            ])
             ->add('firstname', null, [
-                'label'    => 'firstname',
-                'required' => true,
+                'label' => 'firstname',
+            ])
+            ->add('lastname', null, [
+                'label' => 'lastname',
             ])
             ->add('phone', null, [
-                'label'    => 'phone',
-                'required' => true,
+                'label' => 'phone',
             ])
             ->add('dateOfBirth', DatePickerType::class, [
-                'label'    => 'date_of_birth',
-                'required' => true,
+                'label'                 => 'date_of_birth',
                 'datepicker_use_button' => false,
-                'dp_max_date' => (new \DateTime())->format('c'),
+                'dp_max_date'           => (new \DateTime())->format('c'),
+            ])
+            ->add('address', null, [
+                'label' => 'address',
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $formEvent) {

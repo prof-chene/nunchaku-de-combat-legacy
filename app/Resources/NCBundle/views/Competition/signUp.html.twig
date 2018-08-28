@@ -23,10 +23,11 @@
         {% if form.itsMe is defined %}
             {{ form_widget(form.itsMe, {'label_attr': {'class': 'radio-inline'}}) }}
         {% endif %}
-        {{ form_row(form.lastname) }}
         {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
         {{ form_row(form.phone) }}
         {{ form_row(form.dateOfBirth) }}
+        {{ form_row(form.address) }}
         {% if form.trials is defined %}
             {{ form_row(form.trials) }}
         {% endif %}

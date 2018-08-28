@@ -99,6 +99,10 @@
                 <source>date_of_birth</source>
                 <target>Date of birth</target>
             </trans-unit>
+            <trans-unit id="address">
+                <source>address</source>
+                <target>Address</target>
+            </trans-unit>
             <trans-unit id="gender">
                 <source>gender</source>
                 <target>Gender</target>
