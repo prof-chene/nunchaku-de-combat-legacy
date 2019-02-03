@@ -16,6 +16,9 @@
             {% if exercise.supplies|length > 0 %}
                 <strong>{{ 'required_supplies'|trans|capitalize }}</strong> :
                     {% for supply in exercise.supplies if supply.slug is not empty and supply.title is not empty %}
+                        {% set supplies = supplies|merge([supply]) %}
+                    {% endfor %}
+                    {% for supply in suplies %}
                         <a href="{{ url('supply_view', {'slug': supply.slug }) }}">{{ supply.title }}</a>
                         {% if not loop.last %}
                             ,
