@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Rank
  *
- * @ORM\Table(name="rank_holder")
+ * @ORM\Table(name="`rank_holder`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankHolderRepository")
  */
 class RankHolder

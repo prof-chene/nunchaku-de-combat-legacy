@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * FAQ
  *
- * @ORM\Table(name="faq")
+ * @ORM\Table(name="`faq`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\FAQRepository")
  */
 class FAQ extends AbstractEditorial

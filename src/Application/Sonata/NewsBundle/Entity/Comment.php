@@ -8,7 +8,7 @@ use Sonata\NewsBundle\Entity\BaseComment as BaseComment;
 /**
  * Class Comment
  *
- * @ORM\Table(name="comment")
+ * @ORM\Table(name="`comment`")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Comment extends BaseComment

@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Trainer
  *
- * @ORM\Table(name="trainer")
+ * @ORM\Table(name="`trainer`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\TrainerRepository")
  */
 class Trainer implements Translatable

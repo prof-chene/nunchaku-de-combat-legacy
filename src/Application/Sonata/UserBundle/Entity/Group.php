@@ -8,7 +8,7 @@ use Sonata\UserBundle\Entity\BaseGroup as BaseGroup;
 /**
  * Class Group
  *
- * @ORM\Table(name="role_group")
+ * @ORM\Table(name="`role_group`")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Group extends BaseGroup

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Competition
  *
- * @ORM\Table(name="competition")
+ * @ORM\Table(name="`competition`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\CompetitionRepository")
  */
 class Competition extends AbstractEvent

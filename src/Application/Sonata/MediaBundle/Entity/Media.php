@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Media
  *
- * @ORM\Table(name="media")
+ * @ORM\Table(name="`media`")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Media extends BaseMedia implements Translatable

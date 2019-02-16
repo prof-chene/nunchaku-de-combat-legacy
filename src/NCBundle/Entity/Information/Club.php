@@ -11,7 +11,7 @@ use NCBundle\Entity\AbstractContent;
 /**
  * Class Club
  *
- * @ORM\Table(name="club")
+ * @ORM\Table(name="`club`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\ClubRepository")
  */
 class Club extends AbstractContent

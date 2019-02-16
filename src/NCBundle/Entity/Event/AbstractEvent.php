@@ -10,7 +10,7 @@ use NCBundle\Entity\AbstractEditorial;
 /**
  * Class AbstractEvent
  *
- * @ORM\Table(name="event")
+ * @ORM\Table(name="`event`")
  * @ORM\Entity
  */
 abstract class AbstractEvent extends AbstractEditorial

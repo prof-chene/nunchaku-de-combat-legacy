@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *     message="place.unique"
  * )
  *
- * @ORM\Table(name="trial_result", uniqueConstraints={
+ * @ORM\Table(name="`trial_result`", uniqueConstraints={
  *     @ORM\UniqueConstraint(name="unique_trial_place", columns={"trial_id", "place"})
  * })
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\TrialResultRepository")

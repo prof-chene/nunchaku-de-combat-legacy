@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Gallery
  *
- * @ORM\Table(name="gallery")
+ * @ORM\Table(name="`gallery`")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Gallery extends BaseGallery implements Translatable

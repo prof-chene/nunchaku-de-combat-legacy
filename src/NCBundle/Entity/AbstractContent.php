@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     message="slug.already_used"
  * )
  *
- * @ORM\Table(name="content", uniqueConstraints={
+ * @ORM\Table(name="`content`", uniqueConstraints={
  *     @ORM\UniqueConstraint(name="unique_slug", columns={"slug", "content_type"})
  * })
  * @ORM\Entity

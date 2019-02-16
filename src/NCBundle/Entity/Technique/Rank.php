@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     message="rank_level.already_exists"
  * )
  *
- * @ORM\Table(name="rank", uniqueConstraints={
+ * @ORM\Table(name="`rank`", uniqueConstraints={
  *     @ORM\UniqueConstraint(name="unique_level_style", columns={"level", "style_id"})
  * })
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankRepository")

@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Style
  *
- * @ORM\Table(name="style")
+ * @ORM\Table(name="`style`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\StyleRepository")
  */
 class Style extends AbstractEditorial

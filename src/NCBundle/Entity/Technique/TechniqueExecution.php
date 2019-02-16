@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * TechniqueExecution
  *
- * @ORM\Table(name="technique_execution")
+ * @ORM\Table(name="`technique_execution`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\TechniqueExecutionRepository")
  */
 class TechniqueExecution implements Translatable

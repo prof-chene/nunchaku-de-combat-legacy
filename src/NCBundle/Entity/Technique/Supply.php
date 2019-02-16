@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Supply
  *
- * @ORM\Table(name="supply")
+ * @ORM\Table(name="`supply`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\SupplyRepository")
  */
 class Supply extends AbstractEditorial

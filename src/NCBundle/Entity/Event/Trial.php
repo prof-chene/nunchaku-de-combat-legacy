@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Trial
  *
- * @ORM\Table(name="trial")
+ * @ORM\Table(name="`trial`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\TrialRepository")
  */
 class Trial implements Translatable

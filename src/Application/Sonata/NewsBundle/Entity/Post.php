@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Post
  *
- * @ORM\Table(name="post")
+ * @ORM\Table(name="`post`")
  * @ORM\Entity(repositoryClass="Application\Sonata\NewsBundle\Repository\PostRepository")
  */
 class Post extends BasePost implements Translatable

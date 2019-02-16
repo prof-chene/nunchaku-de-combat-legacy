@@ -8,7 +8,7 @@ use Sonata\ClassificationBundle\Entity\BaseCategory;
 /**
  * Class Category
  *
- * @ORM\Table(name="category")
+ * @ORM\Table(name="`category`")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Category extends BaseCategory

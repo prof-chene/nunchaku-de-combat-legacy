@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * RankRequirement
  *
- * @ORM\Table(name="rank_requirement")
+ * @ORM\Table(name="`rank_requirement`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\RankRequirementRepository")
  */
 class RankRequirement implements Translatable

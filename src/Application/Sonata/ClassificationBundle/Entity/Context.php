@@ -9,7 +9,7 @@ use Sonata\ClassificationBundle\Entity\BaseContext as BaseContext;
 /**
  * Class Context
  *
- * @ORM\Table(name="context")
+ * @ORM\Table(name="`context`")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Context extends BaseContext

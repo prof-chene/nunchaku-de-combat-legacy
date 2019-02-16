@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class ScheduledLesson
  *
- * @ORM\Table(name="scheduled_lesson")
+ * @ORM\Table(name="`scheduled_lesson`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\ScheduledLessonRepository")
  */
 class ScheduledLesson implements Translatable

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class SocialMediaAccount
  *
- * @ORM\Table(name="social_media_account")
+ * @ORM\Table(name="`social_media_account`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\SocialMediaAccountRepository")
  */
 class SocialMediaAccount

@@ -10,7 +10,7 @@ use NCBundle\Entity\AbstractEditorial;
 /**
  * Technique
  *
- * @ORM\Table(name="technique")
+ * @ORM\Table(name="`technique`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\TechniqueRepository")
  */
 class Technique extends AbstractEditorial

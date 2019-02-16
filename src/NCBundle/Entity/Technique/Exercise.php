@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Exercise
  *
- * @ORM\Table(name="exercise")
+ * @ORM\Table(name="`exercise`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Technique\ExerciseRepository")
  */
 class Exercise extends AbstractEditorial

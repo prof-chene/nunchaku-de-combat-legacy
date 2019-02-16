@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Question
  *
- * @ORM\Table(name="question")
+ * @ORM\Table(name="`question`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Information\QuestionRepository")
  */
 class Question implements Translatable

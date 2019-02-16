@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Collection
  *
- * @ORM\Table(name="collection")
+ * @ORM\Table(name="`collection`")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Collection extends BaseCollection implements Translatable

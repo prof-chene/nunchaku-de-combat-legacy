@@ -9,7 +9,7 @@ use NCBundle\Entity\Technique\Exercise;
 /**
  * TrainingCourse
  *
- * @ORM\Table(name="training_course")
+ * @ORM\Table(name="`training_course`")
  * @ORM\Entity(repositoryClass="NCBundle\Repository\Event\TrainingCourseRepository")
  */
 class TrainingCourse extends AbstractEvent
