@@ -99,8 +99,8 @@ fos_user:
         address: nunchaku.de.combat@gmail.com
         sender_name: Nunchaku de combat
 
-# IvoryCKEditor Configuration
-ivory_ck_editor:
+# FOSCKEditor Configuration
+fos_ck_editor:
     configs:
         content:
             # default toolbar plus Format button
