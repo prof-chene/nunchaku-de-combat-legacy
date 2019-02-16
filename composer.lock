@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4febe96e63919740afd1cedb82723057",
+    "content-hash": "d18d53a302b158f3838786414d994324",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1427,16 +1427,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v2.14.0",
+            "version": "v2.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "b788ea0af899cedc8114dca7db119c93b6685da2"
+                "reference": "2e82abd1322897eb8aacb861e5ff551af3888349"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/b788ea0af899cedc8114dca7db119c93b6685da2",
-                "reference": "b788ea0af899cedc8114dca7db119c93b6685da2",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/2e82abd1322897eb8aacb861e5ff551af3888349",
+                "reference": "2e82abd1322897eb8aacb861e5ff551af3888349",
                 "shasum": ""
             },
             "require": {
@@ -1483,11 +1483,6 @@
                 "php-cs-fixer"
             ],
             "type": "application",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.14-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "PhpCsFixer\\": "src/"
@@ -1519,7 +1514,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2019-01-04T18:29:47+00:00"
+            "time": "2019-02-10T22:52:33+00:00"
         },
         {
             "name": "friendsofsymfony/ckeditor-bundle",
@@ -3455,16 +3450,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.45.1",
+            "version": "3.45.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "ba9c5dcbfe0412859d63f3319606ae006591ac85"
+                "reference": "b75183f7004b87378a5d3e7d6af03ec784787e67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/ba9c5dcbfe0412859d63f3319606ae006591ac85",
-                "reference": "ba9c5dcbfe0412859d63f3319606ae006591ac85",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/b75183f7004b87378a5d3e7d6af03ec784787e67",
+                "reference": "b75183f7004b87378a5d3e7d6af03ec784787e67",
                 "shasum": ""
             },
             "require": {
@@ -3519,6 +3514,7 @@
             "suggest": {
                 "jms/di-extra-bundle": "Annotations for Admin definition",
                 "jms/translation-bundle": "Extract message keys from Admins",
+                "kunicmarko/sonata-auto-configure-bundle": "Auto configures Admin classes",
                 "sensio/generator-bundle": "Add sonata:admin:generate command",
                 "sonata-project/intl-bundle": "Add localized date and number into the list"
             },
@@ -3556,7 +3552,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2019-01-14T22:05:25+00:00"
+            "time": "2019-02-14T22:46:27+00:00"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3800,16 +3796,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.15.1",
+            "version": "3.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "30f5d1201aab91c493b2f15d91f6514fe4ad2daf"
+                "reference": "5264f367fc25fc40657f6b04fadb82ec05bcaa11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/30f5d1201aab91c493b2f15d91f6514fe4ad2daf",
-                "reference": "30f5d1201aab91c493b2f15d91f6514fe4ad2daf",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/5264f367fc25fc40657f6b04fadb82ec05bcaa11",
+                "reference": "5264f367fc25fc40657f6b04fadb82ec05bcaa11",
                 "shasum": ""
             },
             "require": {
@@ -3880,7 +3876,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2019-01-26T22:34:20+00:00"
+            "time": "2019-02-14T21:07:19+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -5145,7 +5141,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
