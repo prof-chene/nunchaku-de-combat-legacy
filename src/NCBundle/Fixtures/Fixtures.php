@@ -659,7 +659,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             $blogCollection->setDescription('Description Blog '.($loop + 1));
 
             $blogCollectionMedia = $mediaManager->create();
-            $blogCollectionMedia->setContext('blog');
+            $blogCollectionMedia->setContext('news');
             $blogCollectionMedia->setCreatedAt(new \DateTime());
             $blogCollectionMedia->setUpdatedAt(new \DateTime());
             $blogCollectionMedia->setEnabled(true);
