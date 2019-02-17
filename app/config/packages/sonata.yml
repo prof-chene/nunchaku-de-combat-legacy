@@ -68,7 +68,7 @@ sonata_media:
         news:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http
+                mode: https
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -80,7 +80,7 @@ sonata_media:
         club:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http
+                mode: https
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -92,7 +92,7 @@ sonata_media:
         event:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http
+                mode: https
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -104,7 +104,7 @@ sonata_media:
         exercise:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http
+                mode: https
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
@@ -116,7 +116,7 @@ sonata_media:
         technique:
             download:
                 strategy: sonata.media.security.public_strategy
-                mode: http
+                mode: https
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube
