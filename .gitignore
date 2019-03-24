@@ -25,6 +25,9 @@
 # Managed by Composer
 /vendor/
 
+# Symfony web server
+.web-server-pid
+
 # Assets and user uploads
 /web/bundles/
 /web/uploads/

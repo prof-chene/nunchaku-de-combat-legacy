@@ -62,6 +62,9 @@ sonata_news:
         media:      Application\Sonata\MediaBundle\Entity\Media
         user:       Application\Sonata\UserBundle\Entity\User
 sonata_media:
+    buzz:
+        client:
+            timeout: 0
     db_driver: doctrine_orm
     default_context: news
     contexts:
