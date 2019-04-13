@@ -97,6 +97,13 @@ nav.navbar-default .navbar-toggle:focus .icon-bar {
     background-color: #000;
 }
 
+/* THIS IS A TRICK TO AVOID THE HEADER COVERING THE TOP OF THE ANCHORED CONTENT */
+:target::before {
+    content: "";
+    display: block;
+    height: 50px; /* fixed header height*/
+}
+
 /* ========
    Carousel
    ======== */
