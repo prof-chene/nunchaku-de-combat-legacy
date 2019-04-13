@@ -20,7 +20,7 @@ class PostController extends BaseController
     {
         $pager = $this->getPostManager()->getPager(
             [],
-            $request->request->get('page', 1),
+            $request->get('page', 1),
             $this->getParameter('posts_number_per_page')
         );
 
