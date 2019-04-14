@@ -28,11 +28,6 @@ class PostController extends BaseController
             'SonataNewsBundle:Post:index.html.twig',
             [
                 'pager' => $pager,
-                'blog' => $this->getBlog(),
-                'tag' => false,
-                'collection' => false,
-                'route' => $request->get('_route'),
-                'route_parameters' => $request->get('_route_params'),
             ]
         );
     }
