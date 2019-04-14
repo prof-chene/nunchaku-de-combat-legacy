@@ -30,6 +30,10 @@
                 <source>place.unique</source>
                 <target>Il ne peut y avoir plusieurs fois la même place pour une même épreuve</target>
             </trans-unit>
+            <trans-unit id="position_unique">
+                <source>position.unique</source>
+                <target>Il ne peut pas y avoir plusieurs contenus éditoriaux à la même position</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

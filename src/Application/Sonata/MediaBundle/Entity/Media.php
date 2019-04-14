@@ -2,6 +2,7 @@
 
 namespace Application\Sonata\MediaBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use NCBundle\Entity\AbstractContent;
@@ -23,7 +24,7 @@ class Media extends BaseMedia implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
     /**
      * {@inheritdoc}
      *
@@ -41,7 +42,7 @@ class Media extends BaseMedia implements Translatable
      *
      * @ORM\OneToMany(targetEntity="NCBundle\Entity\AbstractContent", mappedBy="image", cascade={"persist"})
      */
-    protected $contents;
+    private $contents;
 
     /**
      * Get id

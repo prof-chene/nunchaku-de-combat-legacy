@@ -112,6 +112,14 @@ class Club extends AbstractContent
     /**
      * @return string
      */
+    public function __toString()
+    {
+        return (string)$this->getName();
+    }
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;

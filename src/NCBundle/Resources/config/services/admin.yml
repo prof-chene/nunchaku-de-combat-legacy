@@ -3,6 +3,11 @@ services:
         abstract: true
         calls:
             - [setPoolFormatter, ['@sonata.formatter.pool']]
+    admin.highlighted_content:
+        class: NCBundle\Admin\HighlightedContentAdmin
+        arguments: [~, NCBundle\Entity\HighlightedContent, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Highlighted Content, group: HomePage }
 # Event
     admin.competition:
         class: NCBundle\Admin\Event\CompetitionAdmin

@@ -30,6 +30,10 @@
                 <source>place.unique</source>
                 <target>There cannot be the same place multiple times for a trial</target>
             </trans-unit>
+            <trans-unit id="position_unique">
+                <source>position.unique</source>
+                <target>Ther cannot be multiple editorial contents at the same position</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
