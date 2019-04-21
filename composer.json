@@ -31,22 +31,18 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "php bin/console ckeditor:install --clear=drop",
-            "php bin/console assets:install --symlink --relative",
-            "php bin/console assetic:dump",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "@deploymentScripts"
         ],
         "post-update-cmd": [
+            "@deploymentScripts"
+        ],
+        "deploymentScripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "php bin/console ckeditor:install --clear=drop",
-            "php bin/console assets:install --symlink --relative",
-            "php bin/console assetic:dump",
+            "@php bin/console ckeditor:install --clear=drop",
+            "@php bin/console assets:install --symlink --relative",
+            "@php bin/console assetic:dump",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
