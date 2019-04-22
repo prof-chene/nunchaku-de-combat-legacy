@@ -17,7 +17,6 @@
         "sensio/framework-extra-bundle": "^3.0",
         "sensio/distribution-bundle": "^5.0",
         "doctrine/doctrine-bundle": "^1.8",
-        "incenteev/composer-parameter-handler": "2.1.2",
         "friendsofphp/php-cs-fixer": "^2.14",
         "sonata-project/user-bundle": "^4.0",
         "sonata-project/news-bundle": "^3.2",
@@ -37,7 +36,6 @@
             "@deploymentScripts"
         ],
         "deploymentScripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "@php bin/console ckeditor:install --clear=drop",
@@ -53,9 +51,6 @@
         "symfony-var-dir": "var",
         "symfony-bin-dir": "bin",
         "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        }
+        "symfony-assets-install": "relative"
     }
 }

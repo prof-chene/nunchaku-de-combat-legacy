@@ -4,8 +4,6 @@
 !var/sessions/.gitkeep
 /var/
 
-# Parameters
-/app/config/parameters.yml
 
 # PHPUnit
 /phpunit.xml
@@ -32,3 +30,8 @@
 /web/bundles/
 /web/uploads/
 /web/assetic/
+
+# symfony/framework-bundle
+/.env.local
+/.env.local.php
+/.env.*.local
