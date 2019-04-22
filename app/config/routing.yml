@@ -1,45 +1,54 @@
 # NCBundle
 nunchaku_de_combat:
     resource: "@NCBundle/Resources/config/routing.yml"
+    schemes:  ['https']
 # Admin
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /{_locale}/admin
     requirements:
         _locale: '%locales%'
+    schemes:  ['https']
 _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /{_locale}/admin
     requirements:
         _locale: '%locales%'
+    schemes:  ['https']
 # User
 application_sonata_user_log_in:
     resource: "@ApplicationSonataUserBundle/Resources/config/routing/logIn.yml"
+    schemes:  ['https']
 application_sonata_user_reset_password:
     resource: "@ApplicationSonataUserBundle/Resources/config/routing/resetPassword.yml"
     prefix: /{_locale}/reset-password
     requirements:
         _locale: '%locales%'
+    schemes:  ['https']
 application_sonata_user_register:
     resource: "@ApplicationSonataUserBundle/Resources/config/routing/register.yml"
     prefix: /{_locale}/register
     requirements:
         _locale: '%locales%'
+    schemes:  ['https']
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /{_locale}/profile
     requirements:
         _locale: '%locales%'
+    schemes:  ['https']
 # Media
 application_sonata_media:
     resource: '@ApplicationSonataMediaBundle/Resources/config/routing.yml'
     prefix: /{_locale}
     requirements:
         _locale: '%locales%'
+    schemes:  ['https']
 # News
 application_sonata_news:
     resource: '@ApplicationSonataNewsBundle/Resources/config/routing.yml'
     prefix: /{_locale}/news
     requirements:
         _locale: '%locales%'
+    schemes:  ['https']
