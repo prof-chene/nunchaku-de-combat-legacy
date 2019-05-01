@@ -14,11 +14,12 @@
         <hr />
         <p class="post">
             {% if exercise.supplies|length > 0 %}
+                {% set supplies = [] %}
                 <strong>{{ 'required_supplies'|trans|capitalize }}</strong> :
                     {% for supply in exercise.supplies if supply.slug is not empty and supply.title is not empty %}
                         {% set supplies = supplies|merge([supply]) %}
                     {% endfor %}
-                    {% for supply in suplies %}
+                    {% for supply in supplies %}
                         <a href="{{ url('supply_view', {'slug': supply.slug }) }}">{{ supply.title }}</a>
                         {% if not loop.last %}
                             ,
