@@ -51,10 +51,15 @@
         {% include '::header.html.twig' %}
         {{ include('::flash_messages.html.twig') }}
         <section class="container">
+            {% if app.request.attributes.get('breadcrumb') is defined and app.request.attributes.get('breadcrumb') %}
+                {% include '::breadcrumb.html.twig' %}
+            {% endif %}
+
             {# If a translation exists for the current route, we display it as the main title #}
             {% if ('h1.'~app.request.attributes.get('_route'))|trans({}, 'navigation') != 'h1.'~app.request.attributes.get('_route') %}
                 <h1>{{ ('h1.'~app.request.attributes.get('_route'))|trans({}, 'navigation') }}</h1>
             {% endif %}
+
             {% block content %}
             {% endblock %}
         </section>

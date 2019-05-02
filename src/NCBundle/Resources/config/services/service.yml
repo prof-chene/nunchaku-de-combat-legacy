@@ -5,3 +5,18 @@ services:
             - '@twig'
             - '%nc_email%'
             - '@swiftmailer.transport'
+    nc.menu.breadcrumb:
+        class: NCBundle\Menu\Breadcrumb
+        arguments:
+            - 'nc.block'
+            - 'nc.breadcrumb'
+            - '@templating'
+            - '@knp_menu.menu_provider'
+            - '@knp_menu.factory'
+            - '@request_stack'
+            - '@sonata.classification.manager.collection'
+            - '@NCBundle\Repository\Technique\ExerciseRepository'
+            - '@NCBundle\Repository\Technique\TechniqueRepository'
+        tags:
+            - { name: sonata.block }
+            - { name: sonata.breadcrumb }

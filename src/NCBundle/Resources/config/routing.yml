@@ -6,45 +6,61 @@ technique:
     prefix: /{_locale}/techniques
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true
 
 exercise:
     resource: "@NCBundle/Resources/config/routing/exercise.yml"
     prefix: /{_locale}/exercises
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true
 
 rank:
     resource: "@NCBundle/Resources/config/routing/rank.yml"
     prefix: /{_locale}/ranks
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true
 
 supply:
     resource: "@NCBundle/Resources/config/routing/supply.yml"
     prefix: /{_locale}/supplies
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true
 
 competition:
     resource: "@NCBundle/Resources/config/routing/competition.yml"
     prefix: /{_locale}/competitions
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true
 
 training_course:
     resource: "@NCBundle/Resources/config/routing/trainingCourse.yml"
     prefix: /{_locale}/training-courses
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true
 
 show:
     resource: "@NCBundle/Resources/config/routing/show.yml"
     prefix: /{_locale}/shows
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true
 
 club:
     resource: "@NCBundle/Resources/config/routing/club.yml"
     prefix: /{_locale}/clubs
     requirements:
         _locale: '%locales%'
+    defaults:
+        breadcrumb: true

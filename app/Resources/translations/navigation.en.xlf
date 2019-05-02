@@ -96,6 +96,51 @@
                 <source>menu.administration</source>
                 <target>Site administration</target>
             </trans-unit>
+            <!-- Breadcrumb -->
+            <trans-unit id="breadcrumb_homepage">
+                <source>breadcrumb.homepage</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_exercises">
+                <source>breadcrumb.exercises</source>
+                <target>Exercises</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_techniques">
+                <source>breadcrumb.techniques</source>
+                <target>Techniques</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_supplies">
+                <source>breadcrumb.supplies</source>
+                <target>Equipment</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_clubs">
+                <source>breadcrumb.clubs</source>
+                <target>Clubs</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_ranks">
+                <source>breadcrumb.ranks</source>
+                <target>Grading</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_competitions">
+                <source>breadcrumb.competitions</source>
+                <target>Competitions</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_shows">
+                <source>breadcrumb.shows</source>
+                <target>Public shows</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_training_courses">
+                <source>breadcrumb.training_courses</source>
+                <target>Training courses</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_news">
+                <source>breadcrumb.news</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb_medias">
+                <source>breadcrumb.medias</source>
+                <target>Medias</target>
+            </trans-unit>
             <!-- Titles -->
             <trans-unit id="h1_application_sonata_user_log_in">
                 <source>h1.application_sonata_user_log_in</source>
@@ -124,10 +169,6 @@
             <trans-unit id="h1_application_sonata_user_reset_password_reset">
                 <source>h1.application_sonata_user_reset_password_reset</source>
                 <target>Reset your password</target>
-            </trans-unit>
-            <trans-unit id="h1_application_sonata_gallery">
-                <source>h1.application_sonata_gallery</source>
-                <target>Picture/video galleries</target>
             </trans-unit>
         </body>
     </file>
