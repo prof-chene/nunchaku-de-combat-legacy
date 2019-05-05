@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\FormatterBundle\Form\Type\FormatterType;
 use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
@@ -63,7 +64,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
             ))
-            ->add('content', 'sonata_formatter_type', array(
+            ->add('content', FormatterType::class, array(
                 'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
                 'format_field' => 'contentFormatter',
                 'source_field' => 'rawContent',

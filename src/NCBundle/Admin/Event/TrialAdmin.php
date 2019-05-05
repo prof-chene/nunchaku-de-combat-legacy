@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\FormatterBundle\Form\Type\FormatterType;
 use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
@@ -62,7 +63,7 @@ class TrialAdmin extends AbstractAdmin
         $isHorizontal = $this->getConfigurationPool()->getOption('form_type') == 'horizontal';
         $formMapper
             ->add('name', 'text')
-            ->add('rules', 'sonata_formatter_type', array(
+            ->add('rules', FormatterType::class, array(
                 'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
                 'format_field' => 'rulesFormatter',
                 'source_field' => 'rawRules',

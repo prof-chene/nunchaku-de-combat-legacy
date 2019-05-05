@@ -1,3 +1,11 @@
+parameters:
+    sonata.user.admin.user.class: Application\Sonata\UserBundle\Admin\UserAdmin
+    sonata.classification.admin.collection.class: Application\Sonata\ClassificationBundle\Admin\CollectionAdmin
+    sonata.media.admin.gallery.class: Application\Sonata\MediaBundle\Admin\GalleryAdmin
+    sonata.media.admin.media.class: Application\Sonata\MediaBundle\Admin\MediaAdmin
+    sonata.news.admin.post.class: Application\Sonata\NewsBundle\Admin\PostAdmin
+
+
 doctrine:
     orm:
         entity_managers:
@@ -41,8 +49,17 @@ sonata_admin:
     options:
         form_type: ~
     assets:
+        extra_javascripts:
+            - bundles/fosckeditor/ckeditor.js
+            - bundles/sonataformatter/vendor/markitup-markitup/markitup/jquery.markitup.js
+            - bundles/sonataformatter/markitup/sets/markdown/set.js
+            - bundles/sonataformatter/markitup/sets/html/set.js
+            - bundles/sonataformatter/markitup/sets/textile/set.js
         extra_stylesheets:
-            - bundles/sonatatranslation/css/sonata-translation.css
+            - bundles/sonataformatter/markitup/skins/sonata/style.css
+            - bundles/sonataformatter/markitup/sets/markdown/style.css
+            - bundles/sonataformatter/markitup/sets/html/style.css
+            - bundles/sonataformatter/markitup/sets/textile/style.css
 sonata_news:
     title:        Nunchaku de Combat
     link:         https://nunchaku-de-combat.com

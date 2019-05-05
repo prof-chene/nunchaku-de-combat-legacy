@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\FormatterBundle\Form\Type\FormatterType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
@@ -39,7 +40,7 @@ class RankAdmin extends AbstractEditorialAdmin
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
             ))
-            ->add('content', 'sonata_formatter_type', array(
+            ->add('content', FormatterType::class, array(
                 'event_dispatcher' => $formMapper->getFormBuilder()->getEventDispatcher(),
                 'format_field' => 'contentFormatter',
                 'source_field' => 'rawContent',
