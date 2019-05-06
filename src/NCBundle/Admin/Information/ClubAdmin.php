@@ -6,9 +6,9 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\CoreBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\CoreBundle\Form\Type\DateTimePickerType;
+use Sonata\Form\Type\CollectionType;
 use Sonata\MediaBundle\Form\Type\MediaType;
 
 /**

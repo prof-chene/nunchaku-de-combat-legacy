@@ -6,7 +6,7 @@ use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\CoreBundle\Form\Type\CollectionType;
+use Sonata\Form\Type\CollectionType;
 
 /**
  * Class StyleAdmin
