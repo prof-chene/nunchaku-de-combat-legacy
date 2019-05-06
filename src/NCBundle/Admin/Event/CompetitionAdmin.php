@@ -3,6 +3,7 @@
 namespace NCBundle\Admin\Event;
 
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\Form\Type\CollectionType;
 
 /**
  * Class CompetitionAdmin
@@ -53,7 +54,7 @@ class CompetitionAdmin extends AbstractEventAdmin
         $formMapper
             ->tab('tab_trials')
             ->with('')
-            ->add('trials', 'sonata_type_collection', array(
+            ->add('trials', CollectionType::class, array(
                 'required' => false,
             ), array(
                 'edit' => 'inline',

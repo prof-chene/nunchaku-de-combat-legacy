@@ -7,7 +7,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\Form\Type\CollectionType;
+use Sonata\Form\Type\DateTimePickerType;
 use Sonata\FormatterBundle\Form\Type\FormatterType;
+use Sonata\MediaBundle\Form\Type\MediaType;
 
 /**
  * Class AbstractEventAdmin
@@ -54,7 +57,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                 'class' => 'col-md-8',
             ))
             ->add('title')
-            ->add('image', 'sonata_media_type', array(
+            ->add('image', MediaType::class, array(
                 'context' => 'event',
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
@@ -76,11 +79,11 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                 'class' => 'col-md-4',
             ))
             ->add('address')
-            ->add('startDate', 'sonata_type_datetime_picker', array(
+            ->add('startDate', DateTimePickerType::class, array(
                 'datepicker_use_button' => false,
                 'dp_default_date' => new \DateTime(),
             ))
-            ->add('endDate', 'sonata_type_datetime_picker', array(
+            ->add('endDate', DateTimePickerType::class, array(
                 'datepicker_use_button' => false,
                 'dp_default_date' => new \DateTime(),
             ))
@@ -92,7 +95,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
                 'multiple' => 'true',
                 'required' => false,
             ])
-            ->add('publicationDateStart', 'sonata_type_datetime_picker', array(
+            ->add('publicationDateStart', DateTimePickerType::class, array(
                 'datepicker_use_button' => false,
                 'dp_default_date' => new \DateTime(),
             ))
@@ -101,7 +104,7 @@ abstract class AbstractEventAdmin extends AbstractEditorialAdmin
             ->end()
             ->tab('tab_participants')
             ->with('')
-            ->add('participants', 'sonata_type_collection', array(
+            ->add('participants', CollectionType::class, array(
                 'required' => false,
             ), array(
                 'edit' => 'inline',

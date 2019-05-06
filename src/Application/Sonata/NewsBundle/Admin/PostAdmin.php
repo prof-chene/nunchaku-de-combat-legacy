@@ -14,6 +14,7 @@ class PostAdmin extends \Sonata\NewsBundle\Admin\PostAdmin
     {
         $filterMapper->add('id');
         parent::configureDatagridFilters($filterMapper);
+        $filterMapper->add('collection');
     }
 
     /**
@@ -23,5 +24,6 @@ class PostAdmin extends \Sonata\NewsBundle\Admin\PostAdmin
     {
         $listMapper->addIdentifier('id');
         parent::configureListFields($listMapper);
+        $listMapper->add('collection');
     }
 }

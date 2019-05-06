@@ -2,6 +2,7 @@
 
 namespace NCBundle\Entity\Technique;
 
+use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use NCBundle\Entity\AbstractEditorial;
@@ -16,6 +17,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Supply extends AbstractEditorial
 {
     /**
+     * @var Collection
+     *
+     * @Assert\Valid()
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\ClassificationBundle\Entity\Collection")
+     */
+    private $collection;
+    /**
      * @var ArrayCollection
      *
      * @Assert\Valid()
@@ -28,6 +37,26 @@ class Supply extends AbstractEditorial
     {
         parent::__construct();
         $this->exercises = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
+     * @param Collection $collection
+     *
+     * @return $this
+     */
+    public function setCollection($collection)
+    {
+        $this->collection = $collection;
+
+        return $this;
     }
 
     /**

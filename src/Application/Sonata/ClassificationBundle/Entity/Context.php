@@ -14,6 +14,9 @@ use Sonata\ClassificationBundle\Entity\BaseContext as BaseContext;
  */
 class Context extends BaseContext
 {
+    const EXERCISE_CONTEXT = 'exercise';
+    const TECHNIQUE_CONTEXT = 'technique';
+    const SUPPLY_CONTEXT = 'supply';
     /**
      * @var string
      *

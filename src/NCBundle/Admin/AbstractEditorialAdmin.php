@@ -7,8 +7,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\Form\Type\DateTimePickerType;
 use Sonata\FormatterBundle\Form\Type\FormatterType;
 use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
+use Sonata\MediaBundle\Form\Type\MediaType;
 
 /**
  * Class AbstractEditorialAdmin
@@ -59,7 +61,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
                 'class' => 'col-md-8',
             ))
             ->add('title')
-            ->add('image', 'sonata_media_type', array(
+            ->add('image', MediaType::class, array(
                 'context' => 'event',
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
@@ -72,7 +74,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
                     'horizontal_input_wrapper_class' => $isHorizontal ? 'col-lg-12' : '',
                     'attr' => array('class' => $isHorizontal ? 'span10 col-sm-10 col-md-10' : '', 'rows' => 20),
                 ),
-                'ckeditor_context' => 'event',
+                'ckeditor_context' => 'content',
                 'target_field' => 'content',
                 'listener' => true,
             ))
@@ -84,7 +86,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
                 'multiple' => 'true',
                 'required' => false,
             ])
-            ->add('publicationDateStart', 'sonata_type_datetime_picker', array(
+            ->add('publicationDateStart', DateTimePickerType::class, array(
                 'datepicker_use_button' => false,
                 'dp_default_date' => new \DateTime(),
             ))

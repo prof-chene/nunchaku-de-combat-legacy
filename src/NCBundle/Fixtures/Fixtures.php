@@ -121,7 +121,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $this->genders = $superadmin->getGenderList();
 
         // Contexts
-        $contextNames = ['news', 'club', 'event', 'exercise', 'technique'];
+        $contextNames = ['news', 'club', 'event', 'exercise', 'technique', 'supply'];
         foreach ($contextNames as $contextName) {
             $contexts[$contextName] = new Context();
             $contexts[$contextName]->setId(strtolower($contextName));
@@ -188,22 +188,25 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $userManager->save($users[$i], false);
             }
 
-            // Supplies
-            for ($i = ($loop * 2) + 1; $i <= ($loop * 2) + 2; $i++) {
-                $supplies[$i] = new Supply();
-                $supplies[$i]->setTitle('Supply '.$i);
-                $supplies[$i]->setPublicationDateStart(new \DateTime());
-                $supplies[$i]->setCreatedAt(new \DateTime());
-                $supplies[$i]->setUpdatedAt(new \DateTime());
-                $supplies[$i]->setEnabled(true);
-                $content = $this->randomTexts[array_rand($this->randomTexts)];
-                $supplies[$i]->setContentFormatter('richhtml');
-                $supplies[$i]->setRawContent($content);
-                $supplies[$i]->setContent($content);
-                $this->addRandomTags($supplies[$i]);
+            // Collection Supply
+            $supplyCollection = new Collection();
+            $supplyCollection->setEnabled(true);
+            $supplyCollection->setContext($this->contexts['supply']);
+            $supplyCollection->setName('Collection Supply '.($loop + 1));
+            $supplyCollection->setCreatedAt(new \DateTime());
+            $supplyCollection->setUpdatedAt(new \DateTime());
+            $supplyCollection->setDescription('Description Supply '.($loop + 1));
 
-                $manager->persist($supplies[$i]);
-            }
+            $supplyCollectionMedia = $mediaManager->create();
+            $supplyCollectionMedia->setContext('supply');
+            $supplyCollectionMedia->setCreatedAt(new \DateTime());
+            $supplyCollectionMedia->setUpdatedAt(new \DateTime());
+            $supplyCollectionMedia->setEnabled(true);
+            $supplyCollectionMedia->setProviderName('sonata.media.provider.image');
+            $supplyCollectionMedia->setBinaryContent($this->generateMediaContent('sonata.media.provider.image', 'SupplyCollection-'.($loop + 1)));
+            $supplyCollection->setMedia($supplyCollectionMedia);
+
+            $manager->persist($supplyCollection);
 
             // Collection Technique
             $techniqueCollection = new Collection();
@@ -244,6 +247,25 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             $exerciseCollection->setMedia($exerciseCollectionMedia);
 
             $manager->persist($exerciseCollection);
+
+            // Supplies
+            for ($i = ($loop * 2) + 1; $i <= ($loop * 2) + 2; $i++) {
+                $supplies[$i] = new Supply();
+                $supplies[$i]->setTitle('Supply '.$i);
+                $supplies[$i]->setPublicationDateStart(new \DateTime());
+                $supplies[$i]->setCreatedAt(new \DateTime());
+                $supplies[$i]->setUpdatedAt(new \DateTime());
+                $supplies[$i]->setEnabled(true);
+                $content = $this->randomTexts[array_rand($this->randomTexts)];
+                $supplies[$i]->setContentFormatter('richhtml');
+                $supplies[$i]->setRawContent($content);
+                $supplies[$i]->setContent($content);
+                $this->addRandomTags($supplies[$i]);
+
+                $supplies[$i]->setCollection($supplyCollection);
+
+                $manager->persist($supplies[$i]);
+            }
 
             // Techniques
             for ($i = ($loop * 10) + 1; $i <= ($loop * 10) + 10; $i++) {
