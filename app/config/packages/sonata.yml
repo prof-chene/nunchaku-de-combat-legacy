@@ -96,7 +96,7 @@ sonata_media:
             formats:
                 small:    { width: 150 , quality: 95}
                 big:      { width: 500 , quality: 90}
-                carousel: { height: 150 , quality: 90}
+                carousel: { width: 200 , height: 150 , quality: 90}
         club:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -108,7 +108,7 @@ sonata_media:
             formats:
                 small:    { width: 150 , quality: 95}
                 big:      { width: 500 , quality: 90}
-                carousel: { height: 150 , quality: 90}
+                carousel: { width: 200 , height: 150 , quality: 90}
         event:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -120,7 +120,7 @@ sonata_media:
             formats:
                 small:    { width: 150 , quality: 95}
                 big:      { width: 500 , quality: 90}
-                carousel: { height: 150 , quality: 90}
+                carousel: { width: 200 , height: 150 , quality: 90}
         exercise:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -132,7 +132,7 @@ sonata_media:
             formats:
                 small:    { width: 150 , quality: 95}
                 big:      { width: 500 , quality: 90}
-                carousel: { height: 150 , quality: 90}
+                carousel: { width: 200 , height: 150 , quality: 90}
         technique:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -144,7 +144,7 @@ sonata_media:
             formats:
                 small:    { width: 150 , quality: 95}
                 big:      { width: 500 , quality: 90}
-                carousel: { height: 150 , quality: 90}
+                carousel: { width: 200 , height: 150 , quality: 90}
         supply:
             download:
                 strategy: sonata.media.security.public_strategy
@@ -156,7 +156,7 @@ sonata_media:
             formats:
                 small:    { width: 150 , quality: 95}
                 big:      { width: 500 , quality: 90}
-                carousel: { height: 150 , quality: 90}
+                carousel: { width: 200 , height: 150 , quality: 90}
     cdn:
         server:
             path: /uploads/media

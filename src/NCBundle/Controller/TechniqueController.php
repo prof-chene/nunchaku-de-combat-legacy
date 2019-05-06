@@ -3,8 +3,10 @@
 namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
+use Application\Sonata\ClassificationBundle\Entity\Context;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 use NCBundle\Entity\Technique\Technique;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -23,10 +25,17 @@ class TechniqueController extends Controller
     public function indexAction()
     {
         $collections = $this->get('doctrine.orm.entity_manager')->getRepository(Collection::class)
-            ->findBy(
-                ['context' => 'technique', 'enabled' => true,],
-                ['id' => Criteria::ASC]
-            );
+            ->createQueryBuilder('collection')
+            ->andWhere('collection.context = :context')
+            ->setParameter('context', Context::TECHNIQUE_CONTEXT)
+            ->andWhere('collection.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->join(Technique::class, 'technique', Join::WITH, 'technique.collection = collection')
+            ->andWhere('technique.enabled = true')
+            ->andWhere('technique.publicationDateStart < CURRENT_TIMESTAMP()')
+            ->addOrderBy('collection.id', Criteria::ASC)
+            ->getQuery()
+            ->getResult();
 
         return ['collections' => $collections];
     }

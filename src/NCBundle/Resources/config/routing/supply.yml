@@ -1,6 +1,9 @@
 supply_home:
     path: /
     defaults: { _controller: NCBundle:Supply:index }
+supply_collection_view:
+    path: /{slug}/
+    defaults: { _controller: NCBundle:Supply:collectionView }
 supply_view:
     path: /view/{slug}/
     defaults: { _controller: NCBundle:Supply:view }

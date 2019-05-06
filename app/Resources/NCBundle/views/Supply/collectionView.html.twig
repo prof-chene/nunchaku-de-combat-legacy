@@ -1,0 +1,29 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    {% for supply in supplies %}
+        <div class="col-sm-12 list-group-item">
+            <div class="col-sm-3">
+                {% if supply.slug is not empty %}
+                    <a href="{{ url('supply_view', {'slug': supply.slug }) }}">
+                        {% thumbnail supply.image, 'small' with {'class': 'img-responsive center-block'} %}
+                    </a>
+                {% else %}
+                    {% thumbnail supply.image, 'small' with {'class': 'img-responsive center-block'} %}
+                {% endif %}
+            </div>
+            <div class="col-sm-9">
+                {% if supply.slug is not empty and supply.title is not empty %}
+                    <h2>
+                        <a href="{{ url('supply_view', {'slug': supply.slug }) }}">{{ supply.title }}</a>
+                    </h2>
+                {% endif %}
+                <ul class="list-unstyled">
+                    {% for tag in supply.tags if tag.enabled %}
+                        <li class="label label-primary">{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

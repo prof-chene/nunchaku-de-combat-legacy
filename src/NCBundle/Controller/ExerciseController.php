@@ -3,6 +3,7 @@
 namespace NCBundle\Controller;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
+use Application\Sonata\ClassificationBundle\Entity\Context;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
@@ -26,7 +27,7 @@ class ExerciseController extends Controller
         $collections = $this->get('doctrine.orm.entity_manager')->getRepository(Collection::class)
             ->createQueryBuilder('collection')
             ->andWhere('collection.context = :context')
-            ->setParameter('context', 'exercise')
+            ->setParameter('context', Context::EXERCISE_CONTEXT)
             ->andWhere('collection.enabled = :enabled')
             ->setParameter('enabled', true)
             ->join(Exercise::class, 'exercise', Join::WITH, 'exercise.collection = collection')

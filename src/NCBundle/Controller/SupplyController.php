@@ -2,8 +2,11 @@
 
 namespace NCBundle\Controller;
 
+use Application\Sonata\ClassificationBundle\Entity\Collection;
+use Application\Sonata\ClassificationBundle\Entity\Context;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 use NCBundle\Entity\Technique\Supply;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,15 +24,39 @@ class SupplyController extends Controller
      */
     public function indexAction()
     {
-        $supplies = $this->get('doctrine.orm.entity_manager')->getRepository(Supply::class)
-            ->createQueryBuilder('supply')
+        $collections = $this->get('doctrine.orm.entity_manager')->getRepository(Collection::class)
+            ->createQueryBuilder('collection')
+            ->andWhere('collection.context = :context')
+            ->setParameter('context', Context::SUPPLY_CONTEXT)
+            ->andWhere('collection.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->join(Supply::class, 'supply', Join::WITH, 'supply.collection = collection')
             ->andWhere('supply.enabled = true')
             ->andWhere('supply.publicationDateStart < CURRENT_TIMESTAMP()')
-            ->addOrderBy('supply.publicationDateStart', Criteria::DESC)
-            ->addOrderBy('supply.id')
-            ->getQuery()->getResult();
+            ->addOrderBy('collection.id', Criteria::ASC)
+            ->getQuery()
+            ->getResult();
 
-        return ['supplies' => $supplies];
+        return ['collections' => $collections];
+    }
+
+    /**
+     * @Template
+     *
+     * @param string $slug
+     *
+     * @return array
+     */
+    public function collectionViewAction($slug)
+    {
+        $supplies = $this->get('doctrine.orm.entity_manager')->getRepository(Supply::class)
+            ->findByCollectionSlug($slug);
+
+        if (empty($supplies)) {
+            throw new NotFoundHttpException('No result found');
+        }
+
+        return ['supplies' => $supplies,];
     }
 
     /**
