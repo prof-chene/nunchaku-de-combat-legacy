@@ -17,6 +17,7 @@ services:
             - '@sonata.classification.manager.collection'
             - '@NCBundle\Repository\Technique\ExerciseRepository'
             - '@NCBundle\Repository\Technique\TechniqueRepository'
+            - '@NCBundle\Repository\Technique\SupplyRepository'
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }

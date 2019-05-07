@@ -7,8 +7,10 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use NCBundle\Entity\Technique\Exercise;
+use NCBundle\Entity\Technique\Supply;
 use NCBundle\Entity\Technique\Technique;
 use NCBundle\Repository\Technique\ExerciseRepository;
+use NCBundle\Repository\Technique\SupplyRepository;
 use NCBundle\Repository\Technique\TechniqueRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\ClassificationBundle\Entity\CollectionManager;
@@ -76,6 +78,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @var TechniqueRepository
      */
     private $techniqueRepository;
+    /**
+     * @var SupplyRepository
+     */
+    private $supplyRepository;
 
     /**
      * Breadcrumb constructor.
@@ -89,6 +95,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @param CollectionManager     $collectionManager
      * @param ExerciseRepository    $exerciseRepository
      * @param TechniqueRepository   $techniqueRepository
+     * @param SupplyRepository      $suplyRepository
      */
     public function __construct(
         string $context,
@@ -99,7 +106,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         RequestStack $requestStack,
         CollectionManager $collectionManager,
         ExerciseRepository $exerciseRepository,
-        TechniqueRepository   $techniqueRepository
+        TechniqueRepository $techniqueRepository,
+        SupplyRepository $suplyRepository
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
 
@@ -107,6 +115,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         $this->collectionManager = $collectionManager;
         $this->exerciseRepository = $exerciseRepository;
         $this->techniqueRepository = $techniqueRepository;
+        $this->supplyRepository = $suplyRepository;
     }
 
     /**
@@ -288,80 +297,71 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                 }
 
                 break;
+
+            case 'breadcrumb.supplies':
+
+                $menu->addChild(
+                    'breadcrumb.supplies',
+                    [
+                        'route'           => 'supply_home',
+                        'routeAbsolute'   => true,
+                        'extras'          => ['translation_domain' => 'navigation'],
+                    ]
+                );
+
+                if ($this->isCurrentItem($menu['breadcrumb.supplies'], $currentRoute)) {
+                    return $menu;
+                }
+
+                /**
+                 * @var Collection[] $collections
+                 */
+                $collections = $this->collectionManager->findAll();
+
+                /**
+                 * @var Supply[] $supplies
+                 */
+                $supplies = $this->supplyRepository->findAll();
+
+                foreach ($collections as $collection) {
+                    // If this collection is the current route
+                    if (strtolower($currentRoute) === 'supply_collection_view' &&
+                        null !== $currentRouteAttributes->get('slug') &&
+                        $slug = strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                    ) {
+                        $menu->addChild(
+                            $collection->getName(),
+                            ['current' => true]
+                        );
+
+                        return $menu;
+                    }
+                }
+
+                foreach ($supplies as $supply) {
+                    // Else if this supply is the current route
+                    if (strtolower($currentRoute) === 'supply_view' &&
+                        null !== $currentRouteAttributes->get('slug') &&
+                        $slug = strtolower($supply->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                    ) {
+                        $menu->addChild($supply->getCollection()->getName(),
+                            [
+                                'route'           => 'supply_collection_view',
+                                'routeParameters' => ['slug' => $supply->getCollection()->getSlug()],
+                                'routeAbsolute'   => true,
+                            ]
+                        );
+                        $menu->addChild(
+                            $supply->getTitle(),
+                            ['current' => true]
+                        );
+
+                        return $menu;
+                    }
+                }
+
+                break;
         }
-//        $menu->addChild('menu.combinaisons',
-//            [
-//                'route'           => 'exercise_collection_view',
-//                'routeParameters' => ['slug' => 'combinaisons'],
-//                'routeAbsolute'   => true,
-//            ]);
-//        $menu['menu.curriculum']->addChild('menu.maniements',
-//            [
-//                'route'           => 'technique_collection_view',
-//                'routeParameters' => ['slug' => 'maniements'],
-//                'routeAbsolute'   => true,
-//            ]);
-//        $menu['menu.curriculum']->addChild('menu.attaques',
-//            [
-//                'route'           => 'technique_collection_view',
-//                'routeParameters' => ['slug' => 'attaques'],
-//                'routeAbsolute'   => true,
-//            ]);
-//        $menu['menu.curriculum']->addChild('menu.balayages',
-//            [
-//                'route'           => 'technique_collection_view',
-//                'routeParameters' => ['slug' => 'balayages'],
-//                'routeAbsolute'   => true,
-//            ]);
-//        $menu['menu.curriculum']->addChild('menu.gardes',
-//            [
-//                'route'           => 'technique_collection_view',
-//                'routeParameters' => ['slug' => 'gardes'],
-//                'routeAbsolute'   => true,
-//            ]);
-//
-//        // Training
-//        $menu->addChild('menu.training',
-//            [
-//                'linkAttributes' => [
-//                    'class'       => 'dropdown-toggle',
-//                    'data-toggle' => 'dropdown',
-//                ],
-//                'childrenAttributes' => [
-//                    'class'       => 'dropdown-menu',
-//                ],
-//            ]);
-//        $menu['menu.training']->addChild('menu.supplies', ['route' => 'supply_home', 'routeAbsolute' => true,]);
-//        $menu['menu.training']->addChild('menu.exercises', ['route' => 'exercise_home', 'routeAbsolute' => true,]);
-//        $menu['menu.training']->addChild('menu.clubs', ['route' => 'club_home', 'routeAbsolute' => true,]);
-//
-//        // Grading
-//        $menu->addChild(
-//            'menu.grading',
-//            [
-//                'route'           => 'rank_view_style',
-//                'routeParameters' => ['slug' => 'nunchaku-de-combat'],
-//                'routeAbsolute'   => true,
-//            ]
-//        );
-//
-//        // Events
-//        $menu->addChild('menu.events',
-//            [
-//                'linkAttributes' => [
-//                    'class'       => 'dropdown-toggle',
-//                    'data-toggle' => 'dropdown',
-//                ],
-//                'childrenAttributes' => [
-//                    'class'       => 'dropdown-menu',
-//                ],
-//            ]);
-//        $menu['menu.events']->addChild('menu.competitions', ['route' => 'competition_home', 'routeAbsolute' => true,]);
-//        $menu['menu.events']->addChild('menu.shows', ['route' => 'show_home', 'routeAbsolute' => true,]);
-//        $menu['menu.events']->addChild('menu.training_courses', ['route' => 'training_course_home', 'routeAbsolute' => true,]);
-//
-//        // Blog
-//        $menu->addChild('menu.blog', ['route' => 'application_sonata_news', 'routeAbsolute' => true,]);
 
         return $menu;
     }
