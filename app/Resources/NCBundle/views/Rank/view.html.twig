@@ -3,13 +3,13 @@
 {% block content %}
     <article>
         <header>
-            <h1>{{ rank.style.title }}</h1>
+            <h1>{{ rank.title }}</h1>
             <ul class="list-unstyled">
-                {% for tag in rank.style.tags if tag.enabled %}
+                {% for tag in rank.tags if tag.enabled %}
                     <li class="label label-primary">{{ tag.name }}</li>
                 {% endfor %}
             </ul>
-            {% media rank.style.image, 'reference' with {'class': 'img-responsive center-block'} %}
+            {% media rank.image, 'reference' with {'class': 'img-responsive center-block'} %}
         </header>
         <hr />
         <p class="post">
