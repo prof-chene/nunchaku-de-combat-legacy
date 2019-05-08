@@ -361,6 +361,20 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                 }
 
                 break;
+
+            case 'breadcrumb.clubs':
+
+                $menu->addChild(
+                    'breadcrumb.clubs',
+                    [
+                        'current' => true,
+                        'extras'  => ['translation_domain' => 'navigation'],
+                    ]
+                );
+
+                return $menu;
+
+                break;
         }
 
         return $menu;
