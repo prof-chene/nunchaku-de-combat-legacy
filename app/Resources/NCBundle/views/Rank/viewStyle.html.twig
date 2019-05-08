@@ -4,11 +4,7 @@
     <article>
         <header>
             <h1>{{ style.title }}</h1>
-            <ul class="list-unstyled">
-                {% for tag in style.tags if tag.enabled %}
-                    <li class="label label-primary">{{ tag.name }}</li>
-                {% endfor %}
-            </ul>
+            {% include '::tags.html.twig' with {'tags': style.tags} %}
         </header>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#presentation" aria-controls="presentation" role="tab" data-toggle="tab">{{ 'presentation'|trans|capitalize }}</a></li>

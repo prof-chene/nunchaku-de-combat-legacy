@@ -24,11 +24,7 @@
                                     <a href="{{ url('competition_view', {'slug': competition.0.slug}) }}">{{ competition.0.title }}</a>
                                 </h2>
                             {% endif %}
-                            <ul class="list-unstyled">
-                                {% for tag in competition.0.tags if tag.enabled %}
-                                    <li class="label label-primary">{{ tag.name }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% include '::tags.html.twig' with {'tags': competition.0.tags} %}
                             {% if competition.0.slug is not empty %}
                                 {% if competition.registered %}
                                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
@@ -71,11 +67,7 @@
                                     <a href="{{ url('competition_view', {'slug': competition.0.slug}) }}">{{ competition.0.title }}</a>
                                 </h2>
                             {% endif %}
-                            <ul class="list-unstyled">
-                                {% for tag in competition.0.tags if tag.enabled %}
-                                    <li class="label label-primary">{{ tag.name }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% include '::tags.html.twig' with {'tags': competition.0.tags} %}
                             <p>
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 {{ 'date_range'|trans({'%from%': competition.0.startDate|date('d/m/Y H:i', false), '%to%': competition.0.endDate|date('d/m/Y H:i', false)})|capitalize }}

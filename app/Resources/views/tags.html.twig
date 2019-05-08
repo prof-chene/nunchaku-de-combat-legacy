@@ -1,0 +1,7 @@
+{% if tags is iterable and tags|length > 0 %}
+    <ul class="list-unstyled">
+        {% for tag in tags if tag.enabled %}
+            <li class="label label-primary">{{ tag.name }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

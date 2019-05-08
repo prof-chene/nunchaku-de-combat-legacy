@@ -24,11 +24,7 @@
                                     <a href="{{ url('show_view', {'slug': show.0.slug}) }}">{{ show.0.title }}</a>
                                 </h2>
                             {% endif %}
-                            <ul class="list-unstyled">
-                                {% for tag in show.0.tags if tag.enabled %}
-                                    <li class="label label-primary">{{ tag.name }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% include '::tags.html.twig' with {'tags': show.0.tags} %}
                             {% if show.0.slug is not empty %}
                                 {% if show.registered %}
                                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
@@ -71,11 +67,7 @@
                                     <a href="{{ url('show_view', {'slug': show.0.slug}) }}">{{ show.0.title }}</a>
                                 </h2>
                             {% endif %}
-                            <ul class="list-unstyled">
-                                {% for tag in show.0.tags if tag.enabled %}
-                                    <li class="label label-primary">{{ tag.name }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% include '::tags.html.twig' with {'tags': show.0.tags} %}
                             <p>
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 {{ 'date_range'|trans({'%from%': show.0.startDate|date('d/m/Y H:i', false), '%to%': show.0.endDate|date('d/m/Y H:i', false)})|capitalize }}

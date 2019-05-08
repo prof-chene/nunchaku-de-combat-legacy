@@ -4,11 +4,7 @@
     <article>
         <header>
             <h1>{{ rank.title }}</h1>
-            <ul class="list-unstyled">
-                {% for tag in rank.tags if tag.enabled %}
-                    <li class="label label-primary">{{ tag.name }}</li>
-                {% endfor %}
-            </ul>
+            {% include '::tags.html.twig' with {'tags': rank.tags} %}
             {% media rank.image, 'reference' with {'class': 'img-responsive center-block'} %}
         </header>
         <hr />
@@ -27,11 +23,7 @@
                                 <span class="badge pull-right">{{ rankRequirement.points }} {{ 'points'|trans }}</span>
                             </h2>
                         {% endif %}
-                        <ul class="list-unstyled">
-                            {% for tag in rankRequirement.exercise.tags if tag.enabled %}
-                                <li class="label label-primary">{{ tag.name }}</li>
-                            {% endfor %}
-                        </ul>
+                        {% include '::tags.html.twig' with {'tags': rankRequirement.exercise.tags} %}
                         <p>
                             {{ rankRequirement.exercise.content|raw }}<hr /><strong>{{ rankRequirement.detail }}</strong>
                         </p>

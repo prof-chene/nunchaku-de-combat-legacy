@@ -26,11 +26,7 @@
                             <a href="{{ url('technique_view', {'slug': technique.slug }) }}">{{ technique.title }}</a>
                         </h2>
                     {% endif %}
-                    <ul class="list-unstyled">
-                        {% for tag in technique.tags if tag.enabled %}
-                            <li class="label label-primary">{{ tag.name }}</li>
-                        {% endfor %}
-                    </ul>
+                    {% include '::tags.html.twig' with {'tags': technique.tags} %}
                     <ul class="list-unstyled">
                         {% for techniqueExecution in technique.techniqueExecutions if techniqueExecution.exercise.slug is not empty and techniqueExecution.exercise.title is not empty %}
                             <li><a href="{{ url('exercise_view', {'slug': techniqueExecution.exercise.slug}) }}">{{ techniqueExecution.exercise.title }}</a></li>

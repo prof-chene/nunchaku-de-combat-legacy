@@ -6,11 +6,7 @@
             <h1>
                 {{ competition.0.title }}
             </h1>
-            <ul class="list-unstyled">
-                {% for tag in competition.0.tags if tag.enabled %}
-                    <li class="label label-primary">{{ tag.name }}</li>
-                {% endfor %}
-            </ul>
+            {% include '::tags.html.twig' with {'tags': competition.0.tags} %}
             {% if not competition.finished and competition.0.slug is not empty %}
                 {% if competition.registered %}
                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>

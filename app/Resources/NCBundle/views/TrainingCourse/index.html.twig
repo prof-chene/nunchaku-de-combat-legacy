@@ -24,11 +24,7 @@
                                     <a href="{{ url('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
                                 </h2>
                             {% endif %}
-                            <ul class="list-unstyled">
-                                {% for tag in trainingCourse.0.tags if tag.enabled %}
-                                    <li class="label label-primary">{{ tag.name }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% include '::tags.html.twig' with {'tags': trainingCourse.0.tags} %}
                             {% if trainingCourse.0.slug is not empty %}
                                 {% if trainingCourse.registered %}
                                     <span class="text-success"><span class="glyphicon glyphicon-ok"></span> {{ 'already_registered'|trans|capitalize }}</span>
@@ -71,11 +67,7 @@
                                     <a href="{{ url('training_course_view', {'slug': trainingCourse.0.slug}) }}">{{ trainingCourse.0.title }}</a>
                                 </h2>
                             {% endif %}
-                            <ul class="list-unstyled">
-                                {% for tag in trainingCourse.0.tags if tag.enabled %}
-                                    <li class="label label-primary">{{ tag.name }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% include '::tags.html.twig' with {'tags': trainingCourse.0.tags} %}
                             <p>
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 {{ 'date_range'|trans({'%from%': trainingCourse.0.startDate|date('d/m/Y H:i', false), '%to%': trainingCourse.0.endDate|date('d/m/Y H:i', false)})|capitalize }}

@@ -4,11 +4,7 @@
     <article>
         <header>
             <h1>{{ post.title }}</h1>
-            <ul class="list-unstyled">
-                {% for tag in post.tags if tag.enabled %}
-                    <li class="label label-primary">{{ tag.name }}</li>
-                {% endfor %}
-            </ul>
+            {% include '::tags.html.twig' with {'tags': post.tags} %}
             <p>
                 <small>{{ 'by'|trans|capitalize }} <strong>{{ post.author }} |</strong> {{ 'published_on'|trans|capitalize }} <strong>{{ post.publicationDateStart|format_datetime }} |</strong> {{ 'updated_on'|trans|capitalize }} <strong>{{ post.updatedAt|format_datetime }}</strong></small>
             </p>

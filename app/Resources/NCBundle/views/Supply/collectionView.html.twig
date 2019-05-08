@@ -18,11 +18,7 @@
                         <a href="{{ url('supply_view', {'slug': supply.slug }) }}">{{ supply.title }}</a>
                     </h2>
                 {% endif %}
-                <ul class="list-unstyled">
-                    {% for tag in supply.tags if tag.enabled %}
-                        <li class="label label-primary">{{ tag.name }}</li>
-                    {% endfor %}
-                </ul>
+                {% include '::tags.html.twig' with {'tags': supply.tags} %}
             </div>
         </div>
     {% endfor %}

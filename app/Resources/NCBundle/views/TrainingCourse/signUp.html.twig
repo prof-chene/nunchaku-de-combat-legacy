@@ -4,11 +4,7 @@
     <article>
         <header>
             <h1>{{ trainingCourse.title }}</h1>
-            <ul class="list-unstyled">
-                {% for tag in trainingCourse.tags if tag.enabled %}
-                    <li class="label label-primary">{{ tag.name }}</li>
-                {% endfor %}
-            </ul>
+            {% include '::tags.html.twig' with {'tags': trainingCourse.tags} %}
             {% media trainingCourse.image, 'reference' with {'class': 'img-responsive center-block'} %}
             <p>
                 <span class="glyphicon glyphicon-calendar"></span>
