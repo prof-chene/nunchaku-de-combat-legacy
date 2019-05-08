@@ -18,6 +18,7 @@ services:
             - '@NCBundle\Repository\Technique\ExerciseRepository'
             - '@NCBundle\Repository\Technique\TechniqueRepository'
             - '@NCBundle\Repository\Technique\SupplyRepository'
+            - '@NCBundle\Repository\Technique\StyleRepository'
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }

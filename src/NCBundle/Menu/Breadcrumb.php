@@ -7,9 +7,12 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use NCBundle\Entity\Technique\Exercise;
+use NCBundle\Entity\Technique\Rank;
+use NCBundle\Entity\Technique\Style;
 use NCBundle\Entity\Technique\Supply;
 use NCBundle\Entity\Technique\Technique;
 use NCBundle\Repository\Technique\ExerciseRepository;
+use NCBundle\Repository\Technique\StyleRepository;
 use NCBundle\Repository\Technique\SupplyRepository;
 use NCBundle\Repository\Technique\TechniqueRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -82,6 +85,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @var SupplyRepository
      */
     private $supplyRepository;
+    /**
+     * @var StyleRepository
+     */
+    private $styleRepository;
 
     /**
      * Breadcrumb constructor.
@@ -96,6 +103,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @param ExerciseRepository    $exerciseRepository
      * @param TechniqueRepository   $techniqueRepository
      * @param SupplyRepository      $suplyRepository
+     * @param StyleRepository       $styleRepository
      */
     public function __construct(
         string $context,
@@ -107,7 +115,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         CollectionManager $collectionManager,
         ExerciseRepository $exerciseRepository,
         TechniqueRepository $techniqueRepository,
-        SupplyRepository $suplyRepository
+        SupplyRepository $suplyRepository,
+        StyleRepository $styleRepository
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
 
@@ -116,6 +125,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         $this->exerciseRepository = $exerciseRepository;
         $this->techniqueRepository = $techniqueRepository;
         $this->supplyRepository = $suplyRepository;
+        $this->styleRepository = $styleRepository;
     }
 
     /**
@@ -199,7 +209,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     // If this collection is the current route
                     if (strtolower($currentRoute) === 'exercise_collection_view' &&
                         null !== $currentRouteAttributes->get('slug') &&
-                        $slug = strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                        strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
                     ) {
                         $menu->addChild(
                             $collection->getName(),
@@ -214,7 +224,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     // Else if this exercise is the current route
                     if (strtolower($currentRoute) === 'exercise_view' &&
                         null !== $currentRouteAttributes->get('slug') &&
-                        $slug = strtolower($exercise->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                        strtolower($exercise->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
                     ) {
                         $menu->addChild($exercise->getCollection()->getName(),
                             [
@@ -263,7 +273,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     // If this collection is the current route
                     if (strtolower($currentRoute) === 'technique_collection_view' &&
                         null !== $currentRouteAttributes->get('slug') &&
-                        $slug = strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                        strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
                     ) {
                         $menu->addChild(
                             $collection->getName(),
@@ -278,7 +288,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     // Else if this technique is the current route
                     if (strtolower($currentRoute) === 'technique_view' &&
                         null !== $currentRouteAttributes->get('slug') &&
-                        $slug = strtolower($technique->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                        strtolower($technique->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
                     ) {
                         $menu->addChild($technique->getCollection()->getName(),
                             [
@@ -327,7 +337,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     // If this collection is the current route
                     if (strtolower($currentRoute) === 'supply_collection_view' &&
                         null !== $currentRouteAttributes->get('slug') &&
-                        $slug = strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                        strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
                     ) {
                         $menu->addChild(
                             $collection->getName(),
@@ -342,7 +352,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     // Else if this supply is the current route
                     if (strtolower($currentRoute) === 'supply_view' &&
                         null !== $currentRouteAttributes->get('slug') &&
-                        $slug = strtolower($supply->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                        strtolower($supply->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
                     ) {
                         $menu->addChild($supply->getCollection()->getName(),
                             [
@@ -375,6 +385,71 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                 return $menu;
 
                 break;
+
+            case 'breadcrumb.ranks':
+
+                $menu->addChild(
+                    'breadcrumb.ranks',
+                    [
+                        'route'           => 'rank_home',
+                        'routeAbsolute'   => true,
+                        'extras'          => ['translation_domain' => 'navigation'],
+                    ]
+                );
+
+                if ($this->isCurrentItem($menu['breadcrumb.ranks'], $currentRoute)) {
+                    return $menu;
+                }
+
+                /**
+                 * @var Style[] $styles
+                 */
+                $styles = $this->styleRepository->findAll();
+
+                foreach ($styles as $style) {
+                    // If this style is the current route
+                    if (strtolower($currentRoute) === 'rank_view_style' &&
+                        null !== $currentRouteAttributes->get('slug') &&
+                        strtolower($style->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
+                    ) {
+                        $menu->addChild(
+                            $style->getTitle(),
+                            ['current' => true]
+                        );
+
+                        return $menu;
+                    }
+
+                    // If one of this style's ranks is the current route
+                    if (strtolower($currentRoute) === 'rank_view' &&
+                        null !== $currentRouteAttributes->get('styleSlug') &&
+                        strtolower($style->getSlug()) === strtolower($currentRouteAttributes->get('styleSlug'))
+                    ) {
+                        $menu->addChild($style->getTitle(),
+                            [
+                                'route'           => 'rank_view_style',
+                                'routeParameters' => ['slug' => $style->getSlug()],
+                                'routeAbsolute'   => true,
+                            ]
+                        );
+
+                        /**
+                         * @var Rank $rank
+                         */
+                        foreach ($style->getRanks() as $rank) {
+                            if (null !== $currentRouteAttributes->get('rankSlug') &&
+                                $rank->getSlug() === $currentRouteAttributes->get('rankSlug')
+                            ) {
+                                $menu->addChild(
+                                    $rank->getTitle(),
+                                    ['current' => true]
+                                );
+
+                                return $menu;
+                            }
+                        }
+                    }
+                }
         }
 
         return $menu;
