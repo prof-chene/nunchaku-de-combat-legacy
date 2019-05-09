@@ -22,7 +22,7 @@
                                 {% if app.request.locale == locale %}
                                     {% set url = '#' %}
                                 {% else %}
-                                    {% set route = app.request.attributes.get('_route') == 'homepage' ? 'homepage_localized' : app.request.attributes.get('_route') %}
+                                    {% set route = app.request.attributes.get('_route') %}
                                     {% set routeParams = app.request.attributes.get('_route_params')|merge({ '_locale': locale }) %}
                                     {% set url = url(route, routeParams) %}
                                 {% endif %}

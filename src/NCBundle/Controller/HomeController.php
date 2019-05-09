@@ -21,12 +21,6 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        /* This redirects https://mydomain.com/DEFAULT_LOCALE to https://mydomain.com to have a prettier homepage url
-           and avoid duplicate-content */
-        if ($request->attributes->get('_locale') === $this->getParameter('locale')) {
-            return $this->redirectToRoute('homepage', [], 301);
-        }
-
         return array();
     }
 }

@@ -33,7 +33,7 @@ class AuthenticationListener implements LogoutSuccessHandlerInterface
     public function onLogoutSuccess(Request $request)
     {
         return new RedirectResponse(
-            $this->router->generate('homepage_localized', ['_locale' => $request->getLocale()])
+            $this->router->generate('homepage', ['_locale' => $request->getLocale()])
         );
     }
 }

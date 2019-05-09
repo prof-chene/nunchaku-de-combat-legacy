@@ -163,7 +163,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         $menu->addChild(
             'breadcrumb.homepage',
             [
-                'route'           => 'homepage_localized',
+                'route'           => 'homepage',
                 'routeAbsolute'   => true,
                 'extras'          => ['translation_domain' => 'navigation'],
             ]
