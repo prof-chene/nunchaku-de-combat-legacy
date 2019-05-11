@@ -14,11 +14,13 @@ services:
             - '@knp_menu.menu_provider'
             - '@knp_menu.factory'
             - '@request_stack'
+            - 'routing_hierarchy.yml'
             - '@sonata.classification.manager.collection'
             - '@NCBundle\Repository\Technique\ExerciseRepository'
             - '@NCBundle\Repository\Technique\TechniqueRepository'
             - '@NCBundle\Repository\Technique\SupplyRepository'
             - '@NCBundle\Repository\Technique\StyleRepository'
+            - '@NCBundle\Repository\Technique\RankRepository'
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }

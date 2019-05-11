@@ -3,8 +3,8 @@
 namespace NCBundle\Menu;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
+use Application\Sonata\ClassificationBundle\Entity\Context;
 use Knp\Menu\FactoryInterface;
-use Knp\Menu\ItemInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use NCBundle\Entity\Technique\Exercise;
 use NCBundle\Entity\Technique\Rank;
@@ -12,6 +12,7 @@ use NCBundle\Entity\Technique\Style;
 use NCBundle\Entity\Technique\Supply;
 use NCBundle\Entity\Technique\Technique;
 use NCBundle\Repository\Technique\ExerciseRepository;
+use NCBundle\Repository\Technique\RankRepository;
 use NCBundle\Repository\Technique\StyleRepository;
 use NCBundle\Repository\Technique\SupplyRepository;
 use NCBundle\Repository\Technique\TechniqueRepository;
@@ -21,54 +22,26 @@ use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Builder
  */
 class Breadcrumb extends BaseBreadcrumbMenuBlockService
 {
-    const ROUTING_MAPPING = [
-        'breadcrumb.homepage' => [
-            'homepage',
-        ],
-        'breadcrumb.exercises' => [
-            'exercise'
-        ],
-        'breadcrumb.techniques' => [
-            'technique'
-        ],
-        'breadcrumb.supplies' => [
-            'supply'
-        ],
-        'breadcrumb.clubs' => [
-            'club'
-        ],
-        'breadcrumb.ranks' => [
-            'rank'
-        ],
-        'breadcrumb.competitions' => [
-            'competition'
-        ],
-        'breadcrumb.shows' => [
-            'show'
-        ],
-        'breadcrumb.training_courses' => [
-            'training_course'
-        ],
-        'breadcrumb.news' => [
-            'application_sonata_news',
-            'sonata_news',
-        ],
-        'breadcrumb.medias' => [
-            'application_sonata_gallery',
-            'application_sonata_media',
-            'sonata_media',
-        ],
-    ];
+    const BUNDLE_CONFIG_DIR = __DIR__.'/../Resources/config/';
     /**
-     * @var RequestStack
+     * @var string
      */
-    private $requestStack;
+    private $currentRoute;
+    /**
+     * @var array
+     */
+    private $currentRouteAttributes;
+    /**
+     * @var array
+     */
+    private $routingTree;
     /**
      * @var CollectionManager
      */
@@ -89,6 +62,14 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @var StyleRepository
      */
     private $styleRepository;
+    /**
+     * @var RankRepository
+     */
+    private $rankRepository;
+    /**
+     * @var object|null
+     */
+    private $currentEntity = null;
 
     /**
      * Breadcrumb constructor.
@@ -99,11 +80,13 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @param MenuProviderInterface $menuProvider
      * @param FactoryInterface      $factory
      * @param RequestStack          $requestStack
+     * @param string                $routingTreeFile
      * @param CollectionManager     $collectionManager
      * @param ExerciseRepository    $exerciseRepository
      * @param TechniqueRepository   $techniqueRepository
      * @param SupplyRepository      $suplyRepository
      * @param StyleRepository       $styleRepository
+     * @param RankRepository        $rankRepository
      */
     public function __construct(
         string $context,
@@ -112,20 +95,27 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         MenuProviderInterface $menuProvider,
         FactoryInterface $factory,
         RequestStack $requestStack,
+        string $routingTreeFile,
         CollectionManager $collectionManager,
         ExerciseRepository $exerciseRepository,
         TechniqueRepository $techniqueRepository,
         SupplyRepository $suplyRepository,
-        StyleRepository $styleRepository
+        StyleRepository $styleRepository,
+        RankRepository $rankRepository
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
 
-        $this->requestStack = $requestStack;
+        $this->currentRoute = $requestStack->getCurrentRequest()->get('_route');
+        $this->currentRouteAttributes = $requestStack->getCurrentRequest()->attributes->all();
+
+        $this->routingTree = Yaml::parseFile(self::BUNDLE_CONFIG_DIR.$routingTreeFile);
+
         $this->collectionManager = $collectionManager;
         $this->exerciseRepository = $exerciseRepository;
         $this->techniqueRepository = $techniqueRepository;
         $this->supplyRepository = $suplyRepository;
         $this->styleRepository = $styleRepository;
+        $this->rankRepository = $rankRepository;
     }
 
     /**
@@ -157,319 +147,103 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
     {
         $menu = $this->getRootMenu($blockContext);
 
-        // currentUri is not supported in Knp\Menu\MenuItem, so we have to inject it
-        $currentRoute = $this->requestStack->getCurrentRequest()->get('_route');
-        $currentRouteAttributes = $this->requestStack->getCurrentRequest()->attributes;
-        $menu->addChild(
-            'breadcrumb.homepage',
-            [
-                'route'           => 'homepage',
-                'routeAbsolute'   => true,
-                'extras'          => ['translation_domain' => 'navigation'],
-            ]
-        );
+        // /!\ THIS IS AN UGLY HACK /!\
+        // TODO REMOVE THIS WHEN BUMPING PHP TO >= 7.3
+        if (! function_exists('array_key_last')) {
+            function array_key_last($array) {
+                if (!is_array($array) || empty($array)) {
+                    return NULL;
+                }
 
-        if ($this->isCurrentItem($menu['breadcrumb.homepage'], $currentRoute)) {
-            return $menu;
+                return array_keys($array)[count($array)-1];
+            }
         }
 
-        $childName = $this->getChildNameFromRoute($currentRoute);
+        $breadcrumbTree = $this->getBreadcrumbTree($this->currentRoute, $this->routingTree);
 
-        if (empty($childName)) {
-            return $menu;
-        }
+        foreach ($breadcrumbTree as $route => $breadcrumbName) {
+            $translateBreadcrumbName = !empty($breadcrumbName);
 
-        switch (strtolower($childName)) {
-            case 'breadcrumb.exercises':
+            if (empty($breadcrumbName)) {
+                $breadcrumbName = $this->getBreadcrumbName($route);
+            }
 
-                $menu->addChild(
-                    'breadcrumb.exercises',
-                    [
-                        'route'           => 'exercise_home',
-                        'routeAbsolute'   => true,
-                        'extras'          => ['translation_domain' => 'navigation'],
-                    ]
-                );
+            // Skip this breadcrumb if something mandatory is missing
+            if ($this->mustSkipBreadcrumb($route, $breadcrumbName)) {
+                continue;
+            }
 
-                if ($this->isCurrentItem($menu['breadcrumb.exercises'], $currentRoute)) {
-                    return $menu;
-                }
+            $breadcrumbOptions = $this->getBreadcrumbOptions(
+                $route,
+                $route === array_key_last($breadcrumbTree),
+                $translateBreadcrumbName
+            );
 
-                /**
-                 * @var Collection[] $collections
-                 */
-                $collections = $this->collectionManager->findAll();
-
-                /**
-                 * @var Exercise[] $exercises
-                 */
-                $exercises = $this->exerciseRepository->findAll();
-
-                foreach ($collections as $collection) {
-                    // If this collection is the current route
-                    if (strtolower($currentRoute) === 'exercise_collection_view' &&
-                        null !== $currentRouteAttributes->get('slug') &&
-                        strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
-                    ) {
-                        $menu->addChild(
-                            $collection->getName(),
-                            ['current' => true]
-                        );
-
-                        return $menu;
-                    }
-                }
-
-                foreach ($exercises as $exercise) {
-                    // Else if this exercise is the current route
-                    if (strtolower($currentRoute) === 'exercise_view' &&
-                        null !== $currentRouteAttributes->get('slug') &&
-                        strtolower($exercise->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
-                    ) {
-                        $menu->addChild($exercise->getCollection()->getName(),
-                            [
-                                'route'           => 'exercise_collection_view',
-                                'routeParameters' => ['slug' => $exercise->getCollection()->getSlug()],
-                                'routeAbsolute'   => true,
-                            ]
-                        );
-                        $menu->addChild(
-                            $exercise->getTitle(),
-                            ['current' => true]
-                        );
-
-                        return $menu;
-                    }
-                }
-
-                break;
-
-            case 'breadcrumb.techniques':
-
-                $menu->addChild(
-                    'breadcrumb.techniques',
-                    [
-                        'route'           => 'technique_home',
-                        'routeAbsolute'   => true,
-                        'extras'          => ['translation_domain' => 'navigation'],
-                    ]
-                );
-
-                if ($this->isCurrentItem($menu['breadcrumb.techniques'], $currentRoute)) {
-                    return $menu;
-                }
-
-                /**
-                 * @var Collection[] $collections
-                 */
-                $collections = $this->collectionManager->findAll();
-
-                /**
-                 * @var Technique[] $techniques
-                 */
-                $techniques = $this->techniqueRepository->findAll();
-
-                foreach ($collections as $collection) {
-                    // If this collection is the current route
-                    if (strtolower($currentRoute) === 'technique_collection_view' &&
-                        null !== $currentRouteAttributes->get('slug') &&
-                        strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
-                    ) {
-                        $menu->addChild(
-                            $collection->getName(),
-                            ['current' => true]
-                        );
-
-                        return $menu;
-                    }
-                }
-
-                foreach ($techniques as $technique) {
-                    // Else if this technique is the current route
-                    if (strtolower($currentRoute) === 'technique_view' &&
-                        null !== $currentRouteAttributes->get('slug') &&
-                        strtolower($technique->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
-                    ) {
-                        $menu->addChild($technique->getCollection()->getName(),
-                            [
-                                'route'           => 'technique_collection_view',
-                                'routeParameters' => ['slug' => $technique->getCollection()->getSlug()],
-                                'routeAbsolute'   => true,
-                            ]
-                        );
-                        $menu->addChild(
-                            $technique->getTitle(),
-                            ['current' => true]
-                        );
-
-                        return $menu;
-                    }
-                }
-
-                break;
-
-            case 'breadcrumb.supplies':
-
-                $menu->addChild(
-                    'breadcrumb.supplies',
-                    [
-                        'route'           => 'supply_home',
-                        'routeAbsolute'   => true,
-                        'extras'          => ['translation_domain' => 'navigation'],
-                    ]
-                );
-
-                if ($this->isCurrentItem($menu['breadcrumb.supplies'], $currentRoute)) {
-                    return $menu;
-                }
-
-                /**
-                 * @var Collection[] $collections
-                 */
-                $collections = $this->collectionManager->findAll();
-
-                /**
-                 * @var Supply[] $supplies
-                 */
-                $supplies = $this->supplyRepository->findAll();
-
-                foreach ($collections as $collection) {
-                    // If this collection is the current route
-                    if (strtolower($currentRoute) === 'supply_collection_view' &&
-                        null !== $currentRouteAttributes->get('slug') &&
-                        strtolower($collection->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
-                    ) {
-                        $menu->addChild(
-                            $collection->getName(),
-                            ['current' => true]
-                        );
-
-                        return $menu;
-                    }
-                }
-
-                foreach ($supplies as $supply) {
-                    // Else if this supply is the current route
-                    if (strtolower($currentRoute) === 'supply_view' &&
-                        null !== $currentRouteAttributes->get('slug') &&
-                        strtolower($supply->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
-                    ) {
-                        $menu->addChild($supply->getCollection()->getName(),
-                            [
-                                'route'           => 'supply_collection_view',
-                                'routeParameters' => ['slug' => $supply->getCollection()->getSlug()],
-                                'routeAbsolute'   => true,
-                            ]
-                        );
-                        $menu->addChild(
-                            $supply->getTitle(),
-                            ['current' => true]
-                        );
-
-                        return $menu;
-                    }
-                }
-
-                break;
-
-            case 'breadcrumb.clubs':
-
-                $menu->addChild(
-                    'breadcrumb.clubs',
-                    [
-                        'current' => true,
-                        'extras'  => ['translation_domain' => 'navigation'],
-                    ]
-                );
-
-                return $menu;
-
-                break;
-
-            case 'breadcrumb.ranks':
-
-                $menu->addChild(
-                    'breadcrumb.ranks',
-                    [
-                        'route'           => 'rank_home',
-                        'routeAbsolute'   => true,
-                        'extras'          => ['translation_domain' => 'navigation'],
-                    ]
-                );
-
-                if ($this->isCurrentItem($menu['breadcrumb.ranks'], $currentRoute)) {
-                    return $menu;
-                }
-
-                /**
-                 * @var Style[] $styles
-                 */
-                $styles = $this->styleRepository->findAll();
-
-                foreach ($styles as $style) {
-                    // If this style is the current route
-                    if (strtolower($currentRoute) === 'rank_view_style' &&
-                        null !== $currentRouteAttributes->get('slug') &&
-                        strtolower($style->getSlug()) === strtolower($currentRouteAttributes->get('slug'))
-                    ) {
-                        $menu->addChild(
-                            $style->getTitle(),
-                            ['current' => true]
-                        );
-
-                        return $menu;
-                    }
-
-                    // If one of this style's ranks is the current route
-                    if (strtolower($currentRoute) === 'rank_view' &&
-                        null !== $currentRouteAttributes->get('styleSlug') &&
-                        strtolower($style->getSlug()) === strtolower($currentRouteAttributes->get('styleSlug'))
-                    ) {
-                        $menu->addChild($style->getTitle(),
-                            [
-                                'route'           => 'rank_view_style',
-                                'routeParameters' => ['slug' => $style->getSlug()],
-                                'routeAbsolute'   => true,
-                            ]
-                        );
-
-                        /**
-                         * @var Rank $rank
-                         */
-                        foreach ($style->getRanks() as $rank) {
-                            if (null !== $currentRouteAttributes->get('rankSlug') &&
-                                $rank->getSlug() === $currentRouteAttributes->get('rankSlug')
-                            ) {
-                                $menu->addChild(
-                                    $rank->getTitle(),
-                                    ['current' => true]
-                                );
-
-                                return $menu;
-                            }
-                        }
-                    }
-                }
+            $menu->addChild($breadcrumbName, $breadcrumbOptions);
         }
 
         return $menu;
     }
+    /**
+     * @param string $route
+     * @param array  $routingTree
+     * @param array  $breadcrumbTree
+     *
+     * @return array
+     */
+    private function getBreadcrumbTree(string $route, array $routingTree, array $breadcrumbTree = [])
+    {
+        foreach ($routingTree as $branchName => $routeBranch) {
+            $breadcrumbTree[$branchName] = isset($routeBranch['label']) ? 'breadcrumb.'.$routeBranch['label'] : null;
+
+            if ($branchName === $route) {
+                return $breadcrumbTree;
+            }
+
+            if (is_array($routeBranch) &&
+                isset($routeBranch['children']) &&
+                is_array($routeBranch['children']) &&
+                !empty($routeBranch['children'])
+            ) {
+                $finalPrunedRoutingTree = $this->getBreadcrumbTree($route, $routeBranch['children'], $breadcrumbTree);
+                if (!empty($finalPrunedRoutingTree)) {
+                    return $finalPrunedRoutingTree;
+                }
+            }
+
+            unset($breadcrumbTree[$branchName]);
+        }
+
+        return [];
+    }
 
     /**
-     * @param ItemInterface $item
-     * @param string        $currentRoute
+     * @param string $route
+     * @param string $breadcrumbName
      *
      * @return bool
      */
-    private function isCurrentItem(ItemInterface $item, string $currentRoute)
+    private function mustSkipBreadcrumb(string $route, string $breadcrumbName = '')
     {
-        if (isset($item->getExtras()['routes'][0]['route']) &&
-            strtolower($currentRoute) === strtolower($item->getExtras()['routes'][0]['route'])
-        ) {
-            $item->setUri(null);
-            $item->setCurrent(true);
-
+        if (empty($breadcrumbName)) {
+            $breadcrumbName = $this->getBreadcrumbName($route);
+        }
+        if (empty($breadcrumbName)) {
             return true;
+        }
+
+        switch (strtolower($route)) {
+            case 'exercise_collection_view':
+            case 'technique_collection_view':
+            case 'supply_collection_view':
+            case 'exercise_view':
+            case 'technique_view':
+            case 'supply_view':
+            case 'rank_view':
+                if (empty($this->guessRouteParameters($route))) {
+                    return true;
+                }
+                break;
         }
 
         return false;
@@ -478,18 +252,184 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
     /**
      * @param string $route
      *
-     * @return string|null
+     * @return string
      */
-    private function getChildNameFromRoute($route)
+    private function getBreadcrumbName(string $route)
     {
-        foreach (self::ROUTING_MAPPING as $childName => $routeStarts) {
-            foreach ($routeStarts as $routeStart) {
-                if (strpos(strtolower($route), $routeStart) === 0) {
-                    return $childName;
+        switch (strtolower($route)) {
+            case 'exercise_collection_view':
+            case 'technique_collection_view':
+            case 'supply_collection_view':
+                if ($this->findCurrentEntity() instanceof Collection) {
+                    return $this->findCurrentEntity()->getName();
                 }
+                if (method_exists($this->findCurrentEntity(), 'getCollection') &&
+                    $this->findCurrentEntity()->getCollection() instanceof Collection
+                ) {
+                    return $this->findCurrentEntity()->getCollection()->getName();
+                }
+                break;
+
+            case 'rank_view_style':
+                if ($this->findCurrentEntity() instanceof Style) {
+                    return $this->findCurrentEntity()->getTitle();
+                }
+                if ($this->findCurrentEntity() instanceof Rank) {
+                    return $this->findCurrentEntity()->getStyle()->getTitle();
+                }
+                break;
+
+            case 'exercise_view':
+            case 'technique_view':
+            case 'supply_view':
+            case 'rank_view':
+                if (method_exists($this->findCurrentEntity(), 'getTitle')) {
+                    return $this->findCurrentEntity()->getTitle();
+                }
+                break;
+        }
+
+        return '';
+    }
+
+    /**
+     * @param string $route
+     * @param bool   $current
+     * @param bool   $translate
+     *
+     * @return array
+     */
+    private function getBreadcrumbOptions(string $route, bool $current = false, bool $translate = false)
+    {
+        if ($current) {
+            $options = [
+                'current' => true,
+            ];
+        } else {
+            $options = [
+                'route'         => $route,
+                'routeAbsolute' => true,
+            ];
+
+            $routeParameters = $this->guessRouteParameters($route);
+            if (!empty($routeParameters)) {
+                $options['routeParameters'] = $routeParameters;
             }
         }
 
-        return null;
+        if ($translate) {
+            $options['extras'] = ['translation_domain' => 'navigation'];
+        }
+
+        return $options;
+    }
+
+    /**
+     * @param string $route
+     *
+     * @return array
+     */
+    private function guessRouteParameters(string $route)
+    {
+        switch (strtolower($route)) {
+            case 'exercise_collection_view':
+            case 'technique_collection_view':
+            case 'supply_collection_view':
+                if ($this->findCurrentEntity() instanceof Collection) {
+                    return ['slug' => $this->findCurrentEntity()->getSlug()];
+                }
+                if (method_exists($this->findCurrentEntity(), 'getCollection') &&
+                    $this->findCurrentEntity()->getCollection() instanceof Collection
+                ) {
+                    return ['slug' => $this->findCurrentEntity()->getCollection()->getSlug()];
+                }
+                break;
+
+            case 'rank_view_style':
+                if ($this->findCurrentEntity() instanceof Style) {
+                    return ['slug' => $this->findCurrentEntity()->getSlug()];
+                }
+                if ($this->findCurrentEntity() instanceof Rank) {
+                    return ['slug' => $this->findCurrentEntity()->getStyle()->getSlug()];
+                }
+                break;
+
+            case 'exercise_view':
+            case 'technique_view':
+            case 'supply_view':
+            case 'rank_view':
+                return ['slug' => $this->findCurrentEntity()->getSlug()];
+                break;
+        }
+
+        return [];
+    }
+
+    /**
+     * Find entity for current route, if there is one
+     *
+     * @return object|null
+     */
+    private function findCurrentEntity()
+    {
+        if (null !== $this->currentEntity) {
+            return $this->currentEntity;
+        }
+
+        switch (strtolower($this->currentRoute)) {
+            case 'exercise_collection_view':
+                $this->currentEntity = $this->collectionManager->findOneBy([
+                    'slug'    => $this->currentRouteAttributes['slug'],
+                    'context' => Context::EXERCISE_CONTEXT,
+                ]);
+                break;
+
+            case 'technique_collection_view':
+                $this->currentEntity = $this->collectionManager->findOneBy([
+                    'slug'    => $this->currentRouteAttributes['slug'],
+                    'context' => Context::TECHNIQUE_CONTEXT,
+                ]);
+                break;
+
+            case 'supply_collection_view':
+                $this->currentEntity = $this->collectionManager->findOneBy([
+                    'slug'    => $this->currentRouteAttributes['slug'],
+                    'context' => Context::SUPPLY_CONTEXT,
+                ]);
+                break;
+
+            case 'exercise_view':
+                $this->currentEntity = $this->exerciseRepository->findOneBy([
+                    'slug' => $this->currentRouteAttributes['slug']
+                ]);
+                break;
+
+            case 'technique_view':
+                $this->currentEntity = $this->techniqueRepository->findOneBy([
+                    'slug' => $this->currentRouteAttributes['slug']
+                ]);
+                break;
+
+            case 'supply_view':
+                $this->currentEntity = $this->supplyRepository->findOneBy([
+                    'slug' => $this->currentRouteAttributes['slug']
+                ]);
+                break;
+
+            case 'rank_view_style':
+                $this->currentEntity = $this->styleRepository->findOneBy([
+                    'slug' => $this->currentRouteAttributes['slug']
+                ]);
+                break;
+
+            case 'rank_view':
+                $this->currentEntity = $this->rankRepository->findOneBy([
+                    'slug' => $slug = $this->currentRouteAttributes['rankSlug']
+                ]);
+                break;
+
+        }
+
+        return $this->currentEntity;
     }
 }

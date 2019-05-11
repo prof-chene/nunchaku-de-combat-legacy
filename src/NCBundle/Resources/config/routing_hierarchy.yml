@@ -1,0 +1,37 @@
+homepage:
+    label: homepage
+    children:
+        exercise_home:
+            label: exercises
+            children:
+                exercise_collection_view:
+                    label: ~
+                    children:
+                        exercise_view:
+                            label: ~
+        technique_home:
+            label: techniques
+            children:
+                technique_collection_view:
+                    label: ~
+                    children:
+                        technique_view:
+                            label: ~
+        supply_home:
+            label: supplies
+            children:
+                supply_collection_view:
+                    label: ~
+                    children:
+                        supply_view:
+                            label: ~
+        club_home:
+            label: clubs
+        rank_home:
+            label: ranks
+            children:
+                rank_view_style:
+                    label: ~
+                    children:
+                        rank_view:
+                            label: ~
