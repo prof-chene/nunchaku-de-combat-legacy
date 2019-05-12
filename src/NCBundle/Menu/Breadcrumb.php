@@ -18,6 +18,8 @@ use NCBundle\Repository\Technique\SupplyRepository;
 use NCBundle\Repository\Technique\TechniqueRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\ClassificationBundle\Entity\CollectionManager;
+use Sonata\NewsBundle\Entity\PostManager;
+use Sonata\NewsBundle\Model\BlogInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -79,6 +81,14 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      */
     private $trainingCourseRepository;
     /**
+     * @var BlogInterface
+     */
+    private $blog;
+    /**
+     * @var PostManager
+     */
+    private $postManager;
+    /**
      * @var object|null
      */
     private $currentEntity = null;
@@ -102,6 +112,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @param CompetitionRepository    $competitionRepository
      * @param ShowRepository           $showRepository
      * @param TrainingCourseRepository $trainingCourseRepository
+     * @param BlogInterface            $blog
+     * @param PostManager              $postManager
      */
     public function __construct(
         string $context,
@@ -119,7 +131,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         RankRepository $rankRepository,
         CompetitionRepository $competitionRepository,
         ShowRepository $showRepository,
-        TrainingCourseRepository $trainingCourseRepository
+        TrainingCourseRepository $trainingCourseRepository,
+        BlogInterface $blog,
+        PostManager $postManager
+
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
 
@@ -137,6 +152,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         $this->competitionRepository = $competitionRepository;
         $this->showRepository = $showRepository;
         $this->trainingCourseRepository = $trainingCourseRepository;
+        $this->blog = $blog;
+        $this->postManager = $postManager;
     }
 
     /**
@@ -264,6 +281,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'competition_view':
             case 'show_view':
             case 'training_course_view':
+            case 'application_sonata_news_view':
+            case 'sonata_news_view':
                 if (empty($this->guessRouteParameters($route))) {
                     return true;
                 }
@@ -310,6 +329,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'competition_view':
             case 'show_view':
             case 'training_course_view':
+            case 'application_sonata_news_view':
+            case 'sonata_news_view':
                 if (method_exists($this->findCurrentEntity(), 'getTitle')) {
                     return $this->findCurrentEntity()->getTitle();
                 }
@@ -389,6 +410,14 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'show_view':
             case 'training_course_view':
                 return ['slug' => $this->findCurrentEntity()->getSlug()];
+                break;
+
+            case 'application_sonata_news_view':
+            case 'sonata_news_view':
+                return [
+                    'permalink' => $this->currentRouteAttributes['permalink'],
+                    '_format' => $this->currentRouteAttributes['_format'],
+                ];
                 break;
         }
 
@@ -492,6 +521,14 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                 $this->currentEntity = $this->trainingCourseRepository->findOneBy([
                     'slug' => $slug = $this->currentRouteAttributes['slug']
                 ]);
+                break;
+
+            case 'application_sonata_news_view':
+            case 'sonata_news_view':
+                $this->currentEntity = $this->postManager->findOneByPermalink(
+                    $this->currentRouteAttributes['permalink'],
+                    $this->blog
+                );
                 break;
         }
 

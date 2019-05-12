@@ -59,3 +59,10 @@ homepage:
                     children:
                         training_course_sign_up:
                             label: sign_up
+        application_sonata_news:
+            label: news
+            children:
+                application_sonata_news_view:
+                    label: ~
+                sonata_news_view:
+                    label: ~

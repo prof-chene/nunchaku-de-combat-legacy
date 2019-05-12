@@ -24,6 +24,8 @@ services:
             - '@NCBundle\Repository\Event\CompetitionRepository'
             - '@NCBundle\Repository\Event\ShowRepository'
             - '@NCBundle\Repository\Event\TrainingCourseRepository'
+            - '@sonata.news.blog'
+            - '@sonata.news.manager.post'
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }
