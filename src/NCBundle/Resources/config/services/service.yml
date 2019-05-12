@@ -26,6 +26,7 @@ services:
             - '@NCBundle\Repository\Event\TrainingCourseRepository'
             - '@sonata.news.blog'
             - '@sonata.news.manager.post'
+            - '@sonata.media.manager.media'
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }

@@ -18,6 +18,7 @@ use NCBundle\Repository\Technique\SupplyRepository;
 use NCBundle\Repository\Technique\TechniqueRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\ClassificationBundle\Entity\CollectionManager;
+use Sonata\MediaBundle\Entity\MediaManager;
 use Sonata\NewsBundle\Entity\PostManager;
 use Sonata\NewsBundle\Model\BlogInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
@@ -89,6 +90,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      */
     private $postManager;
     /**
+     * @var MediaManager
+     */
+    private $mediaManager;
+    /**
      * @var object|null
      */
     private $currentEntity = null;
@@ -114,6 +119,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @param TrainingCourseRepository $trainingCourseRepository
      * @param BlogInterface            $blog
      * @param PostManager              $postManager
+     * @param MediaManager             $mediaManager
      */
     public function __construct(
         string $context,
@@ -133,7 +139,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         ShowRepository $showRepository,
         TrainingCourseRepository $trainingCourseRepository,
         BlogInterface $blog,
-        PostManager $postManager
+        PostManager $postManager,
+        MediaManager $mediaManager
 
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
@@ -154,6 +161,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         $this->trainingCourseRepository = $trainingCourseRepository;
         $this->blog = $blog;
         $this->postManager = $postManager;
+        $this->mediaManager = $mediaManager;
     }
 
     /**
@@ -283,6 +291,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'training_course_view':
             case 'application_sonata_news_view':
             case 'sonata_news_view':
+            case 'application_sonata_media_view':
                 if (empty($this->guessRouteParameters($route))) {
                     return true;
                 }
@@ -333,6 +342,12 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'sonata_news_view':
                 if (method_exists($this->findCurrentEntity(), 'getTitle')) {
                     return $this->findCurrentEntity()->getTitle();
+                }
+                break;
+
+            case 'application_sonata_media_view':
+                if (method_exists($this->findCurrentEntity(), 'getName')) {
+                    return $this->findCurrentEntity()->getName();
                 }
                 break;
         }
@@ -416,7 +431,14 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'sonata_news_view':
                 return [
                     'permalink' => $this->currentRouteAttributes['permalink'],
-                    '_format' => $this->currentRouteAttributes['_format'],
+                    '_format'   => $this->currentRouteAttributes['_format'],
+                ];
+                break;
+
+            case 'application_sonata_media_view':
+                return [
+                    'id'     => $this->currentRouteAttributes['id'],
+                    'format' => $this->currentRouteAttributes['format'],
                 ];
                 break;
         }
@@ -529,6 +551,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     $this->currentRouteAttributes['permalink'],
                     $this->blog
                 );
+                break;
+
+            case 'application_sonata_media_view':
+                $this->currentEntity = $this->mediaManager->find($this->currentRouteAttributes['id']);
                 break;
         }
 

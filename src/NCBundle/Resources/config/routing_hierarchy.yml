@@ -66,3 +66,8 @@ homepage:
                     label: ~
                 sonata_news_view:
                     label: ~
+        application_sonata_gallery:
+            label: medias
+            children:
+                application_sonata_media_view:
+                    label: ~

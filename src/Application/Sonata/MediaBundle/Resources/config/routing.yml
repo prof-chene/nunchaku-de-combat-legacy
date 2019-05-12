@@ -10,13 +10,11 @@ sonata_media_download:
     defaults:
         _controller: SonataMediaBundle:Media:download
         format: reference
-        breadcrumb: true
 application_sonata_media_download:
     path: /media/{id}/{format}/download/
     defaults:
         _controller: SonataMediaBundle:Media:download
         format: reference
-        breadcrumb: true
 application_sonata_gallery:
     path: /gallery/
     defaults:
