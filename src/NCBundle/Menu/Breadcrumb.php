@@ -6,11 +6,9 @@ use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Application\Sonata\ClassificationBundle\Entity\Context;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
-use NCBundle\Entity\Technique\Exercise;
 use NCBundle\Entity\Technique\Rank;
 use NCBundle\Entity\Technique\Style;
-use NCBundle\Entity\Technique\Supply;
-use NCBundle\Entity\Technique\Technique;
+use NCBundle\Repository\Event\CompetitionRepository;
 use NCBundle\Repository\Technique\ExerciseRepository;
 use NCBundle\Repository\Technique\RankRepository;
 use NCBundle\Repository\Technique\StyleRepository;
@@ -67,6 +65,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      */
     private $rankRepository;
     /**
+     * @var CompetitionRepository
+     */
+    private $competitionRepository;
+    /**
      * @var object|null
      */
     private $currentEntity = null;
@@ -87,6 +89,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @param SupplyRepository      $suplyRepository
      * @param StyleRepository       $styleRepository
      * @param RankRepository        $rankRepository
+     * @param CompetitionRepository $competitionRepository
      */
     public function __construct(
         string $context,
@@ -101,7 +104,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         TechniqueRepository $techniqueRepository,
         SupplyRepository $suplyRepository,
         StyleRepository $styleRepository,
-        RankRepository $rankRepository
+        RankRepository $rankRepository,
+        CompetitionRepository $competitionRepository
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
 
@@ -116,6 +120,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         $this->supplyRepository = $suplyRepository;
         $this->styleRepository = $styleRepository;
         $this->rankRepository = $rankRepository;
+        $this->competitionRepository = $competitionRepository;
     }
 
     /**
@@ -240,6 +245,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'technique_view':
             case 'supply_view':
             case 'rank_view':
+            case 'competition_view':
                 if (empty($this->guessRouteParameters($route))) {
                     return true;
                 }
@@ -283,6 +289,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'technique_view':
             case 'supply_view':
             case 'rank_view':
+            case 'competition_view':
                 if (method_exists($this->findCurrentEntity(), 'getTitle')) {
                     return $this->findCurrentEntity()->getTitle();
                 }
@@ -358,6 +365,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'technique_view':
             case 'supply_view':
             case 'rank_view':
+            case 'competition_view':
                 return ['slug' => $this->findCurrentEntity()->getSlug()];
                 break;
         }
@@ -425,6 +433,17 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'rank_view':
                 $this->currentEntity = $this->rankRepository->findOneBy([
                     'slug' => $slug = $this->currentRouteAttributes['rankSlug']
+                ]);
+                break;
+
+            case 'competition_view':
+                $this->currentEntity = $this->competitionRepository->findOneBy([
+                    'slug' => $slug = $this->currentRouteAttributes['slug']
+                ]);
+                break;
+            case 'competition_sign_up':
+                $this->currentEntity = $this->competitionRepository->findOneBy([
+                    'slug' => $slug = $this->currentRouteAttributes['slug']
                 ]);
                 break;
 

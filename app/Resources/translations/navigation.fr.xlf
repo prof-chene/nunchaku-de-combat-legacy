@@ -141,6 +141,10 @@
                 <source>breadcrumb.medias</source>
                 <target>Médias</target>
             </trans-unit>
+            <trans-unit id="breadcrumb_sign_up">
+                <source>breadcrumb.sign_up</source>
+                <target>Inscription</target>
+            </trans-unit>
             <!-- Titles -->
             <trans-unit id="h1_application_sonata_user_log_in">
                 <source>h1.application_sonata_user_log_in</source>

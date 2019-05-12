@@ -35,3 +35,11 @@ homepage:
                     children:
                         rank_view:
                             label: ~
+        competition_home:
+            label: competitions
+            children:
+                competition_view:
+                    label: ~
+                    children:
+                        competition_sign_up:
+                            label: sign_up
