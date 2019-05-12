@@ -51,3 +51,11 @@ homepage:
                     children:
                         show_sign_up:
                             label: sign_up
+        training_course_home:
+            label: training_courses
+            children:
+                training_course_view:
+                    label: ~
+                    children:
+                        training_course_sign_up:
+                            label: sign_up
