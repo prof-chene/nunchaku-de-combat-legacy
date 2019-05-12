@@ -2,15 +2,25 @@
 
 namespace NCBundle\Repository\Event;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use NCBundle\Entity\Event\Show;
 use Sonata\UserBundle\Model\User;
 
 /**
  * Class ShowRepository
  */
-class ShowRepository extends EntityRepository
+class ShowRepository extends ServiceEntityRepository
 {
+    /**
+     * @inheritdoc
+     */
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Show::class);
+    }
+
     /**
      * @param int|User|null $user
      * @param string|null   $slug

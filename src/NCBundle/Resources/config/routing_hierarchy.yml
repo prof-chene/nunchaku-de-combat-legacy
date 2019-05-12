@@ -43,3 +43,11 @@ homepage:
                     children:
                         competition_sign_up:
                             label: sign_up
+        show_home:
+            label: shows
+            children:
+                show_view:
+                    label: ~
+                    children:
+                        show_sign_up:
+                            label: sign_up

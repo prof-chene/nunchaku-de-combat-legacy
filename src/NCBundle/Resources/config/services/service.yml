@@ -22,6 +22,7 @@ services:
             - '@NCBundle\Repository\Technique\StyleRepository'
             - '@NCBundle\Repository\Technique\RankRepository'
             - '@NCBundle\Repository\Event\CompetitionRepository'
+            - '@NCBundle\Repository\Event\ShowRepository'
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }

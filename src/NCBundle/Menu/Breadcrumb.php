@@ -9,6 +9,7 @@ use Knp\Menu\Provider\MenuProviderInterface;
 use NCBundle\Entity\Technique\Rank;
 use NCBundle\Entity\Technique\Style;
 use NCBundle\Repository\Event\CompetitionRepository;
+use NCBundle\Repository\Event\ShowRepository;
 use NCBundle\Repository\Technique\ExerciseRepository;
 use NCBundle\Repository\Technique\RankRepository;
 use NCBundle\Repository\Technique\StyleRepository;
@@ -69,6 +70,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      */
     private $competitionRepository;
     /**
+     * @var ShowRepository
+     */
+    private $showRepository;
+    /**
      * @var object|null
      */
     private $currentEntity = null;
@@ -90,6 +95,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      * @param StyleRepository       $styleRepository
      * @param RankRepository        $rankRepository
      * @param CompetitionRepository $competitionRepository
+     * @param ShowRepository        $showRepository
      */
     public function __construct(
         string $context,
@@ -105,7 +111,8 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         SupplyRepository $suplyRepository,
         StyleRepository $styleRepository,
         RankRepository $rankRepository,
-        CompetitionRepository $competitionRepository
+        CompetitionRepository $competitionRepository,
+        ShowRepository $showRepository
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
 
@@ -121,6 +128,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
         $this->styleRepository = $styleRepository;
         $this->rankRepository = $rankRepository;
         $this->competitionRepository = $competitionRepository;
+        $this->showRepository = $showRepository;
     }
 
     /**
@@ -246,6 +254,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'supply_view':
             case 'rank_view':
             case 'competition_view':
+            case 'show_view':
                 if (empty($this->guessRouteParameters($route))) {
                     return true;
                 }
@@ -290,6 +299,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'supply_view':
             case 'rank_view':
             case 'competition_view':
+            case 'show_view':
                 if (method_exists($this->findCurrentEntity(), 'getTitle')) {
                     return $this->findCurrentEntity()->getTitle();
                 }
@@ -366,6 +376,7 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
             case 'supply_view':
             case 'rank_view':
             case 'competition_view':
+            case 'show_view':
                 return ['slug' => $this->findCurrentEntity()->getSlug()];
                 break;
         }
@@ -441,12 +452,24 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                     'slug' => $slug = $this->currentRouteAttributes['slug']
                 ]);
                 break;
+
             case 'competition_sign_up':
                 $this->currentEntity = $this->competitionRepository->findOneBy([
                     'slug' => $slug = $this->currentRouteAttributes['slug']
                 ]);
                 break;
 
+            case 'show_view':
+                $this->currentEntity = $this->showRepository->findOneBy([
+                    'slug' => $slug = $this->currentRouteAttributes['slug']
+                ]);
+                break;
+
+            case 'show_sign_up':
+                $this->currentEntity = $this->showRepository->findOneBy([
+                    'slug' => $slug = $this->currentRouteAttributes['slug']
+                ]);
+                break;
         }
 
         return $this->currentEntity;
