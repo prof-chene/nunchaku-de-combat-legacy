@@ -61,7 +61,7 @@ class HighlightedContent
      *
      * @Assert\NotBlank()
      *
-     * @ORM\OnetoOne(targetEntity="NCBundle\Entity\AbstractContent")
+     * @ORM\OneToOne(targetEntity="NCBundle\Entity\AbstractContent")
      * @ORM\JoinColumn(nullable=false)
      */
     private $content;
