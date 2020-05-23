@@ -34,6 +34,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
 {
     const BUNDLE_CONFIG_DIR = __DIR__.'/../Resources/config/';
     /**
+     * @var RequestStack
+     */
+    private $requestStack;
+    /**
      * @var string
      */
     private $currentRoute;
@@ -145,11 +149,9 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
     ) {
         parent::__construct($context, $name, $templating, $menuProvider, $factory);
 
-        $this->currentRoute = $requestStack->getCurrentRequest()->get('_route');
-        $this->currentRouteAttributes = $requestStack->getCurrentRequest()->attributes->all();
-
         $this->routingTree = Yaml::parseFile(self::BUNDLE_CONFIG_DIR.$routingTreeFile);
 
+        $this->requestStack = $requestStack;
         $this->collectionManager = $collectionManager;
         $this->exerciseRepository = $exerciseRepository;
         $this->techniqueRepository = $techniqueRepository;
@@ -191,6 +193,9 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
      */
     protected function getMenu(BlockContextInterface $blockContext)
     {
+        $this->currentRoute = $this->requestStack->getCurrentRequest()->get('_route');
+        $this->currentRouteAttributes = $this->requestStack->getCurrentRequest()->attributes->all();
+
         $menu = $this->getRootMenu($blockContext);
 
         // /!\ THIS IS AN UGLY HACK /!\
