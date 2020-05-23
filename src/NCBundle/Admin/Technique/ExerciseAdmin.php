@@ -99,6 +99,8 @@ class ExerciseAdmin extends AbstractEditorialAdmin
                     $queryBuilder
                         ->andWhere($queryBuilder->getRootAlias() . '.context = :context')
                         ->setParameter('context', Context::EXERCISE_CONTEXT)
+                        ->andWhere($queryBuilder->getRootAlias() . '.'.$property.' like :searchValue')
+                        ->setParameter('searchValue', '%'.$value.'%')
                     ;
                 },
             ))

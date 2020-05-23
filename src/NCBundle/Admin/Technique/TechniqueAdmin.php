@@ -70,6 +70,8 @@ class TechniqueAdmin extends AbstractEditorialAdmin
                     $queryBuilder
                         ->andWhere($queryBuilder->getRootAlias() . '.context = :context')
                         ->setParameter('context', Context::TECHNIQUE_CONTEXT)
+                        ->andWhere($queryBuilder->getRootAlias() . '.'.$property.' like :searchValue')
+                        ->setParameter('searchValue', '%'.$value.'%')
                     ;
                 },
             ))
