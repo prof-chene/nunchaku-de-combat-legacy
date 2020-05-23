@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="username_pattern">
                 <source>username.pattern</source>
-                <target>Le nom d'utilisateur doit commencer par une lettre, 3 caractères minimum, ne peut contenir que des lettres et les caractères spéciaux - et _</target>
+                <target>Le nom d'utilisateur doit commencer par une lettre, 3 caractères minimum, ne peut contenir que des lettres, nombres et les caractères spéciaux suivants : - _</target>
             </trans-unit>
             <trans-unit id="username_email_not_found">
                 <source>username_email.not_found</source>

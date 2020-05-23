@@ -157,6 +157,18 @@ sonata_media:
                 small:    { width: 150 , quality: 95}
                 big:      { width: 500 , quality: 90}
                 carousel: { width: 200 , height: 150 , quality: 90}
+        sonata_collection:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                preview: { width: 100, quality: 100}
+                wide:    { width: 820, quality: 100}
+        sonata_category:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                preview: { width: 100, quality: 100}
+                wide:    { width: 820, quality: 100}
     cdn:
         server:
             path: /uploads/media
@@ -212,3 +224,7 @@ sonata_translation:
         enabled: false
     phpcr:
         enabled: false
+
+sonata_classification:
+    class:
+        media: Application\Sonata\MediaBundle\Entity\Media

@@ -121,11 +121,14 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $this->genders = $superadmin->getGenderList();
 
         // Contexts
-        $contextNames = ['news', 'club', 'event', 'exercise', 'technique', 'supply'];
+        $contextNames = ['news', 'club', 'event', 'exercise', 'technique', 'supply', 'sonata_collection'];
         foreach ($contextNames as $contextName) {
             $contexts[$contextName] = new Context();
             $contexts[$contextName]->setId(strtolower($contextName));
-            $contexts[$contextName]->setName(ucfirst($contextName));
+            // Convert snake_case to PascalCase
+            $contexts[$contextName]->setName(
+                str_replace(' ', '', ucwords(str_replace('-', ' ', $contextName)))
+            );
             $contexts[$contextName]->setEnabled(true);
             $contexts[$contextName]->setCreatedAt(new \DateTime());
             $contexts[$contextName]->setUpdatedAt(new \DateTime());

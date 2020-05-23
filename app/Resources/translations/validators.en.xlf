@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="username_pattern">
                 <source>username.pattern</source>
-                <target>Username must start with a letter, 3 char minimum, must contain only letters and special chars - and _</target>
+                <target>Username must start with a letter, 3 char minimum, must contain only letters, numbers and those special chars : - _</target>
             </trans-unit>
             <trans-unit id="username_email_not_found">
                 <source>username_email.not_found</source>

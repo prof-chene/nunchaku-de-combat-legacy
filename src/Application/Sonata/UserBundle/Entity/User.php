@@ -60,7 +60,7 @@ class User extends BaseUser
      * @inheritdoc
      *
      * @Assert\Regex(
-     *     pattern="/^[A-Za-z]([-A-Za-z_]){2,179}$/",
+     *     pattern="/^[A-Za-z]([A-Za-z0-9_-]){2,179}$/",
      *     message="username.pattern"
      * )
      */
@@ -69,7 +69,7 @@ class User extends BaseUser
      * @inheritdoc
      *
      * @Assert\Regex(
-     *     pattern="/^[A-Za-z]([-A-Za-z_]){2,179}$/",
+     *     pattern="/^[A-Za-z]([A-Za-z0-9_-]){2,179}$/",
      *     message="username.pattern"
      * )
      */

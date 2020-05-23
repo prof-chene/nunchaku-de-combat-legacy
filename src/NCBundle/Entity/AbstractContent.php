@@ -59,17 +59,11 @@ abstract class AbstractContent implements Translatable
     /**
      * @var \DateTime
      *
-     * @Assert\NotBlank()
-     * @Assert\DateTime()
-     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     protected $createdAt;
     /**
      * @var \DateTime
-     *
-     * @Assert\NotBlank()
-     * @Assert\DateTime()
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
