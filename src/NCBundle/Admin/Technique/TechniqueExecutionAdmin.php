@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin\Technique;
 
+use NCBundle\Entity\Technique\TechniqueExecution;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -24,6 +25,15 @@ class TechniqueExecutionAdmin extends AbstractAdmin
      * {@inheritdoc}
      */
     protected $baseRoutePattern = 'technique/execution';
+
+    /**
+     * @param TechniqueExecution $subject
+     */
+    public function setSubject($subject)
+    {
+        $subject->setLocale($this->getRequest()->getLocale());
+        parent::setSubject($subject);
+    }
 
     /**
      * @param FormMapper $formMapper

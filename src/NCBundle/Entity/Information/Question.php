@@ -140,7 +140,7 @@ class Question implements Translatable
      *
      * @return $this
      */
-    public function setTranslatableLocale($locale)
+    public function setLocale($locale)
     {
         $this->locale = $locale;
 

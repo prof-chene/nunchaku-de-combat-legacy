@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin\Information;
 
+use NCBundle\Entity\Information\Question;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -26,6 +27,15 @@ class QuestionAdmin extends AbstractAdmin
      * {@inheritdoc}
      */
     protected $baseRoutePattern = 'question';
+
+    /**
+     * @param Question $subject
+     */
+    public function setSubject($subject)
+    {
+        $subject->setLocale($this->getRequest()->getLocale());
+        parent::setSubject($subject);
+    }
 
     /**
      * {@inheritdoc}

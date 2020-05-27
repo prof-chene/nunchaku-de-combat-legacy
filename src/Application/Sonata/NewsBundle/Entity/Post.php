@@ -54,6 +54,12 @@ class Post extends BasePost implements Translatable
      * @Gedmo\Translatable
      */
     protected $rawContent;
+    /**
+     * @var string
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
 
     /**
      * Get id
@@ -63,6 +69,18 @@ class Post extends BasePost implements Translatable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin\Technique;
 
+use NCBundle\Entity\Technique\RankRequirement;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -22,6 +23,15 @@ class RankRequirementAdmin extends AbstractAdmin
      * {@inheritdoc}
      */
     protected $baseRoutePattern = 'rank/requirement';
+
+    /**
+     * @param RankRequirement $subject
+     */
+    public function setSubject($subject)
+    {
+        $subject->setLocale($this->getRequest()->getLocale());
+        parent::setSubject($subject);
+    }
 
     /**
      * {@inheritdoc}

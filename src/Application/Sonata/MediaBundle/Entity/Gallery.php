@@ -29,6 +29,12 @@ class Gallery extends BaseGallery implements Translatable
      * @Gedmo\Translatable
      */
     protected $name;
+    /**
+     * @var string
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
 
     /**
      * Get id
@@ -38,5 +44,17 @@ class Gallery extends BaseGallery implements Translatable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
     }
 }

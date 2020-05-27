@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin;
 
+use NCBundle\Entity\HighlightedContent;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -24,6 +25,15 @@ class HighlightedContentAdmin extends AbstractAdmin
      * {@inheritdoc}
      */
     protected $baseRoutePattern = 'highlighted-content';
+
+    /**
+     * @param HighlightedContent $subject
+     */
+    public function setSubject($subject)
+    {
+        $subject->setLocale($this->getRequest()->getLocale());
+        parent::setSubject($subject);
+    }
 
     /**
      * {@inheritdoc}

@@ -1,8 +1,5 @@
 {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
 
-{% block side_bar_after_nav %}
-{% endblock %}
-
 {% block meta_tags %}
     {{ parent() }}
     {% include '::favicon.html.twig' %}
@@ -16,6 +13,7 @@
         'bundles/sonataformatter/markitup/sets/markdown/style.css'
         'bundles/sonataformatter/markitup/sets/html/style.css'
         'bundles/sonataformatter/markitup/sets/textile/style.css'
+        'css/bootstrap/languages/languages.min.css'
         filter='cssrewrite'
         output='assetic/admin_nc.css'
     %}
@@ -36,4 +34,13 @@
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+{% endblock %}
+
+{% block sonata_top_nav_menu_add_block %}
+    {{ parent() }}
+
+    {% include '::language_dropdown.html.twig' %}
+{% endblock %}
+
+{% block side_bar_after_nav %}
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin;
 
+use NCBundle\Entity\AbstractEditorial;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -48,6 +49,15 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
     public function preUpdate($object)
     {
         $object->setContent($this->formatterPool->transform($object->getContentFormatter(), $object->getRawContent()));
+    }
+
+    /**
+     * @param AbstractEditorial $subject
+     */
+    public function setSubject($subject)
+    {
+        $subject->setLocale($this->getRequest()->getLocale());
+        parent::setSubject($subject);
     }
 
     /**

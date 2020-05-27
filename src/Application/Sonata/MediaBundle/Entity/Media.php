@@ -38,6 +38,12 @@ class Media extends BaseMedia implements Translatable
      */
     protected $description;
     /**
+     * @var string
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="NCBundle\Entity\AbstractContent", mappedBy="image", cascade={"persist"})
@@ -53,6 +59,19 @@ class Media extends BaseMedia implements Translatable
     {
         return $this->id;
     }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
 
     /**
      * @return ArrayCollection

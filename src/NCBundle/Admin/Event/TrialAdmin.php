@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin\Event;
 
+use NCBundle\Entity\Event\Trial;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -53,6 +54,15 @@ class TrialAdmin extends AbstractAdmin
     public function preUpdate($object)
     {
         $object->setRules($this->formatterPool->transform($object->getRulesFormatter(), $object->getRawRules()));
+    }
+
+    /**
+     * @param Trial $subject
+     */
+    public function setSubject($subject)
+    {
+        $subject->setLocale($this->getRequest()->getLocale());
+        parent::setSubject($subject);
     }
 
     /**

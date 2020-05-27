@@ -65,6 +65,12 @@ class HighlightedContent
      * @ORM\JoinColumn(nullable=false)
      */
     private $content;
+    /**
+     * @var string
+     *
+     * @Gedmo\Locale
+     */
+    private $locale;
 
     /**
      * @return int
@@ -150,6 +156,18 @@ class HighlightedContent
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
 
         return $this;
     }

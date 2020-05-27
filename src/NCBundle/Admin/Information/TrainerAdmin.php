@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin\Information;
 
+use NCBundle\Entity\Information\Trainer;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -25,6 +26,15 @@ class TrainerAdmin extends AbstractAdmin
      * {@inheritdoc}
      */
     protected $baseRoutePattern = 'trainer';
+
+    /**
+     * @param Trainer $subject
+     */
+    public function setSubject($subject)
+    {
+        $subject->setLocale($this->getRequest()->getLocale());
+        parent::setSubject($subject);
+    }
 
     /**
      * {@inheritdoc}

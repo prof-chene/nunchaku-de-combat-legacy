@@ -12,28 +12,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 {{ knp_menu_render('NCBundle:Builder:mainMenu') }}
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" id="dropdown-language" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <span class="lang-sm" lang="{{ app.request.locale }}"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown-language">
-                            {% set locales_split = locales|split('|') %}
-                            {% for locale in locales_split %}
-                                {% if app.request.locale == locale %}
-                                    {% set url = '#' %}
-                                {% else %}
-                                    {% set route = app.request.attributes.get('_route') %}
-                                    {% set routeParams = app.request.attributes.get('_route_params')|merge({ '_locale': locale }) %}
-                                    {% set url = url(route, routeParams) %}
-                                {% endif %}
-                                <li>
-                                    <a href="{{ url }}">
-                                        <span class="lang-sm lang-lbl" lang="{{ locale }}"></span>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
+                    {% include '::language_dropdown.html.twig' %}
                     {# DISABLING AUTHENTICATION FOR NOW, UNTIL WE MAKE IT A PROPER FUNCTIONNALITY #}
                     {#<li class="dropdown">#}
                         {#<a href="#" id="dropdown-profile" class="dropdown-toggle" data-toggle="dropdown" role="button">#}
