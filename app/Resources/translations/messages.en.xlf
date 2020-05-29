@@ -298,6 +298,14 @@
                 <source>pick_trials</source>
                 <target>Pick your trials</target>
             </trans-unit>
+            <trans-unit id="club_find">
+                <source>club.find</source>
+                <target>Find a club</target>
+            </trans-unit>
+            <trans-unit id="club_name">
+                <source>club.name</source>
+                <target>Club name</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

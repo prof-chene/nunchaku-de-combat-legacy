@@ -97,6 +97,11 @@ nav.navbar-default .navbar-toggle:focus .icon-bar {
     background-color: #000;
 }
 
+.input-group-addon {
+    background-color: #337ab7;
+    color: #fff;
+}
+
 /* THIS IS A TRICK TO AVOID THE HEADER COVERING THE TOP OF THE ANCHORED CONTENT */
 :target::before {
     content: "";

@@ -15,7 +15,7 @@
                     {% for club in clubs if (club.latitude is not empty and club.longitude is not empty) %}
                         [
                             '<strong>{{ club.name }}</strong><br/>' +
-                            '<a href="https://www.google.com/maps/search/?api=1&query={{ club.address }}">{{ club.address }}</a><br/>' +
+                            '<a href="https://www.google.com/maps/search/?api=1&query={{ club.address }}" target="_blank" rel="noopener noreferrer">{{ club.address }}</a><br/>' +
                             '{{ club.phone }}<br/>' +
                             '<a href="#club{{ club.id }}" class="btn btn-default btn-xs">{{ "more_infos"|trans|capitalize }}</a>',
                             {{ club.latitude }},
@@ -23,7 +23,30 @@
                         ],
                     {% endfor %}
                 ];
-                initMap(document.getElementById('map'), locations)
+                initMap($('#map')[0], locations);
+
+                $('#find-club').on('change paste keyup', function() {
+                    var search = $(this).val().trim().toLowerCase();
+
+                    if (search.length > 1) {
+                        $('[id^="club"]').each(function() {
+                            var clubName = $(this).find('.club-name').text().trim().toLowerCase();
+                            var clubAddress = $(this).find('.club-address').text().trim().toLowerCase();
+
+                            if (clubName.indexOf(search) >= 0
+                                || clubAddress.indexOf(search) >= 0
+                            ) {
+                                $(this).removeClass( "hide");
+                            } else {
+                                $(this).addClass( "hide");
+                            }
+                        });
+                    } else if (search.length <= 0) {
+                        $('[id^="club"]').each(function() {
+                            $(this).removeClass( "hide");
+                        });
+                    }
+                });
             });
         });
     </script>
@@ -31,21 +54,27 @@
 
 {% block content %}
     <div id="map" class="col-sm-12 map"></div>
+
+    <div class="input-group">
+        <span class="input-group-addon bg-primary">{{ 'club.find'|trans|capitalize }}</span>
+        <input type="text" id="find-club" class="form-control" placeholder="{{ 'address'|trans|capitalize }}, {{ 'club.name'|trans|capitalize }}" aria-describedby="basic-addon1">
+    </div>
+
     {% for club in clubs %}
         <div id="club{{ club.id }}" class="col-sm-12 list-group-item">
             <div class="col-sm-3">
-                <a href="{{ club.websiteUrl }}">
+                <a href="{{ club.websiteUrl }}" target="_blank" rel="noopener noreferrer">
                     {% thumbnail club.image, 'small' with {'class': 'img-responsive center-block'} %}
                 </a>
             </div>
             <div class="col-sm-9">
-                <h2>
+                <h2 class="club-name">
                     {{ club.name }}
                 </h2>
                 <ul class="list-group">
                     <li class="list-group-item">
                         <span class="glyphicon glyphicon-map-marker"></span>
-                        <a href="https://www.google.com/maps/search/?api=1&query={{ club.address }}">{{ club.address }}</a>
+                        <a class="club-address" href="https://www.google.com/maps/search/?api=1&query={{ club.address }}" target="_blank" rel="noopener noreferrer">{{ club.address }}</a>
                     </li>
                     <li class="list-group-item">
                         <span class="glyphicon glyphicon-earphone"></span>
@@ -53,7 +82,7 @@
                     </li>
                     <li class="list-group-item">
                         <span class="glyphicon glyphicon-globe"></span>
-                        <a href="{{ club.websiteUrl }}">{{ club.websiteUrl }}</a>
+                        <a href="{{ club.websiteUrl }}" target="_blank" rel="noopener noreferrer">{{ club.websiteUrl }}</a>
                     </li>
                     <li class="list-group-item">
                         <span class="glyphicon glyphicon-calendar" style="vertical-align: top;"></span>
@@ -67,7 +96,7 @@
                         <span class="glyphicon glyphicon-list" style="vertical-align: top;"></span>
                         <ul class="list-unstyled" style="display: inline-block;">
                             {% for style in club.styles if style.slug is not empty and style.title is not empty %}
-                                <li><a href="{{ url('rank_view_style', {'slug': style.slug }) }}">{{ style.title }}</a></li>
+                                <li><a href="{{ url('rank_view_style', {'slug': style.slug }) }}" target="_blank" rel="noopener noreferrer">{{ style.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -93,7 +122,7 @@
                 </ul>
                 <p>
                     {% for socialMediaAccount in club.socialMediaAccounts %}
-                        <a class="btn btn-social-icon btn-{{ socialMediaAccount.socialMedia }}" href="{{ socialMediaAccount.url }}">
+                        <a class="btn btn-social-icon btn-{{ socialMediaAccount.socialMedia }}" href="{{ socialMediaAccount.url }}" target="_blank" rel="noopener noreferrer">
                             <span class="fab fa-{{ socialMediaAccount.socialMedia }}"></span>
                         </a>
                     {% endfor %}

@@ -298,6 +298,14 @@
                 <source>pick_trials</source>
                 <target>Choisissez vos épreuves</target>
             </trans-unit>
+            <trans-unit id="club_find">
+                <source>club.find</source>
+                <target>Trouver un club</target>
+            </trans-unit>
+            <trans-unit id="club_name">
+                <source>club.name</source>
+                <target>Nom du club</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
