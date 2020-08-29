@@ -1,31 +1,33 @@
 #!/usr/bin/env bash
 
-while true; do
-    read -p 'WARNING /!\ Do not execute this script if you already have a working database for this project.\n
-Do you want to continue ? [N/y] : \c' yn
+echo 'WARNING /!\ Do not execute this script if you already have a working database for this project.'
 
-    case $yn in
+while true
+do
+  read -p 'Do you want to continue ? [y/n] : ' yn
 
-        [Yy]* )
+  case $yn in
 
-            echo 'Creating database...'
-            php bin/console doctrine:database:create --if-not-exists &&
+      [Yy]* )
 
-            echo 'Creating database schema...'
-            php bin/console doctrine:schema:create &&
+          echo 'Creating database...'
+          php bin/console doctrine:database:create &&
 
-            echo 'Creating superadmin user...'
-            php bin/console fos:user:create --super-admin
+          echo 'Creating database schema...'
+          php bin/console doctrine:schema:create &&
 
-            echo 'Inserting default Sonata data...'
-            php bin/console sonata:media:fix-media-context
+          echo 'Creating superadmin user...'
+          php bin/console fos:user:create --super-admin
 
-            break;;
+          echo 'Inserting default Sonata data...'
+          php bin/console sonata:media:fix-media-context
 
-        [Nn]* ) exit;;
+          exit;;
 
-        * ) echo 'Please answer yes (y) or no (n) : \c';;
+      [Nn]* ) exit;;
 
-    esac
+      * ) echo 'Please answer yes (y) or no (n)';;
 
+  esac
 done
+
