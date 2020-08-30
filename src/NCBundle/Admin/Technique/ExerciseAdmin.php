@@ -68,7 +68,7 @@ class ExerciseAdmin extends AbstractEditorialAdmin
             ))
             ->add('title')
             ->add('image', MediaType::class, array(
-                'context' => 'event',
+                'context'  => Context::EXERCISE_CONTEXT,
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
             ))
@@ -98,7 +98,6 @@ class ExerciseAdmin extends AbstractEditorialAdmin
                     $queryBuilder = $admin->getDatagrid()->getQuery();
                     $queryBuilder
                         ->andWhere($queryBuilder->getRootAlias() . '.context = :context')
-                        ->setParameter('context', Context::EXERCISE_CONTEXT)
                         ->andWhere($queryBuilder->getRootAlias() . '.'.$property.' like :searchValue')
                         ->setParameter('searchValue', '%'.$value.'%')
                     ;

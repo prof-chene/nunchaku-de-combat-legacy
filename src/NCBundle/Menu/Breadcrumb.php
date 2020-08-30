@@ -3,7 +3,6 @@
 namespace NCBundle\Menu;
 
 use Application\Sonata\ClassificationBundle\Entity\Collection;
-use Application\Sonata\ClassificationBundle\Entity\Context;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use NCBundle\Entity\Technique\Rank;
@@ -464,23 +463,10 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
 
         switch (strtolower($this->currentRoute)) {
             case 'exercise_collection_view':
-                $this->currentEntity = $this->collectionManager->findOneBy([
-                    'slug'    => $this->currentRouteAttributes['slug'],
-                    'context' => Context::EXERCISE_CONTEXT,
-                ]);
-                break;
-
             case 'technique_collection_view':
-                $this->currentEntity = $this->collectionManager->findOneBy([
-                    'slug'    => $this->currentRouteAttributes['slug'],
-                    'context' => Context::TECHNIQUE_CONTEXT,
-                ]);
-                break;
-
             case 'supply_collection_view':
                 $this->currentEntity = $this->collectionManager->findOneBy([
                     'slug'    => $this->currentRouteAttributes['slug'],
-                    'context' => Context::SUPPLY_CONTEXT,
                 ]);
                 break;
 
@@ -515,11 +501,6 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                 break;
 
             case 'competition_view':
-                $this->currentEntity = $this->competitionRepository->findOneBy([
-                    'slug' => $slug = $this->currentRouteAttributes['slug']
-                ]);
-                break;
-
             case 'competition_sign_up':
                 $this->currentEntity = $this->competitionRepository->findOneBy([
                     'slug' => $slug = $this->currentRouteAttributes['slug']
@@ -527,11 +508,6 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                 break;
 
             case 'show_view':
-                $this->currentEntity = $this->showRepository->findOneBy([
-                    'slug' => $slug = $this->currentRouteAttributes['slug']
-                ]);
-                break;
-
             case 'show_sign_up':
                 $this->currentEntity = $this->showRepository->findOneBy([
                     'slug' => $slug = $this->currentRouteAttributes['slug']
@@ -539,11 +515,6 @@ class Breadcrumb extends BaseBreadcrumbMenuBlockService
                 break;
 
             case 'training_course_view':
-                $this->currentEntity = $this->trainingCourseRepository->findOneBy([
-                    'slug' => $slug = $this->currentRouteAttributes['slug']
-                ]);
-                break;
-
             case 'training_course_sign_up':
                 $this->currentEntity = $this->trainingCourseRepository->findOneBy([
                     'slug' => $slug = $this->currentRouteAttributes['slug']

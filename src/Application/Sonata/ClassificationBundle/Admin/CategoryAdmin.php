@@ -2,7 +2,6 @@
 
 namespace Application\Sonata\ClassificationBundle\Admin;
 
-use Application\Sonata\ClassificationBundle\Entity\Collection;
 use Application\Sonata\ClassificationBundle\Entity\Context;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -10,17 +9,8 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\MediaBundle\Form\Type\MediaType;
 use Sonata\MediaBundle\Model\MediaInterface;
 
-class CollectionAdmin extends \Sonata\ClassificationBundle\Admin\CollectionAdmin
+class CategoryAdmin extends \Sonata\ClassificationBundle\Admin\CategoryAdmin
 {
-    /**
-     * @param Collection $subject
-     */
-    public function setSubject($subject)
-    {
-        $subject->setLocale($this->getRequest()->getLocale());
-        parent::setSubject($subject);
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -28,11 +18,14 @@ class CollectionAdmin extends \Sonata\ClassificationBundle\Admin\CollectionAdmin
     {
         parent::configureFormFields($formMapper);
         if (interface_exists(MediaInterface::class)) {
-            $formMapper->add('media', MediaType::class, [
-                'context'  => Context::DEFAULT_CONTEXT,
-                'provider' => 'sonata.media.provider.image',
-                'required' => false,
-            ]);
+            $formMapper
+                ->with('group_general')
+                ->add('media', MediaType::class, [
+                    'context'  => Context::DEFAULT_CONTEXT,
+                    'provider' => 'sonata.media.provider.image',
+                    'required' => false,
+                ])
+                ->end();
         }
     }
 

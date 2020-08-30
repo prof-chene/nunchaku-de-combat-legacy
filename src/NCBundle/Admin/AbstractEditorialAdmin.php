@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin;
 
+use Application\Sonata\ClassificationBundle\Entity\Context;
 use NCBundle\Entity\AbstractEditorial;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -72,7 +73,7 @@ abstract class AbstractEditorialAdmin extends AbstractAdmin
             ))
             ->add('title')
             ->add('image', MediaType::class, array(
-                'context' => 'event',
+                'context'  => Context::DEFAULT_CONTEXT,
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
             ))

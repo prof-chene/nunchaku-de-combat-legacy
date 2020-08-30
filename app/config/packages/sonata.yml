@@ -1,6 +1,7 @@
 parameters:
     sonata.user.admin.user.class: Application\Sonata\UserBundle\Admin\UserAdmin
     sonata.classification.admin.collection.class: Application\Sonata\ClassificationBundle\Admin\CollectionAdmin
+    sonata.classification.admin.category.class: Application\Sonata\ClassificationBundle\Admin\CategoryAdmin
     sonata.media.admin.gallery.class: Application\Sonata\MediaBundle\Admin\GalleryAdmin
     sonata.media.admin.media.class: Application\Sonata\MediaBundle\Admin\MediaAdmin
     sonata.news.admin.post.class: Application\Sonata\NewsBundle\Admin\PostAdmin
@@ -83,9 +84,9 @@ sonata_media:
         client:
             timeout: 0
     db_driver: doctrine_orm
-    default_context: news
+    default_context: default
     contexts:
-        news:
+        default:
             download:
                 strategy: sonata.media.security.public_strategy
                 mode: http
@@ -94,81 +95,10 @@ sonata_media:
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
             formats:
-                small:    { width: 150 , quality: 95}
-                big:      { width: 500 , quality: 90}
-                carousel: { width: 200 , height: 150 , quality: 90}
-        club:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small:    { width: 150 , quality: 95}
-                big:      { width: 500 , quality: 90}
-                carousel: { width: 200 , height: 150 , quality: 90}
-        event:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small:    { width: 150 , quality: 95}
-                big:      { width: 500 , quality: 90}
-                carousel: { width: 200 , height: 150 , quality: 90}
-        exercise:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small:    { width: 150 , quality: 95}
-                big:      { width: 500 , quality: 90}
-                carousel: { width: 200 , height: 150 , quality: 90}
-        technique:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small:    { width: 150 , quality: 95}
-                big:      { width: 500 , quality: 90}
-                carousel: { width: 200 , height: 150 , quality: 90}
-        supply:
-            download:
-                strategy: sonata.media.security.public_strategy
-                mode: https
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-            formats:
-                small:    { width: 150 , quality: 95}
-                big:      { width: 500 , quality: 90}
-                carousel: { width: 200 , height: 150 , quality: 90}
-        sonata_collection:
-            providers:
-                - sonata.media.provider.image
-            formats:
-                preview: { width: 100, quality: 100}
-                wide:    { width: 820, quality: 100}
-        sonata_category:
-            providers:
-                - sonata.media.provider.image
-            formats:
-                preview: { width: 100, quality: 100}
-                wide:    { width: 820, quality: 100}
+                small:    { width: 170 , quality: 80}
+                medium:   { width: 370 , quality: 90}
+                large:    { width: 570 , quality: 100}
+                full:     { width: 1170 , quality: 100}
     cdn:
         server:
             path: /uploads/media

@@ -10,7 +10,7 @@ use Application\Sonata\MediaBundle\Entity\Gallery;
 use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
 use Application\Sonata\NewsBundle\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use NCBundle\Entity\Event\Competition;
 use NCBundle\Entity\Event\Participant;
 use NCBundle\Entity\Event\Show;
@@ -121,7 +121,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         $this->genders = $superadmin->getGenderList();
 
         // Contexts
-        $contextNames = ['news', 'club', 'event', 'exercise', 'technique', 'supply', 'sonata_collection'];
+        $contextNames = ['default', 'exercise', 'technique', 'supply'];
         foreach ($contextNames as $contextName) {
             $contexts[$contextName] = new Context();
             $contexts[$contextName]->setId(strtolower($contextName));

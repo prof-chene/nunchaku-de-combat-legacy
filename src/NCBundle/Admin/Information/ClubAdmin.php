@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin\Information;
 
+use Application\Sonata\ClassificationBundle\Entity\Context;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -81,7 +82,7 @@ class ClubAdmin extends AbstractAdmin
             ])
             ->add('name')
             ->add('image', MediaType::class, [
-                'context' => 'event',
+                'context'  => Context::DEFAULT_CONTEXT,
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
             ])

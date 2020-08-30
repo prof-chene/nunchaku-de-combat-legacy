@@ -39,7 +39,7 @@ class SupplyAdmin extends AbstractEditorialAdmin
             ))
             ->add('title')
             ->add('image', MediaType::class, array(
-                'context' => 'event',
+                'context'  => Context::SUPPLY_CONTEXT,
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
             ))
@@ -68,8 +68,6 @@ class SupplyAdmin extends AbstractEditorialAdmin
                 'callback' => function ($admin, $property, $value) {
                     $queryBuilder = $admin->getDatagrid()->getQuery();
                     $queryBuilder
-                        ->andWhere($queryBuilder->getRootAlias() . '.context = :context')
-                        ->setParameter('context', Context::SUPPLY_CONTEXT)
                         ->andWhere($queryBuilder->getRootAlias() . '.'.$property.' like :searchValue')
                         ->setParameter('searchValue', '%'.$value.'%')
                     ;

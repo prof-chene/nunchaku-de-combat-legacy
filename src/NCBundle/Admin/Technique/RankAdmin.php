@@ -2,6 +2,7 @@
 
 namespace NCBundle\Admin\Technique;
 
+use Application\Sonata\ClassificationBundle\Entity\Context;
 use NCBundle\Admin\AbstractEditorialAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -36,7 +37,7 @@ class RankAdmin extends AbstractEditorialAdmin
             ))
             ->add('title')
             ->add('image', 'sonata_media_type', array(
-                'context' => 'event',
+                'context'  => Context::TECHNIQUE_CONTEXT,
                 'provider' => 'sonata.media.provider.image',
                 'required' => false,
             ))
