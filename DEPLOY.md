@@ -1,7 +1,7 @@
 # Nunchaku de Combat
 ## Requirements
 This project needs the following components to run properly :
-- [PHP](https://www.php.net/manual/fr/install.php) (7.1 or higher version)
+- [PHP](https://www.php.net/manual/fr/install.php) (7.4 or higher version)
 - A web server
 - A database management system (DBMS) instance compatible with the [PDO_MYSQL](https://www.php.net/manual/en/ref.pdo-mysql.php) driver (in other words, MySQL or one of its forks)
 - [Composer](https://getcomposer.org/) (1.3 or higher version)
@@ -10,7 +10,7 @@ This project needs the following components to run properly :
 ## Configuration
 ### PHP
 
-Edit you php.ini to set these values :
+Edit you php.ini to have AT LEAST these values (you might want to allocate more resources if you can) :
 ```
 realpath_cache_ttl: 7200;
 memory_limit: 128M;

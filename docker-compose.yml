@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=nunchaku_de_combat
+  php:
+    container_name: php
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql

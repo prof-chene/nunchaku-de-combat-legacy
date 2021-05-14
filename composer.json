@@ -8,7 +8,7 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
-        "php": "^7.1",
+        "php": "^7.4",
         "symfony/symfony": "^3.4",
         "symfony/web-server-bundle": "^3.4",
         "symfony/assetic-bundle": "^2.8",
