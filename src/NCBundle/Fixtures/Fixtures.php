@@ -31,8 +31,10 @@ use NCBundle\Entity\Technique\Style;
 use NCBundle\Entity\Technique\Supply;
 use NCBundle\Entity\Technique\Technique;
 use NCBundle\Entity\Technique\TechniqueExecution;
-use Sonata\MediaBundle\Entity\MediaManager;
-use Sonata\UserBundle\Entity\UserManager;
+use Sonata\ClassificationBundle\Model\ContextInterface;
+use Sonata\ClassificationBundle\Model\ContextManagerInterface;
+use Sonata\MediaBundle\Model\MediaManagerInterface;
+use Sonata\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -56,13 +58,23 @@ class Fixtures extends Fixture implements ContainerAwareInterface
      */
     private $genders;
     /**
-     * @var Context[]
+     * @var ContextInterface
      */
-    private $contexts;
+    private $context;
     /**
      * @var Tag[]
      */
     private $tags;
+
+    /**
+     * Fixtures constructor.
+     *
+     * @param
+     */
+    public function __construct()
+    {
+    }
+
 
     /**
      * @inheritdoc
@@ -98,13 +110,17 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             $this->randomTexts[] = $this->generateText();
         }
         /**
-         * @var UserManager
+         * @var UserManagerInterface
          */
         $userManager = $this->container->get('sonata.user.manager.user');
         /**
-         * @var MediaManager
+         * @var MediaManagerInterface
          */
         $mediaManager = $this->container->get('sonata.media.manager.media');
+        /**
+         * @var ContextManagerInterface
+         */
+        $contextManager = $this->container->get('sonata.classification.manager.context');
 
         // Superadmin
         $superadmin = $userManager->create();
@@ -120,29 +136,26 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         // Genders
         $this->genders = $superadmin->getGenderList();
 
-        // Contexts
-        $contextNames = ['default', 'exercise', 'technique', 'supply'];
-        foreach ($contextNames as $contextName) {
-            $contexts[$contextName] = new Context();
-            $contexts[$contextName]->setId(strtolower($contextName));
-            // Convert snake_case to PascalCase
-            $contexts[$contextName]->setName(
-                str_replace(' ', '', ucwords(str_replace('-', ' ', $contextName)))
-            );
-            $contexts[$contextName]->setEnabled(true);
-            $contexts[$contextName]->setCreatedAt(new \DateTime());
-            $contexts[$contextName]->setUpdatedAt(new \DateTime());
+        // Default context and Category
+        $this->context = new Context();
+        $this->context->setId(strtolower(Context::DEFAULT_CONTEXT));
+        // Convert snake_case to PascalCase
+        $this->context->setName(
+            str_replace(' ', '', ucwords(str_replace('-', ' ', $this->context->getId())))
+        );
+        $this->context->setEnabled(true);
+        $this->context->setCreatedAt(new \DateTime());
+        $this->context->setUpdatedAt(new \DateTime());
 
-            // Categories
-            $categories[$contextName] = new Category();
-            $categories[$contextName]->setContext($contexts[$contextName]);
-            $categories[$contextName]->setName(ucfirst($contextName));
-            $categories[$contextName]->setEnabled(true);
-            $categories[$contextName]->setPosition(0);
+        // Categories
+        $category = new Category();
+        $category->setContext($this->context);
+        $category->setName(ucfirst($this->context->getName()));
+        $category->setEnabled(true);
+        $category->setPosition(0);
 
-            $manager->persist($contexts[$contextName]);
-            $manager->persist($categories[$contextName]);
-        }
+        $manager->persist($category);
+        $contextManager->save($this->context);
 
         // Tags
         for ($i = 1; $i <= 20; $i++) {
@@ -151,10 +164,12 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             $tags[$i]->setCreatedAt(new \DateTime());
             $tags[$i]->setUpdatedAt(new \DateTime());
             $tags[$i]->setEnabled(true);
-            $tags[$i]->setContext($contexts[array_rand($contexts)]);
+            $tags[$i]->setContext($this->context);
 
             $manager->persist($tags[$i]);
         }
+        // Tags
+        $this->tags = $tags;
 
         // We will flush and clear regularly to avoid memory leak
         $manager->flush();
@@ -166,11 +181,10 @@ class Fixtures extends Fixture implements ContainerAwareInterface
         for ($loop = 0; $loop <= 19; $loop++) {
             printf('===============================');
             printf('Loop '.($loop+1));
+            print_r('');
+
             // Tags and contexts are flushed from entityManager, we have to fetch them every time
-            $contexts = $manager->getRepository(Context::class)->findAll();
-            foreach ($contexts as $context) {
-                $this->contexts[$context->getId()] = $context;
-            }
+            $this->context = $manager->getRepository(Context::class)->findOneById(Context::DEFAULT_CONTEXT);
             $this->tags = $manager->getRepository(Tag::class)->findAll();
 
             // Users
@@ -194,14 +208,14 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             // Collection Supply
             $supplyCollection = new Collection();
             $supplyCollection->setEnabled(true);
-            $supplyCollection->setContext($this->contexts['supply']);
+            $supplyCollection->setContext($this->context);
             $supplyCollection->setName('Collection Supply '.($loop + 1));
             $supplyCollection->setCreatedAt(new \DateTime());
             $supplyCollection->setUpdatedAt(new \DateTime());
             $supplyCollection->setDescription('Description Supply '.($loop + 1));
 
             $supplyCollectionMedia = $mediaManager->create();
-            $supplyCollectionMedia->setContext('supply');
+            $supplyCollectionMedia->setContext($this->context->getId());
             $supplyCollectionMedia->setCreatedAt(new \DateTime());
             $supplyCollectionMedia->setUpdatedAt(new \DateTime());
             $supplyCollectionMedia->setEnabled(true);
@@ -214,14 +228,14 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             // Collection Technique
             $techniqueCollection = new Collection();
             $techniqueCollection->setEnabled(true);
-            $techniqueCollection->setContext($this->contexts['technique']);
+            $techniqueCollection->setContext($this->context);
             $techniqueCollection->setName('Collection Technique '.($loop + 1));
             $techniqueCollection->setCreatedAt(new \DateTime());
             $techniqueCollection->setUpdatedAt(new \DateTime());
             $techniqueCollection->setDescription('Description Technique '.($loop + 1));
 
             $techniqueCollectionMedia = $mediaManager->create();
-            $techniqueCollectionMedia->setContext('technique');
+            $techniqueCollectionMedia->setContext($this->context->getId());
             $techniqueCollectionMedia->setCreatedAt(new \DateTime());
             $techniqueCollectionMedia->setUpdatedAt(new \DateTime());
             $techniqueCollectionMedia->setEnabled(true);
@@ -234,14 +248,14 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             // Collection Exercise
             $exerciseCollection = new Collection();
             $exerciseCollection->setEnabled(true);
-            $exerciseCollection->setContext($this->contexts['exercise']);
+            $exerciseCollection->setContext($this->context);
             $exerciseCollection->setName('Collection Exercise '.($loop + 1));
             $exerciseCollection->setCreatedAt(new \DateTime());
             $exerciseCollection->setUpdatedAt(new \DateTime());
             $exerciseCollection->setDescription('Description Exercise '.($loop + 1));
 
             $exerciseCollectionMedia = $mediaManager->create();
-            $exerciseCollectionMedia->setContext('exercise');
+            $exerciseCollectionMedia->setContext($this->context->getId());
             $exerciseCollectionMedia->setCreatedAt(new \DateTime());
             $exerciseCollectionMedia->setUpdatedAt(new \DateTime());
             $exerciseCollectionMedia->setEnabled(true);
@@ -287,7 +301,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $techniques[$i]->setCollection($techniqueCollection);
 
                 $techniqueImages[$i] = $mediaManager->create();
-                $techniqueImages[$i]->setContext('technique');
+                $techniqueImages[$i]->setContext($this->context->getId());
                 $techniqueImages[$i]->setCreatedAt(new \DateTime());
                 $techniqueImages[$i]->setUpdatedAt(new \DateTime());
                 $techniqueImages[$i]->setEnabled(true);
@@ -316,7 +330,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $exercises[$i.'-'.$j]->setCollection($exerciseCollection);
 
                     $exerciseImages[$i.'-'.$j] = $mediaManager->create();
-                    $exerciseImages[$i.'-'.$j]->setContext('exercise');
+                    $exerciseImages[$i.'-'.$j]->setContext($this->context->getId());
                     $exerciseImages[$i.'-'.$j]->setCreatedAt(new \DateTime());
                     $exerciseImages[$i.'-'.$j]->setUpdatedAt(new \DateTime());
                     $exerciseImages[$i.'-'.$j]->setEnabled(true);
@@ -455,7 +469,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $shows[$i]->setAddress('Show address '.$i);
 
                 $showImages[$i] = $mediaManager->create();
-                $showImages[$i]->setContext('event');
+                $showImages[$i]->setContext($this->context->getId());
                 $showImages[$i]->setCreatedAt(new \DateTime());
                 $showImages[$i]->setUpdatedAt(new \DateTime());
                 $showImages[$i]->setEnabled(true);
@@ -509,7 +523,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $trainingCourses[$i]->setAddress('Training course address '.$i);
 
                 $trainingCourseImages[$i] = $mediaManager->create();
-                $trainingCourseImages[$i]->setContext('event');
+                $trainingCourseImages[$i]->setContext($this->context->getId());
                 $trainingCourseImages[$i]->setCreatedAt(new \DateTime());
                 $trainingCourseImages[$i]->setUpdatedAt(new \DateTime());
                 $trainingCourseImages[$i]->setEnabled(true);
@@ -568,7 +582,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $competitions[$i]->setAddress('Competition address '.$i);
 
                 $competitionImages[$i] = $mediaManager->create();
-                $competitionImages[$i]->setContext('event');
+                $competitionImages[$i]->setContext($this->context->getId());
                 $competitionImages[$i]->setCreatedAt(new \DateTime());
                 $competitionImages[$i]->setUpdatedAt(new \DateTime());
                 $competitionImages[$i]->setEnabled(true);
@@ -638,20 +652,19 @@ class Fixtures extends Fixture implements ContainerAwareInterface
 
             // Galleries
             for ($i = $loop + 1; $i <= $loop + 1; $i++) {
-                $context = $this->contexts[array_rand($this->contexts)]->getId();
                 $galleries[$i] = new Gallery();
                 $galleries[$i]->setName('Gallery '.$i);
-                $galleries[$i]->setContext($context);
+                $galleries[$i]->setContext($this->context->getId());
                 $galleries[$i]->setCreatedAt(new \DateTime());
                 $galleries[$i]->setUpdatedAt(new \DateTime());
                 $galleries[$i]->setEnabled(true);
 
-                $providers = $this->container->get('sonata.media.pool')->getProvidersByContext($context);
+                $providers = $this->container->get('sonata.media.pool')->getProvidersByContext($this->context->getId());
 
                 // Medias
                 for ($j = 1; $j <= mt_rand(2, 20); $j++) {
                     $medias[$i.'-'.$j] = $mediaManager->create();
-                    $medias[$i.'-'.$j]->setContext($context);
+                    $medias[$i.'-'.$j]->setContext($this->context->getId());
                     $medias[$i.'-'.$j]->setCreatedAt(new \DateTime());
                     $medias[$i.'-'.$j]->setUpdatedAt(new \DateTime());
                     $medias[$i.'-'.$j]->setEnabled(true);
@@ -668,7 +681,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                     $galleryHasMedias[$i.'-'.$j]->setUpdatedAt(new \DateTime());
                     $galleryHasMedias[$i.'-'.$j]->setMedia($medias[$i.'-'.$j]);
 
-                    $galleries[$i]->addGalleryHasMedias($galleryHasMedias[$i.'-'.$j]);
+                    $galleries[$i]->addGalleryHasMedia($galleryHasMedias[$i.'-'.$j]);
                 }
 
                 $manager->persist($galleries[$i]);
@@ -677,14 +690,14 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             // Collection Blog
             $blogCollection = new Collection();
             $blogCollection->setEnabled(true);
-            $blogCollection->setContext($this->contexts['news']);
+            $blogCollection->setContext($this->context);
             $blogCollection->setName('Collection Blog '.($loop + 1));
             $blogCollection->setCreatedAt(new \DateTime());
             $blogCollection->setUpdatedAt(new \DateTime());
             $blogCollection->setDescription('Description Blog '.($loop + 1));
 
             $blogCollectionMedia = $mediaManager->create();
-            $blogCollectionMedia->setContext('news');
+            $blogCollectionMedia->setContext($this->context->getId());
             $blogCollectionMedia->setCreatedAt(new \DateTime());
             $blogCollectionMedia->setUpdatedAt(new \DateTime());
             $blogCollectionMedia->setEnabled(true);
@@ -716,7 +729,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $posts[$i]->setCollection($blogCollection);
 
                 $blogImages[$i] = $mediaManager->create();
-                $blogImages[$i]->setContext('news');
+                $blogImages[$i]->setContext($this->context->getId());
                 $blogImages[$i]->setCreatedAt(new \DateTime());
                 $blogImages[$i]->setUpdatedAt(new \DateTime());
                 $blogImages[$i]->setEnabled(true);
@@ -738,7 +751,7 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $this->addRandomTags($clubs[$i]);
 
                 $clubImages[$i] = $mediaManager->create();
-                $clubImages[$i]->setContext('club');
+                $clubImages[$i]->setContext($this->context->getId());
                 $clubImages[$i]->setCreatedAt(new \DateTime());
                 $clubImages[$i]->setUpdatedAt(new \DateTime());
                 $clubImages[$i]->setEnabled(true);
@@ -908,41 +921,48 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             file_put_contents($fileName, $image);
         }
 
+        sleep(1);
+
         return new File($fileName);
     }
 
     /**
      * TODO use API to fetch random videos
      *
-     * @return File
+     * @return string
      */
-    private function generateYoutubeVideo()
+    private function getYoutubeVideoId()
     {
-        $randomUrls = [
-            'https://www.youtube.com/watch?v=rSTrjlRPyBU',
-            'https://www.youtube.com/watch?v=QtplRk6BdyA',
-            'https://www.youtube.com/watch?v=iHIBt4L9NAI',
-            'https://www.youtube.com/watch?v=qDY-DF4Lpdg',
-            'https://www.youtube.com/watch?v=hTqZe7STKFk',
-            'https://www.youtube.com/watch?v=M5X_Ijxm2bw',
-            'https://www.youtube.com/watch?v=NLl-AErqAc8',
-            'https://www.youtube.com/watch?v=e4jXoLRTa58',
-            'https://www.youtube.com/watch?v=chx8lIk9nNI',
-            'https://www.youtube.com/watch?v=SZLXgoxXRLI',
+        $ids = [
+            'rSTrjlRPyBU',
+            'QtplRk6BdyA',
+            'iHIBt4L9NAI',
+            'qDY-DF4Lpdg',
+            'hTqZe7STKFk',
+            'M5X_Ijxm2bw',
+            'NLl-AErqAc8',
+            'e4jXoLRTa58',
+            'chx8lIk9nNI',
+            'SZLXgoxXRLI',
         ];
 
-//        return new File(file_get_contents($randomUrls[array_rand($randomUrls)]));
-        return $randomUrls[array_rand($randomUrls)];
+        do {
+            $id = $ids[array_rand($ids)];
+            $url = 'https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v='.$id.'&format=json';
+            $isValid = $this->checkValidVideo($url);
+        } while (!$isValid);
+
+        return $id;
     }
 
     /**
      * TODO use API to fetch random videos
      *
-     * @return File
+     * @return string
      */
-    private function generateDailymotionVideo()
+    private function getDailymotionVideoId()
     {
-        $randomUrls = [
+        $ids = [
             'xqk18h',
             'x382l5l',
             'x15xsu6',
@@ -954,8 +974,13 @@ class Fixtures extends Fixture implements ContainerAwareInterface
             'x28v3e',
         ];
 
-//        return new File(file_get_contents($randomUrls[array_rand($randomUrls)]));
-        return $randomUrls[array_rand($randomUrls)];
+        do {
+            $id = $ids[array_rand($ids)];
+            $url = 'https://www.dailymotion.com/services/oembed?url=https://www.dailymotion.com/video/'.$id.'&format=json';
+            $isValid = $this->checkValidVideo($url);
+        } while (!$isValid);
+
+        return $id;
     }
 
     /**
@@ -986,11 +1011,11 @@ class Fixtures extends Fixture implements ContainerAwareInterface
 
     /**
      * @param string      $providerName
-     * @param string|null $file
+     * @param string      $file
      *
-     * @return File|null
+     * @return File|string|null
      */
-    private function generateMediaContent($providerName = 'sonata.media.provider.image', $file = null)
+    private function generateMediaContent($providerName, $file)
     {
         switch ($providerName) {
             case 'sonata.media.provider.image':
@@ -999,11 +1024,11 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 break;
             case 'sonata.media.provider.youtube':
 
-                return $this->generateYoutubeVideo();
+                return $this->getYoutubeVideoId();
                 break;
             case 'sonata.media.provider.dailymotion':
 
-                return $this->generateDailymotionVideo();
+                return $this->getDailymotionVideoId();
                 break;
         }
 
@@ -1029,5 +1054,18 @@ class Fixtures extends Fixture implements ContainerAwareInterface
                 $object->addTag($tags[array_rand($tags)]);
             }
         }
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return bool
+     */
+    private function checkValidVideo(string $url): bool
+    {
+        $apiResponse = file_get_contents($url);
+        json_decode($apiResponse);
+
+        return json_last_error() === JSON_ERROR_NONE;
     }
 }
